@@ -14,7 +14,7 @@ public class Clock extends JPanel implements Runnable {
         super();
         setLayout(null);
         setSize(763, 207);
-        setBackground(Color.WHITE);
+        setOpaque(false);
 
         clockText = new JLabel();
         clockText.setHorizontalAlignment(SwingConstants.LEFT);
@@ -33,7 +33,7 @@ public class Clock extends JPanel implements Runnable {
             picLabel.setBounds(0, 0, 763, 207);
             add(picLabel);
         } catch (Exception e){
-            System.out.println("Clock fails to load image");
+            System.out.println("Clock fails to load image: " + e.getMessage());
         }
     }
     public void run(){
