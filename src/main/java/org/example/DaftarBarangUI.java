@@ -4,30 +4,33 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
-public class DaftarBarangUI {
-    private static void showUI() {
-        JFrame mainFrame = new JFrame("Test Window");
+public class DaftarBarangUI extends JFrame{
+    private static JFrame mainFrame;
+    private static JPanel mainRight;
+
+    private static void setupMainFrame() {
+        // Setup Main Frame
+        mainFrame = new JFrame("Test Window");
         mainFrame.setSize(1280, 720);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BorderLayout());
         mainFrame.getContentPane().setBackground(Color.LIGHT_GRAY);
+    }
+    private static void setupRightPanel(){
 
-        int vw = mainFrame.getWidth(), vh = mainFrame.getHeight();
-
-//        JPanel sideNav = new JPanel();
-//        sideNav.setPreferredSize(new Dimension(230, vh));
-//        sideNav.setBackground(new Color(56, 100, 194));
-//        mainFrame.add(sideNav, BorderLayout.WEST);
-
-        JPanel mainRight = new JPanel();
+        // Setup mainRight Panel
+        mainRight = new JPanel();
         mainRight.setLayout(new BorderLayout());
         mainRight.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         mainFrame.add(mainRight, BorderLayout.CENTER);
 
-//        JPanel topPanel = new JPanel();
-//        topPanel.setBackground(new Color(36, 60, 148));
-//        topPanel.setPreferredSize(new Dimension((int) (0.81 * vw), 48));
-//        mainRight.add(topPanel, BorderLayout.NORTH);
+    }
+
+    private static void showUI() {
+        setupMainFrame();
+        setupRightPanel();
+
+        int vw = mainFrame.getWidth(), vh = mainFrame.getHeight();
 
         // Header Panel
         JPanel headerPanel = new JPanel();
@@ -38,6 +41,7 @@ public class DaftarBarangUI {
             JLabel daftarBarangLabel = new JLabel("Daftar Barang");
             daftarBarangLabel.setHorizontalAlignment(SwingConstants.LEFT);
             headerPanel.add(daftarBarangLabel, BorderLayout.WEST);
+
             // Horizontal Divider
 
             // Label "Total Barang"
@@ -50,8 +54,6 @@ public class DaftarBarangUI {
             // Button Tambah Baru
             JButton createNewItemButton = new JButton("+ Tambah Baru");
             headerPanel.add(createNewItemButton, BorderLayout.WEST);
-
-
 
         // Table
         JScrollPane scrollListPanel = new JScrollPane();
