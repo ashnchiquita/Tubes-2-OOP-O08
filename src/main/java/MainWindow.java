@@ -15,6 +15,7 @@ public class MainWindow {
 
     JPanel sideNav = new JPanel();
     sideNav.setPreferredSize(new Dimension(230, vh));
+
     sideNav.setBackground(new Color(56, 100, 194));
     mainFrame.add(sideNav, BorderLayout.WEST);
 

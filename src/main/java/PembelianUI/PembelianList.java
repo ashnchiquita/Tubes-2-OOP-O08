@@ -17,15 +17,20 @@ import javax.imageio.ImageIO;
 import java.awt.geom.RoundRectangle2D;
 
 public class PembelianList extends RoundedPanel {
-  public String title;
+  public int count;
+  public float price;
 
   private ActionListener closeListener;
   private JButton closeButton = new JButton();
   private PembelianObserver observer;
 
+  JLabel countText = new JLabel(String.valueOf(count) + "x");
+  JLabel priceText = new JLabel(RupiahConverter.convert(price));
+
   public PembelianList(String title, String subtitle, int count, float price, String imagePath, int index) {
     super(21, new Color(16, 37, 109), false, Color.WHITE, 0);
-    this.title = title;
+    this.count = count;
+    this.price = price;
 
     this.setLayout(new BorderLayout());
     this.setBorder(new EmptyBorder(18, 15, 20, 15));
@@ -77,10 +82,10 @@ public class PembelianList extends RoundedPanel {
     subtitleText.setFont(new Font("Inter", Font.PLAIN, 15));
     textPanel.add(subtitleText);
 
-    JLabel countText = new JLabel(String.valueOf(count) + "x");
     countText.setBounds(15, 46, 160, 20);
     countText.setForeground(new Color(149, 172, 255));
     countText.setFont(new Font("Inter", Font.PLAIN, 15));
+    this.setCount(count);
     textPanel.add(countText);
 
     JPanel closePanel = new JPanel(null);
@@ -110,7 +115,6 @@ public class PembelianList extends RoundedPanel {
     closeButton.setOpaque(false);
     buttonContainer.add(closeButton);
 
-    JLabel priceText = new JLabel(RupiahConverter.convert(price));
     priceText.setForeground(Color.WHITE);
     priceText.setFont(new Font("Inter", Font.BOLD, 10));
     priceText.setBounds(0, 46, 55, 20);
@@ -125,5 +129,11 @@ public class PembelianList extends RoundedPanel {
     closeButton.removeActionListener(closeListener);
     closeListener = e -> observer.newEvent(new PembelianEvent("REMOVE", index));
     closeButton.addActionListener(closeListener);
+  }
+
+  public void setCount(int count) {
+    this.count = count;
+    countText.setText(String.valueOf(count) + "x");
+    priceText.setText(RupiahConverter.convert(count * price));
   }
 }

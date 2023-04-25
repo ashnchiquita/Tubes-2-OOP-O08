@@ -1,6 +1,6 @@
 package PembelianObserver;
 
-public interface PembelianHandler {
+public interface PembelianListener {
   void handleAddItem(PembelianEvent e);
 
   void handleRemoveItem(PembelianEvent e);

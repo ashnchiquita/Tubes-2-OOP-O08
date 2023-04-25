@@ -16,7 +16,7 @@ import java.awt.geom.RoundRectangle2D;
 public class PembelianCard extends RoundedPanel {
   private PembelianObserver observer;
 
-  public PembelianCard(String title, String subtitle, float price, String imagePath) {
+  public PembelianCard(int id, String title, String subtitle, float price, String imagePath) {
     super(20, Color.WHITE, true, new Color(151, 151, 151), 1);
 
     this.setLayout(null);
@@ -91,7 +91,8 @@ public class PembelianCard extends RoundedPanel {
     addButton.setBackground(new Color(26, 114, 221));
     addButton.setBorder(null);
     addButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    addButton.addActionListener(e -> observer.newEvent(new PembelianEvent("ADD", title, subtitle, price, imagePath)));
+    addButton
+        .addActionListener(e -> observer.newEvent(new PembelianEvent("ADD", id, title, subtitle, price, imagePath)));
     addButton.setFocusPainted(false);
     addButton.setOpaque(false);
 
