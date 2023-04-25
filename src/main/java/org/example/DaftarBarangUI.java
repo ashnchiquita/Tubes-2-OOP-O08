@@ -85,7 +85,6 @@ public class DaftarBarangUI extends JPanel{
         scrollListPanel = new JScrollPane();
         scrollListPanel.setBackground(Color.LIGHT_GRAY);
         scrollListPanel.setPreferredSize(new Dimension(1045,515));
-
         // Cell Renderer
 
 
