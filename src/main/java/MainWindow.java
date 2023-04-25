@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
+import PembelianUI.CheckoutPanel;
 import PembelianUI.PembelianPanel;
 
 public class MainWindow {
@@ -29,6 +30,7 @@ public class MainWindow {
     mainRight.add(topPanel, BorderLayout.NORTH);
 
     mainRight.add(new PembelianPanel(), BorderLayout.CENTER);
+    // mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
 
     mainFrame.setVisible(true);
   }
