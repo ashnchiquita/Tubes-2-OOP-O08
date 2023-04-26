@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class CheckoutPanel extends JPanel {
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
+  private String[] memberNameList = { "", "Kim", "Jisoo", "Unnie" };
 
   // UI Components
   private JButton exitButton = new JButton();
@@ -42,6 +43,7 @@ public class CheckoutPanel extends JPanel {
   private JLabel totalValue = new JLabel(RupiahConverter.convert(total));
 
   private JLabel memberHeader = new JLabel("Member");
+  private JComboBox<String> memberDropdown = new JComboBox<>(memberNameList);
   private RoundedPanel tambahButtonContainer = new RoundedPanel(40, new Color(74, 107, 222), false, Color.WHITE, 0);
   private JButton tambahButton = new JButton("+ Tambah");
 
@@ -177,6 +179,10 @@ public class CheckoutPanel extends JPanel {
     memberHeader.setFont(new Font("Inter", Font.BOLD, 24));
     memberHeader.setForeground(new Color(36, 60, 148));
     this.add(memberHeader);
+
+    memberDropdown.setBounds(105, 410, 235, 34);
+    memberDropdown.setFocusable(false);
+    this.add(memberDropdown);
 
     tambahButtonContainer.setLayout(null);
     tambahButtonContainer.setBounds(353, 408, 122, 36);

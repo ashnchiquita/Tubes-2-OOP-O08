@@ -30,8 +30,8 @@ public class MainWindow {
     topPanel.setPreferredSize(new Dimension((int) (0.81 * vw), 48));
     mainRight.add(topPanel, BorderLayout.NORTH);
 
-    // mainRight.add(new PembelianPanel(), BorderLayout.CENTER);
-    mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
+    mainRight.add(new PembelianPanel(240), BorderLayout.CENTER);
+    // mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
     // mainRight.add(new CreateMemberPanel(), BorderLayout.CENTER);
 
     mainFrame.setVisible(true);

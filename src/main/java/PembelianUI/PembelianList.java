@@ -31,6 +31,7 @@ public class PembelianList extends RoundedPanel {
     super(21, new Color(16, 37, 109), false, Color.WHITE, 0);
     this.count = count;
     this.price = price;
+    subtitle = "";
 
     this.setLayout(new BorderLayout());
     this.setBorder(new EmptyBorder(18, 15, 20, 15));

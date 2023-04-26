@@ -30,7 +30,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
   JPanel orderNumPanel = new JPanel();
   JLabel orderLabel = new JLabel("Order");
-  JLabel orderNumLabel = new JLabel("#240");
+  JLabel orderNumLabel = new JLabel("");
   JPanel orderLine = new JPanel();
 
   JPanel orderSummaryPanel = new JPanel(new BorderLayout());
@@ -69,8 +69,13 @@ public class PembelianPanel extends JPanel implements PembelianListener {
   JPanel buyListPanel = new JPanel();
   JScrollPane buyListScroll = new JScrollPane(buyListPanel);
 
-  public PembelianPanel() {
+  public PembelianPanel(int orderNumber) {
     this.observer.addListener(this);
+    this.orderNumLabel.setText("#" + String.valueOf(orderNumber));
+    this.initializeUI();
+  }
+
+  private void initializeUI() {
     this.setLayout(new BorderLayout());
 
     scrollGridPanel.setBackground(Color.LIGHT_GRAY);
