@@ -51,6 +51,9 @@ public class CheckoutPanel extends JPanel {
   private RoundedPanel batalButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(236, 102, 102), 2);
   private JButton batalButton = new JButton("Batal");
 
+  private RoundedPanel orderButtonContainer = new RoundedPanel(10, new Color(74, 107, 222), false, Color.WHITE, 0);
+  private JButton orderButton = new JButton("Place Order");
+
   public CheckoutPanel() {
     this.initializeUI();
   }
@@ -179,6 +182,11 @@ public class CheckoutPanel extends JPanel {
     tambahButtonContainer.setBounds(353, 408, 122, 36);
     this.add(tambahButtonContainer);
 
+    buttonImage = new ImageIcon(
+        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/plus.png");
+    buttonImageScaled = new ImageIcon(
+        buttonImage.getImage().getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH));
+    tambahButton.setIcon(buttonImageScaled);
     tambahButton.setBorder(null);
     tambahButton.setBackground(new Color(74, 107, 222));
     tambahButton.setFocusPainted(false);
@@ -213,5 +221,19 @@ public class CheckoutPanel extends JPanel {
     batalButton.setForeground(new Color(236, 102, 102));
     batalButton.setFont(new Font("Inter", Font.BOLD, 18));
     batalButtonContainer.add(batalButton);
+
+    orderButtonContainer.setLayout(null);
+    orderButtonContainer.setBounds(273, 569, 205, 47);
+    this.add(orderButtonContainer);
+
+    orderButton.setBorder(null);
+    orderButton.setBackground(new Color(74, 107, 222));
+    orderButton.setFocusPainted(false);
+    orderButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    orderButton.setBounds(5, 2, 195, 43);
+    orderButton.setForeground(Color.WHITE);
+    orderButton.setFont(new Font("Inter", Font.BOLD, 18));
+    orderButtonContainer.add(orderButton);
+
   }
 }
