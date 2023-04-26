@@ -43,7 +43,7 @@ public class CheckoutPanel extends JPanel {
 
   private JLabel memberHeader = new JLabel("Member");
   private RoundedPanel tambahButtonContainer = new RoundedPanel(40, new Color(74, 107, 222), false, Color.WHITE, 0);
-  private JButton tambahButton = new JButton("Tambah");
+  private JButton tambahButton = new JButton("+ Tambah");
 
   private RoundedPanel unduhButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(82, 117, 226), 2);
   private JButton unduhButton = new JButton("Unduh Transaksi");
@@ -182,11 +182,6 @@ public class CheckoutPanel extends JPanel {
     tambahButtonContainer.setBounds(353, 408, 122, 36);
     this.add(tambahButtonContainer);
 
-    buttonImage = new ImageIcon(
-        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/plus.png");
-    buttonImageScaled = new ImageIcon(
-        buttonImage.getImage().getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH));
-    tambahButton.setIcon(buttonImageScaled);
     tambahButton.setBorder(null);
     tambahButton.setBackground(new Color(74, 107, 222));
     tambahButton.setFocusPainted(false);
@@ -234,6 +229,5 @@ public class CheckoutPanel extends JPanel {
     orderButton.setForeground(Color.WHITE);
     orderButton.setFont(new Font("Inter", Font.BOLD, 18));
     orderButtonContainer.add(orderButton);
-
   }
 }

@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import PembelianUI.CheckoutPanel;
+import PembelianUI.CreateMemberPanel;
 import PembelianUI.PembelianPanel;
 
 public class MainWindow {
@@ -29,8 +30,9 @@ public class MainWindow {
     topPanel.setPreferredSize(new Dimension((int) (0.81 * vw), 48));
     mainRight.add(topPanel, BorderLayout.NORTH);
 
-    mainRight.add(new PembelianPanel(), BorderLayout.CENTER);
-    // mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
+    // mainRight.add(new PembelianPanel(), BorderLayout.CENTER);
+    mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
+    // mainRight.add(new CreateMemberPanel(), BorderLayout.CENTER);
 
     mainFrame.setVisible(true);
   }
