@@ -1,8 +1,8 @@
-package org.example;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package org.example;
 
 /**
  *
@@ -28,34 +28,33 @@ public class settings extends javax.swing.JFrame {
 
         pengaturanLabel = new javax.swing.JLabel();
         tempatPenyimpananFileLabel = new javax.swing.JLabel();
-        tempatPenyimpananFileTextField = new javax.swing.JTextField();
-        formatFileLabel = new javax.swing.JLabel();
+        pluginTextField = new javax.swing.JTextField();
+        pluginLabel = new javax.swing.JLabel();
         jsonButton = new javax.swing.JRadioButton();
         xmlButton = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        pluginTextField = new javax.swing.JTextField();
-        tambahkanBaruButton = new java.awt.Button();
+        formatFileLabel = new javax.swing.JLabel();
+        tempatPenyimpananFileTextField = new javax.swing.JTextField();
+        tambahkanBaruButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         pengaturanLabel.setFont(new java.awt.Font("Inter", 1, 33)); // NOI18N
         pengaturanLabel.setForeground(new java.awt.Color(229, 151, 0));
         pengaturanLabel.setText("Pengaturan");
-        pengaturanLabel.setPreferredSize(new java.awt.Dimension(375, 40));
 
         tempatPenyimpananFileLabel.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
         tempatPenyimpananFileLabel.setForeground(new java.awt.Color(36, 60, 148));
         tempatPenyimpananFileLabel.setText("Tempat Penyimpanan File");
-        tempatPenyimpananFileLabel.setPreferredSize(new java.awt.Dimension(475, 40));
 
-        tempatPenyimpananFileTextField.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
-        tempatPenyimpananFileTextField.setForeground(new java.awt.Color(217, 217, 217));
-        tempatPenyimpananFileTextField.setPreferredSize(new java.awt.Dimension(475, 45));
+        pluginTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(75, 79, 196), 2, true));
+        pluginTextField.setPreferredSize(new java.awt.Dimension(440, 44));
 
-        formatFileLabel.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
-        formatFileLabel.setForeground(new java.awt.Color(36, 60, 148));
-        formatFileLabel.setText("Format File");
-        formatFileLabel.setPreferredSize(new java.awt.Dimension(475, 40));
+        pluginLabel.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
+        pluginLabel.setForeground(new java.awt.Color(36, 60, 148));
+        pluginLabel.setText("Plugin");
 
         jsonButton.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
         jsonButton.setForeground(new java.awt.Color(36, 60, 148));
@@ -65,78 +64,70 @@ public class settings extends javax.swing.JFrame {
         xmlButton.setForeground(new java.awt.Color(36, 60, 148));
         xmlButton.setText("XML");
 
-        jLabel1.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(36, 60, 148));
-        jLabel1.setText("Plugin");
-        jLabel1.setPreferredSize(new java.awt.Dimension(475, 40));
+        formatFileLabel.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
+        formatFileLabel.setForeground(new java.awt.Color(36, 60, 148));
+        formatFileLabel.setText("Format File");
 
-        pluginTextField.setFont(new java.awt.Font("Inter", 0, 15)); // NOI18N
-        pluginTextField.setForeground(new java.awt.Color(217, 217, 217));
-        pluginTextField.setPreferredSize(new java.awt.Dimension(475, 45));
-        pluginTextField.addActionListener(new java.awt.event.ActionListener() {
+        tempatPenyimpananFileTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(75, 79, 196), 2, true));
+        tempatPenyimpananFileTextField.setPreferredSize(new java.awt.Dimension(440, 44));
+        tempatPenyimpananFileTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pluginTextFieldActionPerformed(evt);
+                tempatPenyimpananFileTextFieldActionPerformed(evt);
             }
         });
 
         tambahkanBaruButton.setBackground(new java.awt.Color(76, 110, 223));
+        tambahkanBaruButton.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
         tambahkanBaruButton.setForeground(new java.awt.Color(255, 255, 255));
-        tambahkanBaruButton.setLabel("+ Tambahkan Baru");
-        tambahkanBaruButton.setName(""); // NOI18N
-        tambahkanBaruButton.setPreferredSize(new java.awt.Dimension(180, 43));
+        tambahkanBaruButton.setText("+ Tambahkan Baru");
+        tambahkanBaruButton.setBorderPainted(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(125, 125, 125)
+                                .addGap(390, 390, 390)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addComponent(tempatPenyimpananFileTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jsonButton, javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(tempatPenyimpananFileLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(tambahkanBaruButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(pengaturanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(formatFileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(xmlButton)
-                                                        .addComponent(pluginTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(114, 329, Short.MAX_VALUE))))
+                                        .addComponent(tempatPenyimpananFileLabel)
+                                        .addComponent(pengaturanLabel)
+                                        .addComponent(pluginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pluginLabel)
+                                        .addComponent(jsonButton)
+                                        .addComponent(xmlButton)
+                                        .addComponent(formatFileLabel)
+                                        .addComponent(tempatPenyimpananFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tambahkanBaruButton))
+                                .addGap(0, 450, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(pengaturanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tempatPenyimpananFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tempatPenyimpananFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(154, 154, 154)
+                                .addComponent(pengaturanLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(formatFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tempatPenyimpananFileLabel)
+                                .addGap(20, 20, 20)
+                                .addComponent(tempatPenyimpananFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(formatFileLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jsonButton)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(xmlButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pluginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tambahkanBaruButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(pluginLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(pluginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(tambahkanBaruButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 99, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>
 
-    private void pluginTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+    private void tempatPenyimpananFileTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -177,11 +168,11 @@ public class settings extends javax.swing.JFrame {
 
     // Variables declaration - do not modify
     private javax.swing.JLabel formatFileLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jsonButton;
     private javax.swing.JLabel pengaturanLabel;
+    private javax.swing.JLabel pluginLabel;
     private javax.swing.JTextField pluginTextField;
-    private java.awt.Button tambahkanBaruButton;
+    private javax.swing.JButton tambahkanBaruButton;
     private javax.swing.JLabel tempatPenyimpananFileLabel;
     private javax.swing.JTextField tempatPenyimpananFileTextField;
     private javax.swing.JRadioButton xmlButton;
