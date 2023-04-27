@@ -12,6 +12,7 @@ public class MainWindow {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BorderLayout());
         mainFrame.getContentPane().setBackground(Colors.WHITE.getColor());
+        mainFrame.setBackground(Colors.WHITE.getColor());
         int vw = mainFrame.getWidth(), vh = mainFrame.getHeight();
 
         JPanel sideNav = new JPanel();

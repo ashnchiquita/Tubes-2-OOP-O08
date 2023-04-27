@@ -4,6 +4,7 @@ import Boundary.Util.Colors;
 import Boundary.Util.RoundedPanel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class RingkasanCard extends RoundedPanel {
@@ -15,7 +16,9 @@ public class RingkasanCard extends RoundedPanel {
         this.judulRingkasan = judulRingkasan;
         this.subRingkasan = subRingkasan;
         this.setPreferredSize(new Dimension(300, 100));
-        // this.setLayout(new BorderLayout());
+        // this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout());
+        // this.setLayout(null);
         JPanel labels = new JPanel();
         labels.setLayout(new BoxLayout(labels, BoxLayout.Y_AXIS));
         labels.setBackground(Colors.WHITE.getColor());
@@ -24,22 +27,35 @@ public class RingkasanCard extends RoundedPanel {
         Font light =  new Font("Inter", Font.PLAIN, 17);
         Font medium = new Font("Inter", Font.BOLD, 24);
 
+        JPanel labelsSubL = new JPanel();
+        labelsSubL.setLayout(new BorderLayout());
+        labelsSubL.setBackground(Colors.WHITE.getColor());
+
         // judul
         JLabel judulL = new JLabel(this.judulRingkasan);
         judulL.setFont(light);
         judulL.setForeground(Colors.DARK_BLUE.getColor());
+        labelsSubL.add(judulL, BorderLayout.WEST);
+
+        JPanel labelsSubSubL = new JPanel();
+        labelsSubSubL.setLayout(new BorderLayout());
+        labelsSubSubL.setBackground(Colors.WHITE.getColor());
 
         // sub
         JLabel subL = new JLabel(this.subRingkasan);
         subL.setFont(medium);
         subL.setForeground(Colors.DARK_BLUE.getColor());
+        labelsSubSubL.add(subL, BorderLayout.WEST);
 
         // add to panel
-        labels.add(judulL);
+        labels.add(labelsSubL);
         labels.add(Box.createVerticalStrut(15));
-        labels.add(subL);
-        labels.setBounds(100,10,280,80);
+        labels.add(labelsSubSubL);
+        // labels.setBounds(10,10,280,80);
+        labels.setBorder(new EmptyBorder(15,15,15,15));
+        // labels.setBackground(Color.CYAN);
+        labels.setOpaque(false);
 
-        this.add(labels);
+        this.add(labels, BorderLayout.PAGE_START);
     }
 }
