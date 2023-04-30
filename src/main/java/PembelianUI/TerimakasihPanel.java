@@ -7,15 +7,15 @@ import Util.RupiahConverter;
 
 import java.awt.*;
 
-public class CheckoutPanel extends JPanel {
+public class TerimakasihPanel extends JPanel {
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
-  private String[] memberNameList = { "", "Kim", "Jisoo", "Unnie" };
+  private String memberName;
 
   // UI Components
   private JButton exitButton = new JButton();
-  private JLabel checkoutLabel = new JLabel("Cek Keluar");
+  private JLabel terimakasihLabel = new JLabel("Terimakasih!");
 
-  private JLabel detailHeader = new JLabel("Detail Pesanan");
+  private JLabel billHeader = new JLabel("Fixed Bill");
   private JPanel summaryTextPanel = new JPanel(new GridBagLayout());
 
   private JPanel subTextContainer = new JPanel(new BorderLayout());
@@ -43,18 +43,16 @@ public class CheckoutPanel extends JPanel {
   private JLabel totalValue = new JLabel(RupiahConverter.convert(total));
 
   private JLabel memberHeader = new JLabel("Member");
-  private JComboBox<String> memberDropdown = new JComboBox<>(memberNameList);
+  private JLabel memberText = new JLabel("Transaksi ini dimiliki customer non-Member.");
+  private RoundedPanel tambahButtonContainer = new RoundedPanel(36, new Color(74, 107, 222), false, Color.WHITE, 0);
+  private JButton tambahButton = new JButton("+ Tambah");
+  private JLabel memberNameText = new JLabel("");
 
-  private RoundedPanel unduhButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(82, 117, 226), 2);
-  private JButton unduhButton = new JButton("Unduh Transaksi");
+  private RoundedPanel selesaiButtonContainer = new RoundedPanel(24, new Color(74, 107, 222), false, Color.WHITE, 0);
+  private JButton selesaiButton = new JButton("Selesai");
 
-  private RoundedPanel batalButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(236, 102, 102), 2);
-  private JButton batalButton = new JButton("Batal");
-
-  private RoundedPanel orderButtonContainer = new RoundedPanel(10, new Color(74, 107, 222), false, Color.WHITE, 0);
-  private JButton orderButton = new JButton("Place Order");
-
-  public CheckoutPanel() {
+  public TerimakasihPanel(String memberName) {
+    this.memberName = memberName;
     this.initializeUI();
   }
 
@@ -74,15 +72,15 @@ public class CheckoutPanel extends JPanel {
     exitButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     this.add(exitButton);
 
-    checkoutLabel.setBounds(122, 66, 180, 40);
-    checkoutLabel.setFont(new Font("Inter", Font.BOLD, 32));
-    checkoutLabel.setForeground(new Color(229, 151, 0));
-    this.add(checkoutLabel);
+    terimakasihLabel.setBounds(122, 66, 250, 40);
+    terimakasihLabel.setFont(new Font("Inter", Font.BOLD, 32));
+    terimakasihLabel.setForeground(new Color(229, 151, 0));
+    this.add(terimakasihLabel);
 
-    detailHeader.setForeground(new Color(36, 60, 148));
-    detailHeader.setFont(new Font("Inter", Font.BOLD, 24));
-    detailHeader.setBounds(105, 151, 193, 30);
-    this.add(detailHeader);
+    billHeader.setForeground(new Color(36, 60, 148));
+    billHeader.setFont(new Font("Inter", Font.BOLD, 24));
+    billHeader.setBounds(105, 151, 193, 30);
+    this.add(billHeader);
 
     summaryTextPanel.setBackground(Color.WHITE);
     summaryTextPanel.setBounds(106, 201, 355, 135);
@@ -173,53 +171,52 @@ public class CheckoutPanel extends JPanel {
 
     this.add(summaryTextPanel);
 
-    memberHeader.setBounds(105, 384, 125, 35);
+    memberHeader.setBounds(105, 394, 125, 35);
     memberHeader.setFont(new Font("Inter", Font.BOLD, 24));
     memberHeader.setForeground(new Color(36, 60, 148));
     this.add(memberHeader);
 
-    memberDropdown.setBounds(105, 427, 373, 34);
-    memberDropdown.setFocusable(false);
-    memberDropdown.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    this.add(memberDropdown);
+    memberText.setBounds(105, 425, 350, 25);
+    memberText.setFont(new Font("Inter", Font.PLAIN, 15));
+    memberText.setForeground(new Color(194, 194, 194));
+    if(memberName == "") {
+      this.add(memberText);
+    }
 
-    unduhButtonContainer.setLayout(null);
-    unduhButtonContainer.setBounds(105, 503, 373, 49);
-    this.add(unduhButtonContainer);
+    memberNameText.setBounds(105, 445, 350, 25);
+    memberNameText.setFont(new Font("Inter", Font.BOLD, 18));
+    memberNameText.setHorizontalAlignment(SwingConstants.CENTER);
+    memberNameText.setText(memberName);
+    if(memberName != "" ) {
+      this.add(memberNameText);
+    }
 
-    unduhButton.setBorder(null);
-    unduhButton.setBackground(Color.WHITE);
-    unduhButton.setFocusPainted(false);
-    unduhButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    unduhButton.setBounds(5, 2, 363, 45);
-    unduhButton.setForeground(new Color(82, 117, 225));
-    unduhButton.setFont(new Font("Inter", Font.BOLD, 18));
-    unduhButtonContainer.add(unduhButton);
+    tambahButtonContainer.setLayout(null);
+    tambahButtonContainer.setBounds(105, 454, 350, 36);
+    if(memberName == "") {
+      this.add(tambahButtonContainer);
+    }
 
-    batalButtonContainer.setLayout(null);
-    batalButtonContainer.setBounds(104, 569, 133, 47);
-    this.add(batalButtonContainer);
+    tambahButton.setBorder(null);
+    tambahButton.setBackground(new Color(74, 107, 222));
+    tambahButton.setFocusPainted(false);
+    tambahButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    tambahButton.setBounds(12, 2, 326, 32);
+    tambahButton.setForeground(Color.WHITE);
+    tambahButton.setFont(new Font("Inter", Font.BOLD, 16));
+    tambahButtonContainer.add(tambahButton);
 
-    batalButton.setBorder(null);
-    batalButton.setBackground(Color.WHITE);
-    batalButton.setFocusPainted(false);
-    batalButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    batalButton.setBounds(5, 2, 123, 43);
-    batalButton.setForeground(new Color(236, 102, 102));
-    batalButton.setFont(new Font("Inter", Font.BOLD, 18));
-    batalButtonContainer.add(batalButton);
+    selesaiButtonContainer.setLayout(null);
+    selesaiButtonContainer.setBounds(180, 527, 205, 43);
+    this.add(selesaiButtonContainer);
 
-    orderButtonContainer.setLayout(null);
-    orderButtonContainer.setBounds(273, 569, 205, 47);
-    this.add(orderButtonContainer);
-
-    orderButton.setBorder(null);
-    orderButton.setBackground(new Color(74, 107, 222));
-    orderButton.setFocusPainted(false);
-    orderButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    orderButton.setBounds(5, 2, 195, 43);
-    orderButton.setForeground(Color.WHITE);
-    orderButton.setFont(new Font("Inter", Font.BOLD, 18));
-    orderButtonContainer.add(orderButton);
+    selesaiButton.setBorder(null);
+    selesaiButton.setBackground(new Color(74, 107, 222));
+    selesaiButton.setFocusPainted(false);
+    selesaiButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    selesaiButton.setBounds(9, 2, 187, 39);
+    selesaiButton.setForeground(Color.WHITE);
+    selesaiButton.setFont(new Font("Inter", Font.PLAIN, 18));
+    selesaiButtonContainer.add(selesaiButton);
   }
 }

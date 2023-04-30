@@ -21,7 +21,7 @@ public class CreateMemberPanel extends JPanel {
   private JRadioButton vipOption = new JRadioButton("VIP");
   ButtonGroup memberGroup = new ButtonGroup();
 
-  private RoundedPanel createButtonContainer = new RoundedPanel(10, new Color(74, 107, 222), false, Color.WHITE, 0);
+  private RoundedPanel createButtonContainer = new RoundedPanel(24, new Color(74, 107, 222), false, Color.WHITE, 0);
   private JButton createButton = new JButton("+ Create Member");
 
   public CreateMemberPanel() {
@@ -61,7 +61,7 @@ public class CreateMemberPanel extends JPanel {
     namaField.setFont(new Font("Inter", Font.PLAIN, 17));
     namaField.setBackground(Color.WHITE);
     namaField.setForeground(new Color(36, 60, 148));
-    namaField.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    namaField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
     namaField.setBorder(null);
     namaField.setBounds(15, 7, 350, 25);
     namaFieldContainer.add(namaField);
@@ -78,7 +78,7 @@ public class CreateMemberPanel extends JPanel {
     teleponField.setFont(new Font("Inter", Font.PLAIN, 17));
     teleponField.setBackground(Color.WHITE);
     teleponField.setForeground(new Color(36, 60, 148));
-    teleponField.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    teleponField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
     teleponField.setBorder(null);
     teleponField.setBounds(15, 7, 350, 25);
     teleponFieldContainer.add(teleponField);
@@ -115,7 +115,7 @@ public class CreateMemberPanel extends JPanel {
     createButton.setBackground(new Color(74, 107, 222));
     createButton.setFocusPainted(false);
     createButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    createButton.setBounds(5, 2, 198, 41);
+    createButton.setBounds(9, 2, 194, 41);
     createButton.setForeground(Color.WHITE);
     createButton.setFont(new Font("Inter", Font.BOLD, 18));
     createButtonContainer.add(createButton);

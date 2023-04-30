@@ -89,6 +89,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     gridPanel.setBorder(new EmptyBorder(78, 0, 78, 0));
     gridPanel.setBackground(Color.WHITE);
     scrollGridPanel.setViewportView(gridPanel);
+    scrollGridPanel.getVerticalScrollBar().setUnitIncrement(10);
 
     for (int i = 0; i < data.length; i++) {
       JPanel container = new JPanel(new BorderLayout());
@@ -264,6 +265,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
       }
     });
     buyListScroll.setBorder(null);
+    buyListScroll.getVerticalScrollBar().setUnitIncrement(10);
     buyPanel.add(buyListScroll, BorderLayout.CENTER);
   }
 

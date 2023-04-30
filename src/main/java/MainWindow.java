@@ -4,6 +4,7 @@ import javax.swing.*;
 import PembelianUI.CheckoutPanel;
 import PembelianUI.CreateMemberPanel;
 import PembelianUI.PembelianPanel;
+import PembelianUI.TerimakasihPanel;
 
 public class MainWindow {
   private static void showUI() {
@@ -30,8 +31,10 @@ public class MainWindow {
     topPanel.setPreferredSize(new Dimension((int) (0.81 * vw), 48));
     mainRight.add(topPanel, BorderLayout.NORTH);
 
-    mainRight.add(new PembelianPanel(240), BorderLayout.CENTER);
-    // mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
+    // mainRight.add(new PembelianPanel(240), BorderLayout.CENTER);
+    mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
+    // mainRight.add(new TerimakasihPanel("Kim Jisoo"), BorderLayout.CENTER);
+    // mainRight.add(new TerimakasihPanel(""), BorderLayout.CENTER);
     // mainRight.add(new CreateMemberPanel(), BorderLayout.CENTER);
 
     mainFrame.setVisible(true);
