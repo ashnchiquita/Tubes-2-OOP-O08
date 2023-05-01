@@ -1,7 +1,9 @@
-package boundary.panel;
+package boundary.panel.inventaris;
 
+import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
-import boundary.widget.PressedRoundedButtonUI;
+import boundary.widget.RoundedPanel;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -9,9 +11,12 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-public class DaftarBarangUI extends JPanel{
+public class DaftarBarangPanel extends JPanel{
     private static JPanel headerPanel;
     private static JScrollPane scrollListPanel;
+    private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
+    private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
+    private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8),  2);
 
     private void setupHeaderPanel(){
         headerPanel = new JPanel();
@@ -36,11 +41,11 @@ public class DaftarBarangUI extends JPanel{
         // Label "Total Barang"
         JLabel totalBarangLabel = new JLabel("Total Barang : 127");
         totalBarangLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        totalBarangLabel.setPreferredSize(new Dimension(180,42));
+        totalBarangLabel.setPreferredSize(new Dimension(180,38));
         totalBarangLabel.setFont(new Font("Inter", Font.PLAIN, 15));
         totalBarangLabel.setForeground(new Color(36,60,148));
-        totalBarangLabel.setBorder(BorderFactory.createLineBorder(new Color(0x5D82E8)));
-        headerPanel.add(totalBarangLabel, BorderLayout.WEST);
+        totalBarangPanel.add(totalBarangLabel, BorderLayout.WEST);
+        headerPanel.add(totalBarangPanel, BorderLayout.WEST);
 
         // Horizontal Divider
         JSeparator separator2 = new JSeparator(SwingConstants.HORIZONTAL);
@@ -50,16 +55,17 @@ public class DaftarBarangUI extends JPanel{
 
         // Button Import
         JButton importButton = new JButton("Import");
-        PressedRoundedButtonUI buttonUI = new PressedRoundedButtonUI(new Color(45,77,182));
+        PressedButton buttonUI = new PressedButton(new Color(45,77,182));
         importButton.setFont(new Font("Inter", Font.PLAIN, 15));
         importButton.setBackground(new Color(76,110,223));
         importButton.setForeground(Color.WHITE);
         importButton.setOpaque(true);
         importButton.setFocusable(false);
-        importButton.setPreferredSize(new Dimension(130,43));
+        importButton.setPreferredSize(new Dimension(130,38));
         importButton.setUI(buttonUI);
         importButton.setBorder(new RoundBorder(20));
-        headerPanel.add(importButton, BorderLayout.WEST);
+        importButtonPanel.add(importButton, BorderLayout.WEST);
+        headerPanel.add(importButtonPanel, BorderLayout.WEST);
 
         // Horizontal Divider
         JSeparator separator3 = new JSeparator(SwingConstants.HORIZONTAL);
@@ -74,10 +80,11 @@ public class DaftarBarangUI extends JPanel{
         createNewItemButton.setForeground(Color.WHITE);
         createNewItemButton.setOpaque(true);
         createNewItemButton.setFocusable(false);
-        createNewItemButton.setPreferredSize(new Dimension(180,43));
+        createNewItemButton.setPreferredSize(new Dimension(180,38));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
-        headerPanel.add(createNewItemButton, BorderLayout.WEST);
+        createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
+        headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);
     }
 
     private void setupTable(){
@@ -89,7 +96,7 @@ public class DaftarBarangUI extends JPanel{
 
 
         JTable itemList = new JTable(getData(), getColumnNames());
-        itemList.setRowHeight(136);
+        itemList.setRowHeight(60);
         itemList.setDefaultEditor(Object.class, null); // make cells not editable
         itemList.getColumnModel().getColumn(0).setPreferredWidth(300);
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
@@ -148,7 +155,7 @@ public class DaftarBarangUI extends JPanel{
         return columnNames;
     }
 
-    public DaftarBarangUI(){
+    public DaftarBarangPanel(){
         this.setBackground(Color.WHITE);
         setupHeaderPanel();
         this.add(headerPanel,BorderLayout.NORTH);

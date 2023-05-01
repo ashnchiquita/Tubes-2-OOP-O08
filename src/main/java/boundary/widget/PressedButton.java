@@ -4,11 +4,11 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 
-public class PressedRoundedButtonUI extends BasicButtonUI {
+public class PressedButton extends BasicButtonUI {
 
     private final Color pressedBackgroundColor;
 
-    public PressedRoundedButtonUI(Color pressedBackgroundColor) {
+    public PressedButton(Color pressedBackgroundColor) {
         this.pressedBackgroundColor = pressedBackgroundColor;
     }
 

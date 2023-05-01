@@ -1,13 +1,13 @@
-package boundary.panel;
+package boundary.panel.inventaris;
 
-import boundary.widget.PressedRoundedButtonUI;
+import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class TambahBarangUI extends JPanel {
+public class TambahBarangPanel extends JPanel {
     // Setup
     private static JPanel rightPanel;
     private static JPanel leftPanel;
@@ -99,7 +99,7 @@ public class TambahBarangUI extends JPanel {
         leftPanel.add(stokTextField, BorderLayout.NORTH);
 
         JButton createNewItemButton = new JButton("+ Tambah Baru");
-        PressedRoundedButtonUI buttonUI = new PressedRoundedButtonUI(new Color(45,77,182));
+        PressedButton buttonUI = new PressedButton(new Color(45,77,182));
         createNewItemButton.setFont(new Font("Inter", Font.PLAIN, 15));
         createNewItemButton.setBackground(new Color(76,110,223));
         createNewItemButton.setForeground(Color.WHITE);
@@ -132,7 +132,7 @@ public class TambahBarangUI extends JPanel {
 
     }
 
-    public TambahBarangUI(){
+    public TambahBarangPanel(){
         this.setBackground(Color.WHITE);
         setupLeftPanel();
         this.add(leftPanel, BorderLayout.NORTH);
