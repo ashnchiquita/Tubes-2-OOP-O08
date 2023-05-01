@@ -1,10 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
 
-import PembelianUI.CheckoutPanel;
-import PembelianUI.CreateMemberPanel;
-import PembelianUI.PembelianPanel;
-import PembelianUI.TerimakasihPanel;
+import Util.Colors;
+import boundary.panel.pembelian.CheckoutPanel;
+import boundary.panel.pembelian.CreateMemberPanel;
+import boundary.panel.pembelian.PembelianPanel;
+import boundary.panel.pembelian.TerimakasihPanel;
 
 public class MainWindow {
   private static void showUI() {
@@ -19,7 +20,7 @@ public class MainWindow {
     JPanel sideNav = new JPanel();
     sideNav.setPreferredSize(new Dimension(230, vh));
 
-    sideNav.setBackground(new Color(56, 100, 194));
+    sideNav.setBackground(Colors.LIGHT_BLUE.getColor());
     mainFrame.add(sideNav, BorderLayout.WEST);
 
     JPanel mainRight = new JPanel();
@@ -27,12 +28,12 @@ public class MainWindow {
     mainFrame.add(mainRight, BorderLayout.CENTER);
 
     JPanel topPanel = new JPanel();
-    topPanel.setBackground(new Color(36, 60, 148));
+    topPanel.setBackground(Colors.DARK_BLUE.getColor());
     topPanel.setPreferredSize(new Dimension((int) (0.81 * vw), 48));
     mainRight.add(topPanel, BorderLayout.NORTH);
 
-    // mainRight.add(new PembelianPanel(240), BorderLayout.CENTER);
-    mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
+    mainRight.add(new PembelianPanel(240), BorderLayout.CENTER);
+    // mainRight.add(new CheckoutPanel(), BorderLayout.CENTER);
     // mainRight.add(new TerimakasihPanel("Kim Jisoo"), BorderLayout.CENTER);
     // mainRight.add(new TerimakasihPanel(""), BorderLayout.CENTER);
     // mainRight.add(new CreateMemberPanel(), BorderLayout.CENTER);

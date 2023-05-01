@@ -1,4 +1,4 @@
-package PembelianObserver;
+package boundary.observer.pembelian;
 
 public class PembelianEvent {
   public String type, title, subtitle, imagePath;

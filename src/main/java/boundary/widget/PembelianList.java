@@ -1,4 +1,4 @@
-package PembelianUI;
+package boundary.widget;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -6,9 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import PembelianObserver.PembelianObserver;
-import PembelianObserver.PembelianEvent;
+import Util.Colors;
 import Util.RupiahConverter;
+import boundary.observer.pembelian.PembelianEvent;
+import boundary.observer.pembelian.PembelianObserver;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,7 +29,7 @@ public class PembelianList extends RoundedPanel {
   JLabel priceText = new JLabel(RupiahConverter.convert(price));
 
   public PembelianList(String title, String subtitle, int count, float price, String imagePath, int index) {
-    super(21, new Color(16, 37, 109), false, Color.WHITE, 0);
+    super(21, Colors.PEMBELIAN_BLUE.getColor(), false, Color.WHITE, 0);
     this.count = count;
     this.price = price;
     subtitle = "";
@@ -36,7 +37,7 @@ public class PembelianList extends RoundedPanel {
     this.setLayout(new BorderLayout());
     this.setBorder(new EmptyBorder(18, 15, 20, 15));
 
-    RoundedPanel imageContainer = new RoundedPanel(20, new Color(16, 37, 109), false, Color.WHITE, 0);
+    RoundedPanel imageContainer = new RoundedPanel(20, Colors.PEMBELIAN_BLUE.getColor(), false, Color.WHITE, 0);
     imageContainer.setPreferredSize(new Dimension(103, 64));
     imageContainer.setLayout(null);
     this.add(imageContainer, BorderLayout.WEST);
@@ -68,7 +69,7 @@ public class PembelianList extends RoundedPanel {
     }
 
     JPanel textPanel = new JPanel(null);
-    textPanel.setBackground(new Color(16, 37, 109));
+    textPanel.setBackground(Colors.PEMBELIAN_BLUE.getColor());
     this.add(textPanel, BorderLayout.CENTER);
 
     JLabel titleText = new JLabel(title);
@@ -91,7 +92,7 @@ public class PembelianList extends RoundedPanel {
 
     JPanel closePanel = new JPanel(null);
     closePanel.setPreferredSize(new Dimension(55, 100));
-    closePanel.setBackground(new Color(16, 37, 109));
+    closePanel.setBackground(Colors.PEMBELIAN_BLUE.getColor());
     this.add(closePanel, BorderLayout.EAST);
 
     RoundedPanel buttonContainer = new RoundedPanel(20, new Color(244, 38, 26), false, Color.BLACK, 0);
@@ -101,12 +102,12 @@ public class PembelianList extends RoundedPanel {
     closePanel.add(buttonContainer);
 
     ImageIcon buttonImage = new ImageIcon(
-        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/cross.png");
+        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/icon/cross.png");
     ImageIcon buttonImageScaled = new ImageIcon(
         buttonImage.getImage().getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH));
     closeButton.setIcon(buttonImageScaled);
     closeButton.setBounds(2, 2, 28, 26);
-    closeButton.setBackground(new Color(244, 114, 221));
+    closeButton.setBackground(Colors.PEMBELIAN_RED.getColor());
     closeButton.setBorder(null);
     closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 

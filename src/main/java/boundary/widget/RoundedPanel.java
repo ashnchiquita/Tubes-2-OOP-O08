@@ -1,11 +1,11 @@
-package PembelianUI;
+package boundary.widget;
 
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-class RoundedPanel extends JPanel {
+public class RoundedPanel extends JPanel {
   private int radius, borderThickness;
   private Color bgColor, borderColor;
   private boolean isBorder;

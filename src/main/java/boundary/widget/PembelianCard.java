@@ -1,4 +1,4 @@
-package PembelianUI;
+package boundary.widget;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,9 +7,10 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import PembelianObserver.PembelianObserver;
-import PembelianObserver.PembelianEvent;
 import Util.RupiahConverter;
+import boundary.observer.pembelian.PembelianEvent;
+import boundary.observer.pembelian.PembelianObserver;
+import Util.Colors;
 
 import java.awt.geom.RoundRectangle2D;
 
@@ -17,7 +18,7 @@ public class PembelianCard extends RoundedPanel {
   private PembelianObserver observer;
 
   public PembelianCard(int id, String title, String subtitle, float price, String imagePath) {
-    super(20, Color.WHITE, true, new Color(151, 151, 151), 1);
+    super(20, Color.WHITE, true, Colors.MED_GRAY.getColor(), 1);
 
     this.setLayout(null);
 
@@ -73,22 +74,22 @@ public class PembelianCard extends RoundedPanel {
 
     JLabel priceLabel = new JLabel(RupiahConverter.convert(price));
     priceLabel.setFont(new Font("Rubik Light", Font.BOLD, 14));
-    priceLabel.setForeground(new Color(26, 114, 221));
+    priceLabel.setForeground(Colors.PEMBELIAN_BLUE_LIGHT.getColor());
     priceLabel.setBounds(10, 54, 58, 16);
     bottomContainer.add(priceLabel);
 
-    RoundedPanel buttonContainer = new RoundedPanel(20, new Color(26, 114, 221), false, Color.BLACK, 0);
+    RoundedPanel buttonContainer = new RoundedPanel(20, Colors.PEMBELIAN_BLUE_LIGHT.getColor(), false, Color.BLACK, 0);
     buttonContainer.setBounds(113, 48, 32, 30);
     buttonContainer.setOpaque(false);
     buttonContainer.setLayout(null);
 
     ImageIcon buttonImage = new ImageIcon(
-        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/plus.png");
+        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/icon/plus.png");
     ImageIcon buttonImageScaled = new ImageIcon(
         buttonImage.getImage().getScaledInstance(16, 18, java.awt.Image.SCALE_SMOOTH));
     JButton addButton = new JButton(buttonImageScaled);
     addButton.setBounds(2, 2, 28, 26);
-    addButton.setBackground(new Color(26, 114, 221));
+    addButton.setBackground(Colors.PEMBELIAN_BLUE_LIGHT.getColor());
     addButton.setBorder(null);
     addButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     addButton

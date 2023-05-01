@@ -1,6 +1,9 @@
-package PembelianUI;
+package boundary.widget;
 
 import javax.swing.*;
+
+import Util.Colors;
+
 import java.awt.*;
 
 public class HintTextField extends JTextField {
@@ -17,9 +20,7 @@ public class HintTextField extends JTextField {
       ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
       Insets ins = getInsets();
       FontMetrics fm = g.getFontMetrics();
-      // TODO : Setup color
-      // g.setColor(Colors.LIGHT_GRAY.getColor());
-      g.setColor(new Color(217, 217, 217));
+      g.setColor(Colors.LIGHT_GRAY.getColor());
       g.drawString(_hint, ins.left, h / 2 + fm.getAscent() / 2 - 2);
     }
   }

@@ -1,4 +1,4 @@
-package PembelianObserver;
+package boundary.observer.pembelian;
 
 import java.util.ArrayList;
 

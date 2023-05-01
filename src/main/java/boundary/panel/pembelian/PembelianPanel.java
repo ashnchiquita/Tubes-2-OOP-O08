@@ -1,4 +1,4 @@
-package PembelianUI;
+package boundary.panel.pembelian;
 
 import java.awt.*;
 import javax.swing.*;
@@ -6,10 +6,14 @@ import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
 import javax.swing.event.ChangeListener;
 
-import PembelianObserver.PembelianListener;
-import PembelianObserver.PembelianObserver;
-import PembelianObserver.PembelianEvent;
+import Util.Colors;
 import Util.RupiahConverter;
+import boundary.observer.pembelian.PembelianEvent;
+import boundary.observer.pembelian.PembelianListener;
+import boundary.observer.pembelian.PembelianObserver;
+import boundary.widget.PembelianCard;
+import boundary.widget.PembelianList;
+import boundary.widget.RoundedPanel;
 
 import javax.swing.event.ChangeEvent;
 
@@ -61,9 +65,9 @@ public class PembelianPanel extends JPanel implements PembelianListener {
   JLabel totalValue = new JLabel(RupiahConverter.convert(total));
 
   JPanel buttonPanel = new JPanel(new BorderLayout());
-  RoundedPanel cancelContainer = new RoundedPanel(9, new Color(36, 60, 148), true, new Color(236, 102, 102), 2);
+  RoundedPanel cancelContainer = new RoundedPanel(9, Colors.DARK_BLUE.getColor(), true, Colors.RED.getColor(), 2);
   JButton cancelButton = new JButton("Cancel");
-  RoundedPanel checkoutContainer = new RoundedPanel(42, new Color(74, 107, 222), false, Color.WHITE, 0);
+  RoundedPanel checkoutContainer = new RoundedPanel(42, Colors.BUTTON_BLUE.getColor(), false, Color.WHITE, 0);
   JButton checkoutButton = new JButton("Checkout");
 
   JPanel buyListPanel = new JPanel();
@@ -82,7 +86,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     this.add(scrollGridPanel, BorderLayout.CENTER);
 
     buyPanel.setPreferredSize(new Dimension((int) (0.31 * vw), vh));
-    buyPanel.setBackground(new Color(36, 60, 148));
+    buyPanel.setBackground(Colors.DARK_BLUE.getColor());
     this.add(buyPanel, BorderLayout.EAST);
 
     GridBagConstraints c = new GridBagConstraints();
@@ -115,7 +119,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
       }
     });
 
-    orderNumPanel.setBackground(new Color(36, 60, 148));
+    orderNumPanel.setBackground(Colors.DARK_BLUE.getColor());
     orderNumPanel.setPreferredSize(new Dimension(400, 69));
     orderNumPanel.setLayout(null);
     buyPanel.add(orderNumPanel, BorderLayout.NORTH);
@@ -133,16 +137,16 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     orderLine.setBounds(14, 45, (int) (0.28 * vw), 1);
     orderNumPanel.add(orderLine);
 
-    orderSummaryPanel.setBackground(new Color(36, 60, 148));
+    orderSummaryPanel.setBackground(Colors.DARK_BLUE.getColor());
     orderSummaryPanel.setPreferredSize(new Dimension(400, 262));
     buyPanel.add(orderSummaryPanel, BorderLayout.SOUTH);
 
-    summaryTextPanel.setBackground(new Color(36, 60, 148));
+    summaryTextPanel.setBackground(Colors.DARK_BLUE.getColor());
     Font summaryFont = new Font("Inter", Font.BOLD, 17);
 
     c.gridx = 0;
     c.gridy = 0;
-    subTextContainer.setBackground(new Color(36, 60, 148));
+    subTextContainer.setBackground(Colors.DARK_BLUE.getColor());
     subTextContainer.setBorder(new EmptyBorder(15, 0, 10, 0));
     subText.setPreferredSize(new Dimension(80, 18));
     subText.setForeground(Color.WHITE);
@@ -152,8 +156,8 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 0;
-    subValueContainer.setBackground(new Color(36, 60, 148));
-    orderSummaryPanel.setBackground(new Color(36, 60, 148));
+    subValueContainer.setBackground(Colors.DARK_BLUE.getColor());
+    orderSummaryPanel.setBackground(Colors.DARK_BLUE.getColor());
     subValueContainer.setBorder(new EmptyBorder(15, 0, 10, 0));
     subValue.setPreferredSize(new Dimension(266, 18));
     subValue.setForeground(Color.WHITE);
@@ -164,7 +168,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 0;
     c.gridy = 1;
-    discountTextContainer.setBackground(new Color(36, 60, 148));
+    discountTextContainer.setBackground(Colors.DARK_BLUE.getColor());
     discountTextContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     discountText.setPreferredSize(new Dimension(80, 18));
     discountText.setForeground(Color.WHITE);
@@ -174,7 +178,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 1;
-    discountValueContainer.setBackground(new Color(36, 60, 148));
+    discountValueContainer.setBackground(Colors.DARK_BLUE.getColor());
     discountValueContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     discountValue.setPreferredSize(new Dimension(266, 18));
     discountValue.setForeground(Color.WHITE);
@@ -185,7 +189,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 0;
     c.gridy = 2;
-    taxTextContainer.setBackground(new Color(36, 60, 148));
+    taxTextContainer.setBackground(Colors.DARK_BLUE.getColor());
     taxTextContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     taxText.setPreferredSize(new Dimension(80, 18));
     taxText.setForeground(Color.WHITE);
@@ -195,7 +199,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 2;
-    taxValueContainer.setBackground(new Color(36, 60, 148));
+    taxValueContainer.setBackground(Colors.DARK_BLUE.getColor());
     taxValueContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     taxValue.setPreferredSize(new Dimension(266, 18));
     taxValue.setForeground(Color.WHITE);
@@ -206,7 +210,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 0;
     c.gridy = 3;
-    totalTextContainer.setBackground(new Color(36, 60, 148));
+    totalTextContainer.setBackground(Colors.DARK_BLUE.getColor());
     totalText.setPreferredSize(new Dimension(80, 18));
     totalText.setForeground(Color.WHITE);
     totalText.setFont(summaryFont);
@@ -215,7 +219,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 3;
-    totalValueContainer.setBackground(new Color(36, 60, 148));
+    totalValueContainer.setBackground(Colors.DARK_BLUE.getColor());
     totalValue.setPreferredSize(new Dimension(266, 18));
     totalValue.setForeground(Color.WHITE);
     totalValue.setFont(summaryFont);
@@ -226,14 +230,14 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     orderSummaryPanel.add(summaryTextPanel, BorderLayout.NORTH);
 
     buttonPanel.setBorder(new EmptyBorder(51, 27, 43, 22));
-    buttonPanel.setBackground(new Color(36, 60, 148));
+    buttonPanel.setBackground(Colors.DARK_BLUE.getColor());
     orderSummaryPanel.add(buttonPanel, BorderLayout.CENTER);
 
     cancelContainer.setOpaque(false);
     cancelContainer.setLayout(null);
     cancelContainer.setPreferredSize(new Dimension(134, 49));
-    cancelButton.setBackground(new Color(36, 60, 148));
-    cancelButton.setForeground(new Color(236, 102, 102));
+    cancelButton.setBackground(Colors.DARK_BLUE.getColor());
+    cancelButton.setForeground(Colors.RED.getColor());
     cancelButton.setFont(new Font("Inter", Font.BOLD, 17));
     cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     cancelButton.setBounds(4, 4, 126, 41);
@@ -246,7 +250,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     checkoutContainer.setLayout(null);
     checkoutContainer.setPreferredSize(new Dimension(205, 49));
     checkoutButton.setFont(new Font("Inter", Font.BOLD, 17));
-    checkoutButton.setBackground(new Color(74, 107, 222));
+    checkoutButton.setBackground(Colors.BUTTON_BLUE.getColor());
     checkoutButton.setForeground(Color.WHITE);
     checkoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     checkoutButton.setBorder(null);
@@ -255,7 +259,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     checkoutContainer.add(checkoutButton);
     buttonPanel.add(checkoutContainer, BorderLayout.EAST);
 
-    buyListPanel.setBackground(new Color(36, 60, 148));
+    buyListPanel.setBackground(Colors.DARK_BLUE.getColor());
     buyListPanel.setLayout(new BoxLayout(buyListPanel, BoxLayout.Y_AXIS));
 
     buyListScroll.getViewport().addChangeListener(new ChangeListener() {
@@ -331,21 +335,21 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
   private static DataObj[] data = {
       new DataObj("Salad Tuna", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/salad-tuna.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-tuna.png"),
       new DataObj("Beef Contoh", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/beef-contoh.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/beef-contoh.png"),
       new DataObj("Iga Bakar", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/iga-bakar.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/iga-bakar.png"),
       new DataObj("Salad Egg", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/salad-egg.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-egg.png"),
       new DataObj("Salad Tuna", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/salad-tuna.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-tuna.png"),
       new DataObj("Beef Contoh", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/beef-contoh.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/beef-contoh.png"),
       new DataObj("Iga Bakar", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/iga-bakar.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/iga-bakar.png"),
       new DataObj("Salad Egg", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/java/img/salad-egg.png"),
+          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-egg.png"),
 
   };
 
