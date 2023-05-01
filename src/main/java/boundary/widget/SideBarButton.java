@@ -1,6 +1,4 @@
-package org.example.widgets;
-
-import org.example.widgets.HoverButton;
+package boundary.widget;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
-package org.example;
+package boundary.panel.home;
 
-import org.example.widgets.Clock;
+import boundary.widget.Clock;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

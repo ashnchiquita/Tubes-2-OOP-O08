@@ -1,4 +1,4 @@
-package org.example.widgets;
+package boundary.widget;
 
 import javax.swing.*;
 import java.awt.*;

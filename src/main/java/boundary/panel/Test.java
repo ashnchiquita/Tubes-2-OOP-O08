@@ -1,6 +1,6 @@
-package org.example;
+package boundary.panel;
 
-import org.example.widgets.SideBar;
+import boundary.widget.SideBar;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,20 +1,20 @@
-package org.example;
+package boundary;
 
-import org.example.widgets.SideBar;
-import org.example.widgets.TopBar;
-import org.example.widgets.TopBarButton;
-import org.example.enums.PanelEnum;
+import boundary.panel.home.HomeUI;
+import boundary.widget.SideBar;
+import boundary.widget.TopBar;
+import boundary.widget.TopBarButton;
+import boundary.enums.PanelEnum;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 
 public class MainUI {
     private JPanel contentPanel;
     private JPanel contentPanelView;
-    private org.example.enums.PanelEnum contentEnum;
+    private boundary.enums.PanelEnum contentEnum;
 
 
     public MainUI(){
