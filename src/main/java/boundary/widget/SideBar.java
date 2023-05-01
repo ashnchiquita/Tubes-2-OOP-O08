@@ -1,12 +1,13 @@
 package boundary.widget;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SideBar extends JPanel {
+public class SideBar extends JScrollPane {
     private Color fgColor;
     private Color bgColor;
 
@@ -17,7 +18,25 @@ public class SideBar extends JPanel {
     private Integer contentHeight;
     private ImageIcon refreshIcon;
     //TODO: Logics?
-    private void initCoreComponents(){
+    private void initCoreComponents(Integer width){
+        components = new HashMap<>();
+        buttonCount = 0;
+        contentHeight = 768;
+
+        String rootPath = System.getProperty("user.dir");
+        rootPath += "/res/img/";
+        ImageIcon icon = new ImageIcon(rootPath + "Refresh.png");
+        Image image = icon.getImage();
+        Image newImage = image.getScaledInstance(37,37, Image.SCALE_SMOOTH);
+        refreshIcon = new ImageIcon(newImage);
+
+        contentPanel = new JPanel();
+        contentPanel.setLayout(null);
+        contentPanel.setPreferredSize(new Dimension(width-18, contentHeight));
+        contentPanel.setBackground(bgColor);
+        contentPanel.setAutoscrolls(true);
+        add(contentPanel);
+
         JLabel openingLabel = (JLabel) addComponent(new JLabel("NamaApp"), "openingLabel");
         openingLabel.setBounds(19,37,143,30);
         openingLabel.setForeground(fgColor);
@@ -28,13 +47,6 @@ public class SideBar extends JPanel {
         JPanel underline = (JPanel) addComponent(new JPanel(), "underline");
         underline.setBackground(fgColor);
         underline.setBounds(20,89,165,1);
-
-        String rootPath = System.getProperty("user.dir");
-        rootPath += "/res/img/";
-        ImageIcon icon = new ImageIcon(rootPath + "Refresh.png");
-        Image image = icon.getImage();
-        Image newImage = image.getScaledInstance(37,37, Image.SCALE_SMOOTH);
-        refreshIcon = new ImageIcon(newImage);
 
         HoverButton refreshButton = (HoverButton) addComponent(new HoverButton(), "refreshButton");
         refreshButton.setForeground(fgColor);
@@ -58,6 +70,7 @@ public class SideBar extends JPanel {
         lastLoginText.setHorizontalAlignment(SwingConstants.LEFT);
         lastLoginText.setVerticalAlignment(SwingConstants.TOP);
         lastLoginText.setFont(new Font("Rubik-SemiBold", Font.PLAIN, 13));
+
     }
     private void adjustRefreshButton(){
         components.get("refreshButton").setBounds(37,60*buttonCount + 220,37,37);
@@ -70,7 +83,7 @@ public class SideBar extends JPanel {
             throw new IllegalArgumentException("Name already exists");
         }
         components.put(name, addition);
-        add(addition);
+        contentPanel.add(addition);
         return addition;
     }
     public JComponent addButton(JButton addition, String name) throws IllegalArgumentException{
@@ -82,21 +95,12 @@ public class SideBar extends JPanel {
         return retval;
     }
     public SideBar(Integer width, Color BgColor, Color FgColor){
-        components = new HashMap<>();
-        buttonCount = 0;
-        contentHeight = 768;
         fgColor = FgColor;
         bgColor = BgColor;
-        contentPanel = new JPanel();
-        contentPanel.setLayout(null);
-        contentPanel.setPreferredSize(new Dimension(width,0));
-        contentPanel.setBackground(bgColor);
-        contentPanel.setAutoscrolls(true);
-        setLayout(null);
         setPreferredSize(new Dimension(width,0));
-        setBackground(bgColor);
+        //setBackground(bgColor);
 
-        initCoreComponents();
+        initCoreComponents(width);
 
         addButton(new SideBarButton("Kasir.png", "Kasir", fgColor, bgColor), "kasirButton");
         addButton(new SideBarButton("Laporan.png", "Laporan", fgColor, bgColor), "laporanButton");
@@ -106,5 +110,10 @@ public class SideBar extends JPanel {
         addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton1");
         addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton2");
         //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton3");
+        setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+        getVerticalScrollBar().setUI(new PlainScrollBar(bgColor, new Color(9085684)));
+        //setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_NEVER);
+
+        setViewportView(this.contentPanel);
     }
 }

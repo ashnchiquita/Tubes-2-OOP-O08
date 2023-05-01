@@ -42,7 +42,7 @@ public class MainUI {
         sidePanelGbc.weightx = 0;
         sidePanelGbc.weighty = 1;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
-        JPanel sidePanel = new SideBar(287, new Color(56,100,194), Color.WHITE);
+        JScrollPane sidePanel = new SideBar(287, new Color(56,100,194), Color.WHITE);
 
         //TODO: TopBar logics
         TopBar topBar = new TopBar(47);
