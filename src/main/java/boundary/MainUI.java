@@ -2,24 +2,29 @@ package boundary;
 
 import boundary.panel.home.HomeUI;
 import boundary.widget.SideBar;
+import boundary.widget.SideBarButton;
 import boundary.widget.TopBar;
 import boundary.widget.TopBarButton;
 import boundary.enums.PanelEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainUI {
     private JPanel contentPanel;
     private JPanel contentPanelView;
     private boundary.enums.PanelEnum contentEnum;
-
+    private SideBar sidePanel;
+    private TopBar topBar;
+    private Integer counter = 0;
+    private Map<TopBarButton, JPanel> activePanels;
 
     public MainUI(){
-
         contentEnum = PanelEnum.HOME;
+        activePanels = new HashMap<>();
         JFrame mainWindow = new JFrame();
         JPanel mainPanel = new JPanel();
 
@@ -42,10 +47,10 @@ public class MainUI {
         sidePanelGbc.weightx = 0;
         sidePanelGbc.weighty = 0;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
-        JScrollPane sidePanel = new SideBar(287, new Color(56,100,194), Color.WHITE);
+        sidePanel = new SideBar(287, new Color(56,100,194), Color.WHITE);
 
         //TODO: TopBar logics
-        TopBar topBar = new TopBar(47, new Color(36, 60, 148));
+        topBar = new TopBar(47, new Color(36, 60, 148));
         GridBagConstraints topBarGbc = new GridBagConstraints();
         topBarGbc.gridx = 1;
         topBarGbc.gridy = 0;
@@ -53,15 +58,51 @@ public class MainUI {
         topBarGbc.weighty = 0;
         topBarGbc.fill = GridBagConstraints.BOTH;
 
-        topBar.addButton(new TopBarButton(), "content1");
-        topBar.addButton(new TopBarButton(), "content2");
-        topBar.addButton(new TopBarButton(), "content3");
-        topBar.addButton(new TopBarButton(), "content4");
-        topBar.addButton(new TopBarButton(), "content5");
-        topBar.addButton(new TopBarButton(), "content6");
-        topBar.addButton(new TopBarButton(), "content7");
-        topBar.addButton(new TopBarButton(), "content8");
+        sidePanel.addButton(new SideBarButton("Kasir.png", "Kasir"), "kasirButton");
+        ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Kasir");
+                addWindow();
+            }
+        } );
+        sidePanel.addButton(new SideBarButton("Laporan.png", "Laporan"), "laporanButton");
+        ((JButton) sidePanel.getComponent("laporanButton")).addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Laporan");
+                addWindow();
+            }
+        });
 
+        sidePanel.addButton(new SideBarButton("Member.png", "Member"), "MemberButton");
+        ((JButton) sidePanel.getComponent("MemberButton")).addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Member");
+                addWindow();
+            }
+        } );
+        sidePanel.addButton(new SideBarButton("Inventaris.png", "Inventaris"), "inventarisButton");
+        ((JButton) sidePanel.getComponent("inventarisButton")).addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Inventaris");
+                addWindow();
+            }
+        } );
+        sidePanel.addButton(new SideBarButton("Support.png", "Pengaturan"), "pengaturanButton");
+        ((JButton) sidePanel.getComponent("pengaturanButton")).addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Pengaturan");
+                addWindow();
+            }
+        } );
+
+        TopBarButton homeButton = (TopBarButton) topBar.getComponent("homeButton");
+        activePanels.put(homeButton, new HomeUI());
+        homeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Button Pressed!");
+                loadPage(activePanels.get(homeButton));
+            }
+        } );
 
         //TODO: Tidy up
         mainPanel.add(contentPanel, contentPanelGbc);
@@ -71,7 +112,9 @@ public class MainUI {
 
         this.contentPanel = contentPanel;
 
-        loadPage();
+
+        loadPage(activePanels.get(homeButton));
+
 
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setMinimumSize(new Dimension(1280,720));
@@ -79,7 +122,7 @@ public class MainUI {
         mainWindow.add(mainPanel);
         mainWindow.pack();
         mainWindow.setVisible(true);
-        mainWindow.setTitle("TubesTubesTubesWANGYWANGYWANGYAAAAAAAAAAAA");
+        mainWindow.setTitle("Cashoria");
 
         mainWindow.addWindowListener(new WindowAdapter() {
             @Override
@@ -102,47 +145,70 @@ public class MainUI {
         });
     }
 
-    public void loadPage(){
-        //TODO: loadPage function
-        this.contentPanel.removeAll();
+    public void addWindow(){
+        String name = "content" + counter.toString();
+        topBar.addButton(new TopBarButton(), name);
+        counter++;
+        TopBarButton newbutton = (TopBarButton) topBar.getComponent(name);
+        JPanel panel = new JPanel();
+        panel.add(new JLabel(name));
+        activePanels.put(newbutton, panel);
+        newbutton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                loadPage(activePanels.get(newbutton));
+            }
+        } );
+    }
 
-        contentPanelView = new HomeUI();
+    public void switchPage(TopBarButton button){
+    }
+
+    public void loadPage(JPanel panel){
+        //TODO: loadPage function
+        contentPanel.removeAll();
+        contentPanel.revalidate();
+
+        contentPanelView = panel;
         //contentPanelView.setBounds(0, 0, 1000, 1000);
 
-        this.contentPanel.add(contentPanelView, BorderLayout.CENTER);
+        contentPanel.add(contentPanelView, BorderLayout.CENTER);
+        contentPanel.repaint();
     }
 
-    /*
-    public void setupFont(){
-        //TODO: fonts
-        try{
-            String rootPath = System.getProperty("user.dir");
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            rootPath += "/font/Rubik/static/";
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Black.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-BlackItalic.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Bold.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-BoldItalic.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-ExtraBold.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-ExtraBoldItalic.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Italic.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Light.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-LightItalic.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Medium.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-MediumItalic.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Regular.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-SemiBold.ttf")));
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-SemiBoldItalic.ttf")));
-            System.out.println("Font loading success");
-
-        }catch (Exception e){
-            System.out.println("Font loading failure: " + e.getMessage());
-        }
-    }
-    */
 
     public static void main(String[] args) {
         new MainUI();
         System.out.print("Compile Success!");
     }
 }
+
+/*
+public void setupFont(){
+    //TODO: fonts
+    try{
+        String rootPath = System.getProperty("user.dir");
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        rootPath += "/font/Rubik/static/";
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Black.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-BlackItalic.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Bold.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-BoldItalic.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-ExtraBold.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-ExtraBoldItalic.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Italic.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Light.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-LightItalic.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Medium.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-MediumItalic.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Regular.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-SemiBold.ttf")));
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-SemiBoldItalic.ttf")));
+        System.out.println("Font loading success");
+
+    }catch (Exception e){
+        System.out.println("Font loading failure: " + e.getMessage());
+    }
+}
+*/

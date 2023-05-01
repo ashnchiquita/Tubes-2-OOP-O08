@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class ScrollableButtonContainers extends JScrollPane {
     protected Map<String, JComponent> components = new HashMap<>();
     protected Integer buttonCount = 0;
@@ -20,5 +21,8 @@ public class ScrollableButtonContainers extends JScrollPane {
         JComponent retval = addComponent(addition, name);
         buttonCount++;
         return retval;
+    }
+    public JComponent getComponent(String name){
+        return components.get(name);
     }
 }

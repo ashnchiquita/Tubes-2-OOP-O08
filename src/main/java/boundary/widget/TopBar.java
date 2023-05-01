@@ -3,6 +3,10 @@ package boundary.widget;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +14,8 @@ public class TopBar extends ScrollableButtonContainers{
     private Color bgColor;
     private Integer contentWidth;
     private Integer height;
+    private Integer defaultButtonSize = 180;
+    private String active;
     public TopBar(Integer heightin, Color BgColor){
         super();
         bgColor = BgColor;
@@ -40,7 +46,21 @@ public class TopBar extends ScrollableButtonContainers{
         homeButton.setBorderPainted(false);
         homeButton.setBackground(Color.WHITE);
         homeButton.previousColor = Color.WHITE;
+        homeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if(homeButton.getStatus()) {
+                    return;
+                }
+                ((TopBarButton) components.get(active)).changeStatus(false);
+                homeButton.changeStatus(true);
+                active = "homeButton";
+                return;
+            }
+        });
         homeButton.changeStatus(true);
+        active = "homeButton";
 
         //setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
         JScrollBar horizontalScrollBar = getHorizontalScrollBar();
@@ -51,14 +71,42 @@ public class TopBar extends ScrollableButtonContainers{
         setViewportView(contentPanel);
     }
 
+    private void registerButtonLogic(TopBarButton addition, String name){
+        addition.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if(addition.getStatus()){
+                    addition.changeStatus(false);
+                    TopBarButton home = (TopBarButton) components.get("homeButton");
+                    home.changeStatus(true);
+                    home.doClick();
+                    active = "homeButton";
+                    return;
+                }
+                ((TopBarButton) components.get(active)).changeStatus(false);
+
+                addition.changeStatus(true);
+                active = name;
+                return;
+            }
+        });
+    }
+
     @Override
     public JComponent addButton(JButton addition, String name) throws IllegalArgumentException{
         //Note: name must be unique
+        //addition must be TopBarButton
+        if(addition.getClass() != TopBarButton.class)
+            throw new IllegalArgumentException("Cannot put normal button into TopBar, use TopBarButton instead");
+
         JComponent retval = addComponent(addition, name);
-        Integer rightmostLocation = 60 + buttonCount*130;
-        addition.setBounds( rightmostLocation,0,130, height);
+        Integer rightmostLocation = 60 + buttonCount*defaultButtonSize;
+        addition.setBounds( rightmostLocation,0,defaultButtonSize, height);
         buttonCount++;
-        contentPanel.setPreferredSize(new Dimension(rightmostLocation+130 > 977? rightmostLocation+130:977, height-10));
+        contentPanel.setPreferredSize(new Dimension(rightmostLocation+defaultButtonSize > 977? rightmostLocation+defaultButtonSize:977, height-10));
+        registerButtonLogic((TopBarButton) addition, name);
+
         return retval;
     }
 
@@ -72,9 +120,8 @@ public class TopBar extends ScrollableButtonContainers{
         components.values().forEach(v -> {
             Integer buttonLoc = v.getX();
             if(v.getX() > removedLocation){
-                v.setLocation(buttonLoc - 130, 0);
+                v.setLocation(buttonLoc - defaultButtonSize, 0);
             }
         });
     }
-
 }

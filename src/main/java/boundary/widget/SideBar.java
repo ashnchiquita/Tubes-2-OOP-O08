@@ -45,11 +45,13 @@ public class SideBar extends ScrollableButtonContainers {
         Image newImage = image.getScaledInstance(37,37, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImage);
 
+        setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.WHITE));
+
         contentPanel.setPreferredSize(new Dimension(width-18, contentHeight));
         contentPanel.setBackground(bgColor);
         contentPanel.setAutoscrolls(true);
 
-        JLabel openingLabel = (JLabel) addComponent(new JLabel("NamaApp"), "openingLabel");
+        JLabel openingLabel = (JLabel) addComponent(new JLabel("Cashoria"), "openingLabel");
         openingLabel.setBounds(19,37,143,30);
         openingLabel.setForeground(fgColor);
         openingLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -84,11 +86,6 @@ public class SideBar extends ScrollableButtonContainers {
         lastLoginText.setFont(new Font("Rubik-SemiBold", Font.PLAIN, 13));
 
 
-        addButton(new SideBarButton("Kasir.png", "Kasir", fgColor, bgColor), "kasirButton");
-        addButton(new SideBarButton("Laporan.png", "Laporan", fgColor, bgColor), "laporanButton");
-        addButton(new SideBarButton("Member.png", "Member", fgColor, bgColor), "MemberButton");
-        addButton(new SideBarButton("Inventaris.png", "Inventaris", fgColor, bgColor), "inventarisButton");
-        addButton(new SideBarButton("Support.png", "Pengaturan", fgColor, bgColor), "pengaturanButton");
         //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton1");
         //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton2");
         //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton3");
