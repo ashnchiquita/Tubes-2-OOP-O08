@@ -1,9 +1,10 @@
-package org.example;
+package boundary.panel;
+
+import boundary.widget.PressedRoundedButtonUI;
+import boundary.widget.RoundBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.basic.BasicButtonUI;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class TambahBarangUI extends JPanel {
@@ -98,7 +99,7 @@ public class TambahBarangUI extends JPanel {
         leftPanel.add(stokTextField, BorderLayout.NORTH);
 
         JButton createNewItemButton = new JButton("+ Tambah Baru");
-        CustomButtonUI buttonUI = new CustomButtonUI(new Color(45,77,182));
+        PressedRoundedButtonUI buttonUI = new PressedRoundedButtonUI(new Color(45,77,182));
         createNewItemButton.setFont(new Font("Inter", Font.PLAIN, 15));
         createNewItemButton.setBackground(new Color(76,110,223));
         createNewItemButton.setForeground(Color.WHITE);
@@ -123,8 +124,11 @@ public class TambahBarangUI extends JPanel {
         Border dashedBorder = BorderFactory.createDashedBorder(new Color(0x4B4FC4));
         filePanel.setBackground(new Color(0, 255, 255));
         filePanel.setPreferredSize(new Dimension(318, 333));
-        filePanel.setBorder(paddingBorder);
+        filePanel.setBorder(dashedBorder);
+//        filePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
+
         rightPanel.add(filePanel, BorderLayout.WEST);
+//        rightPanel.setLayout(new BorderLayout());
 
     }
 

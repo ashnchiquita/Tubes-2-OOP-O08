@@ -1,13 +1,13 @@
-package org.example;
+package boundary.panel;
 
+import boundary.widget.RoundBorder;
+import boundary.widget.PressedRoundedButtonUI;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
 
 public class DaftarBarangUI extends JPanel{
     private static JPanel headerPanel;
@@ -50,7 +50,7 @@ public class DaftarBarangUI extends JPanel{
 
         // Button Import
         JButton importButton = new JButton("Import");
-        CustomButtonUI buttonUI = new CustomButtonUI(new Color(45,77,182));
+        PressedRoundedButtonUI buttonUI = new PressedRoundedButtonUI(new Color(45,77,182));
         importButton.setFont(new Font("Inter", Font.PLAIN, 15));
         importButton.setBackground(new Color(76,110,223));
         importButton.setForeground(Color.WHITE);
@@ -154,55 +154,5 @@ public class DaftarBarangUI extends JPanel{
         this.add(headerPanel,BorderLayout.NORTH);
         setupTable();
         this.add(scrollListPanel, BorderLayout.CENTER);
-    }
-}
-
-class RoundBorder implements Border {
-    private final int radius;
-
-    public RoundBorder(int radius) {
-        this.radius = radius;
-    }
-
-    public Insets getBorderInsets(Component c) {
-        return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
-    }
-
-    public boolean isBorderOpaque() {
-        return true;
-    }
-
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(c.getBackground());
-        g2.fill(new RoundRectangle2D.Double(x, y, width - 1, height - 1, radius, radius));
-        g2.setColor(c.getForeground());
-        g2.draw(new RoundRectangle2D.Double(x, y, width - 1, height - 1, radius, radius));
-    }
-}
-
-class CustomButtonUI extends BasicButtonUI {
-
-    private final Color pressedBackgroundColor;
-
-    public CustomButtonUI(Color pressedBackgroundColor) {
-        this.pressedBackgroundColor = pressedBackgroundColor;
-    }
-
-    @Override
-    protected void installDefaults(AbstractButton b) {
-        super.installDefaults(b);
-        b.setBorderPainted(false);
-    }
-
-    @Override
-    public void paint(Graphics g, JComponent c) {
-        AbstractButton b = (AbstractButton) c;
-        ButtonModel model = b.getModel();
-        Color color = model.isPressed() ? pressedBackgroundColor : b.getBackground();
-        g.setColor(color);
-        g.fillRect(0, 0, b.getWidth(), b.getHeight());
-        super.paint(g, c);
     }
 }
