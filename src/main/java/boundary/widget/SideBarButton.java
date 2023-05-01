@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SideBarButton extends HoverButton {
-    public SideBarButton(String iconpath, String text){
+    public SideBarButton(String iconpath, String text, Color fgColor, Color bgColor){
         super();
         String rootPath = System.getProperty("user.dir");
         rootPath += "/res/img/";
@@ -19,6 +19,8 @@ public class SideBarButton extends HoverButton {
         setBorder(BorderFactory.createEmptyBorder());
         setFocusPainted(false);
         setContentAreaFilled(true);
+        setForeground(fgColor);
+        setBackground(bgColor);
 
         setFont(new Font("Rubik Light", 0, 20));
         setText(text);
