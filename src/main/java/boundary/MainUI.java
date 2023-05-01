@@ -40,24 +40,27 @@ public class MainUI {
         sidePanelGbc.gridy = 0;
         sidePanelGbc.gridheight = mainPanel.getHeight();
         sidePanelGbc.weightx = 0;
-        sidePanelGbc.weighty = 1;
+        sidePanelGbc.weighty = 0;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
         JScrollPane sidePanel = new SideBar(287, new Color(56,100,194), Color.WHITE);
 
         //TODO: TopBar logics
-        TopBar topBar = new TopBar(47);
+        TopBar topBar = new TopBar(47, new Color(36, 60, 148));
         GridBagConstraints topBarGbc = new GridBagConstraints();
         topBarGbc.gridx = 1;
         topBarGbc.gridy = 0;
-        topBarGbc.weightx = 1;
+        topBarGbc.weightx = 0;
         topBarGbc.weighty = 0;
         topBarGbc.fill = GridBagConstraints.BOTH;
 
-        TopBarButton topBar1 = new TopBarButton();
-        TopBarButton topBar2 = new TopBarButton();
-
-        topBar.add(topBar1);
-        topBar.add(topBar2);
+        topBar.addButton(new TopBarButton(), "content1");
+        topBar.addButton(new TopBarButton(), "content2");
+        topBar.addButton(new TopBarButton(), "content3");
+        topBar.addButton(new TopBarButton(), "content4");
+        topBar.addButton(new TopBarButton(), "content5");
+        topBar.addButton(new TopBarButton(), "content6");
+        topBar.addButton(new TopBarButton(), "content7");
+        topBar.addButton(new TopBarButton(), "content8");
 
 
         //TODO: Tidy up
@@ -72,7 +75,7 @@ public class MainUI {
 
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setMinimumSize(new Dimension(1280,720));
-        //mainWindow.setResizable(false);
+        mainWindow.setResizable(false);
         mainWindow.add(mainPanel);
         mainWindow.pack();
         mainWindow.setVisible(true);

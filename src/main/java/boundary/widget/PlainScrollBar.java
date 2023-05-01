@@ -64,9 +64,9 @@ public class PlainScrollBar extends BasicScrollBarUI {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Integer orientation = scrollbar.getOrientation();
         Integer x = trackBounds.x;
-        Integer y = trackBounds.y + 1;
+        Integer y = trackBounds.y;
         Integer width = trackBounds.width - 8;
-        Integer height = trackBounds.height - 2;
+        Integer height = trackBounds.height;
         if (orientation == JScrollBar.VERTICAL){
             y += 8;
             height -= 16;

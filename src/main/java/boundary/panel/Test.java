@@ -20,7 +20,7 @@ public class Test {
         /* testing topLabel */
         String rootPath = System.getProperty("user.dir");
 
-        TopBar test = new TopBar(47);
+        TopBar test = new TopBar(47, new Color(36, 60, 148));
         test.setMinimumSize(new Dimension(1000, 47));
 
         TopBarButton test1 = new TopBarButton();

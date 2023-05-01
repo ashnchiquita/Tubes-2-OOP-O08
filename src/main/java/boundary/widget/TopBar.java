@@ -1,24 +1,21 @@
 package boundary.widget;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TopBar extends JPanel{
-    private Integer buttonCount;
-
-    public TopBar(Integer height){
+public class TopBar extends ScrollableButtonContainers{
+    private Color bgColor;
+    private Integer contentWidth;
+    private Integer height;
+    public TopBar(Integer heightin, Color BgColor){
         super();
-        setLayout(new GridBagLayout());
+        bgColor = BgColor;
+        height = heightin;
+        contentWidth = 977;
         setPreferredSize(new Dimension(0, height));
-
-        TopBarButton homeButton = new TopBarButton();
-        GridBagConstraints homeButtonGbc = new GridBagConstraints();
-        homeButtonGbc.gridx = 0;
-        homeButtonGbc.gridy = 0;
-        homeButtonGbc.fill = GridBagConstraints.BOTH;
-        homeButtonGbc.weightx = 0;
-        homeButtonGbc.weighty = 1;
-        homeButton.setPreferredSize(new Dimension(60, 0));
 
         String rootPath = System.getProperty("user.dir");
         rootPath += "/res/img/";
@@ -27,55 +24,57 @@ public class TopBar extends JPanel{
         Image newImage = image.getScaledInstance(22,22, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImage);
 
+        contentPanel.setPreferredSize(new Dimension(contentWidth, 0));
+        contentPanel.setBackground(bgColor);
+        contentPanel.setAutoscrolls(true);
+        contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
+
+        setBorder(new EmptyBorder(0, 0, 0, 0));
+        setViewportBorder(new EmptyBorder(0, 0, 0, 0));
+
+        TopBarButton homeButton = (TopBarButton) addComponent(new TopBarButton(), "homeButton");
+        homeButton.setBounds(0,0,60,height);
         homeButton.setIcon(icon);
         homeButton.setFocusPainted(false);
         homeButton.setContentAreaFilled(true);
         homeButton.setBorderPainted(false);
-
-
         homeButton.setBackground(Color.WHITE);
         homeButton.previousColor = Color.WHITE;
         homeButton.changeStatus(true);
 
-        this.add(homeButton, homeButtonGbc);
-        homeButton.changeStatus(true);
+        //setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollBar horizontalScrollBar = getHorizontalScrollBar();
+        horizontalScrollBar.setUI(new PlainScrollBar(Color.WHITE, new Color(220, 220, 220)));
+        horizontalScrollBar.setPreferredSize(new Dimension(horizontalScrollBar.getWidth(), 2));
+        setColumnHeaderView(horizontalScrollBar);
 
-        buttonCount = 1;
+        setViewportView(contentPanel);
     }
 
-    private void wrap(){
-        JPanel rspacer = new JPanel();
-        GridBagConstraints rspacerGbc = new GridBagConstraints();
-
-        rspacerGbc.gridx = this.buttonCount;
-        rspacerGbc.gridy = 0;
-        rspacerGbc.fill = GridBagConstraints.BOTH;
-        rspacerGbc.weightx = 1;
-        rspacerGbc.weighty = 1;
-        rspacer.setBackground(new Color(36, 60, 148));
-
-        this.add(rspacer, rspacerGbc);
+    @Override
+    public JComponent addButton(JButton addition, String name) throws IllegalArgumentException{
+        //Note: name must be unique
+        JComponent retval = addComponent(addition, name);
+        Integer rightmostLocation = 60 + buttonCount*130;
+        addition.setBounds( rightmostLocation,0,130, height);
+        buttonCount++;
+        contentPanel.setPreferredSize(new Dimension(rightmostLocation+130 > 977? rightmostLocation+130:977, height-10));
+        return retval;
     }
 
-    //TODO: error handling
-    public void add(TopBarButton button){
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        if(buttonCount != 1){
-            this.remove(this.buttonCount);
+    public void removeButton(String name) throws IllegalArgumentException{
+        if(!components.containsKey(name)){
+            throw new IllegalArgumentException("Name does not exist");
         }
-
-        gbc.gridx = this.buttonCount;
-        gbc.gridy = 0;
-        gbc.weightx = 0;
-        gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.anchor = GridBagConstraints.WEST;
-
-        this.buttonCount++;
-
-        this.add(button, gbc);
-        this.wrap();
+        Integer removedLocation = components.get(name).getX();
+        contentPanel.remove(components.get(name));
+        components.remove(name);
+        components.values().forEach(v -> {
+            Integer buttonLoc = v.getX();
+            if(v.getX() > removedLocation){
+                v.setLocation(buttonLoc - 130, 0);
+            }
+        });
     }
 
 }
