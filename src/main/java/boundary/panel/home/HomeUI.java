@@ -13,7 +13,7 @@ public class HomeUI extends JPanel {
     Clock clock = new Clock();
     Thread timerThread = new Thread(new Clock());
 
-    public HomeUI(){
+    public HomeUI() {
         super();
         setLayout(null);
         setMinimumSize(new Dimension(720, 720));
@@ -21,7 +21,7 @@ public class HomeUI extends JPanel {
 
         JLabel selamatLabel = new JLabel("Selamat");
         selamatLabel.setFont(new Font("Inter", Font.PLAIN, 53));
-        selamatLabel.setBounds(278, 68, 200, 96);
+        selamatLabel.setBounds(268, 68, 250, 96);
         selamatLabel.setHorizontalAlignment(SwingConstants.LEFT);
         selamatLabel.setVerticalAlignment(SwingConstants.TOP);
         selamatLabel.setForeground(new Color(2374804));
@@ -41,7 +41,7 @@ public class HomeUI extends JPanel {
 
         clock.setLocation(102, 174);
 
-        try{
+        try {
 
             BufferedImage myPicture;
 
@@ -81,8 +81,7 @@ public class HomeUI extends JPanel {
             add(picChi);
             add(picRav);
             add(picNes);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Image Loading Failure: " + e.getMessage());
         }
 
@@ -94,12 +93,12 @@ public class HomeUI extends JPanel {
         startTimer();
     }
 
-    public void stopTimer(){
+    public void stopTimer() {
         System.out.println("Timer stopped");
         timerThread.interrupt();
     }
 
-    public void startTimer(){
+    public void startTimer() {
         System.out.println("Timer started");
         timerThread = new Thread(clock);
         timerThread.start();

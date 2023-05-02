@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("io.freefair.lombok") version "8.0.1"
+    application
 }
 
 group = "org.example"
@@ -22,4 +23,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("boundary.Tester")
 }
