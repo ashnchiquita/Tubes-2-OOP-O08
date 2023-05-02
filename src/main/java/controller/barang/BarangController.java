@@ -14,20 +14,45 @@ public class BarangController {
     System.out.println(dataIO.getByID(id));
   }
 
+  public List<Barang> getAllBarang() {
+    List<Barang> memberList = new ArrayList<>();
+    memberList = dataIO.getAllBarang();
+    return memberList;
+  }
+
   public void showAllBarang() {
     List<Barang> barangList = new ArrayList<>();
     barangList = dataIO.getAllBarang();
     barangList.stream().forEach(barang -> System.out.println(barang));
   }
 
-  public void addBarang() {
-    Barang newBarang = Barang.builder().id(11).name("keyboard").kategori("hardware").hargaJual(900).hargaBeli(1000).jumlah(1).gambar("").build();
-    System.out.println(dataIO.insertBarang(newBarang));
+  public boolean addNewBarang(String name, String kategori) {
+    List<Barang> barangList = dataIO.getAllBarang();
+    int id = barangList.size() + 1;
+
+    Barang newBarang = Barang.builder().id(id).name(name).kategori(kategori).hargaJual(0).hargaBeli(1).jumlah(0).gambar("").build();
+    return dataIO.insertBarang(newBarang);
   }
 
-  public void updateBarang(int id) {
-    Barang newDataBarang = Barang.builder().id(id).name("new_keyboard").kategori("hardware").hargaJual(950).hargaBeli(1050).jumlah(1).gambar("").build();
-    System.out.println(dataIO.updateBarang(11, newDataBarang));
+  public boolean addMoreBarang(int id) {
+    Barang barang = dataIO.getByID(id);
+    if (barang == null) {
+      return false;
+    }
+
+    barang.setJumlah(barang.getJumlah() + 1);
+    return dataIO.updateBarang(id, barang);
+  }
+
+  public boolean updateMemberData(int id, String name, String kategori) {
+    Barang barang  = dataIO.getByID(id);
+    if (barang == null) {
+      return false;
+    }
+
+    barang.setName(name);
+    barang.setKategori(kategori);
+    return dataIO.updateBarang(id, barang);
   }
 
   public void deleteBarang(int id) {
