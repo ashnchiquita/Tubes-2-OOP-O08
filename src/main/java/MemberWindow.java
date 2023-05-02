@@ -153,7 +153,9 @@ public class MemberWindow {
                 if (isSelected) {
                     setBackground(new Color(0xCDD6F6));
                 }
-        
+                if (!isSelected){
+                    setBackground(new Color(0x4C6EDF));
+                }
                 if (value instanceof String) {
                     setText((String)value);
                 } else if (value instanceof JButton) {
@@ -175,6 +177,22 @@ public class MemberWindow {
     
     private static Object[][] getData() {
         Object[][] data = {
+                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
+                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
+                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
+                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
+                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
+                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
+                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
+                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
+                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
+                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
+                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
+                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
+                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
+                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
+                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
+                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
                 {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
                 {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
                 {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
