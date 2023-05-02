@@ -3,8 +3,8 @@ package boundary.panel.pembelian;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import Util.Colors;
-import Util.RupiahConverter;
+import boundary.constants.Colors;
+import util.RupiahConverter;
 import boundary.widget.RoundedPanel;
 
 import java.awt.*;
@@ -46,12 +46,12 @@ public class TerimakasihPanel extends JPanel {
 
   private JLabel memberHeader = new JLabel("Member");
   private JLabel memberText = new JLabel("Transaksi ini dimiliki customer non-Member.");
-  private RoundedPanel tambahButtonContainer = new RoundedPanel(36, Colors.BUTTON_BLUE.getColor(), false, Color.WHITE,
+  private RoundedPanel tambahButtonContainer = new RoundedPanel(36, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton tambahButton = new JButton("+ Tambah");
   private JLabel memberNameText = new JLabel("");
 
-  private RoundedPanel selesaiButtonContainer = new RoundedPanel(24, Colors.BUTTON_BLUE.getColor(), false, Color.WHITE,
+  private RoundedPanel selesaiButtonContainer = new RoundedPanel(24, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton selesaiButton = new JButton("Selesai");
 
@@ -78,10 +78,10 @@ public class TerimakasihPanel extends JPanel {
 
     terimakasihLabel.setBounds(122, 66, 250, 40);
     terimakasihLabel.setFont(new Font("Inter", Font.BOLD, 32));
-    terimakasihLabel.setForeground(Colors.ORANGE.getColor());
+    terimakasihLabel.setForeground(Colors.ORANGE);
     this.add(terimakasihLabel);
 
-    billHeader.setForeground(Colors.DARK_BLUE.getColor());
+    billHeader.setForeground(Colors.DARK_BLUE);
     billHeader.setFont(new Font("Inter", Font.BOLD, 24));
     billHeader.setBounds(105, 151, 193, 30);
     this.add(billHeader);
@@ -96,7 +96,7 @@ public class TerimakasihPanel extends JPanel {
     subTextContainer.setBackground(Color.WHITE);
     subTextContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     subText.setPreferredSize(new Dimension(80, 18));
-    subText.setForeground(Colors.DARK_BLUE.getColor());
+    subText.setForeground(Colors.DARK_BLUE);
     subText.setFont(summaryFont);
     subTextContainer.add(subText, BorderLayout.CENTER);
     summaryTextPanel.add(subTextContainer, c);
@@ -106,7 +106,7 @@ public class TerimakasihPanel extends JPanel {
     subValueContainer.setBackground(Color.WHITE);
     subValueContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     subValue.setPreferredSize(new Dimension(266, 18));
-    subValue.setForeground(Colors.DARK_BLUE.getColor());
+    subValue.setForeground(Colors.DARK_BLUE);
     subValue.setFont(summaryFont);
     subValue.setHorizontalAlignment(SwingConstants.RIGHT);
     subValueContainer.add(subValue, BorderLayout.CENTER);
@@ -117,7 +117,7 @@ public class TerimakasihPanel extends JPanel {
     discountTextContainer.setBackground(Color.WHITE);
     discountTextContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     discountText.setPreferredSize(new Dimension(80, 18));
-    discountText.setForeground(Colors.DARK_BLUE.getColor());
+    discountText.setForeground(Colors.DARK_BLUE);
     discountText.setFont(summaryFont);
     discountTextContainer.add(discountText, BorderLayout.CENTER);
     summaryTextPanel.add(discountTextContainer, c);
@@ -127,7 +127,7 @@ public class TerimakasihPanel extends JPanel {
     discountValueContainer.setBackground(Color.WHITE);
     discountValueContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     discountValue.setPreferredSize(new Dimension(266, 18));
-    discountValue.setForeground(Colors.DARK_BLUE.getColor());
+    discountValue.setForeground(Colors.DARK_BLUE);
     discountValue.setFont(summaryFont);
     discountValue.setHorizontalAlignment(SwingConstants.RIGHT);
     discountValueContainer.add(discountValue, BorderLayout.CENTER);
@@ -138,7 +138,7 @@ public class TerimakasihPanel extends JPanel {
     taxTextContainer.setBackground(Color.WHITE);
     taxTextContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     taxText.setPreferredSize(new Dimension(80, 18));
-    taxText.setForeground(Colors.DARK_BLUE.getColor());
+    taxText.setForeground(Colors.DARK_BLUE);
     taxText.setFont(summaryFont);
     taxTextContainer.add(taxText, BorderLayout.CENTER);
     summaryTextPanel.add(taxTextContainer, c);
@@ -148,7 +148,7 @@ public class TerimakasihPanel extends JPanel {
     taxValueContainer.setBackground(Color.WHITE);
     taxValueContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     taxValue.setPreferredSize(new Dimension(266, 18));
-    taxValue.setForeground(Colors.DARK_BLUE.getColor());
+    taxValue.setForeground(Colors.DARK_BLUE);
     taxValue.setFont(summaryFont);
     taxValue.setHorizontalAlignment(SwingConstants.RIGHT);
     taxValueContainer.add(taxValue, BorderLayout.CENTER);
@@ -158,7 +158,7 @@ public class TerimakasihPanel extends JPanel {
     c.gridy = 3;
     totalTextContainer.setBackground(Color.WHITE);
     totalText.setPreferredSize(new Dimension(80, 18));
-    totalText.setForeground(Colors.DARK_BLUE.getColor());
+    totalText.setForeground(Colors.DARK_BLUE);
     totalText.setFont(summaryFont);
     totalTextContainer.add(totalText, BorderLayout.CENTER);
     summaryTextPanel.add(totalTextContainer, c);
@@ -167,7 +167,7 @@ public class TerimakasihPanel extends JPanel {
     c.gridy = 3;
     totalValueContainer.setBackground(Color.WHITE);
     totalValue.setPreferredSize(new Dimension(266, 18));
-    totalValue.setForeground(Colors.DARK_BLUE.getColor());
+    totalValue.setForeground(Colors.DARK_BLUE);
     totalValue.setFont(summaryFont);
     totalValue.setHorizontalAlignment(SwingConstants.RIGHT);
     totalValueContainer.add(totalValue, BorderLayout.CENTER);
@@ -177,7 +177,7 @@ public class TerimakasihPanel extends JPanel {
 
     memberHeader.setBounds(105, 394, 125, 35);
     memberHeader.setFont(new Font("Inter", Font.BOLD, 24));
-    memberHeader.setForeground(Colors.DARK_BLUE.getColor());
+    memberHeader.setForeground(Colors.DARK_BLUE);
     this.add(memberHeader);
 
     memberText.setBounds(105, 425, 350, 25);
@@ -202,7 +202,7 @@ public class TerimakasihPanel extends JPanel {
     }
 
     tambahButton.setBorder(null);
-    tambahButton.setBackground(Colors.BUTTON_BLUE.getColor());
+    tambahButton.setBackground(Colors.BUTTON_BLUE);
     tambahButton.setFocusPainted(false);
     tambahButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     tambahButton.setBounds(12, 2, 326, 32);
@@ -215,7 +215,7 @@ public class TerimakasihPanel extends JPanel {
     this.add(selesaiButtonContainer);
 
     selesaiButton.setBorder(null);
-    selesaiButton.setBackground(Colors.BUTTON_BLUE.getColor());
+    selesaiButton.setBackground(Colors.BUTTON_BLUE);
     selesaiButton.setFocusPainted(false);
     selesaiButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     selesaiButton.setBounds(9, 2, 187, 39);

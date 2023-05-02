@@ -3,9 +3,9 @@ package boundary.panel.pembelian;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import Util.Colors;
-import Util.RupiahConverter;
+import boundary.constants.Colors;
 import boundary.widget.RoundedPanel;
+import util.RupiahConverter;
 
 import java.awt.*;
 
@@ -50,10 +50,10 @@ public class CheckoutPanel extends JPanel {
   private RoundedPanel unduhButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(82, 117, 226), 2);
   private JButton unduhButton = new JButton("Unduh Transaksi");
 
-  private RoundedPanel batalButtonContainer = new RoundedPanel(10, Color.WHITE, true, Colors.RED.getColor(), 2);
+  private RoundedPanel batalButtonContainer = new RoundedPanel(10, Color.WHITE, true, Colors.RED, 2);
   private JButton batalButton = new JButton("Batal");
 
-  private RoundedPanel orderButtonContainer = new RoundedPanel(10, Colors.BUTTON_BLUE.getColor(), false, Color.WHITE,
+  private RoundedPanel orderButtonContainer = new RoundedPanel(10, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton orderButton = new JButton("Place Order");
 
@@ -79,10 +79,10 @@ public class CheckoutPanel extends JPanel {
 
     checkoutLabel.setBounds(122, 66, 180, 40);
     checkoutLabel.setFont(new Font("Inter", Font.BOLD, 32));
-    checkoutLabel.setForeground(Colors.ORANGE.getColor());
+    checkoutLabel.setForeground(Colors.ORANGE);
     this.add(checkoutLabel);
 
-    detailHeader.setForeground(Colors.DARK_BLUE.getColor());
+    detailHeader.setForeground(Colors.DARK_BLUE);
     detailHeader.setFont(new Font("Inter", Font.BOLD, 24));
     detailHeader.setBounds(105, 151, 193, 30);
     this.add(detailHeader);
@@ -97,7 +97,7 @@ public class CheckoutPanel extends JPanel {
     subTextContainer.setBackground(Color.WHITE);
     subTextContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     subText.setPreferredSize(new Dimension(80, 18));
-    subText.setForeground(Colors.DARK_BLUE.getColor());
+    subText.setForeground(Colors.DARK_BLUE);
     subText.setFont(summaryFont);
     subTextContainer.add(subText, BorderLayout.CENTER);
     summaryTextPanel.add(subTextContainer, c);
@@ -107,7 +107,7 @@ public class CheckoutPanel extends JPanel {
     subValueContainer.setBackground(Color.WHITE);
     subValueContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     subValue.setPreferredSize(new Dimension(266, 18));
-    subValue.setForeground(Colors.DARK_BLUE.getColor());
+    subValue.setForeground(Colors.DARK_BLUE);
     subValue.setFont(summaryFont);
     subValue.setHorizontalAlignment(SwingConstants.RIGHT);
     subValueContainer.add(subValue, BorderLayout.CENTER);
@@ -118,7 +118,7 @@ public class CheckoutPanel extends JPanel {
     discountTextContainer.setBackground(Color.WHITE);
     discountTextContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     discountText.setPreferredSize(new Dimension(80, 18));
-    discountText.setForeground(Colors.DARK_BLUE.getColor());
+    discountText.setForeground(Colors.DARK_BLUE);
     discountText.setFont(summaryFont);
     discountTextContainer.add(discountText, BorderLayout.CENTER);
     summaryTextPanel.add(discountTextContainer, c);
@@ -128,7 +128,7 @@ public class CheckoutPanel extends JPanel {
     discountValueContainer.setBackground(Color.WHITE);
     discountValueContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     discountValue.setPreferredSize(new Dimension(266, 18));
-    discountValue.setForeground(Colors.DARK_BLUE.getColor());
+    discountValue.setForeground(Colors.DARK_BLUE);
     discountValue.setFont(summaryFont);
     discountValue.setHorizontalAlignment(SwingConstants.RIGHT);
     discountValueContainer.add(discountValue, BorderLayout.CENTER);
@@ -139,7 +139,7 @@ public class CheckoutPanel extends JPanel {
     taxTextContainer.setBackground(Color.WHITE);
     taxTextContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     taxText.setPreferredSize(new Dimension(80, 18));
-    taxText.setForeground(Colors.DARK_BLUE.getColor());
+    taxText.setForeground(Colors.DARK_BLUE);
     taxText.setFont(summaryFont);
     taxTextContainer.add(taxText, BorderLayout.CENTER);
     summaryTextPanel.add(taxTextContainer, c);
@@ -149,7 +149,7 @@ public class CheckoutPanel extends JPanel {
     taxValueContainer.setBackground(Color.WHITE);
     taxValueContainer.setBorder(new EmptyBorder(0, 0, 20, 0));
     taxValue.setPreferredSize(new Dimension(266, 18));
-    taxValue.setForeground(Colors.DARK_BLUE.getColor());
+    taxValue.setForeground(Colors.DARK_BLUE);
     taxValue.setFont(summaryFont);
     taxValue.setHorizontalAlignment(SwingConstants.RIGHT);
     taxValueContainer.add(taxValue, BorderLayout.CENTER);
@@ -159,7 +159,7 @@ public class CheckoutPanel extends JPanel {
     c.gridy = 3;
     totalTextContainer.setBackground(Color.WHITE);
     totalText.setPreferredSize(new Dimension(80, 18));
-    totalText.setForeground(Colors.DARK_BLUE.getColor());
+    totalText.setForeground(Colors.DARK_BLUE);
     totalText.setFont(summaryFont);
     totalTextContainer.add(totalText, BorderLayout.CENTER);
     summaryTextPanel.add(totalTextContainer, c);
@@ -168,7 +168,7 @@ public class CheckoutPanel extends JPanel {
     c.gridy = 3;
     totalValueContainer.setBackground(Color.WHITE);
     totalValue.setPreferredSize(new Dimension(266, 18));
-    totalValue.setForeground(Colors.DARK_BLUE.getColor());
+    totalValue.setForeground(Colors.DARK_BLUE);
     totalValue.setFont(summaryFont);
     totalValue.setHorizontalAlignment(SwingConstants.RIGHT);
     totalValueContainer.add(totalValue, BorderLayout.CENTER);
@@ -178,7 +178,7 @@ public class CheckoutPanel extends JPanel {
 
     memberHeader.setBounds(105, 384, 125, 35);
     memberHeader.setFont(new Font("Inter", Font.BOLD, 24));
-    memberHeader.setForeground(Colors.DARK_BLUE.getColor());
+    memberHeader.setForeground(Colors.DARK_BLUE);
     this.add(memberHeader);
 
     memberDropdown.setBounds(105, 427, 373, 34);
@@ -208,7 +208,7 @@ public class CheckoutPanel extends JPanel {
     batalButton.setFocusPainted(false);
     batalButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     batalButton.setBounds(5, 2, 123, 43);
-    batalButton.setForeground(Colors.RED.getColor());
+    batalButton.setForeground(Colors.RED);
     batalButton.setFont(new Font("Inter", Font.BOLD, 18));
     batalButtonContainer.add(batalButton);
 
@@ -217,7 +217,7 @@ public class CheckoutPanel extends JPanel {
     this.add(orderButtonContainer);
 
     orderButton.setBorder(null);
-    orderButton.setBackground(Colors.BUTTON_BLUE.getColor());
+    orderButton.setBackground(Colors.BUTTON_BLUE);
     orderButton.setFocusPainted(false);
     orderButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     orderButton.setBounds(5, 2, 195, 43);

@@ -1,11 +1,7 @@
 package boundary.widget;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SideBar extends ScrollableButtonContainers {
     private Color fgColor;

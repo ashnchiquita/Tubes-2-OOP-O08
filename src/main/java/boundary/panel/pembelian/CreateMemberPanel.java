@@ -3,7 +3,7 @@ package boundary.panel.pembelian;
 import java.awt.*;
 import javax.swing.*;
 
-import Util.Colors;
+import boundary.constants.Colors;
 import boundary.widget.HintTextField;
 import boundary.widget.RoundedPanel;
 
@@ -13,11 +13,11 @@ public class CreateMemberPanel extends JPanel {
   private JLabel checkoutLabel = new JLabel("Data Member Baru");
 
   private JLabel namaTextLabel = new JLabel("Nama");
-  private RoundedPanel namaFieldContainer = new RoundedPanel(40, Color.WHITE, true, Colors.DARK_BLUE.getColor(), 1);
+  private RoundedPanel namaFieldContainer = new RoundedPanel(40, Color.WHITE, true, Colors.DARK_BLUE, 1);
   private JTextField namaField = new HintTextField("Masukkan nama pengguna...", 1);
 
   private JLabel teleponTextLabel = new JLabel("Nomor Telepon");
-  private RoundedPanel teleponFieldContainer = new RoundedPanel(40, Color.WHITE, true, Colors.DARK_BLUE.getColor(), 1);
+  private RoundedPanel teleponFieldContainer = new RoundedPanel(40, Color.WHITE, true, Colors.DARK_BLUE, 1);
   private JTextField teleponField = new HintTextField("Masukkan nomor telepon...", 1);
 
   private JLabel memberTextLabel = new JLabel("Jenis Member");
@@ -25,7 +25,7 @@ public class CreateMemberPanel extends JPanel {
   private JRadioButton vipOption = new JRadioButton("VIP");
   ButtonGroup memberGroup = new ButtonGroup();
 
-  private RoundedPanel createButtonContainer = new RoundedPanel(24, Colors.BUTTON_BLUE.getColor(), false, Color.WHITE,
+  private RoundedPanel createButtonContainer = new RoundedPanel(24, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton createButton = new JButton("+ Create Member");
 
@@ -51,12 +51,12 @@ public class CreateMemberPanel extends JPanel {
 
     checkoutLabel.setBounds(122, 66, 330, 40);
     checkoutLabel.setFont(new Font("Inter", Font.BOLD, 32));
-    checkoutLabel.setForeground(Colors.ORANGE.getColor());
+    checkoutLabel.setForeground(Colors.ORANGE);
     this.add(checkoutLabel);
 
     namaTextLabel.setBounds(119, 151, 140, 24);
     namaTextLabel.setFont(new Font("Inter", Font.BOLD, 15));
-    namaTextLabel.setForeground(Colors.DARK_BLUE.getColor());
+    namaTextLabel.setForeground(Colors.DARK_BLUE);
     this.add(namaTextLabel);
 
     namaFieldContainer.setLayout(null);
@@ -65,7 +65,7 @@ public class CreateMemberPanel extends JPanel {
 
     namaField.setFont(new Font("Inter", Font.PLAIN, 17));
     namaField.setBackground(Color.WHITE);
-    namaField.setForeground(Colors.DARK_BLUE.getColor());
+    namaField.setForeground(Colors.DARK_BLUE);
     namaField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
     namaField.setBorder(null);
     namaField.setBounds(15, 7, 350, 25);
@@ -73,7 +73,7 @@ public class CreateMemberPanel extends JPanel {
 
     teleponTextLabel.setBounds(119, 249, 140, 24);
     teleponTextLabel.setFont(new Font("Inter", Font.BOLD, 15));
-    teleponTextLabel.setForeground(Colors.DARK_BLUE.getColor());
+    teleponTextLabel.setForeground(Colors.DARK_BLUE);
     this.add(teleponTextLabel);
 
     teleponFieldContainer.setLayout(null);
@@ -82,7 +82,7 @@ public class CreateMemberPanel extends JPanel {
 
     teleponField.setFont(new Font("Inter", Font.PLAIN, 17));
     teleponField.setBackground(Color.WHITE);
-    teleponField.setForeground(Colors.DARK_BLUE.getColor());
+    teleponField.setForeground(Colors.DARK_BLUE);
     teleponField.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
     teleponField.setBorder(null);
     teleponField.setBounds(15, 7, 350, 25);
@@ -90,12 +90,12 @@ public class CreateMemberPanel extends JPanel {
 
     memberTextLabel.setBounds(119, 353, 140, 24);
     memberTextLabel.setFont(new Font("Inter", Font.BOLD, 15));
-    memberTextLabel.setForeground(Colors.DARK_BLUE.getColor());
+    memberTextLabel.setForeground(Colors.DARK_BLUE);
     this.add(memberTextLabel);
 
     memberOption.setBounds(125, 378, 183, 32);
     memberOption.setFont(new Font("Inter", Font.BOLD, 15));
-    memberOption.setForeground(Colors.DARK_BLUE.getColor());
+    memberOption.setForeground(Colors.DARK_BLUE);
     memberOption.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     memberOption.setFocusPainted(false);
     memberOption.setOpaque(false);
@@ -103,7 +103,7 @@ public class CreateMemberPanel extends JPanel {
 
     vipOption.setBounds(125, 407, 183, 32);
     vipOption.setFont(new Font("Inter", Font.BOLD, 15));
-    vipOption.setForeground(Colors.DARK_BLUE.getColor());
+    vipOption.setForeground(Colors.DARK_BLUE);
     vipOption.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     vipOption.setFocusPainted(false);
     vipOption.setOpaque(false);
@@ -117,7 +117,7 @@ public class CreateMemberPanel extends JPanel {
     this.add(createButtonContainer);
 
     createButton.setBorder(null);
-    createButton.setBackground(Colors.BUTTON_BLUE.getColor());
+    createButton.setBackground(Colors.BUTTON_BLUE);
     createButton.setFocusPainted(false);
     createButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     createButton.setBounds(9, 2, 194, 41);

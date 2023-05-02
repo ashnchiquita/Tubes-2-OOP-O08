@@ -99,8 +99,9 @@ public class MainUI {
         activePanels.put(homeButton, new HomeUI());
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button Pressed!");
-                loadPage(activePanels.get(homeButton));
+                if(topBar.getActive() != "homeButton"){
+                    loadPage(activePanels.get(homeButton));
+                }
             }
         } );
 
@@ -153,13 +154,12 @@ public class MainUI {
         JPanel panel = new JPanel();
         panel.add(new JLabel(name));
         activePanels.put(newbutton, panel);
-        newbutton.addMouseListener(new MouseAdapter() {
+        newbutton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent e) {
                 loadPage(activePanels.get(newbutton));
             }
-        } );
+        });
     }
 
     public void switchPage(TopBarButton button){

@@ -6,8 +6,8 @@ import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
 import javax.swing.event.ChangeListener;
 
-import Util.Colors;
-import Util.RupiahConverter;
+import boundary.constants.Colors;
+import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianListener;
 import boundary.observer.pembelian.PembelianObserver;
@@ -65,9 +65,9 @@ public class PembelianPanel extends JPanel implements PembelianListener {
   JLabel totalValue = new JLabel(RupiahConverter.convert(total));
 
   JPanel buttonPanel = new JPanel(new BorderLayout());
-  RoundedPanel cancelContainer = new RoundedPanel(9, Colors.DARK_BLUE.getColor(), true, Colors.RED.getColor(), 2);
+  RoundedPanel cancelContainer = new RoundedPanel(9, Colors.DARK_BLUE, true, Colors.RED, 2);
   JButton cancelButton = new JButton("Cancel");
-  RoundedPanel checkoutContainer = new RoundedPanel(42, Colors.BUTTON_BLUE.getColor(), false, Color.WHITE, 0);
+  RoundedPanel checkoutContainer = new RoundedPanel(42, Colors.BUTTON_BLUE, false, Color.WHITE, 0);
   JButton checkoutButton = new JButton("Checkout");
 
   JPanel buyListPanel = new JPanel();
@@ -86,7 +86,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     this.add(scrollGridPanel, BorderLayout.CENTER);
 
     buyPanel.setPreferredSize(new Dimension((int) (0.31 * vw), vh));
-    buyPanel.setBackground(Colors.DARK_BLUE.getColor());
+    buyPanel.setBackground(Colors.DARK_BLUE);
     this.add(buyPanel, BorderLayout.EAST);
 
     GridBagConstraints c = new GridBagConstraints();
@@ -119,7 +119,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
       }
     });
 
-    orderNumPanel.setBackground(Colors.DARK_BLUE.getColor());
+    orderNumPanel.setBackground(Colors.DARK_BLUE);
     orderNumPanel.setPreferredSize(new Dimension(400, 69));
     orderNumPanel.setLayout(null);
     buyPanel.add(orderNumPanel, BorderLayout.NORTH);
@@ -137,16 +137,16 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     orderLine.setBounds(14, 45, (int) (0.28 * vw), 1);
     orderNumPanel.add(orderLine);
 
-    orderSummaryPanel.setBackground(Colors.DARK_BLUE.getColor());
+    orderSummaryPanel.setBackground(Colors.DARK_BLUE);
     orderSummaryPanel.setPreferredSize(new Dimension(400, 262));
     buyPanel.add(orderSummaryPanel, BorderLayout.SOUTH);
 
-    summaryTextPanel.setBackground(Colors.DARK_BLUE.getColor());
+    summaryTextPanel.setBackground(Colors.DARK_BLUE);
     Font summaryFont = new Font("Inter", Font.BOLD, 17);
 
     c.gridx = 0;
     c.gridy = 0;
-    subTextContainer.setBackground(Colors.DARK_BLUE.getColor());
+    subTextContainer.setBackground(Colors.DARK_BLUE);
     subTextContainer.setBorder(new EmptyBorder(15, 0, 10, 0));
     subText.setPreferredSize(new Dimension(80, 18));
     subText.setForeground(Color.WHITE);
@@ -156,8 +156,8 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 0;
-    subValueContainer.setBackground(Colors.DARK_BLUE.getColor());
-    orderSummaryPanel.setBackground(Colors.DARK_BLUE.getColor());
+    subValueContainer.setBackground(Colors.DARK_BLUE);
+    orderSummaryPanel.setBackground(Colors.DARK_BLUE);
     subValueContainer.setBorder(new EmptyBorder(15, 0, 10, 0));
     subValue.setPreferredSize(new Dimension(266, 18));
     subValue.setForeground(Color.WHITE);
@@ -168,7 +168,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 0;
     c.gridy = 1;
-    discountTextContainer.setBackground(Colors.DARK_BLUE.getColor());
+    discountTextContainer.setBackground(Colors.DARK_BLUE);
     discountTextContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     discountText.setPreferredSize(new Dimension(80, 18));
     discountText.setForeground(Color.WHITE);
@@ -178,7 +178,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 1;
-    discountValueContainer.setBackground(Colors.DARK_BLUE.getColor());
+    discountValueContainer.setBackground(Colors.DARK_BLUE);
     discountValueContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     discountValue.setPreferredSize(new Dimension(266, 18));
     discountValue.setForeground(Color.WHITE);
@@ -189,7 +189,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 0;
     c.gridy = 2;
-    taxTextContainer.setBackground(Colors.DARK_BLUE.getColor());
+    taxTextContainer.setBackground(Colors.DARK_BLUE);
     taxTextContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     taxText.setPreferredSize(new Dimension(80, 18));
     taxText.setForeground(Color.WHITE);
@@ -199,7 +199,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 2;
-    taxValueContainer.setBackground(Colors.DARK_BLUE.getColor());
+    taxValueContainer.setBackground(Colors.DARK_BLUE);
     taxValueContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     taxValue.setPreferredSize(new Dimension(266, 18));
     taxValue.setForeground(Color.WHITE);
@@ -210,7 +210,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 0;
     c.gridy = 3;
-    totalTextContainer.setBackground(Colors.DARK_BLUE.getColor());
+    totalTextContainer.setBackground(Colors.DARK_BLUE);
     totalText.setPreferredSize(new Dimension(80, 18));
     totalText.setForeground(Color.WHITE);
     totalText.setFont(summaryFont);
@@ -219,7 +219,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
     c.gridx = 1;
     c.gridy = 3;
-    totalValueContainer.setBackground(Colors.DARK_BLUE.getColor());
+    totalValueContainer.setBackground(Colors.DARK_BLUE);
     totalValue.setPreferredSize(new Dimension(266, 18));
     totalValue.setForeground(Color.WHITE);
     totalValue.setFont(summaryFont);
@@ -230,14 +230,14 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     orderSummaryPanel.add(summaryTextPanel, BorderLayout.NORTH);
 
     buttonPanel.setBorder(new EmptyBorder(51, 27, 43, 22));
-    buttonPanel.setBackground(Colors.DARK_BLUE.getColor());
+    buttonPanel.setBackground(Colors.DARK_BLUE);
     orderSummaryPanel.add(buttonPanel, BorderLayout.CENTER);
 
     cancelContainer.setOpaque(false);
     cancelContainer.setLayout(null);
     cancelContainer.setPreferredSize(new Dimension(134, 49));
-    cancelButton.setBackground(Colors.DARK_BLUE.getColor());
-    cancelButton.setForeground(Colors.RED.getColor());
+    cancelButton.setBackground(Colors.DARK_BLUE);
+    cancelButton.setForeground(Colors.RED);
     cancelButton.setFont(new Font("Inter", Font.BOLD, 17));
     cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     cancelButton.setBounds(4, 4, 126, 41);
@@ -250,7 +250,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     checkoutContainer.setLayout(null);
     checkoutContainer.setPreferredSize(new Dimension(205, 49));
     checkoutButton.setFont(new Font("Inter", Font.BOLD, 17));
-    checkoutButton.setBackground(Colors.BUTTON_BLUE.getColor());
+    checkoutButton.setBackground(Colors.BUTTON_BLUE);
     checkoutButton.setForeground(Color.WHITE);
     checkoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     checkoutButton.setBorder(null);
@@ -259,7 +259,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     checkoutContainer.add(checkoutButton);
     buttonPanel.add(checkoutContainer, BorderLayout.EAST);
 
-    buyListPanel.setBackground(Colors.DARK_BLUE.getColor());
+    buyListPanel.setBackground(Colors.DARK_BLUE);
     buyListPanel.setLayout(new BoxLayout(buyListPanel, BoxLayout.Y_AXIS));
 
     buyListScroll.getViewport().addChangeListener(new ChangeListener() {

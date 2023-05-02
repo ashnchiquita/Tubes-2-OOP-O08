@@ -1,7 +1,7 @@
-package Boundary.LaporanUI.Component;
+package boundary.widget;
 
-import Boundary.Util.Colors;
-import Boundary.Util.RoundedPanel;
+import boundary.constants.Colors;
+import boundary.widget.RoundedPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +12,7 @@ public class RingkasanCard extends RoundedPanel {
     private final String subRingkasan;
 
     public RingkasanCard(String judulRingkasan, String subRingkasan) {
-        super(24, Colors.WHITE.getColor(), true, Colors.MED_GRAY.getColor(), 1);
+        super(24, Colors.WHITE, true, Colors.MED_GRAY, 1);
         this.judulRingkasan = judulRingkasan;
         this.subRingkasan = subRingkasan;
         this.setPreferredSize(new Dimension(300, 100));
@@ -21,7 +21,7 @@ public class RingkasanCard extends RoundedPanel {
         // this.setLayout(null);
         JPanel labels = new JPanel();
         labels.setLayout(new BoxLayout(labels, BoxLayout.Y_AXIS));
-        labels.setBackground(Colors.WHITE.getColor());
+        labels.setBackground(Colors.WHITE);
 
         // put judul and sub
         Font light =  new Font("Inter", Font.PLAIN, 17);
@@ -29,22 +29,22 @@ public class RingkasanCard extends RoundedPanel {
 
         JPanel labelsSubL = new JPanel();
         labelsSubL.setLayout(new BorderLayout());
-        labelsSubL.setBackground(Colors.WHITE.getColor());
+        labelsSubL.setBackground(Colors.WHITE);
 
         // judul
         JLabel judulL = new JLabel(this.judulRingkasan);
         judulL.setFont(light);
-        judulL.setForeground(Colors.DARK_BLUE.getColor());
+        judulL.setForeground(Colors.DARK_BLUE);
         labelsSubL.add(judulL, BorderLayout.WEST);
 
         JPanel labelsSubSubL = new JPanel();
         labelsSubSubL.setLayout(new BorderLayout());
-        labelsSubSubL.setBackground(Colors.WHITE.getColor());
+        labelsSubSubL.setBackground(Colors.WHITE);
 
         // sub
         JLabel subL = new JLabel(this.subRingkasan);
         subL.setFont(medium);
-        subL.setForeground(Colors.DARK_BLUE.getColor());
+        subL.setForeground(Colors.DARK_BLUE);
         labelsSubSubL.add(subL, BorderLayout.WEST);
 
         // add to panel

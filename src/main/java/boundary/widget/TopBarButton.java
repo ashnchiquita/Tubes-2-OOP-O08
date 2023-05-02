@@ -1,4 +1,6 @@
 package boundary.widget;
+import boundary.constants.Colors;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -11,10 +13,10 @@ public class TopBarButton extends HoverButton {
 
     public TopBarButton(){
         super();
-        setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
+        setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Colors.WHITE));
         active = false;
         defaultColor = new Color(75, 129, 238);
-        activeColor = Color.white;
+        activeColor = Colors.WHITE;
         setPreferredSize(new Dimension(180, 0));
 
         setFocusPainted(false);

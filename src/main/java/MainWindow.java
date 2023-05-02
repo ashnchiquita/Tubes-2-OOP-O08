@@ -1,11 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
 
-import Util.Colors;
-import boundary.panel.pembelian.CheckoutPanel;
-import boundary.panel.pembelian.CreateMemberPanel;
+import boundary.constants.Colors;
 import boundary.panel.pembelian.PembelianPanel;
-import boundary.panel.pembelian.TerimakasihPanel;
 
 public class MainWindow {
   private static void showUI() {
@@ -20,7 +17,7 @@ public class MainWindow {
     JPanel sideNav = new JPanel();
     sideNav.setPreferredSize(new Dimension(230, vh));
 
-    sideNav.setBackground(Colors.LIGHT_BLUE.getColor());
+    sideNav.setBackground(Colors.LIGHT_BLUE);
     mainFrame.add(sideNav, BorderLayout.WEST);
 
     JPanel mainRight = new JPanel();
@@ -28,7 +25,7 @@ public class MainWindow {
     mainFrame.add(mainRight, BorderLayout.CENTER);
 
     JPanel topPanel = new JPanel();
-    topPanel.setBackground(Colors.DARK_BLUE.getColor());
+    topPanel.setBackground(Colors.DARK_BLUE);
     topPanel.setPreferredSize(new Dimension((int) (0.81 * vw), 48));
     mainRight.add(topPanel, BorderLayout.NORTH);
 

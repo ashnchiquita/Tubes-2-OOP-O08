@@ -1,15 +1,14 @@
-package Boundary.LaporanUI;
+package boundary.panel.laporan;
 
-import Boundary.LaporanUI.Component.RingkasanCard;
-import Boundary.Util.Colors;
-import Boundary.Util.HintTextField;
-import Boundary.Util.RoundedPanel;
+import boundary.widget.HintTextField;
+import boundary.constants.Colors;
+import boundary.widget.RingkasanCard;
+
+import boundary.widget.RoundedPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 import java.util.Arrays;
@@ -67,7 +66,7 @@ public class LaporanPanel extends JPanel {
     public LaporanPanel() {
         isIDFound = false;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBackground(Colors.WHITE.getColor());
+        this.setBackground(Colors.WHITE);
         Font light =  new Font("Inter", Font.PLAIN, 17);
         Font medium = new Font("Inter", Font.BOLD, 24);
         Font bold = new Font("Inter", Font.BOLD, 33);
@@ -86,25 +85,25 @@ public class LaporanPanel extends JPanel {
 
         JPanel ringkasanPsubL = new JPanel();
         ringkasanPsubL.setLayout(new BorderLayout());
-        ringkasanPsubL.setBackground(Colors.WHITE.getColor());
+        ringkasanPsubL.setBackground(Colors.WHITE);
 
         JLabel ringkasanL = new JLabel("Ringkasan Penjualan");
         ringkasanL.setFont(bold);
-        ringkasanL.setForeground(Colors.ORANGE.getColor());
+        ringkasanL.setForeground(Colors.ORANGE);
         ringkasanL.setHorizontalAlignment(0);
         ringkasanPsubL.add(ringkasanL, BorderLayout.WEST);
 
         JPanel ringkasanPsubCards = new JPanel();
         ringkasanPsubCards.setLayout(new BorderLayout());
-        ringkasanPsubCards.setBackground(Colors.WHITE.getColor());
+        ringkasanPsubCards.setBackground(Colors.WHITE);
 
         JPanel ringkasanCards = new JPanel();
         ringkasanCards.setLayout(new BoxLayout(ringkasanCards, BoxLayout.X_AXIS));
-        ringkasanCards.setBackground(Colors.WHITE.getColor());
+        ringkasanCards.setBackground(Colors.WHITE);
 
         for (String[] strings : ringkasanStr) {
             JPanel container = new JPanel(new BorderLayout());
-            container.setBackground(Colors.WHITE.getColor());
+            container.setBackground(Colors.WHITE);
             container.setDoubleBuffered(true);
 
             RingkasanCard card = new RingkasanCard(strings[0], strings[1]);
@@ -129,18 +128,18 @@ public class LaporanPanel extends JPanel {
 
         JPanel laporanPsubL = new JPanel();
         laporanPsubL.setLayout(new BorderLayout());
-        laporanPsubL.setBackground(Colors.WHITE.getColor());
+        laporanPsubL.setBackground(Colors.WHITE);
 
         JLabel laporanL = new JLabel("Laporan Penjualan");
         laporanL.setFont(bold);
-        laporanL.setForeground(Colors.ORANGE.getColor());
+        laporanL.setForeground(Colors.ORANGE);
         laporanPsubL.add(laporanL, BorderLayout.WEST);
 
         JPanel laporanPsubBtn = new JPanel();
         laporanPsubBtn.setLayout(new BorderLayout());
-        laporanPsubBtn.setBackground(Colors.WHITE.getColor());
+        laporanPsubBtn.setBackground(Colors.WHITE);
 
-        RoundedPanel laporanBtnP = new RoundedPanel(20, Colors.DARK_BLUE.getColor(), false, Colors.WHITE.getColor(), 0);
+        RoundedPanel laporanBtnP = new RoundedPanel(20, Colors.DARK_BLUE, false, Colors.WHITE, 0);
         laporanBtnP.setOpaque(false);
         laporanBtnP.setLayout(null);
         laporanBtnP.setPreferredSize(new Dimension(170, 40));
@@ -148,8 +147,8 @@ public class LaporanPanel extends JPanel {
         laporanBtnP.setMinimumSize(new Dimension(170, 40));
         JButton laporanBtn = new JButton("Unduh Laporan");
         laporanBtn.setFont(light);
-        laporanBtn.setBackground(Colors.DARK_BLUE.getColor());
-        laporanBtn.setForeground(Colors.WHITE.getColor());
+        laporanBtn.setBackground(Colors.DARK_BLUE);
+        laporanBtn.setForeground(Colors.WHITE);
         laporanBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         laporanBtn.setBorder(null);
         laporanBtn.setFocusPainted(false);
@@ -172,36 +171,36 @@ public class LaporanPanel extends JPanel {
 
         JPanel fixedBillPsubL = new JPanel();
         fixedBillPsubL.setLayout(new BorderLayout());
-        fixedBillPsubL.setBackground(Colors.WHITE.getColor());
+        fixedBillPsubL.setBackground(Colors.WHITE);
 
         JLabel fixedBillL = new JLabel("Fixed Bill");
         fixedBillL.setFont(bold);
-        fixedBillL.setForeground(Colors.ORANGE.getColor());
+        fixedBillL.setForeground(Colors.ORANGE);
         fixedBillPsubL.add(fixedBillL, BorderLayout.WEST);
 
         JPanel fixedBillPsubSubL = new JPanel();
         fixedBillPsubSubL.setLayout(new BorderLayout());
-        fixedBillPsubSubL.setBackground(Colors.WHITE.getColor());
+        fixedBillPsubSubL.setBackground(Colors.WHITE);
 
         JLabel fixedBillSubL = new JLabel("ID Pengguna");
         fixedBillSubL.setFont(light);
-        fixedBillSubL.setForeground(Colors.DARK_BLUE.getColor());
+        fixedBillSubL.setForeground(Colors.DARK_BLUE);
         fixedBillPsubSubL.add(fixedBillSubL, BorderLayout.WEST);
 
         JPanel fixedBillPsubID = new JPanel();
         fixedBillPsubID.setLayout(new BorderLayout());
-        fixedBillPsubID.setBackground(Colors.WHITE.getColor());
+        fixedBillPsubID.setBackground(Colors.WHITE);
 
-        RoundedPanel fixedBillIDP = new RoundedPanel(20, Colors.WHITE.getColor(), true, Colors.DARK_BLUE.getColor(), 1);
+        RoundedPanel fixedBillIDP = new RoundedPanel(20, Colors.WHITE, true, Colors.DARK_BLUE, 1);
         fixedBillIDP.setOpaque(false);
         fixedBillIDP.setLayout(null);
         fixedBillIDP.setPreferredSize(new Dimension(380, 40));
         fixedBillIDP.setMaximumSize(new Dimension(380, 40));
         fixedBillIDP.setMinimumSize(new Dimension(380, 40));
-        JTextField idField = new HintTextField("Masukkan ID pengguna...", 1);
+        JTextField idField = new HintTextField.Hint("Masukkan ID pengguna...", 1);
         idField.setFont(light);
-        idField.setBackground(Colors.WHITE.getColor());
-        idField.setForeground(Colors.DARK_BLUE.getColor());
+        idField.setBackground(Colors.WHITE);
+        idField.setForeground(Colors.DARK_BLUE);
         idField.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         idField.setBorder(null);
         idField.setBounds(15, 7, 350, 25);
@@ -210,9 +209,9 @@ public class LaporanPanel extends JPanel {
 
         JPanel fixedBillPsubSearchID = new JPanel();
         fixedBillPsubSearchID.setLayout(new BorderLayout());
-        fixedBillPsubSearchID.setBackground(Colors.WHITE.getColor());
+        fixedBillPsubSearchID.setBackground(Colors.WHITE);
 
-        RoundedPanel searchIDP = new RoundedPanel(20, Colors.DARK_BLUE.getColor(), false, Colors.WHITE.getColor(), 0);
+        RoundedPanel searchIDP = new RoundedPanel(20, Colors.DARK_BLUE, false, Colors.WHITE, 0);
         searchIDP.setOpaque(false);
         searchIDP.setLayout(null);
         searchIDP.setPreferredSize(new Dimension(170, 40));
@@ -221,8 +220,8 @@ public class LaporanPanel extends JPanel {
         JButton searchIDBtn = new JButton("Cari ID");
 
         searchIDBtn.setFont(light);
-        searchIDBtn.setBackground(Colors.DARK_BLUE.getColor());
-        searchIDBtn.setForeground(Colors.WHITE.getColor());
+        searchIDBtn.setBackground(Colors.DARK_BLUE);
+        searchIDBtn.setForeground(Colors.WHITE);
         searchIDBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchIDBtn.setBorder(null);
         searchIDBtn.setFocusPainted(false);
@@ -232,9 +231,9 @@ public class LaporanPanel extends JPanel {
 
         JPanel fixedBillPsubBtn = new JPanel();
         fixedBillPsubBtn.setLayout(new BorderLayout());
-        fixedBillPsubBtn.setBackground(Colors.WHITE.getColor());
+        fixedBillPsubBtn.setBackground(Colors.WHITE);
 
-        RoundedPanel fixedBillBtnP = new RoundedPanel(20, Colors.DARK_BLUE.getColor(), false, Colors.WHITE.getColor(), 0);
+        RoundedPanel fixedBillBtnP = new RoundedPanel(20, Colors.DARK_BLUE, false, Colors.WHITE, 0);
         fixedBillBtnP.setOpaque(false);
         fixedBillBtnP.setLayout(null);
         fixedBillBtnP.setPreferredSize(new Dimension(170, 40));
@@ -245,8 +244,8 @@ public class LaporanPanel extends JPanel {
         // jadi tombol search ID gaperlu ada
         fixedBillBtn.addActionListener(e -> fixedBillBtnAction());
         fixedBillBtn.setFont(light);
-        fixedBillBtn.setBackground(Colors.DARK_BLUE.getColor());
-        fixedBillBtn.setForeground(Colors.WHITE.getColor());
+        fixedBillBtn.setBackground(Colors.DARK_BLUE);
+        fixedBillBtn.setForeground(Colors.WHITE);
         fixedBillBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         fixedBillBtn.setBorder(null);
         fixedBillBtn.setFocusPainted(false);
@@ -272,9 +271,9 @@ public class LaporanPanel extends JPanel {
         ringkasanP.setOpaque(false);
         laporanP.setOpaque(false);
         fixedBillP.setOpaque(false);
-        wrapperRingkasan.setBackground(Colors.WHITE.getColor());
-        wrapperLaporan.setBackground(Colors.WHITE.getColor());
-        wrapperFixedBill.setBackground(Colors.WHITE.getColor());
+        wrapperRingkasan.setBackground(Colors.WHITE);
+        wrapperLaporan.setBackground(Colors.WHITE);
+        wrapperFixedBill.setBackground(Colors.WHITE);
 
         // Add semua
         this.add(wrapperRingkasan);

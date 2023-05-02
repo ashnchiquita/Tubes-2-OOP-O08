@@ -3,14 +3,10 @@ package boundary.widget;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 
-public class TopBar extends ScrollableButtonContainers{
+public class TopBar extends ScrollableButtonContainers {
     private Color bgColor;
     private Integer contentWidth;
     private Integer height;
@@ -69,6 +65,10 @@ public class TopBar extends ScrollableButtonContainers{
         setColumnHeaderView(horizontalScrollBar);
 
         setViewportView(contentPanel);
+    }
+
+    public String getActive(){
+        return active;
     }
 
     private void registerButtonLogic(TopBarButton addition, String name){

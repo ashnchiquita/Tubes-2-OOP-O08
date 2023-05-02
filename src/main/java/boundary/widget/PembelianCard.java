@@ -7,10 +7,10 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Util.RupiahConverter;
+import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianObserver;
-import Util.Colors;
+import boundary.constants.Colors;
 
 import java.awt.geom.RoundRectangle2D;
 
@@ -18,7 +18,7 @@ public class PembelianCard extends RoundedPanel {
   private PembelianObserver observer;
 
   public PembelianCard(int id, String title, String subtitle, float price, String imagePath) {
-    super(20, Color.WHITE, true, Colors.MED_GRAY.getColor(), 1);
+    super(20, Color.WHITE, true, Colors.MED_GRAY, 1);
 
     this.setLayout(null);
 
@@ -74,11 +74,11 @@ public class PembelianCard extends RoundedPanel {
 
     JLabel priceLabel = new JLabel(RupiahConverter.convert(price));
     priceLabel.setFont(new Font("Rubik Light", Font.BOLD, 14));
-    priceLabel.setForeground(Colors.PEMBELIAN_BLUE_LIGHT.getColor());
+    priceLabel.setForeground(Colors.PEMBELIAN_BLUE_LIGHT);
     priceLabel.setBounds(10, 54, 58, 16);
     bottomContainer.add(priceLabel);
 
-    RoundedPanel buttonContainer = new RoundedPanel(20, Colors.PEMBELIAN_BLUE_LIGHT.getColor(), false, Color.BLACK, 0);
+    RoundedPanel buttonContainer = new RoundedPanel(20, Colors.PEMBELIAN_BLUE_LIGHT, false, Color.BLACK, 0);
     buttonContainer.setBounds(113, 48, 32, 30);
     buttonContainer.setOpaque(false);
     buttonContainer.setLayout(null);
@@ -89,7 +89,7 @@ public class PembelianCard extends RoundedPanel {
         buttonImage.getImage().getScaledInstance(16, 18, java.awt.Image.SCALE_SMOOTH));
     JButton addButton = new JButton(buttonImageScaled);
     addButton.setBounds(2, 2, 28, 26);
-    addButton.setBackground(Colors.PEMBELIAN_BLUE_LIGHT.getColor());
+    addButton.setBackground(Colors.PEMBELIAN_BLUE_LIGHT);
     addButton.setBorder(null);
     addButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     addButton
