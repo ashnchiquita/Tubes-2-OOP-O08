@@ -1,5 +1,7 @@
 package boundary.panel.inventaris;
 
+import boundary.constants.Colors;
+import boundary.widget.PlainScrollBar;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 import boundary.widget.RoundedPanel;
@@ -105,6 +107,7 @@ public class DaftarBarangPanel extends JPanel{
         itemList.getColumnModel().getColumn(4).setPreferredWidth(100);
         itemList.getColumnModel().getColumn(5).setPreferredWidth(200);
         scrollListPanel.setViewportView(itemList);
+        scrollListPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
         // Set transparent table lines
         itemList.setGridColor(new Color(240, 240, 240));
