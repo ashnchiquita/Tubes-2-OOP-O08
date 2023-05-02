@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package org.example;
+package boundary.panel.settings;
 
 /**
  *
  * @author Maggie Zeta
  */
-public class settings extends javax.swing.JFrame {
+public class Settings extends javax.swing.JFrame {
 
     /**
      * Creates new form settings
      */
-    public settings() {
+    public Settings() {
         initComponents();
     }
 

@@ -13,19 +13,18 @@ import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainUI {
+public class MainWindow extends JFrame {
     private JPanel contentPanel;
     private JPanel contentPanelView;
     private boundary.enums.PanelEnum contentEnum;
     private SideBar sidePanel;
     private TopBar topBar;
     private Integer counter = 0;
-    private Map<TopBarButton, JPanel> activePanels;
+    private Map<String, JPanel> activePanels;
 
-    public MainUI(){
+    public MainWindow(){
         contentEnum = PanelEnum.HOME;
         activePanels = new HashMap<>();
-        JFrame mainWindow = new JFrame();
         JPanel mainPanel = new JPanel();
 
         mainPanel.setLayout(new GridBagLayout());
@@ -86,16 +85,17 @@ public class MainUI {
         sidePanel.addButton(new SideBarButton("Support.png", "Pengaturan"), "pengaturanButton");
         ((JButton) sidePanel.getComponent("pengaturanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                //activePanels.containsValue(JPanel.class);
                 addWindow("Pengaturan", new JPanel());
             }
         } );
 
         TopBarButton homeButton = (TopBarButton) topBar.getComponent("homeButton");
-        activePanels.put(homeButton, new HomeUI());
+        activePanels.put("homeButton", new HomeUI());
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(topBar.getActive() != "homeButton"){
-                    loadPage(activePanels.get(homeButton));
+                    loadPage(activePanels.get("homeButton"));
                 }
             }
         } );
@@ -109,18 +109,18 @@ public class MainUI {
         this.contentPanel = contentPanel;
 
 
-        loadPage(activePanels.get(homeButton));
+        loadPage(activePanels.get("homeButton"));
 
 
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setMinimumSize(new Dimension(1280,720));
-        mainWindow.setResizable(false);
-        mainWindow.add(mainPanel);
-        mainWindow.pack();
-        mainWindow.setVisible(true);
-        mainWindow.setTitle("Cashoria");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(1280,720));
+        setResizable(false);
+        add(mainPanel);
+        pack();
+        setVisible(true);
+        setTitle("Cashoria");
 
-        mainWindow.addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() {
             @Override
             public void windowIconified(WindowEvent e) {
                 super.windowIconified(e);
@@ -145,11 +145,19 @@ public class MainUI {
         String name = "content" + counter.toString();
         TopBarTab newbutton = new TopBarTab(tabLabel);
         topBar.addButton(newbutton, name);
-        activePanels.put(newbutton, panel);
+        activePanels.put(name, panel);
         newbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadPage(activePanels.get(newbutton));
+                loadPage(activePanels.get(name));
+            }
+        });
+        newbutton.onClose(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((TopBarButton) topBar.getComponent("homeButton")).doClick();
+                topBar.removeButton(name);
+                activePanels.remove(name);
             }
         });
         newbutton.doClick();
@@ -157,7 +165,6 @@ public class MainUI {
     }
 
     public void loadPage(JPanel panel){
-        //TODO: loadPage function
         contentPanel.removeAll();
         contentPanel.revalidate();
 
@@ -166,12 +173,6 @@ public class MainUI {
 
         contentPanel.add(contentPanelView, BorderLayout.CENTER);
         contentPanel.repaint();
-    }
-
-
-    public static void main(String[] args) {
-        new MainUI();
-        System.out.print("Compile Success!");
     }
 }
 

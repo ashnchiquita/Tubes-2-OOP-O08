@@ -4,6 +4,7 @@ import boundary.constants.Colors;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class TopBarTab extends TopBarButton{
     RoundedPanel marker;
@@ -52,5 +53,9 @@ public class TopBarTab extends TopBarButton{
         }
         marker.setBounds(15, 12, 20, 20);
         add(marker);
+    }
+
+    public void onClose(ActionListener listener){
+        closeButton.addActionListener(listener);
     }
 }

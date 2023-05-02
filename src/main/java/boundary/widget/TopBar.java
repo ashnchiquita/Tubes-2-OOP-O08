@@ -117,11 +117,14 @@ public class TopBar extends ScrollableButtonContainers {
         Integer removedLocation = components.get(name).getX();
         contentPanel.remove(components.get(name));
         components.remove(name);
+        buttonCount--;
+        revalidate();
         components.values().forEach(v -> {
             Integer buttonLoc = v.getX();
             if(v.getX() > removedLocation){
                 v.setLocation(buttonLoc - defaultButtonSize, 0);
             }
         });
+        repaint();
     }
 }
