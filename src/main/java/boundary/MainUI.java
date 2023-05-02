@@ -1,6 +1,9 @@
 package boundary;
 
 import boundary.panel.home.HomeUI;
+import boundary.panel.inventaris.DaftarBarangPanel;
+import boundary.panel.laporan.LaporanPanel;
+import boundary.panel.pembelian.PembelianPanel;
 import boundary.widget.*;
 import boundary.enums.PanelEnum;
 
@@ -58,32 +61,32 @@ public class MainUI {
         sidePanel.addButton(new SideBarButton("Kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Pembayaran");
+                addWindow("Pembayaran", new PembelianPanel(0));
             }
         } );
         sidePanel.addButton(new SideBarButton("Laporan.png", "Laporan"), "laporanButton");
         ((JButton) sidePanel.getComponent("laporanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Laporan");
+                addWindow("Laporan", new LaporanPanel());
             }
         });
 
         sidePanel.addButton(new SideBarButton("Member.png", "Member"), "MemberButton");
         ((JButton) sidePanel.getComponent("MemberButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Member");
+                addWindow("Member", new JPanel());
             }
         } );
         sidePanel.addButton(new SideBarButton("Inventaris.png", "Inventaris"), "inventarisButton");
         ((JButton) sidePanel.getComponent("inventarisButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Inventaris");
+                addWindow("Inventaris", new DaftarBarangPanel());
             }
         } );
         sidePanel.addButton(new SideBarButton("Support.png", "Pengaturan"), "pengaturanButton");
         ((JButton) sidePanel.getComponent("pengaturanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Pengaturan");
+                addWindow("Pengaturan", new JPanel());
             }
         } );
 
@@ -138,13 +141,10 @@ public class MainUI {
         });
     }
 
-    public void addWindow(String tabLabel){
+    public void addWindow(String tabLabel, JPanel panel){
         String name = "content" + counter.toString();
-        topBar.addButton(new TopBarTab(tabLabel), name);
-        counter++;
-        TopBarButton newbutton = (TopBarButton) topBar.getComponent(name);
-        JPanel panel = new JPanel();
-        panel.add(new JLabel(name));
+        TopBarTab newbutton = new TopBarTab(tabLabel);
+        topBar.addButton(newbutton, name);
         activePanels.put(newbutton, panel);
         newbutton.addActionListener(new ActionListener() {
             @Override
@@ -153,9 +153,7 @@ public class MainUI {
             }
         });
         newbutton.doClick();
-    }
-
-    public void switchPage(TopBarButton button){
+        counter++;
     }
 
     public void loadPage(JPanel panel){
@@ -164,7 +162,7 @@ public class MainUI {
         contentPanel.revalidate();
 
         contentPanelView = panel;
-        //contentPanelView.setBounds(0, 0, 1000, 1000);
+        contentPanelView.setPreferredSize(new Dimension(0, 0));
 
         contentPanel.add(contentPanelView, BorderLayout.CENTER);
         contentPanel.repaint();

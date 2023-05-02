@@ -43,7 +43,6 @@ public class MainWindow {
       public void run() {
         showUI();
       }
-
     });
   }
 

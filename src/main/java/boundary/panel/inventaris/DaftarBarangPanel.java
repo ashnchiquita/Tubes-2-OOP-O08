@@ -91,12 +91,12 @@ public class DaftarBarangPanel extends JPanel{
         // Table
         scrollListPanel = new JScrollPane();
         scrollListPanel.setBackground(Color.LIGHT_GRAY);
-        scrollListPanel.setPreferredSize(new Dimension(1045,515));
+        scrollListPanel.setPreferredSize(new Dimension(900,515));
         // Cell Renderer
 
 
         JTable itemList = new JTable(getData(), getColumnNames());
-        itemList.setRowHeight(60);
+        itemList.setRowHeight(160);
         itemList.setDefaultEditor(Object.class, null); // make cells not editable
         itemList.getColumnModel().getColumn(0).setPreferredWidth(300);
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
@@ -130,7 +130,7 @@ public class DaftarBarangPanel extends JPanel{
         tableHeader.setDefaultRenderer(headerRenderer);
         tableHeader.setAlignmentX(10);
         tableHeader.setFont(tableHeader.getFont().deriveFont(Font.BOLD, 14));
-        tableHeader.setPreferredSize(new Dimension(994, 43));
+        tableHeader.setPreferredSize(new Dimension(600, 43));
     }
 
     private static Object[][] getData() {
