@@ -3,7 +3,6 @@ package controller.fixedbill;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.RequiredArgsConstructor;
 import model.FixedBill;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,11 +13,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 public class FixedBillAdapterJSON implements FixedBillIO {
     private static final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private final String filePath;
     private List<FixedBill> list = new ArrayList<>();
+
+    public FixedBillAdapterJSON(String filePath) {
+        this.filePath = filePath;
+        File f = new File(filePath);
+        if (f.exists() && !f.isDirectory()) {
+            list = Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
+        }
+    }
 
     @Override @Nullable
     public FixedBill getByID(int id) {
