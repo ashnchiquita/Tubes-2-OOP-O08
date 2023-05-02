@@ -18,7 +18,7 @@ public class Colors {
   public static final Color TOPBAR_BLUE = new Color(75, 129, 238);
   public static final Color SIDE_SLIDER_BLUE = new Color(138, 162, 244);
   public static final Color SKY_BLUE = new Color(149, 172, 255);
-  public  static final Color TOPBAR_MARKER_OFF = new Color(218, 226, 255);
-  public  static final Color TOPBAR_MARKER_ON = DARK_BLUE;
+  public static final Color TOPBAR_MARKER_OFF = new Color(218, 226, 255);
+  public static final Color TOPBAR_MARKER_ON = DARK_BLUE;
   public static final Color BLACK = new Color(0, 0, 0);
 }
