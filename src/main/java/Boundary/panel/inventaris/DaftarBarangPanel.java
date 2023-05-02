@@ -152,6 +152,7 @@ public class DaftarBarangPanel extends JPanel{
 
     private static String[] getColumnNames() {
         String[] columnNames = {"ID", "Nama", "Kategori", "Harga Beli", "Harga Jual", "Stok"};
+
         return columnNames;
     }
 
