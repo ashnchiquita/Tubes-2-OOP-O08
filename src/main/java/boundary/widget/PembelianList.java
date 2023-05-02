@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
-import jdk.internal.loader.Resource;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianObserver;
