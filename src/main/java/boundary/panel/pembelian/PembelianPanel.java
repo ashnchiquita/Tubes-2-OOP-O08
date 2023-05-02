@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.event.ChangeListener;
 
 import boundary.constants.Colors;
+import boundary.constants.ResourcePath;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianListener;
@@ -335,21 +336,21 @@ public class PembelianPanel extends JPanel implements PembelianListener {
 
   private static DataObj[] data = {
       new DataObj("Salad Tuna", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-tuna.png"),
+          ResourcePath.IMAGE + "/salad-tuna.png"),
       new DataObj("Beef Contoh", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/beef-contoh.png"),
+              ResourcePath.IMAGE + "/beef-contoh.png"),
       new DataObj("Iga Bakar", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/iga-bakar.png"),
+              ResourcePath.IMAGE + "/iga-bakar.png"),
       new DataObj("Salad Egg", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-egg.png"),
+              ResourcePath.IMAGE + "/salad-egg.png"),
       new DataObj("Salad Tuna", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-tuna.png"),
+              ResourcePath.IMAGE + "/salad-tuna.png"),
       new DataObj("Beef Contoh", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/beef-contoh.png"),
+              ResourcePath.IMAGE + "/beef-contoh.png"),
       new DataObj("Iga Bakar", "(Must choose level)", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/iga-bakar.png"),
+              ResourcePath.IMAGE + "/iga-bakar.png"),
       new DataObj("Salad Egg", "", 10.99f,
-          "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/image/salad-egg.png"),
+              ResourcePath.IMAGE + "/salad-egg.png"),
 
   };
 

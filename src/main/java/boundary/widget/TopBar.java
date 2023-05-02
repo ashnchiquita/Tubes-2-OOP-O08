@@ -1,12 +1,13 @@
 package boundary.widget;
 
+import boundary.constants.Colors;
+import boundary.constants.ResourcePath;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TopBar extends ScrollableButtonContainers {
     private Color bgColor;
@@ -21,12 +22,10 @@ public class TopBar extends ScrollableButtonContainers {
         contentWidth = 977;
         setPreferredSize(new Dimension(0, height));
 
-        String rootPath = System.getProperty("user.dir");
-        rootPath += "/res/img/";
-        ImageIcon icon = new ImageIcon(rootPath + "Home.png");
+        ImageIcon icon = new ImageIcon(ResourcePath.ICON + "/home_dark_blue.png");
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(22,22, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(newImage);
+        final ImageIcon activeIcon = new ImageIcon(newImage);
 
         contentPanel.setPreferredSize(new Dimension(contentWidth, 0));
         contentPanel.setBackground(bgColor);
@@ -36,14 +35,32 @@ public class TopBar extends ScrollableButtonContainers {
         setBorder(new EmptyBorder(0, 0, 0, 0));
         setViewportBorder(new EmptyBorder(0, 0, 0, 0));
 
-        TopBarButton homeButton = (TopBarButton) addComponent(new TopBarButton(), "homeButton");
+
+        icon = new ImageIcon(ResourcePath.ICON + "/home_light_blue.png");
+        image = icon.getImage();
+        newImage = image.getScaledInstance(22,22, Image.SCALE_SMOOTH);
+        final ImageIcon inactiveIcon = new ImageIcon(newImage);
+
+
+        TopBarButton homeButton = (TopBarButton) addComponent(new TopBarButton(){
+            @Override
+            public void changeStatus(Boolean status) {
+                super.changeStatus(status);
+                if(status == true){
+                    this.setIcon(activeIcon);
+                }
+                else{
+                    this.setIcon(inactiveIcon);
+                }
+            }
+        }, "homeButton");
         homeButton.setBounds(0,0,60,height);
-        homeButton.setIcon(icon);
+        homeButton.setIcon(activeIcon);
         homeButton.setFocusPainted(false);
         homeButton.setContentAreaFilled(true);
         homeButton.setBorderPainted(false);
-        homeButton.setBackground(Color.WHITE);
-        homeButton.previousColor = Color.WHITE;
+        homeButton.setBackground(Colors.WHITE);
+        homeButton.previousColor = Colors.WHITE;
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,7 +78,7 @@ public class TopBar extends ScrollableButtonContainers {
 
         //setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
         JScrollBar horizontalScrollBar = getHorizontalScrollBar();
-        horizontalScrollBar.setUI(new PlainScrollBar(Color.WHITE, new Color(220, 220, 220)));
+        horizontalScrollBar.setUI(new PlainScrollBar(Colors.WHITE, Colors.LIGHT_GRAY));
         horizontalScrollBar.setPreferredSize(new Dimension(horizontalScrollBar.getWidth(), 2));
         setColumnHeaderView(horizontalScrollBar);
 

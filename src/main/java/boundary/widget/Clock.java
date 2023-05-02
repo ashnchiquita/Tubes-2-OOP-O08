@@ -1,5 +1,7 @@
 package boundary.widget;
 
+import boundary.constants.ResourcePath;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -26,9 +28,7 @@ public class Clock extends JPanel implements Runnable {
         add(clockText);
 
         try{
-            String rootPath = System.getProperty("user.dir");
-            rootPath += "/res/img/";
-            BufferedImage myPicture = ImageIO.read(new File(rootPath + "Jam.png"));
+            BufferedImage myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/Jam.png"));
             JLabel picLabel = new JLabel(new ImageIcon(myPicture));
             picLabel.setBounds(0, 0, 763, 207);
             add(picLabel);

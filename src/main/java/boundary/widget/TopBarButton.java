@@ -15,7 +15,7 @@ public class TopBarButton extends HoverButton {
         super();
         setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Colors.WHITE));
         active = false;
-        defaultColor = new Color(75, 129, 238);
+        defaultColor = Colors.TOPBAR_BLUE;
         activeColor = Colors.WHITE;
         setPreferredSize(new Dimension(180, 0));
 

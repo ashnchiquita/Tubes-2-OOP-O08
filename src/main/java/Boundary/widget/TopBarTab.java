@@ -28,7 +28,7 @@ public class TopBarTab extends TopBarButton{
         tabLabel.setBounds(45, 12, 130, 20);
         tabLabel.setFont(new Font("Inter", Font.PLAIN, 15));
         tabLabel.setForeground(Colors.WHITE);
-        marker = new RoundedPanel(10, Colors.TOPBAR_MARKER_OFF, false, Colors.WHITE, 0);
+        marker = new RoundedPanel(20, Colors.TOPBAR_MARKER_OFF, false, Colors.WHITE, 0);
         marker.setBounds(15, 12, 20, 20);
         add(marker);
         add(closeButton);
@@ -40,13 +40,13 @@ public class TopBarTab extends TopBarButton{
         super.changeStatus(status);
         remove(marker);
         if(status == true){
-            marker = new RoundedPanel(10, Colors.TOPBAR_MARKER_ON, false, Colors.WHITE, 0);
+            marker = new RoundedPanel(20, Colors.TOPBAR_MARKER_ON, false, Colors.WHITE, 0);
             closeButton.show();
             closeLabel.show();
             tabLabel.setForeground(Colors.TOPBAR_MARKER_ON);
         }
         else{
-            marker = new RoundedPanel(10, Colors.TOPBAR_MARKER_OFF, false, Colors.WHITE, 0);
+            marker = new RoundedPanel(20, Colors.TOPBAR_MARKER_OFF, false, Colors.WHITE, 0);
             closeButton.hide();
             closeLabel.hide();
             tabLabel.setForeground(Colors.TOPBAR_MARKER_OFF);

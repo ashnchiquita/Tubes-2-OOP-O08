@@ -1,5 +1,6 @@
 package boundary;
 
+import boundary.constants.Colors;
 import boundary.panel.home.HomeUI;
 import boundary.panel.inventaris.DaftarBarangPanel;
 import boundary.panel.laporan.LaporanPanel;
@@ -36,7 +37,7 @@ public class MainWindow extends JFrame {
         contentPanelGbc.weightx = 3;
         contentPanelGbc.weighty = 30;
         JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(Color.BLACK);
+        contentPanel.setBackground(Colors.BLACK);
 
         //TODO: SidePanel Logics
         GridBagConstraints sidePanelGbc = new GridBagConstraints();
@@ -46,10 +47,10 @@ public class MainWindow extends JFrame {
         sidePanelGbc.weightx = 0;
         sidePanelGbc.weighty = 0;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
-        sidePanel = new SideBar(287, new Color(56,100,194), Color.WHITE);
+        sidePanel = new SideBar(287, Colors.LIGHT_BLUE, Color.WHITE);
 
         //TODO: TopBar logics
-        topBar = new TopBar(47, new Color(36, 60, 148));
+        topBar = new TopBar(47, Colors.DARK_BLUE);
         GridBagConstraints topBarGbc = new GridBagConstraints();
         topBarGbc.gridx = 1;
         topBarGbc.gridy = 0;
@@ -57,32 +58,32 @@ public class MainWindow extends JFrame {
         topBarGbc.weighty = 0;
         topBarGbc.fill = GridBagConstraints.BOTH;
 
-        sidePanel.addButton(new SideBarButton("Kasir.png", "Kasir"), "kasirButton");
+        sidePanel.addButton(new SideBarButton("/kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Pembayaran", new PembelianPanel(0));
             }
         } );
-        sidePanel.addButton(new SideBarButton("Laporan.png", "Laporan"), "laporanButton");
+        sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton");
         ((JButton) sidePanel.getComponent("laporanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Laporan", new LaporanPanel());
             }
         });
 
-        sidePanel.addButton(new SideBarButton("Member.png", "Member"), "MemberButton");
+        sidePanel.addButton(new SideBarButton("/member.png", "Member"), "MemberButton");
         ((JButton) sidePanel.getComponent("MemberButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Member", new JPanel());
             }
         } );
-        sidePanel.addButton(new SideBarButton("Inventaris.png", "Inventaris"), "inventarisButton");
+        sidePanel.addButton(new SideBarButton("/inventaris.png", "Inventaris"), "inventarisButton");
         ((JButton) sidePanel.getComponent("inventarisButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Inventaris", new DaftarBarangPanel());
             }
         } );
-        sidePanel.addButton(new SideBarButton("Support.png", "Pengaturan"), "pengaturanButton");
+        sidePanel.addButton(new SideBarButton("/pengaturan.png", "Pengaturan"), "pengaturanButton");
         ((JButton) sidePanel.getComponent("pengaturanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //activePanels.containsValue(JPanel.class);
@@ -104,7 +105,7 @@ public class MainWindow extends JFrame {
         mainPanel.add(contentPanel, contentPanelGbc);
         mainPanel.add(sidePanel, sidePanelGbc);
         mainPanel.add(topBar, topBarGbc);
-        mainPanel.setBackground(Color.PINK);
+        mainPanel.setBackground(Colors.PEMBELIAN_RED);
 
         this.contentPanel = contentPanel;
 

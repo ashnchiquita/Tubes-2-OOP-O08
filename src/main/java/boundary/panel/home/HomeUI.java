@@ -1,5 +1,6 @@
 package boundary.panel.home;
 
+import boundary.constants.ResourcePath;
 import boundary.widget.Clock;
 
 import javax.imageio.ImageIO;
@@ -41,37 +42,35 @@ public class HomeUI extends JPanel {
         clock.setLocation(102, 174);
 
         try{
-            String rootPath = System.getProperty("user.dir");
-            rootPath += "/res/img/";
 
             BufferedImage myPicture;
 
-            myPicture = ImageIO.read(new File(rootPath + "Maggie.png"));
+            myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/Maggie.png"));
             JLabel picMag = new JLabel(new ImageIcon(myPicture));
             picMag.setBounds(102, 314, 109, 235);
             picMag.setOpaque(false);
 
-            myPicture = ImageIO.read(new File(rootPath + "Lish.png"));
+            myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/Lish.png"));
             JLabel picLish = new JLabel(new ImageIcon(myPicture));
             picLish.setBounds(232, 314, 109, 235);
             picLish.setOpaque(false);
 
-            myPicture = ImageIO.read(new File(rootPath + "We.png"));
+            myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/We.png"));
             JLabel picWe = new JLabel(new ImageIcon(myPicture));
             picWe.setBounds(362, 314, 109, 235);
             picWe.setOpaque(false);
 
-            myPicture = ImageIO.read(new File(rootPath + "Chi.png"));
+            myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/Chi.png"));
             JLabel picChi = new JLabel(new ImageIcon(myPicture));
             picChi.setBounds(492, 324, 139, 235);
             picChi.setOpaque(false);
 
-            myPicture = ImageIO.read(new File(rootPath + "Rav.png"));
+            myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/Rav.png"));
             JLabel picRav = new JLabel(new ImageIcon(myPicture));
             picRav.setBounds(622, 314, 109, 235);
             picRav.setOpaque(false);
 
-            myPicture = ImageIO.read(new File(rootPath + "Nes.png"));
+            myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/Nes.png"));
             JLabel picNes = new JLabel(new ImageIcon(myPicture));
             picNes.setBounds(752, 339, 109, 235);
             picNes.setOpaque(false);

@@ -1,5 +1,8 @@
 package boundary.widget;
 
+import boundary.constants.Colors;
+import boundary.constants.ResourcePath;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,14 +37,12 @@ public class SideBar extends ScrollableButtonContainers {
         setPreferredSize(new Dimension(width,0));
         //setBackground(bgColor);
 
-        String rootPath = System.getProperty("user.dir");
-        rootPath += "/res/img/";
-        ImageIcon icon = new ImageIcon(rootPath + "Refresh.png");
+        ImageIcon icon = new ImageIcon(ResourcePath.ICON + "/refresh.png");
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(37,37, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImage);
 
-        setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.WHITE));
+        setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Colors.WHITE));
 
         contentPanel.setPreferredSize(new Dimension(width-18, contentHeight));
         contentPanel.setBackground(bgColor);
@@ -81,17 +82,8 @@ public class SideBar extends ScrollableButtonContainers {
         lastLoginText.setVerticalAlignment(SwingConstants.TOP);
         lastLoginText.setFont(new Font("Rubik-SemiBold", Font.PLAIN, 13));
 
-
-        //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton1");
-        //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton2");
-        //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton3");
-        //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton4");
-        //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton5");
-        //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton6");
-        //addButton(new SideBarButton("Support.png", "Test", fgColor, bgColor), "dummyButton3");
-
         setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
-        getVerticalScrollBar().setUI(new PlainScrollBar(bgColor, new Color(9085684)));
+        getVerticalScrollBar().setUI(new PlainScrollBar(bgColor, Colors.SIDE_SLIDER_BLUE));
         //setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_NEVER);
 
         setViewportView(contentPanel);
