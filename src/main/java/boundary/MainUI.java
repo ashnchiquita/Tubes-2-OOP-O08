@@ -1,10 +1,7 @@
 package boundary;
 
 import boundary.panel.home.HomeUI;
-import boundary.widget.SideBar;
-import boundary.widget.SideBarButton;
-import boundary.widget.TopBar;
-import boundary.widget.TopBarButton;
+import boundary.widget.*;
 import boundary.enums.PanelEnum;
 
 import javax.swing.*;
@@ -61,37 +58,32 @@ public class MainUI {
         sidePanel.addButton(new SideBarButton("Kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Kasir");
-                addWindow();
+                addWindow("Pembayaran");
             }
         } );
         sidePanel.addButton(new SideBarButton("Laporan.png", "Laporan"), "laporanButton");
         ((JButton) sidePanel.getComponent("laporanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Laporan");
-                addWindow();
+                addWindow("Laporan");
             }
         });
 
         sidePanel.addButton(new SideBarButton("Member.png", "Member"), "MemberButton");
         ((JButton) sidePanel.getComponent("MemberButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Member");
-                addWindow();
+                addWindow("Member");
             }
         } );
         sidePanel.addButton(new SideBarButton("Inventaris.png", "Inventaris"), "inventarisButton");
         ((JButton) sidePanel.getComponent("inventarisButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Inventaris");
-                addWindow();
+                addWindow("Inventaris");
             }
         } );
         sidePanel.addButton(new SideBarButton("Support.png", "Pengaturan"), "pengaturanButton");
         ((JButton) sidePanel.getComponent("pengaturanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Pengaturan");
-                addWindow();
+                addWindow("Pengaturan");
             }
         } );
 
@@ -146,9 +138,9 @@ public class MainUI {
         });
     }
 
-    public void addWindow(){
+    public void addWindow(String tabLabel){
         String name = "content" + counter.toString();
-        topBar.addButton(new TopBarButton(), name);
+        topBar.addButton(new TopBarTab(tabLabel), name);
         counter++;
         TopBarButton newbutton = (TopBarButton) topBar.getComponent(name);
         JPanel panel = new JPanel();
@@ -160,6 +152,7 @@ public class MainUI {
                 loadPage(activePanels.get(newbutton));
             }
         });
+        newbutton.doClick();
     }
 
     public void switchPage(TopBarButton button){

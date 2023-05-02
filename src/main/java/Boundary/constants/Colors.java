@@ -15,4 +15,7 @@ public class Colors {
   public static final Color PEMBELIAN_BLUE_LIGHT = new Color(26, 114, 221);
   public static final Color BUTTON_BLUE = new Color(74, 104, 222);
   public static final Color TOPBAR_BLUE = new Color(75, 129, 238);
+
+  public  static final Color TOPBAR_MARKER_OFF = new Color(218, 226, 255);
+  public  static final Color TOPBAR_MARKER_ON = DARK_BLUE;
 }

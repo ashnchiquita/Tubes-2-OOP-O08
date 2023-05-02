@@ -3,6 +3,8 @@ package boundary.widget;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -42,10 +44,9 @@ public class TopBar extends ScrollableButtonContainers {
         homeButton.setBorderPainted(false);
         homeButton.setBackground(Color.WHITE);
         homeButton.previousColor = Color.WHITE;
-        homeButton.addMouseListener(new MouseAdapter() {
+        homeButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent e) {
                 if(homeButton.getStatus()) {
                     return;
                 }
@@ -72,10 +73,9 @@ public class TopBar extends ScrollableButtonContainers {
     }
 
     private void registerButtonLogic(TopBarButton addition, String name){
-        addition.addMouseListener(new MouseAdapter() {
+        addition.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent e) {
                 if(addition.getStatus()){
                     addition.changeStatus(false);
                     TopBarButton home = (TopBarButton) components.get("homeButton");
@@ -97,7 +97,7 @@ public class TopBar extends ScrollableButtonContainers {
     public JComponent addButton(JButton addition, String name) throws IllegalArgumentException{
         //Note: name must be unique
         //addition must be TopBarButton
-        if(addition.getClass() != TopBarButton.class)
+        if(!(addition instanceof TopBarButton))
             throw new IllegalArgumentException("Cannot put normal button into TopBar, use TopBarButton instead");
 
         JComponent retval = addComponent(addition, name);
