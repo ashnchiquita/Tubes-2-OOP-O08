@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import boundary.constants.Colors;
+import boundary.constants.ResourcePath;
+import jdk.internal.loader.Resource;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianObserver;
@@ -80,12 +82,12 @@ public class PembelianList extends RoundedPanel {
 
     JLabel subtitleText = new JLabel(subtitle);
     subtitleText.setBounds(15, 27, 160, 20);
-    subtitleText.setForeground(new Color(149, 172, 255));
+    subtitleText.setForeground(Colors.SKY_BLUE);
     subtitleText.setFont(new Font("Inter", Font.PLAIN, 15));
     textPanel.add(subtitleText);
 
     countText.setBounds(15, 46, 160, 20);
-    countText.setForeground(new Color(149, 172, 255));
+    countText.setForeground(Colors.SKY_BLUE);
     countText.setFont(new Font("Inter", Font.PLAIN, 15));
     this.setCount(count);
     textPanel.add(countText);
@@ -95,14 +97,13 @@ public class PembelianList extends RoundedPanel {
     closePanel.setBackground(Colors.PEMBELIAN_BLUE);
     this.add(closePanel, BorderLayout.EAST);
 
-    RoundedPanel buttonContainer = new RoundedPanel(20, new Color(244, 38, 26), false, Color.BLACK, 0);
+    RoundedPanel buttonContainer = new RoundedPanel(20, Colors.LOMBOK_RED, false, Color.BLACK, 0);
     buttonContainer.setBounds(10, 0, 32, 30);
     buttonContainer.setOpaque(false);
     buttonContainer.setLayout(null);
     closePanel.add(buttonContainer);
 
-    ImageIcon buttonImage = new ImageIcon(
-        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/icon/cross.png");
+    ImageIcon buttonImage = new ImageIcon(ResourcePath.ICON + "/cross.png");
     ImageIcon buttonImageScaled = new ImageIcon(
         buttonImage.getImage().getScaledInstance(10, 10, java.awt.Image.SCALE_SMOOTH));
     closeButton.setIcon(buttonImageScaled);

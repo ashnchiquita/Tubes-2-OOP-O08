@@ -6,12 +6,12 @@ import boundary.constants.ResourcePath;
 import javax.swing.*;
 import java.awt.*;
 
-public class SideBar extends ScrollableButtonContainers {
+public class SideBar extends ScrollableContainer {
+    private Integer buttonCount = 0;
     private Color fgColor;
     private Color bgColor;
     private Integer contentHeight;
     private Integer width;
-    //TODO: Logics?
     private void adjustRefreshButton(){
         Integer bottomMostLocation = 60*buttonCount + 243;
         components.get("refreshButton").setBounds(37,60*buttonCount + 220,37,37);
@@ -19,7 +19,6 @@ public class SideBar extends ScrollableButtonContainers {
         components.get("lastLoginText").setBounds(85,bottomMostLocation,169,16);
         contentPanel.setPreferredSize(new Dimension(width-18, bottomMostLocation +30 > 678? bottomMostLocation + 100 : 678));
     }
-    @Override
     public JComponent addButton(JButton addition, String name) throws IllegalArgumentException{
         //Note: name must be unique
         JComponent retval = addComponent(addition, name);

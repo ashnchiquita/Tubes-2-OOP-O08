@@ -7,6 +7,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import boundary.constants.ResourcePath;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianObserver;
@@ -83,8 +84,7 @@ public class PembelianCard extends RoundedPanel {
     buttonContainer.setOpaque(false);
     buttonContainer.setLayout(null);
 
-    ImageIcon buttonImage = new ImageIcon(
-        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/icon/plus.png");
+    ImageIcon buttonImage = new ImageIcon(ResourcePath.ICON+ "/plus.png");
     ImageIcon buttonImageScaled = new ImageIcon(
         buttonImage.getImage().getScaledInstance(16, 18, java.awt.Image.SCALE_SMOOTH));
     JButton addButton = new JButton(buttonImageScaled);

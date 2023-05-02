@@ -9,7 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TopBar extends ScrollableButtonContainers {
+public class TopBar extends ScrollableContainer {
+    private Integer buttonCount = 0;
     private Color bgColor;
     private Integer contentWidth;
     private Integer height;
@@ -110,19 +111,14 @@ public class TopBar extends ScrollableButtonContainers {
         });
     }
 
-    @Override
-    public JComponent addButton(JButton addition, String name) throws IllegalArgumentException{
+    public JComponent addButton(TopBarButton addition, String name) throws IllegalArgumentException{
         //Note: name must be unique
-        //addition must be TopBarButton
-        if(!(addition instanceof TopBarButton))
-            throw new IllegalArgumentException("Cannot put normal button into TopBar, use TopBarButton instead");
-
         JComponent retval = addComponent(addition, name);
         Integer rightmostLocation = 60 + buttonCount*defaultButtonSize;
         addition.setBounds( rightmostLocation,0,defaultButtonSize, height);
         buttonCount++;
         contentPanel.setPreferredSize(new Dimension(rightmostLocation+defaultButtonSize > 977? rightmostLocation+defaultButtonSize:977, height-10));
-        registerButtonLogic((TopBarButton) addition, name);
+        registerButtonLogic(addition, name);
 
         return retval;
     }

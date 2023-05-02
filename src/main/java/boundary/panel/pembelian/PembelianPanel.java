@@ -8,6 +8,7 @@ import javax.swing.event.ChangeListener;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
+import boundary.widget.PlainScrollBar;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianListener;
@@ -93,8 +94,10 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     GridBagConstraints c = new GridBagConstraints();
     gridPanel.setBorder(new EmptyBorder(78, 0, 78, 0));
     gridPanel.setBackground(Color.WHITE);
+    scrollGridPanel.setBorder(null);
     scrollGridPanel.setViewportView(gridPanel);
     scrollGridPanel.getVerticalScrollBar().setUnitIncrement(10);
+    scrollGridPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
     for (int i = 0; i < data.length; i++) {
       JPanel container = new JPanel(new BorderLayout());
@@ -271,6 +274,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     });
     buyListScroll.setBorder(null);
     buyListScroll.getVerticalScrollBar().setUnitIncrement(10);
+    buyListScroll.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.DARK_BLUE, Colors.WHITE));
     buyPanel.add(buyListScroll, BorderLayout.CENTER);
   }
 
@@ -304,6 +308,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
   public void handleRemoveItem(PembelianEvent e) {
     sub = 0;
     total = discount + tax;
+
 
     buyListPanel.removeAll();
     buyItemList.remove(e.index);
