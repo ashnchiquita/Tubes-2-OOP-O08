@@ -24,6 +24,11 @@ public class MainWindow extends JFrame {
     private Map<String, JPanel> activePanels;
 
     public MainWindow(){
+        try{
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (Exception e){
+            System.out.println(e.getMessage()+ " failed to load, proceeding with normal skin");
+        }
         contentEnum = PanelEnum.HOME;
         activePanels = new HashMap<>();
         JPanel mainPanel = new JPanel();
