@@ -27,3 +27,22 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.withType<Jar> {
+    enabled = true
+    isZip64 = true
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveFileName.set("project.jar")
+    from(sourceSets.main.get().output)
+    dependsOn(configurations.compileClasspath)
+    from({
+        configurations.compileClasspath.get().filter {
+            it.name.endsWith("jar")
+        }.map { zipTree(it) }
+    }) {
+        exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
+    }
+    manifest {
+        attributes["Main-Class"] = "model.TesJSON"
+    }
+}
