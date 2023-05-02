@@ -19,18 +19,18 @@ public class PembelianCard extends RoundedPanel {
   private PembelianObserver observer;
 
   public PembelianCard(int id, String title, String subtitle, float price, String imagePath) {
-    super(20, Color.WHITE, true, Colors.MED_GRAY, 1);
+    super(20, Colors.WHITE, true, Colors.MED_GRAY, 1);
 
     this.setLayout(null);
 
-    RoundedPanel imageContainer = new RoundedPanel(20, Color.WHITE, false, Color.WHITE, 0);
+    RoundedPanel imageContainer = new RoundedPanel(20, Colors.WHITE, false, Colors.WHITE, 0);
     imageContainer.setBounds(1, 1, 153, 91);
     imageContainer.setLayout(null);
     imageContainer.setOpaque(false);
     this.add(imageContainer);
 
     try {
-      int width = 184, height = 111;
+      Integer width = 184, height = 111;
       BufferedImage image = ImageIO.read(new File(imagePath));
       Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
@@ -39,7 +39,7 @@ public class PembelianCard extends RoundedPanel {
       g2d.setComposite(AlphaComposite.Src);
       g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-      g2d.setColor(Color.WHITE);
+      g2d.setColor(Colors.WHITE);
       g2d.fill(new RoundRectangle2D.Float(0, 0, width, height, 50, 50));
 
       g2d.setComposite(AlphaComposite.Src);
@@ -47,7 +47,7 @@ public class PembelianCard extends RoundedPanel {
       g2d.dispose();
 
       JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
-      imageLabel.setBackground(Color.RED);
+      imageLabel.setBackground(Colors.RED);
       imageLabel.setBounds(0, 10, 153, 91);
       imageLabel.setOpaque(false);
       imageContainer.add(imageLabel);
@@ -58,7 +58,7 @@ public class PembelianCard extends RoundedPanel {
     JPanel bottomContainer = new JPanel();
     bottomContainer.setBounds(1, 96, 150, 78);
     bottomContainer.setPreferredSize(new Dimension(154, 78));
-    bottomContainer.setBackground(Color.WHITE);
+    bottomContainer.setBackground(Colors.WHITE);
     bottomContainer.setLayout(null);
     this.add(bottomContainer);
 
@@ -79,7 +79,7 @@ public class PembelianCard extends RoundedPanel {
     priceLabel.setBounds(10, 54, 58, 16);
     bottomContainer.add(priceLabel);
 
-    RoundedPanel buttonContainer = new RoundedPanel(20, Colors.PEMBELIAN_BLUE_LIGHT, false, Color.BLACK, 0);
+    RoundedPanel buttonContainer = new RoundedPanel(20, Colors.PEMBELIAN_BLUE_LIGHT, false, Colors.BLACK, 0);
     buttonContainer.setBounds(113, 48, 32, 30);
     buttonContainer.setOpaque(false);
     buttonContainer.setLayout(null);
