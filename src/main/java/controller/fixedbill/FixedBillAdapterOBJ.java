@@ -1,29 +1,38 @@
 package controller.fixedbill;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import model.FixedBill;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FixedBillAdapterJSON implements FixedBillIO {
-    private static final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+public class FixedBillAdapterOBJ implements FixedBillIO {
     private final String filePath;
     private List<FixedBill> list = new ArrayList<>();
 
-    public FixedBillAdapterJSON(String filePath) {
+    public FixedBillAdapterOBJ(String filePath) {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
         }
+    }
+
+    public void write() throws IOException {
+        FileOutputStream fos = new FileOutputStream(filePath);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(list);
+        oos.close();
+    }
+
+    public void read() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(filePath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        list = (List<FixedBill>) ois.readObject(); // wah unsafe gmn ya biar safe
+        ois.close();
     }
 
     @Override @Nullable
@@ -40,9 +49,9 @@ public class FixedBillAdapterJSON implements FixedBillIO {
     @Override @Nullable
     public List<FixedBill> getAllFixedBill() {
         try {
-            list = mapper.readValue(new File(filePath), new TypeReference<List<FixedBill>>() { });
+            read();
             return list;
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null; // Return null artinya terjadi IOException
         }
@@ -52,7 +61,7 @@ public class FixedBillAdapterJSON implements FixedBillIO {
     public boolean insertFixedBill(FixedBill data) {
         try {
             list.add(data);
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+            write();
             return true;
         } catch (IOException e) {
             list.remove(data);
@@ -78,7 +87,7 @@ public class FixedBillAdapterJSON implements FixedBillIO {
             FixedBill prevData = list.get(pos).toBuilder().build();
             try {
                 list.set(pos, newData);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                write();
                 return true;
             } catch (IOException e) {
                 list.set(pos, prevData); // recover
@@ -96,7 +105,7 @@ public class FixedBillAdapterJSON implements FixedBillIO {
         if (data != null) {
             try {
                 list.remove(data);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                write();
                 return true;
             } catch (IOException e){
                 list.add(data); // recover

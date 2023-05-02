@@ -1,8 +1,8 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -16,6 +16,8 @@ import java.time.LocalTime;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class FixedBill implements Serializable {
+    @JsonIgnore
+    private static final long serialVersionUID = 3L;
     @JsonProperty("id")
     private int id;
     @JsonProperty("cust")
