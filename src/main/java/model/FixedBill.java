@@ -1,6 +1,7 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -24,9 +25,9 @@ public class FixedBill implements Serializable {
     private Customer cust;
     @JsonProperty("keranjang")
     private ArrayList<Barang> keranjang;
-    @JsonProperty("date")
+    @JsonProperty("date") @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate date;
-    @JsonProperty("time")
+    @JsonProperty("time") @JsonFormat(pattern="HH:mm:ss")
     private LocalTime time;
 
     public void addBarang(Barang barang) {

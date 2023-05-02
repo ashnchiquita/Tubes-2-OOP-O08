@@ -1,5 +1,6 @@
 package model;
-import controller.fixedbill.FixedBillAdapterOBJ;
+
+import controller.fixedbill.FixedBillAdapterJSON;
 import controller.fixedbill.FixedBillIO;
 
 import java.time.LocalDate;
@@ -7,9 +8,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class TesOBJ {
+public class TesJSON {
     public static void main(String[] args) {
-        FixedBillIO dataIO = new FixedBillAdapterOBJ("tesOBJ");
+        FixedBillIO dataIO = new FixedBillAdapterJSON("tesJSON.json");
         Customer c = Customer.builder().id(1).build();
         Member m = Member.builder().id(2).name("chigans").point(0).phone("12345").build();
 
