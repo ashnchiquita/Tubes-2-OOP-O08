@@ -29,9 +29,7 @@ public class SideBarButton extends HoverButton {
     }
     public SideBarButton(String iconpath, String text, Color fgColor, Color bgColor){
         super();
-        String rootPath = System.getProperty("user.dir");
-        rootPath += "/res/img/";
-        ImageIcon icon = new ImageIcon(rootPath + iconpath);
+        ImageIcon icon = new ImageIcon(ResourcePath.ICON + iconpath);
         Image image = icon.getImage();
         Image newImage = image.getScaledInstance(24,24, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImage);

@@ -8,6 +8,7 @@ import boundary.widget.RoundedPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -24,7 +25,7 @@ public class DaftarBarangPanel extends JPanel{
         headerPanel = new JPanel();
         Border paddingBorder = BorderFactory.createEmptyBorder(75, 20, 60, 20);
         headerPanel.setBackground(new Color(255,255,255));
-        headerPanel.setPreferredSize(new Dimension(1045,168));
+        headerPanel.setPreferredSize(new Dimension(1000,168));
         headerPanel.setBorder(paddingBorder);
 
         // Label "Daftar Barang"
@@ -36,7 +37,7 @@ public class DaftarBarangPanel extends JPanel{
 
         // Horizontal Divider
         JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator1.setPreferredSize(new Dimension(150, 1));
+        separator1.setPreferredSize(new Dimension(80, 0));
         separator1.setVisible(true);
         headerPanel.add(separator1);
 
@@ -51,7 +52,7 @@ public class DaftarBarangPanel extends JPanel{
 
         // Horizontal Divider
         JSeparator separator2 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator2.setPreferredSize(new Dimension(20, 1));
+        separator2.setPreferredSize(new Dimension(20, 0));
         separator2.setVisible(true);
         headerPanel.add(separator2);
 
@@ -71,7 +72,7 @@ public class DaftarBarangPanel extends JPanel{
 
         // Horizontal Divider
         JSeparator separator3 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator3.setPreferredSize(new Dimension(20, 1));
+        separator3.setPreferredSize(new Dimension(20, 0));
         separator3.setVisible(true);
         headerPanel.add(separator3);
 
@@ -92,26 +93,32 @@ public class DaftarBarangPanel extends JPanel{
     private void setupTable(){
         // Table
         scrollListPanel = new JScrollPane();
-        scrollListPanel.setBackground(Color.LIGHT_GRAY);
+        scrollListPanel.setBackground(Color.WHITE);
         scrollListPanel.setPreferredSize(new Dimension(900,515));
+        scrollListPanel.setBorder(BorderFactory.createEmptyBorder());
         // Cell Renderer
 
 
         JTable itemList = new JTable(getData(), getColumnNames());
-        itemList.setRowHeight(160);
+        itemList.setRowHeight(50);
         itemList.setDefaultEditor(Object.class, null); // make cells not editable
-        itemList.getColumnModel().getColumn(0).setPreferredWidth(300);
+        itemList.getColumnModel().getColumn(0).setPreferredWidth(100);
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
-        itemList.getColumnModel().getColumn(2).setPreferredWidth(100);
+        itemList.getColumnModel().getColumn(2).setPreferredWidth(300);
         itemList.getColumnModel().getColumn(3).setPreferredWidth(100);
         itemList.getColumnModel().getColumn(4).setPreferredWidth(100);
-        itemList.getColumnModel().getColumn(5).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(5).setPreferredWidth(100);
+        itemList.setBorder(BorderFactory.createEmptyBorder());
+        itemList.setShowVerticalLines(false);
+        itemList.setBackground(Colors.WHITE);
+        itemList.setPreferredScrollableViewportSize(itemList.getPreferredSize());
         scrollListPanel.setViewportView(itemList);
         scrollListPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
         // Set transparent table lines
         itemList.setGridColor(new Color(240, 240, 240));
         itemList.setIntercellSpacing(new Dimension(0, 5));
+        itemList.setFillsViewportHeight(true);
 
         // create a custom header renderer that doesn't paint any effects
         TableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
@@ -138,16 +145,16 @@ public class DaftarBarangPanel extends JPanel{
 
     private static Object[][] getData() {
         Object[][] data = {
-                {"Salad Tuna", "(Must choose level)", "$10.99",
-                        "5000", "2000", "2000"},
-                {"Beef Contoh", "", "$10.99",
-                        "5000", "2000", "2000"},
-                {"Iga Bakar", "(Must choose level)", "$10.99",
-                        "5000", "2000", "2000"},
-                {"Salad Egg", "", "$10.99",
-                        "5000", "2000", "2000"},
-                {"Salad Tuna", "(Must choose level)", "$10.99",
-                        "5000", "2000", "2000"},
+                {"", "Salad Tuna", "(Must choose level)", "$10.99",
+                        "$10.99", "2000"},
+                {"","Beef Contoh", "", "$10.99",
+                        "$10.99", "2000"},
+                {"","Iga Bakar", "(Must choose level)", "$10.99",
+                        "$10.99", "2000"},
+                {"","Salad Egg", "", "$10.99",
+                        "$10.99", "2000"},
+                {"","Salad Tuna", "(Must choose level)", "$10.99",
+                        "$10.99", "2000"},
         };
         return data;
     }

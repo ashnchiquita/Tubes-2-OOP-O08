@@ -20,5 +20,6 @@ public class Colors {
   public static final Color SKY_BLUE = new Color(149, 172, 255);
   public static final Color TOPBAR_MARKER_OFF = new Color(218, 226, 255);
   public static final Color TOPBAR_MARKER_ON = DARK_BLUE;
+  public static final Color TABLE_SELECTED = new Color(0xb8cfe5);
   public static final Color BLACK = new Color(0, 0, 0);
 }

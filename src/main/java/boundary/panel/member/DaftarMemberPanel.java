@@ -1,5 +1,8 @@
 package boundary.panel.member;
 
+import boundary.constants.Colors;
+import boundary.constants.ResourcePath;
+import boundary.widget.PlainScrollBar;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 import boundary.widget.RoundedPanel;
@@ -21,9 +24,9 @@ public class DaftarMemberPanel extends JPanel{
     
     private void setupHeaderPanel(){
         headerPanel = new JPanel();
-        Border paddingBorder = BorderFactory.createEmptyBorder(75, 20, 60, 20);
+        Border paddingBorder = BorderFactory.createEmptyBorder(75, 50, 60, 20);
         headerPanel.setBackground(new Color(255,255,255));
-        headerPanel.setPreferredSize(new Dimension(1045,168));
+        headerPanel.setPreferredSize(new Dimension(1000,168));
         headerPanel.setBorder(paddingBorder);
 
         // Label "Daftar Barang"
@@ -35,8 +38,7 @@ public class DaftarMemberPanel extends JPanel{
 
         // Horizontal Divider
         JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator1.setPreferredSize(new Dimension(150, 1));
-        separator1.setVisible(true);
+        separator1.setPreferredSize(new Dimension(290, 0));
         headerPanel.add(separator1);
 
         // Label "Total Barang"
@@ -50,7 +52,7 @@ public class DaftarMemberPanel extends JPanel{
 
         // Horizontal Divider
         JSeparator separator2 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator2.setPreferredSize(new Dimension(20, 1));
+        separator2.setPreferredSize(new Dimension(20, 0));
         separator2.setVisible(true);
         headerPanel.add(separator2);
 
@@ -70,7 +72,7 @@ public class DaftarMemberPanel extends JPanel{
 
         // Horizontal Divider
         JSeparator separator3 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator3.setPreferredSize(new Dimension(20, 1));
+        separator3.setPreferredSize(new Dimension(20, 0));
         separator3.setVisible(true);
         headerPanel.add(separator3);
     }
@@ -78,25 +80,32 @@ public class DaftarMemberPanel extends JPanel{
     private void setupTable(){
         // Table
         scrollListPanel = new JScrollPane();
-        scrollListPanel.setBackground(Color.LIGHT_GRAY);
-        scrollListPanel.setPreferredSize(new Dimension(1045,515));
+        scrollListPanel.setBackground(Color.WHITE);
+        scrollListPanel.setPreferredSize(new Dimension(900,515));
+        scrollListPanel.setBorder(BorderFactory.createEmptyBorder());
         // Cell Renderer
 
 
         JTable itemList = new JTable(getData(), getColumnNames());
-        itemList.setRowHeight(60);
+        itemList.setRowHeight(50);
         itemList.setDefaultEditor(Object.class, null); // make cells not editable
-        itemList.getColumnModel().getColumn(0).setPreferredWidth(300);
+        itemList.getColumnModel().getColumn(0).setPreferredWidth(100);
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
-        itemList.getColumnModel().getColumn(2).setPreferredWidth(100);
-        itemList.getColumnModel().getColumn(3).setPreferredWidth(100);
-        itemList.getColumnModel().getColumn(4).setPreferredWidth(100);
+        itemList.getColumnModel().getColumn(2).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(3).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(4).setPreferredWidth(200);
         itemList.getColumnModel().getColumn(5).setPreferredWidth(200);
+        itemList.setBorder(BorderFactory.createEmptyBorder());
+        itemList.setShowVerticalLines(false);
+        itemList.setBackground(Colors.WHITE);
+        itemList.setPreferredScrollableViewportSize(itemList.getPreferredSize());
         scrollListPanel.setViewportView(itemList);
+        scrollListPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
         // Set transparent table lines
         itemList.setGridColor(new Color(240, 240, 240));
         itemList.setIntercellSpacing(new Dimension(0, 5));
+        itemList.setFillsViewportHeight(true);
 
         TableCellRenderer headerRenderer = new TableCellRenderer() {
             JLabel label;
@@ -148,18 +157,22 @@ public class DaftarMemberPanel extends JPanel{
         class ButtonRenderer2 extends JButton implements TableCellRenderer {
             public ButtonRenderer2() {
                 setOpaque(true);
-                setPreferredSize(new Dimension(25, 20));
+                setPreferredSize(new Dimension(25, 25));
                 setBorderPainted(false);
                 setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
-                setIcon(new ImageIcon("../../../../../resources/edit_button.png")); // set the icon of the button
+                ImageIcon icon = new ImageIcon(ResourcePath.ICON + "/edit.png");
+                Image image = icon.getImage();
+                Image newImage = image.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+                icon = new ImageIcon(newImage);
+                setIcon(icon); // set the icon of the button
             }
-        
+
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (isSelected) {
-                    setBackground(new Color(0xCDD6F6));
+                    setBackground(Colors.TABLE_SELECTED);
                 }
                 if (!isSelected){
-                    setBackground(new Color(0x4C6EDF));
+                    setBackground(Colors.WHITE);
                 }
                 return this;
             }
@@ -167,7 +180,7 @@ public class DaftarMemberPanel extends JPanel{
         
         TableColumn column = itemList.getColumnModel().getColumn(5);
         column.setCellRenderer(new ButtonRenderer());
-        
+
         TableColumn column2 = itemList.getColumnModel().getColumn(4);
         column2.setCellRenderer(new ButtonRenderer2());
 
@@ -176,14 +189,15 @@ public class DaftarMemberPanel extends JPanel{
         tableHeader.setDefaultRenderer(headerRenderer);
         tableHeader.setAlignmentX(10);
         tableHeader.setFont(tableHeader.getFont().deriveFont(Font.BOLD, 14));
-        tableHeader.setPreferredSize(new Dimension(994, 43));
+        tableHeader.setPreferredSize(new Dimension(600, 43));
     }
-    JButton editButton = new JButton(new ImageIcon("../../../../../resources/edit_button.png"));
+    JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
+    JButton perlihatkanButton = new JButton("Perlihatkan");
 
     private static Object[][] getData() {
         Object[][] data = {
-                {" ", "jennie", "0812", "vip", new JButton(new ImageIcon("../../../../../resources/edit_button.png")), new JButton("Perlihatkan")},
-                {" ", "rose", "021", "member", new JButton(new ImageIcon("path/to/edit/icon.png")),  new JButton("Perlihatkan")},
+                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
+                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
                 {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
                 {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
                 {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},

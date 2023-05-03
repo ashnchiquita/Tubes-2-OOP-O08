@@ -4,6 +4,7 @@ import boundary.constants.Colors;
 import boundary.panel.home.HomeUI;
 import boundary.panel.inventaris.DaftarBarangPanel;
 import boundary.panel.laporan.LaporanPanel;
+import boundary.panel.member.DaftarMemberPanel;
 import boundary.panel.pembelian.PembelianPanel;
 import boundary.widget.*;
 import boundary.enums.PanelEnum;
@@ -66,33 +67,33 @@ public class MainWindow extends JFrame {
         sidePanel.addButton(new SideBarButton("/kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Pembayaran", new PembelianPanel(0));
+                addWindow("Pembayaran", new PembelianPanel(0), PanelEnum.KASIR);
             }
         } );
         sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton");
         ((JButton) sidePanel.getComponent("laporanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Laporan", new LaporanPanel());
+                addWindow("Laporan", new LaporanPanel(), PanelEnum.LAPORAN);
             }
         });
 
         sidePanel.addButton(new SideBarButton("/member.png", "Member"), "MemberButton");
         ((JButton) sidePanel.getComponent("MemberButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Member", new JPanel());
+                addWindow("Member", new DaftarMemberPanel(), PanelEnum.MEMBER);
             }
         } );
         sidePanel.addButton(new SideBarButton("/inventaris.png", "Inventaris"), "inventarisButton");
         ((JButton) sidePanel.getComponent("inventarisButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Inventaris", new DaftarBarangPanel());
+                addWindow("Inventaris", new DaftarBarangPanel(), PanelEnum.INVENTARIS);
             }
         } );
         sidePanel.addButton(new SideBarButton("/pengaturan.png", "Pengaturan"), "pengaturanButton");
         ((JButton) sidePanel.getComponent("pengaturanButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //activePanels.containsValue(JPanel.class);
-                addWindow("Pengaturan", new JPanel());
+                addWindow("Pengaturan", new JPanel(), PanelEnum.PENGATURAN);
             }
         } );
 
@@ -102,6 +103,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(topBar.getActive() != "homeButton"){
                     loadPage(activePanels.get("homeButton"));
+                    contentEnum = PanelEnum.HOME;
                 }
             }
         } );
@@ -147,7 +149,7 @@ public class MainWindow extends JFrame {
         });
     }
 
-    public void addWindow(String tabLabel, JPanel panel){
+    public void addWindow(String tabLabel, JPanel panel, PanelEnum type){
         String name = "content" + counter.toString();
         TopBarTab newbutton = new TopBarTab(tabLabel);
         topBar.addButton(newbutton, name);
@@ -156,6 +158,7 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadPage(activePanels.get(name));
+                contentEnum = type;
             }
         });
         newbutton.onClose(new ActionListener() {
