@@ -1,5 +1,6 @@
-package boundary.panel.member;
+package boundary.panel.member.subpanel;
 
+import boundary.widget.FlowablePane;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 
@@ -7,7 +8,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class EditDataMemberPanel extends JPanel{
+public class EditDataMemberPanel extends FlowablePane {
     // Setup
     private static JPanel rightPanel;
     private static JPanel leftPanel;

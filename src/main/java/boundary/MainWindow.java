@@ -2,10 +2,12 @@ package boundary;
 
 import boundary.constants.Colors;
 import boundary.panel.home.HomeUI;
-import boundary.panel.inventaris.DaftarBarangPanel;
+import boundary.panel.inventaris.InventarisPanel;
+import boundary.panel.inventaris.subpanel.DaftarBarangPanel;
+import boundary.panel.kasir.KasirPanel;
 import boundary.panel.laporan.LaporanPanel;
-import boundary.panel.member.DaftarMemberPanel;
-import boundary.panel.pembelian.PembelianPanel;
+import boundary.panel.member.MemberPanel;
+import boundary.panel.member.subpanel.DaftarMemberPanel;
 import boundary.widget.*;
 import boundary.enums.PanelEnum;
 
@@ -67,30 +69,26 @@ public class MainWindow extends JFrame {
         sidePanel.addButton(new SideBarButton("/kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Pembayaran", new PembelianPanel(0), PanelEnum.KASIR);
+                addWindow("Pembayaran", new KasirPanel(), PanelEnum.KASIR);
             }
         } );
-        sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton");
-        ((JButton) sidePanel.getComponent("laporanButton")).addActionListener(new ActionListener() {
+        sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Laporan", new LaporanPanel(), PanelEnum.LAPORAN);
             }
         });
 
-        sidePanel.addButton(new SideBarButton("/member.png", "Member"), "MemberButton");
-        ((JButton) sidePanel.getComponent("MemberButton")).addActionListener(new ActionListener() {
+        sidePanel.addButton(new SideBarButton("/member.png", "Member"), "MemberButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Member", new DaftarMemberPanel(), PanelEnum.MEMBER);
+                addWindow("Member", new MemberPanel(), PanelEnum.MEMBER);
             }
         } );
-        sidePanel.addButton(new SideBarButton("/inventaris.png", "Inventaris"), "inventarisButton");
-        ((JButton) sidePanel.getComponent("inventarisButton")).addActionListener(new ActionListener() {
+        sidePanel.addButton(new SideBarButton("/inventaris.png", "Inventaris"), "inventarisButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Inventaris", new DaftarBarangPanel(), PanelEnum.INVENTARIS);
+                addWindow("Inventaris", new InventarisPanel(), PanelEnum.INVENTARIS);
             }
         } );
-        sidePanel.addButton(new SideBarButton("/pengaturan.png", "Pengaturan"), "pengaturanButton");
-        ((JButton) sidePanel.getComponent("pengaturanButton")).addActionListener(new ActionListener() {
+        sidePanel.addButton(new SideBarButton("/pengaturan.png", "Pengaturan"), "pengaturanButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //activePanels.containsValue(JPanel.class);
                 addWindow("Pengaturan", new JPanel(), PanelEnum.PENGATURAN);

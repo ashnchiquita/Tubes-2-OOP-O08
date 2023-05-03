@@ -1,11 +1,8 @@
-package boundary.panel.member;
+package boundary.panel.member.subpanel;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
-import boundary.widget.PlainScrollBar;
-import boundary.widget.PressedButton;
-import boundary.widget.RoundBorder;
-import boundary.widget.RoundedPanel;
+import boundary.widget.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,7 +11,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 
-public class DaftarMemberPanel extends JPanel{
+public class DaftarMemberPanel extends FlowablePane {
     private static JPanel headerPanel;
     private static JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
@@ -24,7 +21,7 @@ public class DaftarMemberPanel extends JPanel{
     
     private void setupHeaderPanel(){
         headerPanel = new JPanel();
-        Border paddingBorder = BorderFactory.createEmptyBorder(75, 50, 60, 20);
+        Border paddingBorder = BorderFactory.createEmptyBorder(75, 40, 60, 20);
         headerPanel.setBackground(new Color(255,255,255));
         headerPanel.setPreferredSize(new Dimension(1000,168));
         headerPanel.setBorder(paddingBorder);
@@ -38,7 +35,7 @@ public class DaftarMemberPanel extends JPanel{
 
         // Horizontal Divider
         JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator1.setPreferredSize(new Dimension(290, 0));
+        separator1.setPreferredSize(new Dimension(280, 0));
         headerPanel.add(separator1);
 
         // Label "Total Barang"
@@ -67,6 +64,7 @@ public class DaftarMemberPanel extends JPanel{
         importButton.setPreferredSize(new Dimension(130,38));
         importButton.setUI(buttonUI);
         importButton.setBorder(new RoundBorder(20));
+        //TODO: Import functionality
         importButtonPanel.add(importButton, BorderLayout.WEST);
         headerPanel.add(importButtonPanel, BorderLayout.WEST);
 
@@ -81,10 +79,9 @@ public class DaftarMemberPanel extends JPanel{
         // Table
         scrollListPanel = new JScrollPane();
         scrollListPanel.setBackground(Color.WHITE);
-        scrollListPanel.setPreferredSize(new Dimension(900,515));
+        scrollListPanel.setPreferredSize(new Dimension(900,450));
         scrollListPanel.setBorder(BorderFactory.createEmptyBorder());
         // Cell Renderer
-
 
         JTable itemList = new JTable(getData(), getColumnNames());
         itemList.setRowHeight(50);
@@ -194,6 +191,7 @@ public class DaftarMemberPanel extends JPanel{
     JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
     JButton perlihatkanButton = new JButton("Perlihatkan");
 
+    //TODO: Edit and history button functionality
     private static Object[][] getData() {
         Object[][] data = {
                 {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},

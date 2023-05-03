@@ -1,13 +1,14 @@
-package boundary.panel.pembelian;
+package boundary.panel.kasir.subpanel;
 
 import java.awt.*;
 import javax.swing.*;
 
 import boundary.constants.Colors;
+import boundary.widget.FlowablePane;
 import boundary.widget.HintTextField;
 import boundary.widget.RoundedPanel;
 
-public class CreateMemberPanel extends JPanel {
+public class CreateMemberPanel extends FlowablePane {
   // UI Components
   private JButton exitButton = new JButton();
   private JLabel checkoutLabel = new JLabel("Data Member Baru");

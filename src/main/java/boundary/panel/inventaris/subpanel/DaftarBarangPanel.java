@@ -1,10 +1,9 @@
-package boundary.panel.inventaris;
+package boundary.panel.inventaris.subpanel;
 
 import boundary.constants.Colors;
-import boundary.widget.PlainScrollBar;
-import boundary.widget.PressedButton;
-import boundary.widget.RoundBorder;
-import boundary.widget.RoundedPanel;
+import boundary.observer.panelflow.PanelFlowEvent;
+import boundary.panel.kasir.subpanel.CheckoutPanel;
+import boundary.widget.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,7 +13,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-public class DaftarBarangPanel extends JPanel{
+public class DaftarBarangPanel extends FlowablePane {
     private static JPanel headerPanel;
     private static JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
@@ -86,6 +85,7 @@ public class DaftarBarangPanel extends JPanel{
         createNewItemButton.setPreferredSize(new Dimension(180,38));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
+        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPanel(), true)));
         createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
         headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);
     }
@@ -94,7 +94,7 @@ public class DaftarBarangPanel extends JPanel{
         // Table
         scrollListPanel = new JScrollPane();
         scrollListPanel.setBackground(Color.WHITE);
-        scrollListPanel.setPreferredSize(new Dimension(900,515));
+        scrollListPanel.setPreferredSize(new Dimension(900,450));
         scrollListPanel.setBorder(BorderFactory.createEmptyBorder());
         // Cell Renderer
 
@@ -104,10 +104,10 @@ public class DaftarBarangPanel extends JPanel{
         itemList.setDefaultEditor(Object.class, null); // make cells not editable
         itemList.getColumnModel().getColumn(0).setPreferredWidth(100);
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
-        itemList.getColumnModel().getColumn(2).setPreferredWidth(300);
-        itemList.getColumnModel().getColumn(3).setPreferredWidth(100);
-        itemList.getColumnModel().getColumn(4).setPreferredWidth(100);
-        itemList.getColumnModel().getColumn(5).setPreferredWidth(100);
+        itemList.getColumnModel().getColumn(2).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(3).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(4).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(5).setPreferredWidth(200);
         itemList.setBorder(BorderFactory.createEmptyBorder());
         itemList.setShowVerticalLines(false);
         itemList.setBackground(Colors.WHITE);

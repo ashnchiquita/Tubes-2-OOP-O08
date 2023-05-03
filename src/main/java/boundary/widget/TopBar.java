@@ -111,16 +111,16 @@ public class TopBar extends ScrollableContainer {
         });
     }
 
-    public JComponent addButton(TopBarButton addition, String name) throws IllegalArgumentException{
+    public TopBarButton addButton(TopBarButton addition, String name) throws IllegalArgumentException{
         //Note: name must be unique
-        JComponent retval = addComponent(addition, name);
+        addComponent(addition, name);
         Integer rightmostLocation = 60 + buttonCount*defaultButtonSize;
         addition.setBounds( rightmostLocation,0,defaultButtonSize, height);
         buttonCount++;
         contentPanel.setPreferredSize(new Dimension(rightmostLocation+defaultButtonSize > 977? rightmostLocation+defaultButtonSize:977, height-10));
         registerButtonLogic(addition, name);
 
-        return retval;
+        return addition;
     }
 
     public void removeButton(String name) throws IllegalArgumentException{

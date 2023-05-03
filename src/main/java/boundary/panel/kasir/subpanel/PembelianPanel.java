@@ -1,4 +1,4 @@
-package boundary.panel.pembelian;
+package boundary.panel.kasir.subpanel;
 
 import java.awt.*;
 import javax.swing.*;
@@ -8,22 +8,21 @@ import javax.swing.event.ChangeListener;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
-import boundary.widget.PlainScrollBar;
+import boundary.observer.panelflow.PanelFlowEvent;
+import boundary.observer.panelflow.PanelFlowObserver;
+import boundary.panel.kasir.KasirPanel;
+import boundary.widget.*;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianListener;
 import boundary.observer.pembelian.PembelianObserver;
-import boundary.widget.PembelianCard;
-import boundary.widget.PembelianList;
-import boundary.widget.RoundedPanel;
 
 import javax.swing.event.ChangeEvent;
 
-public class PembelianPanel extends JPanel implements PembelianListener {
+public class PembelianPanel extends FlowablePane implements PembelianListener {
   private int vw = 1280, vh = 720;
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
-
-  PembelianObserver observer = new PembelianObserver();
+  PembelianObserver pembelianObserver = new PembelianObserver();
   ArrayList<Integer> buyIdList = new ArrayList<>();
 
   ArrayList<JPanel> gridItemList = new ArrayList<>();
@@ -71,12 +70,10 @@ public class PembelianPanel extends JPanel implements PembelianListener {
   JButton cancelButton = new JButton("Cancel");
   RoundedPanel checkoutContainer = new RoundedPanel(42, Colors.BUTTON_BLUE, false, Color.WHITE, 0);
   JButton checkoutButton = new JButton("Checkout");
-
   JPanel buyListPanel = new JPanel();
   JScrollPane buyListScroll = new JScrollPane(buyListPanel);
-
   public PembelianPanel(int orderNumber) {
-    this.observer.addListener(this);
+    this.pembelianObserver.addListener(this);
     this.orderNumLabel.setText("#" + String.valueOf(orderNumber));
     this.initializeUI();
   }
@@ -108,7 +105,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
       c.gridy = i / 3;
 
       PembelianCard card = new PembelianCard(i, data[i].title, data[i].subtitle, data[i].price, data[i].imagePath);
-      card.setObserver(observer);
+      card.setObserver(pembelianObserver);
       card.setPreferredSize(new Dimension(155, 185));
       container.add(card, BorderLayout.CENTER);
       gridPanel.add(container, c);
@@ -260,6 +257,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
     checkoutButton.setBorder(null);
     checkoutButton.setFocusPainted(false);
     checkoutButton.setBounds(10, 4, 185, 41);
+    checkoutButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CheckoutPanel(), true)));
     checkoutContainer.add(checkoutButton);
     buttonPanel.add(checkoutContainer, BorderLayout.EAST);
 
@@ -288,7 +286,7 @@ public class PembelianPanel extends JPanel implements PembelianListener {
           e.imagePath, buyItemList.size());
       temp.setPreferredSize(new Dimension(0, 103));
       temp.setMaximumSize(new Dimension(346, 103));
-      temp.setObserver(observer);
+      temp.setObserver(pembelianObserver);
       buyItemList.add(temp);
       buyListPanel.add(buyItemList.get(buyItemList.size() - 1));
       buyListPanel.add(Box.createRigidArea(new Dimension(0, 15)));

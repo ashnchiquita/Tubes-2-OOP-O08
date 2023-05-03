@@ -1,5 +1,7 @@
-package boundary.panel.inventaris;
+package boundary.panel.inventaris.subpanel;
 
+import boundary.observer.panelflow.PanelFlowEvent;
+import boundary.widget.FlowablePane;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 
@@ -7,12 +9,20 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class TambahBarangPanel extends JPanel {
+public class TambahBarangPanel extends FlowablePane {
+    public TambahBarangPanel(){
+        this.setBackground(Color.WHITE);
+        setupLeftPanel();
+        this.add(leftPanel, BorderLayout.NORTH);
+        setupRightPanel();
+        this.add(rightPanel, BorderLayout.NORTH);
+    }
     // Setup
     private static JPanel rightPanel;
+
     private static JPanel leftPanel;
 
-    private static void setupLeftPanel(){
+    private void setupLeftPanel(){
         /* Setting up left panel buttons */
 
         leftPanel = new JPanel();
@@ -26,6 +36,7 @@ public class TambahBarangPanel extends JPanel {
         // Header Atas
         JButton backButton = new JButton("Back");
 //        backButton.setPreferredSize(new Dimension(994, 43));
+        backButton.addActionListener(e -> this.panelFlowObserver.newEvent(PanelFlowEvent.retract()));
         leftPanel.add(backButton,BorderLayout.NORTH);
         JLabel tambahBarangLabel = new JLabel("Tambah Barang Baru");
         tambahBarangLabel.setFont(new Font("Inter", Font.BOLD, 33));
@@ -111,7 +122,7 @@ public class TambahBarangPanel extends JPanel {
         leftPanel.add(createNewItemButton, BorderLayout.WEST);
     }
 
-    private static void setupRightPanel() {
+    private void setupRightPanel() {
         /* Setting up left panel buttons */
 
         rightPanel = new JPanel();
@@ -129,15 +140,6 @@ public class TambahBarangPanel extends JPanel {
 
         rightPanel.add(filePanel, BorderLayout.WEST);
 //        rightPanel.setLayout(new BorderLayout());
-
-    }
-
-    public TambahBarangPanel(){
-        this.setBackground(Color.WHITE);
-        setupLeftPanel();
-        this.add(leftPanel, BorderLayout.NORTH);
-        setupRightPanel();
-        this.add(rightPanel, BorderLayout.NORTH);
 
     }
 

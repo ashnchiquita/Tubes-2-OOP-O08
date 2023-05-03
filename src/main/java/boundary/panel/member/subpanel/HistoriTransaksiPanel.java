@@ -1,5 +1,6 @@
-package boundary.panel.member;
+package boundary.panel.member.subpanel;
 
+import boundary.widget.FlowablePane;
 import boundary.widget.RoundedPanel;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-public class HistoriTransaksiPanel extends JPanel{
+public class HistoriTransaksiPanel extends FlowablePane {
     private static JPanel headerPanel;
     private static JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);

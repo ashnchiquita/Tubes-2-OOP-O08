@@ -19,13 +19,13 @@ public class SideBar extends ScrollableContainer {
         components.get("lastLoginText").setBounds(85,bottomMostLocation,169,16);
         contentPanel.setPreferredSize(new Dimension(width-18, bottomMostLocation +30 > 678? bottomMostLocation + 100 : 678));
     }
-    public JComponent addButton(JButton addition, String name) throws IllegalArgumentException{
+    public JButton addButton(JButton addition, String name) throws IllegalArgumentException{
         //Note: name must be unique
-        JComponent retval = addComponent(addition, name);
+        addComponent(addition, name);
         addition.setBounds(0,130 + buttonCount*60,340,60);
         buttonCount++;
         adjustRefreshButton();
-        return retval;
+        return addition;
     }
     public SideBar(Integer widthin, Color BgColor, Color FgColor){
         super();
