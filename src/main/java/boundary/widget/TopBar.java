@@ -2,14 +2,20 @@ package boundary.widget;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
+import boundary.enums.PanelEnum;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TopBar extends ScrollableContainer {
+    private Map<PanelEnum, ArrayList<String>> panelArrays = new HashMap<>();
+    private Map<String, ArrayList<String>> panelTypeArrays = new HashMap<>();
     private Integer buttonCount = 0;
     private Color bgColor;
     private Integer contentWidth;
@@ -18,6 +24,15 @@ public class TopBar extends ScrollableContainer {
     private String active;
     public TopBar(Integer heightin, Color BgColor){
         super();
+
+        panelArrays.put(PanelEnum.NULL, new ArrayList<>());
+        panelArrays.put(PanelEnum.HOME, new ArrayList<>());
+        panelArrays.put(PanelEnum.KASIR, new ArrayList<>());
+        panelArrays.put(PanelEnum.LAPORAN, new ArrayList<>());
+        panelArrays.put(PanelEnum.INVENTARIS, new ArrayList<>());
+        panelArrays.put(PanelEnum.MEMBER, new ArrayList<>());
+        panelArrays.put(PanelEnum.PENGATURAN, new ArrayList<>());
+
         bgColor = BgColor;
         height = heightin;
         contentWidth = 977;
@@ -75,6 +90,9 @@ public class TopBar extends ScrollableContainer {
             }
         });
         homeButton.changeStatus(true);
+        ArrayList<String> homeArray = panelArrays.get(PanelEnum.HOME);
+        homeArray.add("homeButton");
+        panelTypeArrays.put("homeButton", homeArray);
         active = "homeButton";
 
         //setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -111,9 +129,12 @@ public class TopBar extends ScrollableContainer {
         });
     }
 
-    public TopBarButton addButton(TopBarButton addition, String name) throws IllegalArgumentException{
+    public TopBarButton addButton(TopBarButton addition, String name, PanelEnum type) throws IllegalArgumentException{
         //Note: name must be unique
         addComponent(addition, name);
+        ArrayList<String> typeArray = panelArrays.get(type);
+        typeArray.add(name);
+        panelTypeArrays.put(name, typeArray);
         Integer rightmostLocation = 60 + buttonCount*defaultButtonSize;
         addition.setBounds( rightmostLocation,0,defaultButtonSize, height);
         buttonCount++;
@@ -127,8 +148,11 @@ public class TopBar extends ScrollableContainer {
         if(!components.containsKey(name)){
             throw new IllegalArgumentException("Name does not exist");
         }
-        Integer removedLocation = components.get(name).getX();
-        contentPanel.remove(components.get(name));
+        TopBarTab removal = (TopBarTab) components.get(name);
+        Integer removedLocation = removal.getX();
+        contentPanel.remove(removal);
+        panelTypeArrays.get(name).remove(name);
+        panelTypeArrays.remove(name);
         components.remove(name);
         buttonCount--;
         revalidate();
@@ -139,5 +163,12 @@ public class TopBar extends ScrollableContainer {
             }
         });
         repaint();
+    }
+
+    public boolean hasType(PanelEnum type){
+        return !panelArrays.get(type).isEmpty();
+    }
+    public ArrayList<String> getTabsWithType(PanelEnum type){
+        return panelArrays.get(type);
     }
 }

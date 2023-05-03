@@ -3,11 +3,9 @@ package boundary;
 import boundary.constants.Colors;
 import boundary.panel.home.HomeUI;
 import boundary.panel.inventaris.InventarisPanel;
-import boundary.panel.inventaris.subpanel.DaftarBarangPanel;
 import boundary.panel.kasir.KasirPanel;
 import boundary.panel.laporan.LaporanPanel;
 import boundary.panel.member.MemberPanel;
-import boundary.panel.member.subpanel.DaftarMemberPanel;
 import boundary.widget.*;
 import boundary.enums.PanelEnum;
 
@@ -74,24 +72,48 @@ public class MainWindow extends JFrame {
         } );
         sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Laporan", new LaporanPanel(), PanelEnum.LAPORAN);
+                if(!topBar.hasType(PanelEnum.LAPORAN))
+                    addWindow("Laporan", new LaporanPanel(), PanelEnum.LAPORAN);
+                else{
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.LAPORAN).get(0)));
+                    if(!tab.getStatus())
+                        tab.doClick();
+                }
             }
         });
 
         sidePanel.addButton(new SideBarButton("/member.png", "Member"), "MemberButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Member", new MemberPanel(), PanelEnum.MEMBER);
+                if(!topBar.hasType(PanelEnum.MEMBER))
+                    addWindow("Member", new MemberPanel(), PanelEnum.MEMBER);
+                else{
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.MEMBER).get(0)));
+                    if(!tab.getStatus())
+                        tab.doClick();
+                }
             }
         } );
         sidePanel.addButton(new SideBarButton("/inventaris.png", "Inventaris"), "inventarisButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Inventaris", new InventarisPanel(), PanelEnum.INVENTARIS);
+                if(!topBar.hasType(PanelEnum.INVENTARIS))
+                    addWindow("Inventaris", new InventarisPanel(), PanelEnum.INVENTARIS);
+                else{
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.INVENTARIS).get(0)));
+                    if(!tab.getStatus())
+                        tab.doClick();
+                }
             }
         } );
         sidePanel.addButton(new SideBarButton("/pengaturan.png", "Pengaturan"), "pengaturanButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //activePanels.containsValue(JPanel.class);
-                addWindow("Pengaturan", new JPanel(), PanelEnum.PENGATURAN);
+                if(!topBar.hasType(PanelEnum.PENGATURAN))
+                    addWindow("Pengaturan", new JPanel(), PanelEnum.PENGATURAN);
+                else{
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.PENGATURAN).get(0)));
+                    if(!tab.getStatus())
+                        tab.doClick();
+                }
             }
         } );
 
@@ -150,7 +172,7 @@ public class MainWindow extends JFrame {
     public void addWindow(String tabLabel, JPanel panel, PanelEnum type){
         String name = "content" + counter.toString();
         TopBarTab newbutton = new TopBarTab(tabLabel);
-        topBar.addButton(newbutton, name);
+        topBar.addButton(newbutton, name, type);
         activePanels.put(name, panel);
         newbutton.addActionListener(new ActionListener() {
             @Override
@@ -182,32 +204,3 @@ public class MainWindow extends JFrame {
         contentPanel.repaint();
     }
 }
-
-/*
-public void setupFont(){
-    //TODO: fonts
-    try{
-        String rootPath = System.getProperty("user.dir");
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        rootPath += "/font/Rubik/static/";
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Black.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-BlackItalic.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Bold.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-BoldItalic.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-ExtraBold.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-ExtraBoldItalic.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Italic.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Light.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-LightItalic.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Medium.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-MediumItalic.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-Regular.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-SemiBold.ttf")));
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(rootPath + "Rubik-SemiBoldItalic.ttf")));
-        System.out.println("Font loading success");
-
-    }catch (Exception e){
-        System.out.println("Font loading failure: " + e.getMessage());
-    }
-}
-*/

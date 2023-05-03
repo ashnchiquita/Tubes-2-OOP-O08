@@ -1,4 +1,2 @@
-package boundary.observer.tab;
-
-public class TabEvent {
+package boundary.observer.tab;public class TabEvent {
 }
