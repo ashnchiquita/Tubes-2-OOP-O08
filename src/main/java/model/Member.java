@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS, property="@class")
+// @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 public class Member extends Customer {
     private String name, phone;
     private int point, transactions;

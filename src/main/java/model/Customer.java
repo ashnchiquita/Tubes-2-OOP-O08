@@ -10,11 +10,11 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS, property="@class")
-//@JsonSubTypes({
-//        @JsonSubTypes.Type(value=Member.class, name = "Member"),
-//        @JsonSubTypes.Type(value=VIP.class, name = "VIP"),
-//})
+// @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
+// @JsonSubTypes({
+// @JsonSubTypes.Type(value=Member.class, name = "Member"),
+// @JsonSubTypes.Type(value=VIP.class, name = "VIP"),
+// })
 
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
