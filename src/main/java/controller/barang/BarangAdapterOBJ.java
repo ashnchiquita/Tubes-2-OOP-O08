@@ -1,30 +1,38 @@
 package controller.barang;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import model.Barang;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class BarangAdapterXML implements BarangIO {
-    private static final XmlMapper mapper = (XmlMapper) new XmlMapper().registerModule(new JavaTimeModule());
+public class BarangAdapterOBJ implements BarangIO {
     private final String filePath;
     private List<Barang> list = new ArrayList<>();
 
-    public BarangAdapterXML(String filePath) {
+    public BarangAdapterOBJ(String filePath) {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllBarang(),"Barang list must be a non-null value");
         }
+    }
+
+    public void write() throws IOException {
+        FileOutputStream fos = new FileOutputStream(filePath);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(list);
+        oos.close();
+    }
+
+    public void read() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(filePath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        list = (List<Barang>) ois.readObject(); // wah unsafe gmn ya biar safe
+        ois.close();
     }
 
     @Override @Nullable
@@ -41,9 +49,9 @@ public class BarangAdapterXML implements BarangIO {
     @Override @Nullable
     public List<Barang> getAllBarang() {
         try {
-            list = mapper.readValue(new File(filePath), new TypeReference<List<Barang>>() { });
+            read();
             return list;
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null; // Return null artinya terjadi IOException
         }
@@ -53,7 +61,7 @@ public class BarangAdapterXML implements BarangIO {
     public boolean insertBarang(Barang data) {
         try {
             list.add(data);
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+            write();
             return true;
         } catch (IOException e) {
             list.remove(data);
@@ -79,7 +87,7 @@ public class BarangAdapterXML implements BarangIO {
             Barang prevData = list.get(pos).toBuilder().build();
             try {
                 list.set(pos, newData);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                write();
                 return true;
             } catch (IOException e) {
                 list.set(pos, prevData); // recover
@@ -97,7 +105,7 @@ public class BarangAdapterXML implements BarangIO {
         if (data != null) {
             try {
                 list.remove(data);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                write();
                 return true;
             } catch (IOException e){
                 list.add(data); // recover
