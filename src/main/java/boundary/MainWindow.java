@@ -199,7 +199,14 @@ public class MainWindow extends JFrame implements TabListener {
     }
     @Override
     public void clickTab(TabEvent e, String tabname, PanelEnum panelType) {
-        loadPage(activePanels.get(tabname));
-        contentEnum = panelType;
+        JPanel tabPanel = activePanels.get(tabname);
+        if (contentPanelView != tabPanel){
+            loadPage(activePanels.get(tabname));
+            contentEnum = panelType;
+        }
+        else{
+            loadPage(activePanels.get("homeButton"));
+            contentEnum = PanelEnum.HOME;
+        }
     }
 }

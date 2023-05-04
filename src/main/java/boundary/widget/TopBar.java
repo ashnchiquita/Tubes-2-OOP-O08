@@ -167,7 +167,6 @@ public class TopBar extends ScrollableContainer implements TabListener {
             tab.changeStatus(false);
             TopBarButton home = (TopBarButton) components.get("homeButton");
             home.changeStatus(true);
-            home.doClick();
             active = "homeButton";
             return;
         }
