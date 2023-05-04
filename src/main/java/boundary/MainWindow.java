@@ -172,17 +172,10 @@ public class MainWindow extends JFrame implements TabListener {
 
     public void addWindow(String tabLabel, TabPanel panel, PanelEnum type){
         String name = "content" + counter.toString();
-        TopBarTab newbutton = new TopBarTab(tabLabel, name);
+        TopBarTab newbutton = new TopBarTab(tabLabel, name, type);
         topBar.addTab(newbutton, name, type);
         activePanels.put(name, panel);
         panel.assignTab(newbutton);
-        newbutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadPage(activePanels.get(name));
-                contentEnum = type;
-            }
-        });
         newbutton.getObserver().addListener(this);
         newbutton.doClick();
         counter++;
@@ -203,5 +196,10 @@ public class MainWindow extends JFrame implements TabListener {
     public void closeTab(TabEvent e, String tabname) {
         ((TopBarButton) topBar.getComponent("homeButton")).doClick();
         activePanels.remove(tabname);
+    }
+    @Override
+    public void clickTab(TabEvent e, String tabname, PanelEnum panelType) {
+        loadPage(activePanels.get(tabname));
+        contentEnum = panelType;
     }
 }

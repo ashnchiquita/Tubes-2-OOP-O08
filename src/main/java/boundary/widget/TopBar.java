@@ -112,27 +112,6 @@ public class TopBar extends ScrollableContainer implements TabListener {
         return active;
     }
 
-    private void registerButtonLogic(TopBarButton addition, String name){
-        addition.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(addition.getStatus()){
-                    addition.changeStatus(false);
-                    TopBarButton home = (TopBarButton) components.get("homeButton");
-                    home.changeStatus(true);
-                    home.doClick();
-                    active = "homeButton";
-                    return;
-                }
-                ((TopBarButton) components.get(active)).changeStatus(false);
-
-                addition.changeStatus(true);
-                active = name;
-                return;
-            }
-        });
-    }
-
     public TopBarButton addTab(TopBarTab addition, String name, PanelEnum type) throws IllegalArgumentException{
         //Note: name must be unique
         addComponent(addition, name);
@@ -143,7 +122,6 @@ public class TopBar extends ScrollableContainer implements TabListener {
         addition.setBounds( rightmostLocation,0,defaultButtonSize, height);
         buttonCount++;
         contentPanel.setPreferredSize(new Dimension(rightmostLocation+defaultButtonSize > 977? rightmostLocation+defaultButtonSize:977, height-10));
-        registerButtonLogic(addition, name);
         addition.getObserver().addListener(this);
 
         return addition;
@@ -180,5 +158,23 @@ public class TopBar extends ScrollableContainer implements TabListener {
     @Override
     public void closeTab(TabEvent e, String tabname) {
         removeTab(tabname);
+    }
+
+    @Override
+    public void clickTab(TabEvent e, String tabName, PanelEnum paneltype) {
+        TopBarTab tab = (TopBarTab) getComponent(tabName);
+        if(tab.getStatus()){
+            tab.changeStatus(false);
+            TopBarButton home = (TopBarButton) components.get("homeButton");
+            home.changeStatus(true);
+            home.doClick();
+            active = "homeButton";
+            return;
+        }
+        ((TopBarButton) components.get(active)).changeStatus(false);
+
+        tab.changeStatus(true);
+        active = tabName;
+        return;
     }
 }

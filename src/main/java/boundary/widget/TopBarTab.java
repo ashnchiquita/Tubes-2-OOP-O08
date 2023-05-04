@@ -2,6 +2,7 @@ package boundary.widget;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
+import boundary.enums.PanelEnum;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabObserver;
 
@@ -14,10 +15,10 @@ public class TopBarTab extends TopBarButton{
     JButton closeButton;
     JLabel closeLabel;
     JLabel tabLabel;
-    public TopBarTab(String label, String name){
+    public TopBarTab(String label, String name, PanelEnum panelType){
         super();
         setLayout(null);
-        observer = new TabObserver(name);
+        observer = new TabObserver(name, panelType);
         closeButton = new JButton();
         closeButton.setFocusPainted(false);
         closeButton.setContentAreaFilled(false);
@@ -40,6 +41,7 @@ public class TopBarTab extends TopBarButton{
         icon = new ImageIcon(newImage);
         closeLabel.setIcon(icon);
         closeButton.addActionListener(e -> observer.newEvent(new TabEvent(TabEvent.CLOSE)));
+        addActionListener(e -> observer.newEvent(new TabEvent(TabEvent.CLICK)));
         add(marker);
         add(closeButton);
         add(closeLabel);
