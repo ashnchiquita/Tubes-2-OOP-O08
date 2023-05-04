@@ -2,6 +2,7 @@ package boundary.panel.member.subpanel;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
+import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.*;
 
 import javax.swing.*;
@@ -10,6 +11,11 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 public class DaftarMemberPane extends TabPane {
     private static JPanel headerPanel;
@@ -18,7 +24,7 @@ public class DaftarMemberPane extends TabPane {
     private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8),  2);
     private RoundedPanel periksaPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
-    
+
     private void setupHeaderPanel(){
         headerPanel = new JPanel();
         Border paddingBorder = BorderFactory.createEmptyBorder(75, 40, 60, 20);
@@ -96,6 +102,10 @@ public class DaftarMemberPane extends TabPane {
         itemList.setShowVerticalLines(false);
         itemList.setBackground(Colors.WHITE);
         itemList.setPreferredScrollableViewportSize(itemList.getPreferredSize());
+
+        itemList.setRowSelectionAllowed(false);
+        itemList.setColumnSelectionAllowed(false);
+        itemList.setCellSelectionEnabled(true);
         scrollListPanel.setViewportView(itemList);
         scrollListPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
@@ -112,7 +122,7 @@ public class DaftarMemberPane extends TabPane {
                     label = new JLabel();
                     label.setHorizontalAlignment(JLabel.CENTER);
                     label.setOpaque(true);
-                    label.setBackground(new Color(0xDAE2FF));
+                    label.setBackground(new Color(0xDAE2FF)); //warna judul kolom
                     label.setForeground(new Color(0x243C94)); // set the color of the header text
                     label.setFont(label.getFont().deriveFont(Font.BOLD)); // set the font style to bold
                 }
@@ -123,7 +133,28 @@ public class DaftarMemberPane extends TabPane {
         for (int i = 0; i < itemList.getColumnModel().getColumnCount(); i++) {
             itemList.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
-        class ButtonRenderer extends JButton implements TableCellRenderer {
+        TableCellRenderer nonselectableRenderer = new TableCellRenderer() {
+            JLabel label;
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (label == null) {
+                    label = new JLabel();
+                    label.setBackground(Colors.WHITE); //warna judul kolom
+                    label.setForeground(Colors.BLACK); // set the color of the header text
+                    label.setFont(label.getFont().deriveFont(Font.PLAIN)); // set the font style to bold
+                }
+                label.setText(value != null ? value.toString() : "");
+                return label;
+            }
+        };
+        for (int i = 0; i < itemList.getColumnModel().getColumnCount(); i++) {
+            itemList.getColumnModel().getColumn(i).setCellRenderer(nonselectableRenderer);
+        }
+
+        // ini yg buat ngatur button perlihatkan
+        class ButtonRenderer extends JButton implements TableCellRenderer, ActionListener {
+            private boolean isButtonClicked;
+            private int index;
             public ButtonRenderer() {
                 setOpaque(true);
                 setBackground(new Color(0x4C6EDF));
@@ -131,27 +162,43 @@ public class DaftarMemberPane extends TabPane {
                 setPreferredSize(new Dimension(25, 20));
                 setBorderPainted(false);
                 setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+
+                this.addActionListener(this);
+    
+                isButtonClicked = false;
             }
-        
+
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (isSelected) {
-                    setBackground(new Color(0xCDD6F6));
-                }
-                if (!isSelected){
+                index = row;
+                if (isSelected && column == 5 && hasFocus) {
+                    if (!isButtonClicked) {
+                        this.doClick();
+                        setBackground(Colors.DARK_BLUE);
+                        isButtonClicked = true;
+                    }
+                } else {
                     setBackground(new Color(0x4C6EDF));
+                    isButtonClicked = false;
                 }
-                if (value instanceof String) {
-                    setText((String)value);
-                } else if (value instanceof JButton) {
-                    setText(((JButton)value).getText());
-                    setIcon(((JButton)value).getIcon());
+
+                if (column == 5) {
+                    setText("Perlihatkan");
                 }
-        
+
                 return this;
+            }
+
+            public void actionPerformed(ActionEvent e) {
+                panelFlowObserver.newEvent(new PanelFlowEvent(new HistoriTransaksiPane(), true));
             }
         }
 
-        class ButtonRenderer2 extends JButton implements TableCellRenderer {
+
+
+        // ini buat button edit
+        class ButtonRenderer2 extends JButton implements TableCellRenderer, ActionListener {
+            private boolean isButtonClicked;
+            private int index;
             public ButtonRenderer2() {
                 setOpaque(true);
                 setPreferredSize(new Dimension(25, 25));
@@ -162,19 +209,32 @@ public class DaftarMemberPane extends TabPane {
                 Image newImage = image.getScaledInstance(25,25, Image.SCALE_SMOOTH);
                 icon = new ImageIcon(newImage);
                 setIcon(icon); // set the icon of the button
+                
+                this.addActionListener(this);
+
+                isButtonClicked = false;
             }
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (isSelected) {
-                    setBackground(Colors.TABLE_SELECTED);
+                index = row;
+                if (isSelected && column == 4 && hasFocus) {
+                    if (!isButtonClicked) {
+                        this.doClick();
+                        isButtonClicked = true;
+                    }
+                } else {
+                    isButtonClicked = false;
                 }
-                if (!isSelected){
-                    setBackground(Colors.WHITE);
-                }
+                setBackground(Colors.WHITE);
+
                 return this;
             }
+
+            public void actionPerformed(ActionEvent e) {
+                panelFlowObserver.newEvent(new PanelFlowEvent(new EditDataMemberPane(), true));
+            }
         }
-        
+
         TableColumn column = itemList.getColumnModel().getColumn(5);
         column.setCellRenderer(new ButtonRenderer());
 
@@ -188,35 +248,60 @@ public class DaftarMemberPane extends TabPane {
         tableHeader.setFont(tableHeader.getFont().deriveFont(Font.BOLD, 14));
         tableHeader.setPreferredSize(new Dimension(600, 43));
     }
-    JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
-    JButton perlihatkanButton = new JButton("Perlihatkan");
+//    JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
+//    JButton perlihatkanButton = new JButton("Perlihatkan");
 
     //TODO: Edit and history button functionality
     private static Object[][] getData() {
+        JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
+        editButton.setBackground(new Color(0xFFFFFF));
+        editButton.setForeground(Color.WHITE);
+        editButton.setBorderPainted(false);
+        editButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                editButton.setBackground(new Color(0xCDD6F6));
+            }
+            public void mouseExited(MouseEvent e) {
+                editButton.setBackground(new Color(0x4C6EDF));
+            }
+        });
+        editButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO: Handle button click event
+            }
+        });
+
+        JButton perlihatkanButton = new JButton("Perlihatkan");
+        PressedButton buttonUI = new PressedButton(new Color(45,77,182));
+        perlihatkanButton.setBackground(new Color(0x4C6EDF));
+        perlihatkanButton.setForeground(Color.WHITE);
+        perlihatkanButton.setBorderPainted(false);
+        perlihatkanButton.setOpaque(true);
+        perlihatkanButton.setFocusable(false);
+        perlihatkanButton.setPreferredSize(new Dimension(130,38));
+        perlihatkanButton.setUI(buttonUI);
+        perlihatkanButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                perlihatkanButton.setBackground(new Color(0xCDD6F6));
+            }
+            public void mouseExited(MouseEvent e) {
+                perlihatkanButton.setBackground(new Color(0x070303));
+            }
+        });
+        perlihatkanButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO: Handle button click event
+            }
+        });
+
         Object[][] data = {
-                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
-                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
-                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
-                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
-                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
-                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
-                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
-                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
-                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
-                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
-                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
-                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
-                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
-                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
-                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
-                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
-                {" ", "jennie", "0812", "vip", "", new JButton("Perlihatkan")},
-                {" ", "rose", "021", "member", "", new JButton("Perlihatkan")},
-                {" ", "jisoo", "0896", "vip", "", new JButton("Perlihatkan")},
-                {" ", "lisa", "911", "member", "", new JButton("Perlihatkan")},
+                {" ", "jennie", "0812", "vip", editButton, perlihatkanButton},
+                {" ", "rose", "021", "member", editButton, perlihatkanButton},
+                {" ", "jisoo", "0896", "vip", editButton, perlihatkanButton},
         };
         return data;
     }
+
 
     private static String[] getColumnNames() {
         String[] columnNames = {"ID", "Nama", "No.Telepon", "Kategori", "Edit", "Riwayat"};
@@ -231,4 +316,3 @@ public class DaftarMemberPane extends TabPane {
         this.add(scrollListPanel, BorderLayout.CENTER);
     }
 }
-
