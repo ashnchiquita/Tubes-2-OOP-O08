@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import boundary.constants.Colors;
 import boundary.observer.panelflow.PanelFlowEvent;
+import boundary.observer.tab.TabEvent;
 import boundary.widget.TabPane;
 import util.RupiahConverter;
 import boundary.widget.RoundedPanel;
@@ -224,6 +225,7 @@ public class TerimakasihPane extends TabPane {
     selesaiButton.setBounds(9, 2, 187, 39);
     selesaiButton.setForeground(Color.WHITE);
     selesaiButton.setFont(new Font("Inter", Font.PLAIN, 18));
+    selesaiButton.addActionListener(e -> tabObserver.newEvent(new TabEvent(TabEvent.CLOSE)));
     selesaiButtonContainer.add(selesaiButton);
   }
 }

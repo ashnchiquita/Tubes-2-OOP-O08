@@ -2,15 +2,11 @@ package boundary.widget;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
-import boundary.enums.PanelEnum;
-import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabObserver;
-import boundary.panel.kasir.subpanel.CheckoutPane;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class TopBarTab extends TopBarButton{
     TabObserver observer;

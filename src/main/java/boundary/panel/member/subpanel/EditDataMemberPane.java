@@ -1,5 +1,6 @@
 package boundary.panel.member.subpanel;
 
+import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 import boundary.widget.TabPane;
@@ -10,10 +11,10 @@ import java.awt.*;
 
 public class EditDataMemberPane extends TabPane {
     // Setup
-    private static JPanel rightPanel;
-    private static JPanel leftPanel;
+    private JPanel rightPanel;
+    private JPanel leftPanel;
 
-    private static void setupLeftPanel(){
+    private void setupLeftPanel(){
         /* Setting up left panel buttons */
 
         leftPanel = new JPanel();
@@ -25,14 +26,19 @@ public class EditDataMemberPane extends TabPane {
 //        leftPanel.setLayout(new BorderLayout());
 
         // Header Atas
-        JButton backButton = new JButton("Back");
-//        backButton.setPreferredSize(new Dimension(994, 43));
+        JButton backButton = new JButton("<");
+        backButton.setFont(new Font("Inter", Font.BOLD, 33));
+        backButton.setForeground(new Color(229, 151, 0));
+        backButton.setPreferredSize(new Dimension(60, 40));
+        backButton.setBackground(Color.WHITE);
+        backButton.setBorder(BorderFactory.createEmptyBorder());
+        backButton.addActionListener(e -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
         leftPanel.add(backButton,BorderLayout.NORTH);
-        JLabel tambahBarangLabel = new JLabel("Tambah Barang Baru");
-        tambahBarangLabel.setFont(new Font("Inter", Font.BOLD, 33));
-        tambahBarangLabel.setForeground(new Color(229, 151, 0));
-        tambahBarangLabel.setPreferredSize(new Dimension(375, 40));
-        leftPanel.add(tambahBarangLabel,BorderLayout.NORTH);
+        JLabel editDataMember = new JLabel("Edit data member");
+        editDataMember.setFont(new Font("Inter", Font.BOLD, 33));
+        editDataMember.setForeground(new Color(229, 151, 0));
+        editDataMember.setPreferredSize(new Dimension(375, 40));
+        leftPanel.add(editDataMember,BorderLayout.NORTH);
 
         // Nama
         JLabel namaLabel = new JLabel("Nama");
@@ -127,7 +133,7 @@ public class EditDataMemberPane extends TabPane {
         leftPanel.add(buttonPanel, BorderLayout.NORTH);
     }
 
-    private static void setupRightPanel() {
+    private void setupRightPanel() {
         /* Setting up left panel buttons */
 
         rightPanel = new JPanel();

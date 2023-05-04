@@ -1,5 +1,8 @@
 package boundary.panel.member.subpanel;
 
+import boundary.constants.Colors;
+import boundary.observer.panelflow.PanelFlowEvent;
+import boundary.widget.PlainScrollBar;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
 
@@ -21,37 +24,31 @@ public class HistoriTransaksiPane extends TabPane {
         headerPanel = new JPanel();
         Border paddingBorder = BorderFactory.createEmptyBorder(75, 0, 60, 20);
         headerPanel.setBackground(new Color(255,255,255));
-        headerPanel.setPreferredSize(new Dimension(1045,168));
+        headerPanel.setPreferredSize(new Dimension(1000,168));
         headerPanel.setBorder(paddingBorder);
 
 
-        JButton backButton = new JButton("< Histori Transaksi");
+        JButton backButton = new JButton("<");
         backButton.setFont(new Font("Inter", Font.BOLD, 33));
         backButton.setForeground(new Color(229, 151, 0));
-        backButton.setPreferredSize(new Dimension(450, 40));
+        backButton.setPreferredSize(new Dimension(60, 40));
         backButton.setBackground(Color.WHITE);
-//        backButton.setPreferredSize(new Dimension(994, 43));
-
+        backButton.setBorder(BorderFactory.createEmptyBorder());
+        backButton.addActionListener(e -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
         headerPanel.add(backButton, BorderLayout.WEST);
+
         // Label "Daftar Barang"
+        JLabel historyTransaksi = new JLabel("Histori Transaksi");
+        historyTransaksi.setHorizontalAlignment(SwingConstants.LEFT);
+        historyTransaksi.setForeground(new Color(229, 151, 0));
+        historyTransaksi.setFont(new Font("Inter", Font.BOLD, 33));
+        headerPanel.add(historyTransaksi, BorderLayout.WEST);
 
         // Horizontal Divider
         JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator1.setPreferredSize(new Dimension(150, 1));
+        separator1.setPreferredSize(new Dimension(380, 0));
         separator1.setVisible(true);
         headerPanel.add(separator1);
-
-        // Horizontal Divider
-        JSeparator separator2 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator2.setPreferredSize(new Dimension(20, 1));
-        separator2.setVisible(true);
-        headerPanel.add(separator2);
-
-        // Horizontal Divider
-        JSeparator separator3 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator3.setPreferredSize(new Dimension(20, 1));
-        separator3.setVisible(true);
-        headerPanel.add(separator3);
 
         // Label "Total Barang"
         JLabel totalBarangLabel = new JLabel("Total Barang : 127");
@@ -67,23 +64,34 @@ public class HistoriTransaksiPane extends TabPane {
         // Table
         scrollListPanel = new JScrollPane();
         scrollListPanel.setBackground(Color.LIGHT_GRAY);
-        scrollListPanel.setPreferredSize(new Dimension(1045,515));
+        scrollListPanel.setPreferredSize(new Dimension(900, 450));
+        scrollListPanel.setBorder(BorderFactory.createEmptyBorder());
         // Cell Renderer
 
 
         JTable itemList = new JTable(getData(), getColumnNames());
-        itemList.setRowHeight(60);
+        itemList.setRowHeight(50);
         itemList.setDefaultEditor(Object.class, null); // make cells not editable
-        itemList.getColumnModel().getColumn(0).setPreferredWidth(300);
+        itemList.getColumnModel().getColumn(0).setPreferredWidth(100);
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
-        itemList.getColumnModel().getColumn(2).setPreferredWidth(100);
-        itemList.getColumnModel().getColumn(3).setPreferredWidth(100);
-        itemList.getColumnModel().getColumn(4).setPreferredWidth(100);
+        itemList.getColumnModel().getColumn(2).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(3).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(4).setPreferredWidth(200);
+        itemList.setBorder(BorderFactory.createEmptyBorder());
+        itemList.setShowVerticalLines(false);
+        itemList.setBackground(Colors.WHITE);
+        itemList.setPreferredScrollableViewportSize(itemList.getPreferredSize());
+        itemList.setRowSelectionAllowed(false);
+        itemList.setColumnSelectionAllowed(false);
+        itemList.setCellSelectionEnabled(false);
+        itemList.setFocusable(false);
         scrollListPanel.setViewportView(itemList);
+        scrollListPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
         // Set transparent table lines
         itemList.setGridColor(new Color(240, 240, 240));
         itemList.setIntercellSpacing(new Dimension(0, 5));
+        itemList.setFillsViewportHeight(true);
 
         // create a custom header renderer that doesn't paint any effects
         TableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
@@ -105,7 +113,7 @@ public class HistoriTransaksiPane extends TabPane {
         tableHeader.setDefaultRenderer(headerRenderer);
         tableHeader.setAlignmentX(10);
         tableHeader.setFont(tableHeader.getFont().deriveFont(Font.BOLD, 14));
-        tableHeader.setPreferredSize(new Dimension(994, 43));
+        tableHeader.setPreferredSize(new Dimension(600, 43));
     }
 
     private static Object[][] getData() {

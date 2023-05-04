@@ -13,7 +13,6 @@ public class TabObserver {
     }
     public void newEvent(TabEvent e){
         if (e.type == TabEvent.CLOSE){
-            System.out.println("Closing");
             for (TabListener listener : listeners){
                 listener.closeTab(e, name);
             }

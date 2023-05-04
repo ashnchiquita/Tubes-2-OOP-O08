@@ -1,6 +1,5 @@
 package boundary.panel.laporan;
 
-import boundary.panel.kasir.subpanel.PembelianPane;
 import boundary.panel.laporan.subpanel.LaporanPane;
 import boundary.widget.TabPanel;
 

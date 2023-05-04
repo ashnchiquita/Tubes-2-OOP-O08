@@ -1,9 +1,6 @@
 package boundary.observer.panelflow;
 
 import boundary.widget.FlowablePane;
-import boundary.widget.FlowablePanel;
-
-import javax.swing.*;
 
 public class PanelFlowEvent {
     public static final String FLOW = "Flow";

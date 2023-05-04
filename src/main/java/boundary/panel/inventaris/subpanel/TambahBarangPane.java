@@ -34,9 +34,13 @@ public class TambahBarangPane extends TabPane {
 //        leftPanel.setLayout(new BorderLayout());
 
         // Header Atas
-        JButton backButton = new JButton("Back");
-//        backButton.setPreferredSize(new Dimension(994, 43));
-        backButton.addActionListener(e -> this.panelFlowObserver.newEvent(PanelFlowEvent.retract()));
+        JButton backButton = new JButton("<");
+        backButton.setFont(new Font("Inter", Font.BOLD, 33));
+        backButton.setForeground(new Color(229, 151, 0));
+        backButton.setPreferredSize(new Dimension(60, 40));
+        backButton.setBackground(Color.WHITE);
+        backButton.setBorder(BorderFactory.createEmptyBorder());
+        backButton.addActionListener(e -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
         leftPanel.add(backButton,BorderLayout.NORTH);
         JLabel tambahBarangLabel = new JLabel("Tambah Barang Baru");
         tambahBarangLabel.setFont(new Font("Inter", Font.BOLD, 33));

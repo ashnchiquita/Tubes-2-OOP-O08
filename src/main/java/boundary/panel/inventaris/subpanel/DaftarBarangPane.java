@@ -110,6 +110,10 @@ public class DaftarBarangPane extends TabPane {
         itemList.setShowVerticalLines(false);
         itemList.setBackground(Colors.WHITE);
         itemList.setPreferredScrollableViewportSize(itemList.getPreferredSize());
+        itemList.setRowSelectionAllowed(false);
+        itemList.setColumnSelectionAllowed(false);
+        itemList.setCellSelectionEnabled(false);
+        itemList.setFocusable(false);
         scrollListPanel.setViewportView(itemList);
         scrollListPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 

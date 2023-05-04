@@ -201,7 +201,6 @@ public class MainWindow extends JFrame implements TabListener {
 
     @Override
     public void closeTab(TabEvent e, String tabname) {
-        System.out.println(tabname);
         ((TopBarButton) topBar.getComponent("homeButton")).doClick();
         activePanels.remove(tabname);
     }
