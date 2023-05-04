@@ -101,14 +101,14 @@ public class HomeUI extends JPanel {
 
             JLabel WeName = new JLabel("Muhamad Aji W.");
             WeName.setFont(new Font("Inter", Font.BOLD, 13));
-            WeName.setBounds(364, 504, 120, 20);
+            WeName.setBounds(370, 504, 120, 20);
             WeName.setHorizontalAlignment(SwingConstants.LEFT);
             WeName.setVerticalAlignment(SwingConstants.TOP);
             WeName.setForeground(Colors.BLACK);
 
             JLabel WeNim = new JLabel("13521095");
             WeNim.setFont(new Font("Inter", Font.BOLD, 13));
-            WeNim.setBounds(392, 524, 120, 20);
+            WeNim.setBounds(396, 524, 120, 20);
             WeNim.setHorizontalAlignment(SwingConstants.LEFT);
             WeNim.setVerticalAlignment(SwingConstants.TOP);
             WeNim.setForeground(Colors.OCEAN_BLUE);
