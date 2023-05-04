@@ -1,6 +1,8 @@
 package boundary;
 
 import boundary.constants.Colors;
+import boundary.observer.tab.TabEvent;
+import boundary.observer.tab.TabListener;
 import boundary.panel.home.HomeUI;
 import boundary.panel.inventaris.InventarisPanel;
 import boundary.panel.kasir.KasirPanel;
@@ -15,7 +17,7 @@ import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements TabListener {
     private JPanel contentPanel;
     private JPanel contentPanelView;
     private boundary.enums.PanelEnum contentEnum;
@@ -28,7 +30,7 @@ public class MainWindow extends JFrame {
         try{
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (Exception e){
-            System.out.println(e.getMessage()+ " failed to load, proceeding with normal skin");
+            System.out.println(e.getMessage()+ "Skin failed to load, proceeding with normal skin");
         }
         contentEnum = PanelEnum.HOME;
         activePanels = new HashMap<>();
@@ -108,7 +110,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //activePanels.containsValue(JPanel.class);
                 if(!topBar.hasType(PanelEnum.PENGATURAN))
-                    addWindow("Pengaturan", new JPanel(), PanelEnum.PENGATURAN);
+                    addWindow("Pengaturan", new TabPanel(), PanelEnum.PENGATURAN);
                 else{
                     TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.PENGATURAN).get(0)));
                     if(!tab.getStatus())
@@ -128,7 +130,6 @@ public class MainWindow extends JFrame {
             }
         } );
 
-        //TODO: Tidy up
         mainPanel.add(contentPanel, contentPanelGbc);
         mainPanel.add(sidePanel, sidePanelGbc);
         mainPanel.add(topBar, topBarGbc);
@@ -169,11 +170,12 @@ public class MainWindow extends JFrame {
         });
     }
 
-    public void addWindow(String tabLabel, JPanel panel, PanelEnum type){
+    public void addWindow(String tabLabel, TabPanel panel, PanelEnum type){
         String name = "content" + counter.toString();
-        TopBarTab newbutton = new TopBarTab(tabLabel);
-        topBar.addButton(newbutton, name, type);
+        TopBarTab newbutton = new TopBarTab(tabLabel, name);
+        topBar.addTab(newbutton, name, type);
         activePanels.put(name, panel);
+        panel.assignTab(newbutton);
         newbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -181,14 +183,7 @@ public class MainWindow extends JFrame {
                 contentEnum = type;
             }
         });
-        newbutton.onClose(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ((TopBarButton) topBar.getComponent("homeButton")).doClick();
-                topBar.removeButton(name);
-                activePanels.remove(name);
-            }
-        });
+        newbutton.getObserver().addListener(this);
         newbutton.doClick();
         counter++;
     }
@@ -202,5 +197,12 @@ public class MainWindow extends JFrame {
 
         contentPanel.add(contentPanelView, BorderLayout.CENTER);
         contentPanel.repaint();
+    }
+
+    @Override
+    public void closeTab(TabEvent e, String tabname) {
+        System.out.println(tabname);
+        ((TopBarButton) topBar.getComponent("homeButton")).doClick();
+        activePanels.remove(tabname);
     }
 }

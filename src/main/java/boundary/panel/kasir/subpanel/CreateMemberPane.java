@@ -4,11 +4,11 @@ import java.awt.*;
 import javax.swing.*;
 
 import boundary.constants.Colors;
-import boundary.widget.FlowablePane;
 import boundary.widget.HintTextField;
 import boundary.widget.RoundedPanel;
+import boundary.widget.TabPane;
 
-public class CreateMemberPanel extends FlowablePane {
+public class CreateMemberPane extends TabPane {
   // UI Components
   private JButton exitButton = new JButton();
   private JLabel checkoutLabel = new JLabel("Data Member Baru");
@@ -30,7 +30,7 @@ public class CreateMemberPanel extends FlowablePane {
       0);
   private JButton createButton = new JButton("+ Create Member");
 
-  public CreateMemberPanel() {
+  public CreateMemberPane() {
     this.initializeUI();
   }
 

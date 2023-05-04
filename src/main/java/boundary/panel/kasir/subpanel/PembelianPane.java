@@ -9,8 +9,7 @@ import javax.swing.event.ChangeListener;
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.observer.panelflow.PanelFlowEvent;
-import boundary.observer.panelflow.PanelFlowObserver;
-import boundary.panel.kasir.KasirPanel;
+import boundary.observer.tab.TabEvent;
 import boundary.widget.*;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
@@ -19,7 +18,7 @@ import boundary.observer.pembelian.PembelianObserver;
 
 import javax.swing.event.ChangeEvent;
 
-public class PembelianPanel extends FlowablePane implements PembelianListener {
+public class PembelianPane extends TabPane implements PembelianListener {
   private int vw = 1280, vh = 720;
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
   PembelianObserver pembelianObserver = new PembelianObserver();
@@ -72,7 +71,7 @@ public class PembelianPanel extends FlowablePane implements PembelianListener {
   JButton checkoutButton = new JButton("Checkout");
   JPanel buyListPanel = new JPanel();
   JScrollPane buyListScroll = new JScrollPane(buyListPanel);
-  public PembelianPanel(int orderNumber) {
+  public PembelianPane(int orderNumber) {
     this.pembelianObserver.addListener(this);
     this.orderNumLabel.setText("#" + String.valueOf(orderNumber));
     this.initializeUI();
@@ -244,6 +243,7 @@ public class PembelianPanel extends FlowablePane implements PembelianListener {
     cancelButton.setBounds(4, 4, 126, 41);
     cancelButton.setBorder(null);
     cancelButton.setFocusPainted(false);
+    cancelButton.addActionListener(e -> tabObserver.newEvent(new TabEvent(TabEvent.CLOSE)));
     cancelContainer.add(cancelButton);
     buttonPanel.add(cancelContainer, BorderLayout.WEST);
 
@@ -257,7 +257,7 @@ public class PembelianPanel extends FlowablePane implements PembelianListener {
     checkoutButton.setBorder(null);
     checkoutButton.setFocusPainted(false);
     checkoutButton.setBounds(10, 4, 185, 41);
-    checkoutButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CheckoutPanel(), true)));
+    checkoutButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CheckoutPane(), true)));
     checkoutContainer.add(checkoutButton);
     buttonPanel.add(checkoutContainer, BorderLayout.EAST);
 
@@ -354,7 +354,6 @@ public class PembelianPanel extends FlowablePane implements PembelianListener {
               ResourcePath.IMAGE + "/iga-bakar.png"),
       new DataObj("Salad Egg", "", 10.99f,
               ResourcePath.IMAGE + "/salad-egg.png"),
-
   };
 
 }

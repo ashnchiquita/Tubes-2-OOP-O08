@@ -3,19 +3,25 @@ package boundary.widget;
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.enums.PanelEnum;
+import boundary.observer.panelflow.PanelFlowEvent;
+import boundary.observer.tab.TabEvent;
+import boundary.observer.tab.TabObserver;
+import boundary.panel.kasir.subpanel.CheckoutPane;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class TopBarTab extends TopBarButton{
+    TabObserver observer;
     RoundedPanel marker;
     JButton closeButton;
     JLabel closeLabel;
     JLabel tabLabel;
-    public TopBarTab(String name){
+    public TopBarTab(String label, String name){
         super();
         setLayout(null);
+        observer = new TabObserver(name);
         closeButton = new JButton();
         closeButton.setFocusPainted(false);
         closeButton.setContentAreaFilled(false);
@@ -26,7 +32,7 @@ public class TopBarTab extends TopBarButton{
         closeLabel = new JLabel();
         closeLabel.setBounds(150, 15, 15, 15);
         closeLabel.hide();
-        tabLabel = new JLabel(name);
+        tabLabel = new JLabel(label);
         tabLabel.setBounds(45, 12, 130, 20);
         tabLabel.setFont(new Font("Inter", Font.PLAIN, 15));
         tabLabel.setForeground(Colors.WHITE);
@@ -37,6 +43,7 @@ public class TopBarTab extends TopBarButton{
         Image newImage = image.getScaledInstance(15,15, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImage);
         closeLabel.setIcon(icon);
+        closeButton.addActionListener(e -> observer.newEvent(new TabEvent(TabEvent.CLOSE)));
         add(marker);
         add(closeButton);
         add(closeLabel);
@@ -61,8 +68,7 @@ public class TopBarTab extends TopBarButton{
         marker.setBounds(15, 12, 20, 20);
         add(marker);
     }
-
-    public void onClose(ActionListener listener){
-        closeButton.addActionListener(listener);
-    }
+    public TabObserver getObserver(){
+        return observer;
+    };
 }

@@ -1,14 +1,11 @@
 package boundary.panel.kasir;
 
-import boundary.observer.panelflow.PanelFlowEvent;
-import boundary.panel.kasir.subpanel.PembelianPanel;
-import boundary.widget.FlowablePanel;
+import boundary.panel.kasir.subpanel.PembelianPane;
+import boundary.widget.TabPanel;
 
-import javax.swing.*;
-
-public class KasirPanel extends FlowablePanel {
+public class KasirPanel extends TabPanel {
     //TODO: integrate controller
     public KasirPanel() {
-        super(new PembelianPanel(0));
+        super(new PembelianPane(0));
     }
 }

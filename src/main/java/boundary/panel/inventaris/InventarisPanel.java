@@ -1,11 +1,10 @@
 package boundary.panel.inventaris;
 
-import boundary.panel.inventaris.subpanel.DaftarBarangPanel;
-import boundary.panel.member.subpanel.DaftarMemberPanel;
-import boundary.widget.FlowablePanel;
+import boundary.panel.inventaris.subpanel.DaftarBarangPane;
+import boundary.widget.TabPanel;
 
-public class InventarisPanel extends FlowablePanel {
+public class InventarisPanel extends TabPanel {
     public InventarisPanel(){
-        super(new DaftarBarangPanel());
+        super(new DaftarBarangPane());
     }
 }

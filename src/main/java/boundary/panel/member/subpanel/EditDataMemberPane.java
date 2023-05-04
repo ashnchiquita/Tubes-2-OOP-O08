@@ -1,28 +1,19 @@
-package boundary.panel.inventaris.subpanel;
+package boundary.panel.member.subpanel;
 
-import boundary.observer.panelflow.PanelFlowEvent;
-import boundary.widget.FlowablePane;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
+import boundary.widget.TabPane;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class TambahBarangPanel extends FlowablePane {
-    public TambahBarangPanel(){
-        this.setBackground(Color.WHITE);
-        setupLeftPanel();
-        this.add(leftPanel, BorderLayout.NORTH);
-        setupRightPanel();
-        this.add(rightPanel, BorderLayout.NORTH);
-    }
+public class EditDataMemberPane extends TabPane {
     // Setup
     private static JPanel rightPanel;
-
     private static JPanel leftPanel;
 
-    private void setupLeftPanel(){
+    private static void setupLeftPanel(){
         /* Setting up left panel buttons */
 
         leftPanel = new JPanel();
@@ -36,7 +27,6 @@ public class TambahBarangPanel extends FlowablePane {
         // Header Atas
         JButton backButton = new JButton("Back");
 //        backButton.setPreferredSize(new Dimension(994, 43));
-        backButton.addActionListener(e -> this.panelFlowObserver.newEvent(PanelFlowEvent.retract()));
         leftPanel.add(backButton,BorderLayout.NORTH);
         JLabel tambahBarangLabel = new JLabel("Tambah Barang Baru");
         tambahBarangLabel.setFont(new Font("Inter", Font.BOLD, 33));
@@ -58,43 +48,17 @@ public class TambahBarangPanel extends FlowablePane {
         leftPanel.add(namaTextField, BorderLayout.NORTH);
 
         // Kategori
-        JLabel kategoriLabel = new JLabel("Kategori");
+        JLabel kategoriLabel = new JLabel("Telephone Number");
         kategoriLabel.setFont(new Font("Inter", Font.BOLD, 15));
         kategoriLabel.setForeground(new Color(0x243C94));
         kategoriLabel.setPreferredSize(new Dimension(475, 40));
         leftPanel.add(kategoriLabel, BorderLayout.NORTH);
-        JTextField kategoriTextField = new JTextField("Kategori");
+        JTextField kategoriTextField = new JTextField("Telephone Number");
         kategoriTextField.setPreferredSize(new Dimension(475, 45));
         kategoriTextField.setFont(new Font("Inter", Font.PLAIN, 15));
         kategoriTextField.setForeground(new Color(0xD9D9D9));
         kategoriTextField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(0X4B4FC4)), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         leftPanel.add(kategoriTextField, BorderLayout.NORTH);
-
-        // Harga Beli dan Harga Jual
-        JLabel hargaBeliLabel = new JLabel("Harga beli");
-        hargaBeliLabel.setFont(new Font("Inter", Font.BOLD, 15));
-        hargaBeliLabel.setForeground(new Color(0x243C94));
-        hargaBeliLabel.setPreferredSize(new Dimension(240, 40));
-        leftPanel.add(hargaBeliLabel, BorderLayout.WEST);
-        JLabel hargaJualLabel = new JLabel("Jual beli");
-        hargaJualLabel.setFont(new Font("Inter", Font.BOLD, 15));
-        hargaJualLabel.setForeground(new Color(0x243C94));
-        hargaJualLabel.setPreferredSize(new Dimension(230, 40));
-        leftPanel.add(hargaJualLabel, BorderLayout.WEST);
-
-        JTextField hargaBeliTextField = new JTextField("HargaBeli");
-        hargaBeliTextField.setPreferredSize(new Dimension(240, 40));
-        hargaBeliTextField.setFont(new Font("Inter", Font.PLAIN, 15));
-        hargaBeliTextField.setForeground(new Color(0xD9D9D9));
-        hargaBeliTextField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(0X4B4FC4)), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
-        leftPanel.add(hargaBeliTextField, BorderLayout.WEST);
-
-        JTextField hargaJualTextField = new JTextField("HargaBeli");
-        hargaJualTextField.setPreferredSize(new Dimension(230, 40));
-        hargaJualTextField.setFont(new Font("Inter", Font.PLAIN, 15));
-        hargaJualTextField.setForeground(new Color(0xD9D9D9));
-        hargaJualTextField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(0X4B4FC4)), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
-        leftPanel.add(hargaJualTextField, BorderLayout.WEST);
 
         // Stok
         JLabel stokLabel = new JLabel("Stok");
@@ -109,20 +73,61 @@ public class TambahBarangPanel extends FlowablePane {
         stokTextField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(0X4B4FC4)), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         leftPanel.add(stokTextField, BorderLayout.NORTH);
 
-        JButton createNewItemButton = new JButton("+ Tambah Baru");
+        JRadioButton memberRadio = new JRadioButton("Member");
+        memberRadio.setBackground(Color.WHITE);
+        
+        JRadioButton vipRadio = new JRadioButton("VIP");
+        vipRadio.setBackground(Color.WHITE);
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(memberRadio);
+        buttonGroup.add(vipRadio);
+        
+        JPanel radioPanel = new JPanel();
+        radioPanel.setBackground(Color.WHITE);
+        radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
+        radioPanel.setPreferredSize(new Dimension(475, 45));
+        radioPanel.setFont(new Font("Inter", Font.PLAIN, 15));
+        
+        radioPanel.add(memberRadio);
+        radioPanel.add(vipRadio);
+        
+        leftPanel.add(radioPanel, BorderLayout.NORTH);
+        
+        
+        JButton createNewItemButton = new JButton("Deaktivasi");
         PressedButton buttonUI = new PressedButton(new Color(45,77,182));
         createNewItemButton.setFont(new Font("Inter", Font.PLAIN, 15));
-        createNewItemButton.setBackground(new Color(76,110,223));
+        createNewItemButton.setBackground(new Color(236,102,102));
         createNewItemButton.setForeground(Color.WHITE);
         createNewItemButton.setOpaque(true);
         createNewItemButton.setFocusable(false);
         createNewItemButton.setPreferredSize(new Dimension(180,43));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
-        leftPanel.add(createNewItemButton, BorderLayout.WEST);
+        // leftPanel.add(createNewItemButton, BorderLayout.WEST);
+
+        JButton createNewItemButton2 = new JButton("Simpan");
+        PressedButton buttonUI2 = new PressedButton(new Color(45,77,182));
+        createNewItemButton2.setFont(new Font("Inter", Font.PLAIN, 15));
+        createNewItemButton2.setBackground(new Color(76,110,223));
+        createNewItemButton2.setForeground(Color.WHITE);
+        createNewItemButton2.setOpaque(true);
+        createNewItemButton2.setFocusable(false);
+        createNewItemButton2.setPreferredSize(new Dimension(180,43));
+        createNewItemButton2.setUI(buttonUI2);
+        createNewItemButton2.setBorder(new RoundBorder(20));
+        leftPanel.add(createNewItemButton2, BorderLayout.WEST);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(0,0,0,0));
+        buttonPanel.setMaximumSize(new Dimension(350, 50));
+        buttonPanel.add(createNewItemButton);
+        buttonPanel.add(createNewItemButton2);
+        leftPanel.add(buttonPanel, BorderLayout.NORTH);
     }
 
-    private void setupRightPanel() {
+    private static void setupRightPanel() {
         /* Setting up left panel buttons */
 
         rightPanel = new JPanel();
@@ -131,16 +136,18 @@ public class TambahBarangPanel extends FlowablePane {
         rightPanel.setPreferredSize(new Dimension(522, 670));
         rightPanel.setBorder(paddingBorder);
 
-        JPanel filePanel = new JPanel();
-        Border dashedBorder = BorderFactory.createDashedBorder(new Color(0x4B4FC4));
-        filePanel.setBackground(new Color(0, 255, 255));
-        filePanel.setPreferredSize(new Dimension(318, 333));
-        filePanel.setBorder(dashedBorder);
-//        filePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
 
-        rightPanel.add(filePanel, BorderLayout.WEST);
+//        filePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
 //        rightPanel.setLayout(new BorderLayout());
 
     }
 
+    public EditDataMemberPane(){
+        this.setBackground(Color.WHITE);
+        setupLeftPanel();
+        this.add(leftPanel, BorderLayout.NORTH);
+        setupRightPanel();
+        this.add(rightPanel, BorderLayout.NORTH);
+
+    }    
 }

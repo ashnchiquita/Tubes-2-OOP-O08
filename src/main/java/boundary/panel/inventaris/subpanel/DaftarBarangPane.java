@@ -2,18 +2,16 @@ package boundary.panel.inventaris.subpanel;
 
 import boundary.constants.Colors;
 import boundary.observer.panelflow.PanelFlowEvent;
-import boundary.panel.kasir.subpanel.CheckoutPanel;
 import boundary.widget.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-public class DaftarBarangPanel extends FlowablePane {
+public class DaftarBarangPane extends TabPane {
     private static JPanel headerPanel;
     private static JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
@@ -85,7 +83,7 @@ public class DaftarBarangPanel extends FlowablePane {
         createNewItemButton.setPreferredSize(new Dimension(180,38));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
-        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPanel(), true)));
+        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(), true)));
         createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
         headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);
     }
@@ -166,7 +164,7 @@ public class DaftarBarangPanel extends FlowablePane {
         return columnNames;
     }
 
-    public DaftarBarangPanel(){
+    public DaftarBarangPane(){
         this.setBackground(Color.WHITE);
         setupHeaderPanel();
         this.add(headerPanel,BorderLayout.NORTH);

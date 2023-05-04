@@ -3,6 +3,8 @@ package boundary.widget;
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.enums.PanelEnum;
+import boundary.observer.tab.TabEvent;
+import boundary.observer.tab.TabListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TopBar extends ScrollableContainer {
+public class TopBar extends ScrollableContainer implements TabListener {
     private Map<PanelEnum, ArrayList<String>> panelArrays = new HashMap<>();
     private Map<String, ArrayList<String>> panelTypeArrays = new HashMap<>();
     private Integer buttonCount = 0;
@@ -83,7 +85,9 @@ public class TopBar extends ScrollableContainer {
                 if(homeButton.getStatus()) {
                     return;
                 }
-                ((TopBarButton) components.get(active)).changeStatus(false);
+                if(components.containsKey(active)){
+                    ((TopBarButton) components.get(active)).changeStatus(false);
+                }
                 homeButton.changeStatus(true);
                 active = "homeButton";
                 return;
@@ -129,8 +133,9 @@ public class TopBar extends ScrollableContainer {
         });
     }
 
-    public TopBarButton addButton(TopBarButton addition, String name, PanelEnum type) throws IllegalArgumentException{
+    public TopBarButton addTab(TopBarTab addition, String name, PanelEnum type) throws IllegalArgumentException{
         //Note: name must be unique
+        System.out.println(name);
         addComponent(addition, name);
         ArrayList<String> typeArray = panelArrays.get(type);
         typeArray.add(name);
@@ -140,11 +145,12 @@ public class TopBar extends ScrollableContainer {
         buttonCount++;
         contentPanel.setPreferredSize(new Dimension(rightmostLocation+defaultButtonSize > 977? rightmostLocation+defaultButtonSize:977, height-10));
         registerButtonLogic(addition, name);
+        addition.getObserver().addListener(this);
 
         return addition;
     }
 
-    public void removeButton(String name) throws IllegalArgumentException{
+    public void removeTab(String name) throws IllegalArgumentException{
         if(!components.containsKey(name)){
             throw new IllegalArgumentException("Name does not exist");
         }
@@ -170,5 +176,11 @@ public class TopBar extends ScrollableContainer {
     }
     public ArrayList<String> getTabsWithType(PanelEnum type){
         return panelArrays.get(type);
+    }
+
+    @Override
+    public void closeTab(TabEvent e, String tabname) {
+        System.out.println(tabname);
+        removeTab(tabname);
     }
 }

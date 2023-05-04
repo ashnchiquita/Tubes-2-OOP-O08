@@ -11,7 +11,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 
-public class DaftarMemberPanel extends FlowablePane {
+public class DaftarMemberPane extends TabPane {
     private static JPanel headerPanel;
     private static JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
@@ -223,7 +223,7 @@ public class DaftarMemberPanel extends FlowablePane {
         return columnNames;
     }
 
-    public DaftarMemberPanel(){
+    public DaftarMemberPane(){
         this.setBackground(Color.WHITE);
         setupHeaderPanel();
         this.add(headerPanel,BorderLayout.NORTH);

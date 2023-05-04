@@ -12,6 +12,11 @@ public class FlowablePanel extends JPanel implements PanelFlowListener {
     protected Stack<FlowablePane> panelTrace = new Stack<>();
     protected PanelFlowObserver observer = new PanelFlowObserver();
     protected FlowablePane currentPanel;
+    public FlowablePanel() {
+        super(new GridLayout());
+        setBorder(BorderFactory.createEmptyBorder());
+        observer.addListener(this);
+    }
     public FlowablePanel(FlowablePane startPanel) {
         super(new GridLayout());
 

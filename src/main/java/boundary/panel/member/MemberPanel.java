@@ -1,10 +1,10 @@
 package boundary.panel.member;
 
-import boundary.panel.member.subpanel.DaftarMemberPanel;
-import boundary.widget.FlowablePanel;
+import boundary.panel.member.subpanel.DaftarMemberPane;
+import boundary.widget.TabPanel;
 
-public class MemberPanel extends FlowablePanel {
+public class MemberPanel extends TabPanel {
     public MemberPanel(){
-        super(new DaftarMemberPanel());
+        super(new DaftarMemberPane());
     }
 }
