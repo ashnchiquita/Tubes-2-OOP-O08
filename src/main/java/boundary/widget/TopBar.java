@@ -135,7 +135,6 @@ public class TopBar extends ScrollableContainer implements TabListener {
 
     public TopBarButton addTab(TopBarTab addition, String name, PanelEnum type) throws IllegalArgumentException{
         //Note: name must be unique
-        System.out.println(name);
         addComponent(addition, name);
         ArrayList<String> typeArray = panelArrays.get(type);
         typeArray.add(name);
@@ -180,7 +179,6 @@ public class TopBar extends ScrollableContainer implements TabListener {
 
     @Override
     public void closeTab(TabEvent e, String tabname) {
-        System.out.println(tabname);
         removeTab(tabname);
     }
 }

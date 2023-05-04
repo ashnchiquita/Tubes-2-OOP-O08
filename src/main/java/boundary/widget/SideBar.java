@@ -15,8 +15,8 @@ public class SideBar extends ScrollableContainer {
     private void adjustRefreshButton(){
         Integer bottomMostLocation = 60*buttonCount + 243;
         components.get("refreshButton").setBounds(37,60*buttonCount + 220,37,37);
-        components.get("lastLoginLabel").setBounds(85,60*buttonCount + 219,121,20);
-        components.get("lastLoginText").setBounds(85,bottomMostLocation,169,16);
+        components.get("lastTransactionLabel").setBounds(85,60*buttonCount + 219,121,20);
+        components.get("lastTransactionText").setBounds(85,bottomMostLocation,169,16);
         contentPanel.setPreferredSize(new Dimension(width-18, bottomMostLocation +30 > 678? bottomMostLocation + 100 : 678));
     }
     public JButton addButton(JButton addition, String name) throws IllegalArgumentException{
@@ -67,19 +67,19 @@ public class SideBar extends ScrollableContainer {
         refreshButton.setContentAreaFilled(true);
         refreshButton.setBorderPainted(false);
 
-        JLabel lastLoginLabel = (JLabel) addComponent(new JLabel("Last Login:"), "lastLoginLabel");
-        lastLoginLabel.setBounds(85,279,121,20);
-        lastLoginLabel.setForeground(fgColor);
-        lastLoginLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        lastLoginLabel.setVerticalAlignment(SwingConstants.TOP);
-        lastLoginLabel.setFont(new Font("Rubik-SemiBold", Font.BOLD, 13));
+        JLabel lastTransactionLabel = (JLabel) addComponent(new JLabel("Last Transaction:"), "lastTransactionLabel");
+        lastTransactionLabel.setBounds(85,279,121,20);
+        lastTransactionLabel.setForeground(fgColor);
+        lastTransactionLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        lastTransactionLabel.setVerticalAlignment(SwingConstants.TOP);
+        lastTransactionLabel.setFont(new Font("Rubik-SemiBold", Font.BOLD, 13));
 
-        JLabel lastLoginText = (JLabel) addComponent(new JLabel("Monday, 16 Juli 2024"), "lastLoginText");
-        lastLoginText.setBounds(85,303,169,16);
-        lastLoginText.setForeground(fgColor);
-        lastLoginText.setHorizontalAlignment(SwingConstants.LEFT);
-        lastLoginText.setVerticalAlignment(SwingConstants.TOP);
-        lastLoginText.setFont(new Font("Rubik-SemiBold", Font.PLAIN, 13));
+        JLabel lastTransactionText = (JLabel) addComponent(new JLabel("Monday, 16 Juli 2024"), "lastTransactionText");
+        lastTransactionText.setBounds(85,303,169,16);
+        lastTransactionText.setForeground(fgColor);
+        lastTransactionText.setHorizontalAlignment(SwingConstants.LEFT);
+        lastTransactionText.setVerticalAlignment(SwingConstants.TOP);
+        lastTransactionText.setFont(new Font("Rubik-SemiBold", Font.PLAIN, 13));
 
         setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         getVerticalScrollBar().setUI(new PlainScrollBar(bgColor, Colors.SIDE_SLIDER_BLUE));

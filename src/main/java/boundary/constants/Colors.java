@@ -15,7 +15,7 @@ public class Colors {
   public static final Color LIGHT_BLUE = new Color(56, 100, 194);
   public static final Color PEMBELIAN_BLUE_LIGHT = new Color(26, 114, 221);
   public static final Color BUTTON_BLUE = new Color(74, 104, 222);
-  public static final Color TOPBAR_BLUE = new Color(75, 129, 238);
+  public static final Color OCEAN_BLUE = new Color(75, 129, 238);
   public static final Color SIDE_SLIDER_BLUE = new Color(138, 162, 244);
   public static final Color SKY_BLUE = new Color(149, 172, 255);
   public static final Color TOPBAR_MARKER_OFF = new Color(218, 226, 255);
