@@ -106,7 +106,7 @@ public class LaporanPane extends TabPane {
             RingkasanCard card = new RingkasanCard(strings[0], strings[1]);
             container.add(card, BorderLayout.CENTER);
             ringkasanCards.add(container);
-            ringkasanCards.add(Box.createHorizontalStrut(15));
+            ringkasanCards.add(Box.createHorizontalStrut(10));
         }
 
         ringkasanPsubCards.add(ringkasanCards, BorderLayout.WEST);

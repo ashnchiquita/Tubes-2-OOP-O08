@@ -88,7 +88,7 @@ public class PembelianPane extends TabPane implements PembelianListener {
     this.add(buyPanel, BorderLayout.EAST);
 
     GridBagConstraints c = new GridBagConstraints();
-    gridPanel.setBorder(new EmptyBorder(78, 0, 78, 0));
+    gridPanel.setBorder(new EmptyBorder(10, 0, 78, 0));
     gridPanel.setBackground(Color.WHITE);
     scrollGridPanel.setBorder(null);
     scrollGridPanel.setViewportView(gridPanel);
