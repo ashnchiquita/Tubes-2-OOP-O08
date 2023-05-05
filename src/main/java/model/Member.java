@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +11,10 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS, property="@class")
+@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, property="__typename", defaultImpl = Member.class)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value=VIP.class, name = "VIP"),
+})
 public class Member extends Customer {
     private String name, phone;
     private int point, transactions;
