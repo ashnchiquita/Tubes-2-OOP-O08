@@ -1,13 +1,13 @@
 package model;
 
-public class Customer {
-    private static int customerId = 0;
 
-    public Customer() {
-        customerId++;
-    }
+import java.io.Serializable;
 
-    public int getCustomerId() {
-        return customerId;
-    }
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@SuperBuilder(toBuilder = true)
+public class Customer implements Serializable {
+  private final int id;
 }

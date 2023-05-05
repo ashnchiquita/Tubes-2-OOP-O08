@@ -4,31 +4,27 @@
     "name": "dummy m 1",
     "phone": "08999221999999",
     "point": "0",
-    "active": "true",
-    "nTransactions": "10"
+    "transactions": "10"
   },
   {
     "id": "7",
     "name": "dummy m 2",
     "phone": "0899933329999",
     "point": "94",
-    "active": "false",
-    "nTransactions": "1"
+    "transactions": "1"
   },
   {
     "id": "10",
     "name": "dummy m 3",
     "phone": "0899933339999",
     "point": "92",
-    "active": "true",
-    "nTransactions": "5"
+    "transactions": "5"
   },
   {
     "id": "11",
     "name": "dummy m 4",
     "phone": "089999999111",
     "point": "9",
-    "active": "false",
-    "nTransactions": "8"
+    "transactions": "8"
   }
 ]
