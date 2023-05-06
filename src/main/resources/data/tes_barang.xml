@@ -8,13 +8,4 @@
     <hargaBeli>29200</hargaBeli>
     <jumlah>5</jumlah>
   </item>
-  <item>
-    <id>2</id>
-    <name>ayam</name>
-    <kategori>a</kategori>
-    <gambar>hai</gambar>
-    <hargaJual>2</hargaJual>
-    <hargaBeli>2</hargaBeli>
-    <jumlah>5</jumlah>
-  </item>
 </ArrayList>

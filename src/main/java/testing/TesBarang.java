@@ -22,20 +22,18 @@ public class TesBarang {
         // controller.setBarangDataIO(new
         // BarangAdapterOBJ("src/main/resources/data/tes_barang"));
 
-        // try {
-        // final URL plugin_1 = new
-        // File("./plugin/dollar-plugin/app/build/libs/app.jar").toURI().toURL();
-        // ClassLoader ucl = new URLClassLoader(new URL[] { plugin_1 });
+        try {
+            final URL plugin_1 = new File("./plugin/dollar-plugin/app/build/libs/app.jar").toURI().toURL();
+            ClassLoader ucl = new URLClassLoader(new URL[] { plugin_1 });
 
-        // ServiceLoader<SystemPlugin> pluginLoader =
-        // ServiceLoader.load(SystemPlugin.class, ucl);
+            ServiceLoader<SystemPlugin> pluginLoader = ServiceLoader.load(SystemPlugin.class, ucl);
 
-        // for (final SystemPlugin plugin : pluginLoader) {
-        // controller = plugin.getController(controller);
-        // }
-        // } catch (MalformedURLException e) {
-        // System.out.println(e);
-        // }
+            for (final SystemPlugin plugin : pluginLoader) {
+                controller = plugin.getController(controller);
+            }
+        } catch (MalformedURLException e) {
+            System.out.println(e);
+        }
 
         Barang b1 = Barang.builder().id(1).name("ayam").kategori("a").gambar("hai").hargaJual(3).hargaBeli(3)
                 .jumlah(4)
