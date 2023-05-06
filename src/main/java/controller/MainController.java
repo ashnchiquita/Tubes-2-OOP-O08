@@ -16,4 +16,12 @@ public class MainController {
     GenericDataIO<FixedBill> fixedBillDataIO;
     GenericDataIO<Member> memberDataIO;
     GenericDataIO<VIP> VIPDataIO;
+
+    public MainController() {
+        barangDataIO = new BarangAdapterOBJ("src/main/resources/data/tes_barang");
+        customerDataIO = new CustomerAdapterOBJ("src/main/resources/data/tes_customer");
+        fixedBillDataIO = new FixedBillAdapterOBJ("src/main/resources/data/tes_fixed_bill");
+        memberDataIO = new MemberAdapterOBJ("src/main/resources/data/tes_member");
+        VIPDataIO = new VIPAdapterOBJ("src/main/resources/data/tes_vip");
+    }
 }

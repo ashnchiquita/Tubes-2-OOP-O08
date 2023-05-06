@@ -3,6 +3,9 @@ package boundary.panel.laporan.subpanel;
 import boundary.widget.*;
 import boundary.constants.Colors;
 
+import model.*;
+import controller.*;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,10 +14,11 @@ import java.util.List;
 import java.util.Arrays;
 
 public class LaporanPane extends TabPane {
+    private GenericDataIO<FixedBill> fixedBillDataIO;
     private int vw = 1280, vh = 720;
     private boolean isIDFound;
     // TODO: hapus ini bwt contoh aj
-    private static final String[] userIDs = {"1", "2", "3", "4"};
+    private static final String[] userIDs = { "1", "2", "3", "4" };
     private String currSelectedID = "";
 
     private void resetIDFound() {
@@ -30,7 +34,8 @@ public class LaporanPane extends TabPane {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
             System.out.println("Nama File Laporan Penjualan: " + fileToSave.getAbsolutePath());
-            // TODO: get laporan penjualan as pdf dengan path fileToSave.getAbsolutePath() + .pdf kalo perlu
+            // TODO: get laporan penjualan as pdf dengan path fileToSave.getAbsolutePath() +
+            // .pdf kalo perlu
         }
     }
 
@@ -39,7 +44,7 @@ public class LaporanPane extends TabPane {
         System.out.println(id);
         List<String> idList = Arrays.asList(userIDs);
         isIDFound = idList.contains(id);
-        currSelectedID = isIDFound? id : "";
+        currSelectedID = isIDFound ? id : "";
         System.out.println(isIDFound);
         fixedBillBtnP.setVisible(isIDFound);
     }
@@ -54,26 +59,29 @@ public class LaporanPane extends TabPane {
 
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
-                System.out.println("Nama File Fixed Bill untuk ID " + currSelectedID + ": " + fileToSave.getAbsolutePath());
-                // TODO: get File Fixed Bill untuk ID as pdf dengan path fileToSave.getAbsolutePath() + .pdf kalo perlu
+                System.out.println(
+                        "Nama File Fixed Bill untuk ID " + currSelectedID + ": " + fileToSave.getAbsolutePath());
+                // TODO: get File Fixed Bill untuk ID as pdf dengan path
+                // fileToSave.getAbsolutePath() + .pdf kalo perlu
             }
         }
     }
 
-    public LaporanPane() {
+    public LaporanPane(GenericDataIO<FixedBill> fixedBillDataIO) {
         isIDFound = false;
+        this.fixedBillDataIO = fixedBillDataIO;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(Colors.WHITE);
-        Font light =  new Font("Inter", Font.PLAIN, 17);
+        Font light = new Font("Inter", Font.PLAIN, 17);
         Font medium = new Font("Inter", Font.BOLD, 24);
         Font bold = new Font("Inter", Font.BOLD, 33);
 
         // Subpanel: Ringkasan Penjualan
         // TODO: sambungin dengan statistik penjualan
         String[][] ringkasanStr = {
-                {"GROSS SALES", "Rp10000"},
-                {"NET SALES", "Rp10000"},
-                {"GROSS PROFIT", "Rp10000"}
+                { "GROSS SALES", "Rp10000" },
+                { "NET SALES", "Rp10000" },
+                { "GROSS PROFIT", "Rp10000" }
         };
 
         JPanel wrapperRingkasan = new JPanel(new BorderLayout());
@@ -237,7 +245,8 @@ public class LaporanPane extends TabPane {
         fixedBillBtnP.setMaximumSize(new Dimension(170, 40));
         fixedBillBtnP.setMinimumSize(new Dimension(170, 40));
         JButton fixedBillBtn = new JButton("Unduh Fixed Bill");
-        // TODO: sepertinya lebih bagus pake ChangeListener: https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
+        // TODO: sepertinya lebih bagus pake ChangeListener:
+        // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
         // jadi tombol search ID gaperlu ada
         fixedBillBtn.addActionListener(e -> fixedBillBtnAction());
         fixedBillBtn.setFont(light);

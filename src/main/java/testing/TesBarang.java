@@ -35,10 +35,10 @@ public class TesBarang {
             System.out.println(e);
         }
 
-        Barang b1 = Barang.builder().id(1).name("ayam").kategori("a").gambar("hai").hargaJual(3).hargaBeli(3)
+        Barang b1 = Barang.builder().id().name("ayam").kategori("a").gambar("hai").hargaJual(3).hargaBeli(3)
                 .jumlah(4)
                 .build();
-        Barang b2 = Barang.builder().id(2).name("ayam").kategori("a").gambar("hai").hargaJual(2).hargaBeli(2)
+        Barang b2 = Barang.builder().id().name("ayam").kategori("a").gambar("hai").hargaJual(2).hargaBeli(2)
                 .jumlah(5)
                 .build();
 

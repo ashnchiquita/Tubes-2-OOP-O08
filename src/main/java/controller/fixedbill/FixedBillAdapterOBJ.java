@@ -20,6 +20,11 @@ public class FixedBillAdapterOBJ implements GenericDataIO<FixedBill> {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value");
         }
+
+        // handle lazy loading
+        FixedBill fb = FixedBill.builder().id().billing(0).build();
+        insert(fb);
+        delete(fb.getId());
     }
 
     public void write() throws IOException {

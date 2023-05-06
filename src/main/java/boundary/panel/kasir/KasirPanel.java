@@ -3,9 +3,13 @@ package boundary.panel.kasir;
 import boundary.panel.kasir.subpanel.PembelianPane;
 import boundary.widget.TabPanel;
 
+import model.*;
+import controller.*;
+
 public class KasirPanel extends TabPanel {
-    //TODO: integrate controller
-    public KasirPanel() {
-        super(new PembelianPane(0));
+    // TODO: integrate controller
+    public KasirPanel(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO,
+            GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
+        super(new PembelianPane(barangDataIO, fixedBillDataIO, memberDataIO, VIPDataIO));
     }
 }

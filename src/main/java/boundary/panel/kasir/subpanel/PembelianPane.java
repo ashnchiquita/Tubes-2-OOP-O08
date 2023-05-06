@@ -11,6 +11,9 @@ import boundary.constants.ResourcePath;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.observer.tab.TabEvent;
 import boundary.widget.*;
+
+import model.*;
+import controller.*;
 import util.RupiahConverter;
 import boundary.observer.pembelian.PembelianEvent;
 import boundary.observer.pembelian.PembelianListener;
@@ -21,6 +24,12 @@ import javax.swing.event.ChangeEvent;
 public class PembelianPane extends TabPane implements PembelianListener {
   private int vw = 1280, vh = 720;
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
+  private GenericDataIO<Barang> barangDataIO;
+  private GenericDataIO<FixedBill> fixedBillDataIO;
+  private GenericDataIO<Member> memberDataIO;
+  private GenericDataIO<VIP> VIPDataIO;
+  private DataObj[] data = new DataObj[0];
+
   PembelianObserver pembelianObserver = new PembelianObserver();
   ArrayList<Integer> buyIdList = new ArrayList<>();
 
@@ -71,9 +80,16 @@ public class PembelianPane extends TabPane implements PembelianListener {
   JButton checkoutButton = new JButton("Checkout");
   JPanel buyListPanel = new JPanel();
   JScrollPane buyListScroll = new JScrollPane(buyListPanel);
-  public PembelianPane(int orderNumber) {
+
+  public PembelianPane(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO,
+      GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
+    this.VIPDataIO = VIPDataIO;
+    this.barangDataIO = barangDataIO;
+    this.fixedBillDataIO = fixedBillDataIO;
+    this.memberDataIO = memberDataIO;
     this.pembelianObserver.addListener(this);
-    this.orderNumLabel.setText("#" + String.valueOf(orderNumber));
+    this.orderNumLabel.setText("#" + String.valueOf(barangDataIO.getAll().size() + 1));
+    getData();
     this.initializeUI();
   }
 
@@ -126,15 +142,15 @@ public class PembelianPane extends TabPane implements PembelianListener {
 
     orderLabel.setFont(new Font("Inter", Font.BOLD, 24));
     orderLabel.setForeground(Color.WHITE);
-    orderLabel.setBounds(14, 0, 79, 32);
+    orderLabel.setBounds(14, 20, 79, 32);
     orderNumPanel.add(orderLabel);
 
     orderNumLabel.setFont(new Font("Inter", Font.PLAIN, 24));
     orderNumLabel.setForeground(Color.WHITE);
-    orderNumLabel.setBounds(96, 0, 79, 32);
+    orderNumLabel.setBounds(96, 20, 79, 32);
     orderNumPanel.add(orderNumLabel);
 
-    orderLine.setBounds(14, 45, (int) (0.28 * vw), 1);
+    orderLine.setBounds(14, 60, (int) (0.28 * vw), 1);
     orderNumPanel.add(orderLine);
 
     orderSummaryPanel.setBackground(Colors.DARK_BLUE);
@@ -257,7 +273,8 @@ public class PembelianPane extends TabPane implements PembelianListener {
     checkoutButton.setBorder(null);
     checkoutButton.setFocusPainted(false);
     checkoutButton.setBounds(10, 4, 185, 41);
-    checkoutButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CheckoutPane(), true)));
+    checkoutButton.addActionListener(e -> panelFlowObserver.newEvent(
+        new PanelFlowEvent(new CheckoutPane(fixedBillDataIO, memberDataIO, VIPDataIO, total), true)));
     checkoutContainer.add(checkoutButton);
     buttonPanel.add(checkoutContainer, BorderLayout.EAST);
 
@@ -296,6 +313,7 @@ public class PembelianPane extends TabPane implements PembelianListener {
     buyListPanel.revalidate();
     buyListPanel.repaint();
 
+    // TODO: integrate discounts
     sub += e.price;
     total += e.price;
 
@@ -306,7 +324,6 @@ public class PembelianPane extends TabPane implements PembelianListener {
   public void handleRemoveItem(PembelianEvent e) {
     sub = 0;
     total = discount + tax;
-
 
     buyListPanel.removeAll();
     buyItemList.remove(e.index);
@@ -327,9 +344,9 @@ public class PembelianPane extends TabPane implements PembelianListener {
 
   private static class DataObj {
     public String title, subtitle, imagePath;
-    public float price;
+    public double price;
 
-    public DataObj(String title, String subtitle, float price, String imagePath) {
+    public DataObj(String title, String subtitle, double price, String imagePath) {
       this.title = title;
       this.subtitle = subtitle;
       this.price = price;
@@ -337,23 +354,13 @@ public class PembelianPane extends TabPane implements PembelianListener {
     }
   }
 
-  private static DataObj[] data = {
-      new DataObj("Salad Tuna", "(Must choose level)", 10.99f,
-          ResourcePath.IMAGE + "/salad-tuna.png"),
-      new DataObj("Beef Contoh", "", 10.99f,
-              ResourcePath.IMAGE + "/beef-contoh.png"),
-      new DataObj("Iga Bakar", "(Must choose level)", 10.99f,
-              ResourcePath.IMAGE + "/iga-bakar.png"),
-      new DataObj("Salad Egg", "", 10.99f,
-              ResourcePath.IMAGE + "/salad-egg.png"),
-      new DataObj("Salad Tuna", "(Must choose level)", 10.99f,
-              ResourcePath.IMAGE + "/salad-tuna.png"),
-      new DataObj("Beef Contoh", "", 10.99f,
-              ResourcePath.IMAGE + "/beef-contoh.png"),
-      new DataObj("Iga Bakar", "(Must choose level)", 10.99f,
-              ResourcePath.IMAGE + "/iga-bakar.png"),
-      new DataObj("Salad Egg", "", 10.99f,
-              ResourcePath.IMAGE + "/salad-egg.png"),
-  };
-
+  private void getData() {
+    java.util.List<Barang> listBarang = barangDataIO.getAll();
+    DataObj[] data = new DataObj[listBarang.size()];
+    for (int i = 0; i < listBarang.size(); i++) {
+      Barang barang = listBarang.get(i);
+      data[i] = new DataObj(barang.getName(), barang.getKategori(), barang.getHargaJual(), barang.getGambar());
+    }
+    this.data = data;
+  }
 }

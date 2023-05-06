@@ -20,6 +20,11 @@ public class MemberAdapterOBJ implements GenericDataIO<Member> {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Member list must be a non-null value");
         }
+
+        // handle lazy loading
+        Member fb = Member.builder().id().point(0).transactions(0).active(true).build();
+        insert(fb);
+        delete(fb.getId());
     }
 
     public void write() throws IOException {

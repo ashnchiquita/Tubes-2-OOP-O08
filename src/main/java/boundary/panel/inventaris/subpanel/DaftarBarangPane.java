@@ -4,25 +4,30 @@ import boundary.constants.Colors;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.*;
 
+import model.*;
+import controller.*;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.List;
 
 public class DaftarBarangPane extends TabPane {
-    private static JPanel headerPanel;
-    private static JScrollPane scrollListPanel;
-    private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
-    private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
-    private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8),  2);
+    private GenericDataIO<Barang> barangDataIO;
+    private JPanel headerPanel;
+    private JScrollPane scrollListPanel;
+    private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
 
-    private void setupHeaderPanel(){
+    private void setupHeaderPanel() {
         headerPanel = new JPanel();
         Border paddingBorder = BorderFactory.createEmptyBorder(75, 20, 60, 20);
-        headerPanel.setBackground(new Color(255,255,255));
-        headerPanel.setPreferredSize(new Dimension(1000,168));
+        headerPanel.setBackground(new Color(255, 255, 255));
+        headerPanel.setPreferredSize(new Dimension(1000, 168));
         headerPanel.setBorder(paddingBorder);
 
         // Label "Daftar Barang"
@@ -39,11 +44,11 @@ public class DaftarBarangPane extends TabPane {
         headerPanel.add(separator1);
 
         // Label "Total Barang"
-        JLabel totalBarangLabel = new JLabel("Total Barang : 127");
+        JLabel totalBarangLabel = new JLabel("Total Barang : " + barangDataIO.getAll().size());
         totalBarangLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        totalBarangLabel.setPreferredSize(new Dimension(180,38));
+        totalBarangLabel.setPreferredSize(new Dimension(180, 38));
         totalBarangLabel.setFont(new Font("Inter", Font.PLAIN, 15));
-        totalBarangLabel.setForeground(new Color(36,60,148));
+        totalBarangLabel.setForeground(new Color(36, 60, 148));
         totalBarangPanel.add(totalBarangLabel, BorderLayout.WEST);
         headerPanel.add(totalBarangPanel, BorderLayout.WEST);
 
@@ -55,13 +60,13 @@ public class DaftarBarangPane extends TabPane {
 
         // Button Import
         JButton importButton = new JButton("Import");
-        PressedButton buttonUI = new PressedButton(new Color(45,77,182));
+        PressedButton buttonUI = new PressedButton(new Color(45, 77, 182));
         importButton.setFont(new Font("Inter", Font.PLAIN, 15));
-        importButton.setBackground(new Color(76,110,223));
+        importButton.setBackground(new Color(76, 110, 223));
         importButton.setForeground(Color.WHITE);
         importButton.setOpaque(true);
         importButton.setFocusable(false);
-        importButton.setPreferredSize(new Dimension(130,38));
+        importButton.setPreferredSize(new Dimension(130, 38));
         importButton.setUI(buttonUI);
         importButton.setBorder(new RoundBorder(20));
         importButtonPanel.add(importButton, BorderLayout.WEST);
@@ -76,26 +81,26 @@ public class DaftarBarangPane extends TabPane {
         // Button Tambah Baru
         JButton createNewItemButton = new JButton("+ Tambah Baru");
         createNewItemButton.setFont(new Font("Inter", Font.PLAIN, 15));
-        createNewItemButton.setBackground(new Color(76,110,223));
+        createNewItemButton.setBackground(new Color(76, 110, 223));
         createNewItemButton.setForeground(Color.WHITE);
         createNewItemButton.setOpaque(true);
         createNewItemButton.setFocusable(false);
-        createNewItemButton.setPreferredSize(new Dimension(180,38));
+        createNewItemButton.setPreferredSize(new Dimension(180, 38));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
-        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(), true)));
+        createNewItemButton.addActionListener(
+                e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(barangDataIO), true)));
         createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
         headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);
     }
 
-    private void setupTable(){
+    private void setupTable() {
         // Table
         scrollListPanel = new JScrollPane();
         scrollListPanel.setBackground(Color.WHITE);
-        scrollListPanel.setPreferredSize(new Dimension(900,450));
+        scrollListPanel.setPreferredSize(new Dimension(900, 450));
         scrollListPanel.setBorder(BorderFactory.createEmptyBorder());
         // Cell Renderer
-
 
         JTable itemList = new JTable(getData(), getColumnNames());
         itemList.setRowHeight(50);
@@ -126,7 +131,7 @@ public class DaftarBarangPane extends TabPane {
         TableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                    boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 setBorder(BorderFactory.createEmptyBorder());
                 setHorizontalAlignment(JLabel.CENTER);
@@ -145,33 +150,44 @@ public class DaftarBarangPane extends TabPane {
         tableHeader.setPreferredSize(new Dimension(600, 43));
     }
 
-    private static Object[][] getData() {
-        Object[][] data = {
-                {"", "Salad Tuna", "(Must choose level)", "$10.99",
-                        "$10.99", "2000"},
-                {"","Beef Contoh", "", "$10.99",
-                        "$10.99", "2000"},
-                {"","Iga Bakar", "(Must choose level)", "$10.99",
-                        "$10.99", "2000"},
-                {"","Salad Egg", "", "$10.99",
-                        "$10.99", "2000"},
-                {"","Salad Tuna", "(Must choose level)", "$10.99",
-                        "$10.99", "2000"},
-        };
+    private Object[][] getData() {
+        List<Barang> listBarang = barangDataIO.getAll();
+        Object[][] data = new Object[listBarang.size()][6];
+        for (int i = 0; i < listBarang.size(); i++) {
+            Barang barang = listBarang.get(i);
+            data[i] = new Object[] {
+                    barang.getId(), barang.getName(), barang.getKategori(), barang.getHargaBeli(),
+                    barang.getHargaJual(), barang.getJumlah()
+            };
+        }
+        /*
+         * Object[][] data = {
+         * {"", "Salad Tuna", "(Must choose level)", "$10.99",
+         * "$10.99", "2000"},
+         * {"","Beef Contoh", "", "$10.99",
+         * "$10.99", "2000"},
+         * {"","Iga Bakar", "(Must choose level)", "$10.99",
+         * "$10.99", "2000"},
+         * {"","Salad Egg", "", "$10.99",
+         * "$10.99", "2000"},
+         * {"","Salad Tuna", "(Must choose level)", "$10.99",
+         * "$10.99", "2000"},
+         * };
+         */
         return data;
     }
 
-
     private static String[] getColumnNames() {
-        String[] columnNames = {"ID", "Nama", "Kategori", "Harga Beli", "Harga Jual", "Stok"};
+        String[] columnNames = { "ID", "Nama", "Kategori", "Harga Beli", "Harga Jual", "Stok" };
 
         return columnNames;
     }
 
-    public DaftarBarangPane(){
+    public DaftarBarangPane(GenericDataIO<Barang> barangDataIO) {
+        this.barangDataIO = barangDataIO;
         this.setBackground(Color.WHITE);
         setupHeaderPanel();
-        this.add(headerPanel,BorderLayout.NORTH);
+        this.add(headerPanel, BorderLayout.NORTH);
         setupTable();
         this.add(scrollListPanel, BorderLayout.CENTER);
     }

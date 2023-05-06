@@ -11,15 +11,26 @@
       <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/resources/main/data/customer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/MemberAdapterJSON.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/MemberIO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/VIPAdapterJSON.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/VIPIO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/fixedbill/FixedBillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/controller/fixedbill/FixedBillController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/resources/main/data/customer.json"
+        beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/MemberAdapterJSON.java"
+        beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/MemberIO.java"
+        beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/VIPAdapterJSON.java"
+        beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/controller/customer/VIPIO.java"
+        beforeDir="false" />
+      <change
+        beforePath="$PROJECT_DIR$/../src/main/java/controller/fixedbill/GenericDataIO<FixedBill>.java"
+        beforeDir="false"
+        afterPath="$PROJECT_DIR$/../src/main/java/controller/fixedbill/GenericDataIO<FixedBill>.java"
+        afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/main/java/controller/tes.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/model/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/model/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/model/TesCustomerJSON.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/model/Member.java" beforeDir="false"
+        afterPath="$PROJECT_DIR$/../src/main/java/model/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/model/TesCustomerJSON.java"
+        beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/main/java/model/TesJSON.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/main/java/model/TesMemberJSON.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/main/java/model/TesVIPJSON.java" beforeDir="false" />
@@ -98,7 +109,8 @@
   }
 }]]></component>
   <component name="RunManager" selected="Gradle.first-plugin [jar]">
-    <configuration name="first-plugin [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="first-plugin [build]" type="GradleRunConfiguration" factoryName="Gradle"
+      temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -120,7 +132,8 @@
       <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="first-plugin [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="first-plugin [jar]" type="GradleRunConfiguration" factoryName="Gradle"
+      temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -149,7 +162,8 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0"
+    DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="46bd53d0-47f4-4949-b205-afa6bfffdea8" name="Changes" comment="" />

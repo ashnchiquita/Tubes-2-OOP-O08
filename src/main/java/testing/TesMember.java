@@ -17,8 +17,8 @@ public class TesMember {
         // controller.setMemberDataIO(new
         // MemberAdapterOBJ("src/main/resources/data/tes_member"));
 
-        Member c = Member.builder().id(1).point(0).transactions(0).name("chi").phone("123").active(true).build();
-        Member c2 = Member.builder().id(3).point(1).transactions(2).name("chu").phone("123").active(false).build();
+        Member c = Member.builder().id().point(0).transactions(0).name("chi").phone("123").active(true).build();
+        Member c2 = Member.builder().id().point(1).transactions(2).name("chu").phone("123").active(false).build();
 
         controller.getMemberDataIO().insert(c);
         controller.getMemberDataIO().insert(c2);

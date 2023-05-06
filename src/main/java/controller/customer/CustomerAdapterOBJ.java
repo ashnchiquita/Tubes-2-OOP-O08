@@ -20,6 +20,11 @@ public class CustomerAdapterOBJ implements GenericDataIO<Customer> {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Customer list must be a non-null value");
         }
+
+        // handle lazy loading
+        Customer b = Customer.builder().id().build();
+        insert(b);
+        delete(b.getId());
     }
 
     public void write() throws IOException {

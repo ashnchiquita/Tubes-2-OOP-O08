@@ -24,6 +24,11 @@ public class VIPAdapterJSON implements GenericDataIO<VIP> {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "VIP list must be a non-null value");
         }
+
+        // handle lazy loading
+        VIP fb = VIP.builder().id().point(0).transactions(0).active(true).build();
+        insert(fb);
+        delete(fb.getId());
     }
 
     @Override

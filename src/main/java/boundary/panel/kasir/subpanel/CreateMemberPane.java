@@ -1,15 +1,23 @@
 package boundary.panel.kasir.subpanel;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import boundary.constants.Colors;
+import boundary.observer.tab.TabEvent;
 import boundary.widget.HintTextField;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
 
+import model.*;
+import controller.*;
+
 public class CreateMemberPane extends TabPane {
   // UI Components
+  private GenericDataIO<Member> memberDataIO;
+  private GenericDataIO<VIP> VIPDataIO;
   private JButton exitButton = new JButton();
   private JLabel checkoutLabel = new JLabel("Data Member Baru");
 
@@ -30,7 +38,9 @@ public class CreateMemberPane extends TabPane {
       0);
   private JButton createButton = new JButton("+ Create Member");
 
-  public CreateMemberPane() {
+  public CreateMemberPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
+    this.memberDataIO = memberDataIO;
+    this.VIPDataIO = VIPDataIO;
     this.initializeUI();
   }
 
@@ -124,6 +134,40 @@ public class CreateMemberPane extends TabPane {
     createButton.setBounds(9, 2, 194, 41);
     createButton.setForeground(Color.WHITE);
     createButton.setFont(new Font("Inter", Font.BOLD, 18));
+    createButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            try {
+              // TODO: Insertion
+              if (vipOption.isSelected()) {
+                VIP b = VIP.builder()
+                    .id()
+                    .point(0)
+                    .transactions(0)
+                    .name("chi")
+                    .phone("123")
+                    .active(true)
+                    .build();
+                VIPDataIO.insert(b);
+              } else {
+                Member b = Member.builder()
+                    .id()
+                    .point(0)
+                    .transactions(0)
+                    .name("chi")
+                    .phone("123")
+                    .active(true)
+                    .build();
+                memberDataIO.insert(b);
+              }
+            } catch (Exception exception) {
+              System.out.println(exception.getMessage());
+            }
+            tabObserver.newEvent(new TabEvent(TabEvent.CLOSE));
+          }
+        });
+
     createButtonContainer.add(createButton);
   }
 }

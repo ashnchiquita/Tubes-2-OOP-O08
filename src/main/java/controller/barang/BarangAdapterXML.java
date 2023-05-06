@@ -25,6 +25,11 @@ public class BarangAdapterXML implements GenericDataIO<Barang> {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Barang list must be a non-null value");
         }
+
+        // handle lazy loading
+        Barang b = Barang.builder().id().jumlah(10).hargaJual(5).hargaBeli(2).build();
+        insert(b);
+        delete(b.getId());
     }
 
     @Override
