@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("io.freefair.lombok") version "8.0.1"
+    application
 }
 
 group = "org.example"
@@ -45,4 +46,7 @@ tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "model.TesJSON"
     }
+}
+application {
+    mainClass.set("boundary.Tester")
 }

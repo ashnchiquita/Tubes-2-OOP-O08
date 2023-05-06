@@ -1,0 +1,38 @@
+<MemberList>
+  <Member>
+    <id>3</id>
+    <name>dummy m 1</name>
+    <phone>08999221999999</phone>
+    <point>0</point>
+    <transactions>10</transactions>
+  </Member>
+  <Member>
+    <id>7</id>
+    <name>dummy m 2</name>
+    <phone>0899933329999</phone>
+    <point>94</point>
+    <transactions>1</transactions>
+  </Member>
+  <Member>
+    <id>10</id>
+    <name>dummy m 3</name>
+    <phone>0899933339999</phone>
+    <point>92</point>
+    <transactions>5</transactions>
+  </Member>
+  <Member>
+    <id>14</id>
+    <name>Kim Jisoo Unnie</name>
+    <phone>123</phone>
+    <point>100</point>
+    <transactions>10</transactions>
+  </Member>
+
+  <Member>
+    <id>11</id>
+    <name>Kim Jisoo</name>
+    <phone>123</phone>
+    <point>100</point>
+    <transactions>10</transactions>
+  </Member>
+</MemberList>
