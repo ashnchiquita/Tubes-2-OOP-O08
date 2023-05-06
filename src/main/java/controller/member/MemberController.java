@@ -3,22 +3,34 @@ package controller.member;
 import lombok.Getter;
 import lombok.Setter;
 import model.Member;
+import controller.*;
 
 import java.util.List;
 
-@Setter @Getter
-public class MemberController {
+@Setter
+@Getter
+public class MemberController implements GenericController<Member> {
     MemberIO dataIO;
 
-    public Member getByID(int id) { return dataIO.getByID(id); }
+    public Member getByID(int id) {
+        return dataIO.getByID(id);
+    }
 
-    public List<Member> getAllMember()  { return dataIO.getAllMember(); }
+    public List<Member> getAll() {
+        return dataIO.getAllMember();
+    }
 
-    public boolean insertMember(Member data) { return dataIO.insertMember(data); }
+    public boolean insert(Member data) {
+        return dataIO.insertMember(data);
+    }
 
-    public boolean updateMember(Member newData) { return dataIO.updateMember(newData); }
+    public boolean update(Member newData) {
+        return dataIO.updateMember(newData);
+    }
 
-    public boolean deleteMember(int id) { return dataIO.deleteMember(id); }
+    public boolean delete(int id) {
+        return dataIO.deleteMember(id);
+    }
 
     // tambahin sesuai kebutuhan
 }

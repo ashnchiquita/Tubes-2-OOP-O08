@@ -20,7 +20,7 @@ public class Tester {
 
       // pluginLoader = ServiceLoader.load(SystemPlugin.class, ucl);
       for (final SystemPlugin g : pluginLoader) {
-        g.getController(null);
+        g.getController(new MainController());
       }
 
     } catch (MalformedURLException e) {
