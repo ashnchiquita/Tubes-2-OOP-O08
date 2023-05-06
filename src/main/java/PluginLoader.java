@@ -21,7 +21,8 @@ public class PluginLoader {
         List<URL> urls = new ArrayList<>();
 
         try {
-            reader = new BufferedReader(new FileReader( "/Users/alishalistya/VSCode/Tubes-2-OOP-O08/src/main/resources/data/plugins.txt"));
+            //TODO: Load from file
+            reader = new BufferedReader(new FileReader( ResourcePath.DATA + "/plugins.txt"));
             String line = reader.readLine();
 
             while (line != null) {
