@@ -10,6 +10,7 @@ import boundary.panel.kasir.KasirPanel;
 import boundary.panel.laporan.LaporanPanel;
 import boundary.panel.member.MemberPanel;
 import boundary.widget.*;
+import controller.BasePluginInterface;
 import controller.MainController;
 
 import javax.swing.*;
@@ -157,8 +158,6 @@ public class MainWindow extends JFrame implements TabListener {
         setMinimumSize(new Dimension(1280, 720));
         setResizable(false);
         add(mainPanel);
-        pack();
-        setVisible(true);
         setTitle("Cashoria");
 
         addWindowListener(new WindowAdapter() {
