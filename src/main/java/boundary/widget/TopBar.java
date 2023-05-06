@@ -2,7 +2,7 @@ package boundary.widget;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
-import boundary.enums.PanelEnum;
+import boundary.constants.PanelCode;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabListener;
 
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TopBar extends ScrollableContainer implements TabListener {
-    private Map<PanelEnum, ArrayList<String>> panelArrays = new HashMap<>();
+    private Map<String, ArrayList<String>> panelArrays = new HashMap<>();
     private Map<String, ArrayList<String>> panelTypeArrays = new HashMap<>();
     private Integer buttonCount = 0;
     private Color bgColor;
@@ -27,13 +27,13 @@ public class TopBar extends ScrollableContainer implements TabListener {
     public TopBar(Integer heightin, Color BgColor){
         super();
 
-        panelArrays.put(PanelEnum.NULL, new ArrayList<>());
-        panelArrays.put(PanelEnum.HOME, new ArrayList<>());
-        panelArrays.put(PanelEnum.KASIR, new ArrayList<>());
-        panelArrays.put(PanelEnum.LAPORAN, new ArrayList<>());
-        panelArrays.put(PanelEnum.INVENTARIS, new ArrayList<>());
-        panelArrays.put(PanelEnum.MEMBER, new ArrayList<>());
-        panelArrays.put(PanelEnum.PENGATURAN, new ArrayList<>());
+        panelArrays.put(PanelCode.NULL, new ArrayList<>());
+        panelArrays.put(PanelCode.HOME, new ArrayList<>());
+        panelArrays.put(PanelCode.KASIR, new ArrayList<>());
+        panelArrays.put(PanelCode.LAPORAN, new ArrayList<>());
+        panelArrays.put(PanelCode.INVENTARIS, new ArrayList<>());
+        panelArrays.put(PanelCode.MEMBER, new ArrayList<>());
+        panelArrays.put(PanelCode.PENGATURAN, new ArrayList<>());
 
         bgColor = BgColor;
         height = heightin;
@@ -94,7 +94,7 @@ public class TopBar extends ScrollableContainer implements TabListener {
             }
         });
         homeButton.changeStatus(true);
-        ArrayList<String> homeArray = panelArrays.get(PanelEnum.HOME);
+        ArrayList<String> homeArray = panelArrays.get(PanelCode.HOME);
         homeArray.add("homeButton");
         panelTypeArrays.put("homeButton", homeArray);
         active = "homeButton";
@@ -112,7 +112,7 @@ public class TopBar extends ScrollableContainer implements TabListener {
         return active;
     }
 
-    public TopBarButton addTab(TopBarTab addition, String name, PanelEnum type) throws IllegalArgumentException{
+    public TopBarButton addTab(TopBarTab addition, String name, String type) throws IllegalArgumentException{
         //Note: name must be unique
         addComponent(addition, name);
         ArrayList<String> typeArray = panelArrays.get(type);
@@ -148,10 +148,10 @@ public class TopBar extends ScrollableContainer implements TabListener {
         repaint();
     }
 
-    public boolean hasType(PanelEnum type){
+    public boolean hasType(String type){
         return !panelArrays.get(type).isEmpty();
     }
-    public ArrayList<String> getTabsWithType(PanelEnum type){
+    public ArrayList<String> getTabsWithType(String type){
         return panelArrays.get(type);
     }
 
@@ -161,7 +161,7 @@ public class TopBar extends ScrollableContainer implements TabListener {
     }
 
     @Override
-    public void clickTab(TabEvent e, String tabName, PanelEnum paneltype) {
+    public void clickTab(TabEvent e, String tabName, String paneltype) {
         TopBarTab tab = (TopBarTab) getComponent(tabName);
         if(tab.getStatus()){
             tab.changeStatus(false);

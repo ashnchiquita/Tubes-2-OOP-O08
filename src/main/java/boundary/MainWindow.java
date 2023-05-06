@@ -1,6 +1,7 @@
 package boundary;
 
 import boundary.constants.Colors;
+import boundary.constants.PanelCode;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabListener;
 import boundary.panel.home.HomeUI;
@@ -9,9 +10,7 @@ import boundary.panel.kasir.KasirPanel;
 import boundary.panel.laporan.LaporanPanel;
 import boundary.panel.member.MemberPanel;
 import boundary.widget.*;
-import boundary.enums.PanelEnum;
 import controller.MainController;
-import controller.fixedbill.FixedBillController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +22,7 @@ public class MainWindow extends JFrame implements TabListener {
     private MainController controller = new MainController();
     private JPanel contentPanel;
     private JPanel contentPanelView;
-    private boundary.enums.PanelEnum contentEnum;
+    private String contentCode;
     private SideBar sidePanel;
     private TopBar topBar;
     private Integer counter = 0;
@@ -35,7 +34,7 @@ public class MainWindow extends JFrame implements TabListener {
         } catch (Exception e){
             System.out.println(e.getMessage()+ "Skin failed to load, proceeding with normal skin");
         }
-        contentEnum = PanelEnum.HOME;
+        contentCode = PanelCode.HOME;
         activePanels = new HashMap<>();
         JPanel mainPanel = new JPanel();
 
@@ -72,15 +71,15 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanel.addButton(new SideBarButton("/kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Pembayaran", new KasirPanel(controller.getBarangCon(), controller.getFixedBillCon(), controller.getMemberCon(), controller.getVipCon()), PanelEnum.KASIR);
+                addWindow("Pembayaran", new KasirPanel(controller.getBarangCon(), controller.getFixedBillCon(), controller.getMemberCon(), controller.getVipCon()), PanelCode.KASIR);
             }
         } );
         sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(!topBar.hasType(PanelEnum.LAPORAN))
-                    addWindow("Laporan", new LaporanPanel(controller.getFixedBillCon()), PanelEnum.LAPORAN);
+                if(!topBar.hasType(PanelCode.LAPORAN))
+                    addWindow("Laporan", new LaporanPanel(controller.getFixedBillCon()), PanelCode.LAPORAN);
                 else{
-                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.LAPORAN).get(0)));
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelCode.LAPORAN).get(0)));
                     if(!tab.getStatus())
                         tab.doClick();
                 }
@@ -89,10 +88,10 @@ public class MainWindow extends JFrame implements TabListener {
 
         sidePanel.addButton(new SideBarButton("/member.png", "Member"), "MemberButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(!topBar.hasType(PanelEnum.MEMBER))
-                    addWindow("Member", new MemberPanel(controller.getMemberCon(), controller.getVipCon(), controller.getFixedBillCon()), PanelEnum.MEMBER);
+                if(!topBar.hasType(PanelCode.MEMBER))
+                    addWindow("Member", new MemberPanel(controller.getMemberCon(), controller.getVipCon(), controller.getFixedBillCon()), PanelCode.MEMBER);
                 else{
-                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.MEMBER).get(0)));
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelCode.MEMBER).get(0)));
                     if(!tab.getStatus())
                         tab.doClick();
                 }
@@ -100,10 +99,10 @@ public class MainWindow extends JFrame implements TabListener {
         } );
         sidePanel.addButton(new SideBarButton("/inventaris.png", "Inventaris"), "inventarisButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(!topBar.hasType(PanelEnum.INVENTARIS))
-                    addWindow("Inventaris", new InventarisPanel(controller.getBarangCon()), PanelEnum.INVENTARIS);
+                if(!topBar.hasType(PanelCode.INVENTARIS))
+                    addWindow("Inventaris", new InventarisPanel(controller.getBarangCon()), PanelCode.INVENTARIS);
                 else{
-                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.INVENTARIS).get(0)));
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelCode.INVENTARIS).get(0)));
                     if(!tab.getStatus())
                         tab.doClick();
                 }
@@ -112,10 +111,10 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanel.addButton(new SideBarButton("/pengaturan.png", "Pengaturan"), "pengaturanButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //activePanels.containsValue(JPanel.class);
-                if(!topBar.hasType(PanelEnum.PENGATURAN))
-                    addWindow("Pengaturan", new TabPanel(), PanelEnum.PENGATURAN);
+                if(!topBar.hasType(PanelCode.PENGATURAN))
+                    addWindow("Pengaturan", new TabPanel(), PanelCode.PENGATURAN);
                 else{
-                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.PENGATURAN).get(0)));
+                    TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelCode.PENGATURAN).get(0)));
                     if(!tab.getStatus())
                         tab.doClick();
                 }
@@ -128,7 +127,7 @@ public class MainWindow extends JFrame implements TabListener {
             public void actionPerformed(ActionEvent e) {
                 if(topBar.getActive() != "homeButton"){
                     loadPage(activePanels.get("homeButton"));
-                    contentEnum = PanelEnum.HOME;
+                    contentCode = PanelCode.HOME;
                 }
             }
         } );
@@ -156,7 +155,7 @@ public class MainWindow extends JFrame implements TabListener {
             @Override
             public void windowIconified(WindowEvent e) {
                 super.windowIconified(e);
-                if(contentEnum == PanelEnum.HOME){
+                if(contentCode == PanelCode.HOME){
                     HomeUI home = (HomeUI) contentPanelView;
                     home.stopTimer();
                 }
@@ -165,15 +164,21 @@ public class MainWindow extends JFrame implements TabListener {
             @Override
             public void windowDeiconified(WindowEvent e) {
                 super.windowDeiconified(e);
-                if(contentEnum == PanelEnum.HOME){
+                if(contentCode == PanelCode.HOME){
                     HomeUI home = (HomeUI) contentPanelView;
                     home.startTimer();
                 }
             }
         });
     }
+    public SideBar getSidePanel(){
+        return sidePanel;
+    }
+    public TopBar getTopBar(){
+        return topBar;
+    }
 
-    public void addWindow(String tabLabel, TabPanel panel, PanelEnum type){
+    public void addWindow(String tabLabel, TabPanel panel, String type){
         String name = "content" + counter.toString();
         TopBarTab newbutton = new TopBarTab(tabLabel, name, type);
         topBar.addTab(newbutton, name, type);
@@ -201,15 +206,15 @@ public class MainWindow extends JFrame implements TabListener {
         activePanels.remove(tabname);
     }
     @Override
-    public void clickTab(TabEvent e, String tabname, PanelEnum panelType) {
+    public void clickTab(TabEvent e, String tabname, String panelType) {
         JPanel tabPanel = activePanels.get(tabname);
         if (contentPanelView != tabPanel){
             loadPage(activePanels.get(tabname));
-            contentEnum = panelType;
+            contentCode = panelType;
         }
         else{
             loadPage(activePanels.get("homeButton"));
-            contentEnum = PanelEnum.HOME;
+            contentCode = PanelCode.HOME;
         }
     }
 }

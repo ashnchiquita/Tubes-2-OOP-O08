@@ -2,7 +2,6 @@ package boundary.widget;
 
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
-import boundary.enums.PanelEnum;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabObserver;
 
@@ -15,7 +14,7 @@ public class TopBarTab extends TopBarButton{
     JButton closeButton;
     JLabel closeLabel;
     JLabel tabLabel;
-    public TopBarTab(String label, String name, PanelEnum panelType){
+    public TopBarTab(String label, String name, String panelType){
         super();
         setLayout(null);
         observer = new TabObserver(name, panelType);
