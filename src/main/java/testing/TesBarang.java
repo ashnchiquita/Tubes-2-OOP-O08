@@ -51,7 +51,7 @@ public class TesBarang {
         System.out.println(controller.getBarangDataIO().getByID(1));
 
         Objects.requireNonNull(controller.getBarangDataIO().getAll()).forEach(System.out::println);
-        System.out.println(controller.getBarangDataIO().delete(1));
+        // System.out.println(controller.getBarangDataIO().delete(1));
         Objects.requireNonNull(controller.getBarangDataIO().getAll()).forEach(System.out::println);
     }
 }

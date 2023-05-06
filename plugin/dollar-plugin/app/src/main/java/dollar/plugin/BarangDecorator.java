@@ -18,10 +18,15 @@ public class BarangDecorator implements GenericDataIO<Barang> {
   public Barang getByID(int id) {
     Barang barangData = dataIO.getByID(id);
 
-    Barang modifiedData = Barang.builder().id(barangData.getId()).name(barangData.getName())
+    if (barangData == null) {
+      return null;
+    }
+
+    Barang modifiedData = Barang.builder().id().name(barangData.getName())
         .kategori(barangData.getKategori()).gambar(barangData.getGambar())
         .hargaJual((int) (barangData.getHargaJual() / exchangeRate))
         .hargaBeli((int) (barangData.getHargaBeli() / exchangeRate)).jumlah(barangData.getJumlah()).build();
+    modifiedData.setId(barangData.getId());
 
     return modifiedData;
   }
@@ -30,29 +35,35 @@ public class BarangDecorator implements GenericDataIO<Barang> {
     List<Barang> barangList = dataIO.getAll();
 
     List<Barang> newList = barangList.stream()
-        .map(barangData -> Barang.builder().id(barangData.getId()).name(barangData.getName())
-            .kategori(barangData.getKategori()).gambar(barangData.getGambar())
-            .hargaJual((int) (barangData.getHargaJual() / exchangeRate))
-            .hargaBeli((int) (barangData.getHargaBeli() / exchangeRate)).jumlah(barangData.getJumlah()).build())
+        .map(barangData -> {
+          Barang temp = Barang.builder().id().name(barangData.getName())
+              .kategori(barangData.getKategori()).gambar(barangData.getGambar())
+              .hargaJual((int) (barangData.getHargaJual() / exchangeRate))
+              .hargaBeli((int) (barangData.getHargaBeli() / exchangeRate)).jumlah(barangData.getJumlah()).build();
+          temp.setId(barangData.getId());
+          return temp;
+        })
         .collect(Collectors.toList());
 
     return newList;
   }
 
   public boolean insert(Barang barangData) {
-    Barang modifiedData = Barang.builder().id(barangData.getId()).name(barangData.getName())
+    Barang modifiedData = Barang.builder().id().name(barangData.getName())
         .kategori(barangData.getKategori()).gambar(barangData.getGambar())
         .hargaJual((int) (barangData.getHargaJual() * exchangeRate))
         .hargaBeli((int) (barangData.getHargaBeli() * exchangeRate)).jumlah(barangData.getJumlah()).build();
+    modifiedData.setId(barangData.getId());
 
     return dataIO.insert(modifiedData);
   }
 
   public boolean update(Barang barangData) {
-    Barang modifiedData = Barang.builder().id(barangData.getId()).name(barangData.getName())
+    Barang modifiedData = Barang.builder().id().name(barangData.getName())
         .kategori(barangData.getKategori()).gambar(barangData.getGambar())
         .hargaJual((int) (barangData.getHargaJual() * exchangeRate))
         .hargaBeli((int) (barangData.getHargaBeli() * exchangeRate)).jumlah(barangData.getJumlah()).build();
+    modifiedData.setId(barangData.getId());
 
     return dataIO.update(modifiedData);
   }
