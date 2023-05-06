@@ -52,7 +52,6 @@ public class MainWindow extends JFrame implements TabListener {
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Colors.BLACK);
 
-        // TODO: SidePanel Logics
         GridBagConstraints sidePanelGbc = new GridBagConstraints();
         sidePanelGbc.gridx = 0;
         sidePanelGbc.gridy = 0;
@@ -62,7 +61,6 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanelGbc.fill = GridBagConstraints.BOTH;
         sidePanel = new SideBar(287, Colors.LIGHT_BLUE, Color.WHITE);
 
-        // TODO: TopBar logics
         topBar = new TopBar(47, Colors.DARK_BLUE);
         GridBagConstraints topBarGbc = new GridBagConstraints();
         topBarGbc.gridx = 1;

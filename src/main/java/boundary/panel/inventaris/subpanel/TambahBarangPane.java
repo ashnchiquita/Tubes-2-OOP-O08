@@ -138,12 +138,12 @@ public class TambahBarangPane extends TabPane {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Insertion
+                // TODO: Gambar
                 try {
                     Barang b = Barang.builder()
                             .id()
-                            .name("ayam")
-                            .kategori("a")
+                            .name(namaTextField.getText())
+                            .kategori(kategoriTextField.getText())
                             .gambar("hai")
                             .hargaJual(2)
                             .hargaBeli(3)

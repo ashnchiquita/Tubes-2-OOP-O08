@@ -123,7 +123,6 @@ public class HistoriTransaksiPane extends TabPane {
     }
 
     private Object[][] getData() {
-        // TODO: Resolve getAll
         List<FixedBill> bills = fixedBillDataIO.getAll();
         bills = bills.stream()
                 .filter(bill -> bill.getCust().getId() == member.getId())

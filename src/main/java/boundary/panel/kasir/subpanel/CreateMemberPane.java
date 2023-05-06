@@ -139,14 +139,13 @@ public class CreateMemberPane extends TabPane {
           @Override
           public void actionPerformed(ActionEvent e) {
             try {
-              // TODO: Insertion
               if (vipOption.isSelected()) {
                 VIP b = VIP.builder()
                     .id()
                     .point(0)
                     .transactions(0)
-                    .name("chi")
-                    .phone("123")
+                    .name(namaField.getText())
+                    .phone(teleponField.getText())
                     .active(true)
                     .build();
                 VIPDataIO.insert(b);
@@ -155,8 +154,8 @@ public class CreateMemberPane extends TabPane {
                     .id()
                     .point(0)
                     .transactions(0)
-                    .name("chi")
-                    .phone("123")
+                    .name(namaField.getText())
+                    .phone(teleponField.getText())
                     .active(true)
                     .build();
                 memberDataIO.insert(b);

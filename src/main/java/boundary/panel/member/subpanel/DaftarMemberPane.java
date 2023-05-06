@@ -287,7 +287,6 @@ public class DaftarMemberPane extends TabPane {
     // "/edit.png"));
     // JButton perlihatkanButton = new JButton("Perlihatkan");
 
-    // TODO: Edit and history button functionality
     private Object[][] getData() {
         JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
         editButton.setBackground(new Color(0xFFFFFF));

@@ -144,7 +144,6 @@ public class EditDataMemberPane extends TabPane {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Insertion
                 if (vipRadio.isSelected()) {
                     if (member instanceof VIP) {
                         VIP b = (VIP) member;

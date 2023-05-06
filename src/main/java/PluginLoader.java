@@ -21,7 +21,7 @@ public class PluginLoader {
         List<URL> urls = new ArrayList<>();
 
         try {
-            //TODO: Load from file
+            //TODO: Input handling
             reader = new BufferedReader(new FileReader( ResourcePath.DATA + "/plugins.txt"));
             String line = reader.readLine();
 
