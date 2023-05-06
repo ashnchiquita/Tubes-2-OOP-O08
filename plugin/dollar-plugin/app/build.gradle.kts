@@ -22,6 +22,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
+    implementation(files("/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/build/libs/project.jar"))
 }
 
 application {
