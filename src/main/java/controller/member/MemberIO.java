@@ -1,4 +1,4 @@
-package controller.customer;
+package controller.member;
 
 import model.Customer;
 import model.Member;

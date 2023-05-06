@@ -18,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 public class Member extends Customer {
     private String name, phone;
     private int point, transactions;
+    private boolean active;
 
     @Override
     public void polymorphTest() {

@@ -1,7 +1,7 @@
 <ArrayList>
   <item>
     <id>1</id>
-    <cust _class="model.Customer">
+    <cust __typename="Customer">
       <id>1</id>
     </cust>
     <keranjang>
@@ -15,42 +15,30 @@
         <jumlah>10</jumlah>
       </keranjang>
     </keranjang>
-    <date>05/02/2023</date>
-    <time>19:02:57</time>
+    <date>05/06/2023</date>
+    <time>10:49:44</time>
   </item>
   <item>
     <id>5</id>
-    <cust _class="model.Member">
+    <cust __typename="Member">
       <id>2</id>
       <name>chigans</name>
       <phone>12345</phone>
       <point>0</point>
       <transactions>0</transactions>
+      <active>true</active>
     </cust>
     <keranjang/>
-    <date>05/02/2023</date>
-    <time>19:02:57</time>
+    <date>05/06/2023</date>
+    <time>10:49:44</time>
   </item>
   <item>
     <id>3</id>
-    <cust _class="model.Customer">
+    <cust __typename="Customer">
       <id>1</id>
     </cust>
     <keranjang/>
-    <date>05/02/2023</date>
-    <time>19:02:58</time>
-  </item>
-  <item>
-    <id>999</id>
-    <cust _class="model.VIP">
-      <id>3</id>
-      <name>chigansVIP</name>
-      <phone>12345</phone>
-      <point>0</point>
-      <transactions>0</transactions>
-    </cust>
-    <keranjang/>
-    <date>05/02/2023</date>
-    <time>19:02:58</time>
+    <date>05/06/2023</date>
+    <time>10:49:44</time>
   </item>
 </ArrayList>

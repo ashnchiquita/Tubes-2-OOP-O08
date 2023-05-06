@@ -1,34 +1,43 @@
-package controller.customer;
+package controller.member;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Member;
-import model.VIP;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class VIPAdapterJSON implements VIPIO {
-    private static final ObjectMapper mapper = new ObjectMapper();
+public class MemberAdapterOBJ implements MemberIO {
     private final String filePath;
-    private List<VIP> list = new ArrayList<>();
+    private List<Member> list = new ArrayList<>();
 
-    public VIPAdapterJSON(String filePath) {
+    public MemberAdapterOBJ(String filePath) {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllVIP(),"Customer list must be a non-null value");
+            Objects.requireNonNull(getAllMember(),"Member list must be a non-null value");
         }
     }
 
+    public void write() throws IOException {
+        FileOutputStream fos = new FileOutputStream(filePath);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(list);
+        oos.close();
+    }
+
+    public void read() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(filePath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        list = (List<Member>) ois.readObject(); // wah unsafe gmn ya biar safe
+        ois.close();
+    }
+
     @Override @Nullable
-    public VIP getByID(int id) {
-        List<VIP> filtered = Objects.requireNonNull(getAllVIP(), "Fixed Bill list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+    public Member getByID(int id) {
+        List<Member> filtered = Objects.requireNonNull(getAllMember(), "Member list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -38,21 +47,21 @@ public class VIPAdapterJSON implements VIPIO {
     }
 
     @Override @Nullable
-    public List<VIP> getAllVIP() {
+    public List<Member> getAllMember() {
         try {
-            list = mapper.readValue(new File(filePath), new TypeReference<List<VIP>>() { });
+            read();
             return list;
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null; // Return null artinya terjadi IOException
         }
     }
 
     @Override
-    public boolean insertVIP(VIP data) {
+    public boolean insertMember(Member data) {
         try {
             list.add(data);
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+            write();
             return true;
         } catch (IOException e) {
             list.remove(data);
@@ -62,8 +71,8 @@ public class VIPAdapterJSON implements VIPIO {
     }
 
     @Override
-    public boolean updateVIP(VIP newData) {
-        Objects.requireNonNull(getAllVIP(),"Fixed Bill list must be a non-null value");
+    public boolean updateMember(Member newData) {
+        Objects.requireNonNull(getAllMember(),"Member list must be a non-null value");
 
         int pos = -1;
 
@@ -75,10 +84,10 @@ public class VIPAdapterJSON implements VIPIO {
         }
 
         if (pos != -1) {
-            VIP prevData = list.get(pos).toBuilder().build();
+            Member prevData = list.get(pos).toBuilder().build();
             try {
                 list.set(pos, newData);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                write();
                 return true;
             } catch (IOException e) {
                 list.set(pos, prevData); // recover
@@ -91,12 +100,12 @@ public class VIPAdapterJSON implements VIPIO {
     }
 
     @Override
-    public boolean deleteVIP(int id) {
-        VIP data = getByID(id);
+    public boolean deleteMember(int id) {
+        Member data = getByID(id);
         if (data != null) {
             try {
                 list.remove(data);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                write();
                 return true;
             } catch (IOException e){
                 list.add(data); // recover

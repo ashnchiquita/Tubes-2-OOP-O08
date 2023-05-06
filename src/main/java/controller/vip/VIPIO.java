@@ -1,4 +1,4 @@
-package controller.customer;
+package controller.vip;
 
 import model.Member;
 import model.VIP;
