@@ -4,8 +4,8 @@
     <name>ayam</name>
     <kategori>a</kategori>
     <gambar>hai</gambar>
-    <hargaJual>3</hargaJual>
-    <hargaBeli>4</hargaBeli>
+    <hargaJual>29200</hargaJual>
+    <hargaBeli>29200</hargaBeli>
     <jumlah>5</jumlah>
   </item>
   <item>
@@ -13,8 +13,8 @@
     <name>ayam</name>
     <kategori>a</kategori>
     <gambar>hai</gambar>
-    <hargaJual>3</hargaJual>
-    <hargaBeli>4</hargaBeli>
+    <hargaJual>2</hargaJual>
+    <hargaBeli>2</hargaBeli>
     <jumlah>5</jumlah>
   </item>
 </ArrayList>

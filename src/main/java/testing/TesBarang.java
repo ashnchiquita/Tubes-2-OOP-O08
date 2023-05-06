@@ -1,9 +1,13 @@
 package testing;
 
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
 import controller.barang.BarangAdapterOBJ;
 import controller.barang.BarangAdapterXML;
-import controller.MainController;
 import controller.barang.BarangAdapterJSON;
+import controller.*;
 
 import model.Barang;
 
@@ -18,9 +22,26 @@ public class TesBarang {
         // controller.setBarangDataIO(new
         // BarangAdapterOBJ("src/main/resources/data/tes_barang"));
 
-        Barang b1 = Barang.builder().id(1).name("ayam").kategori("a").gambar("hai").hargaJual(2).hargaBeli(3).jumlah(4)
+        // try {
+        // final URL plugin_1 = new
+        // File("./plugin/dollar-plugin/app/build/libs/app.jar").toURI().toURL();
+        // ClassLoader ucl = new URLClassLoader(new URL[] { plugin_1 });
+
+        // ServiceLoader<SystemPlugin> pluginLoader =
+        // ServiceLoader.load(SystemPlugin.class, ucl);
+
+        // for (final SystemPlugin plugin : pluginLoader) {
+        // controller = plugin.getController(controller);
+        // }
+        // } catch (MalformedURLException e) {
+        // System.out.println(e);
+        // }
+
+        Barang b1 = Barang.builder().id(1).name("ayam").kategori("a").gambar("hai").hargaJual(3).hargaBeli(3)
+                .jumlah(4)
                 .build();
-        Barang b2 = Barang.builder().id(2).name("ayam").kategori("a").gambar("hai").hargaJual(3).hargaBeli(4).jumlah(5)
+        Barang b2 = Barang.builder().id(2).name("ayam").kategori("a").gambar("hai").hargaJual(2).hargaBeli(2)
+                .jumlah(5)
                 .build();
 
         controller.getBarangDataIO().insert(b1);

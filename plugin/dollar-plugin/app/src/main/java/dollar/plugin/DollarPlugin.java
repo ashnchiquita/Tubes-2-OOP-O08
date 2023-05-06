@@ -9,15 +9,17 @@ public class DollarPlugin implements SystemPlugin {
   @Override
   public MainController getController(MainController controller) {
     System.out.println("Masuk dollar plugin");
+    System.out.println("Baru lagi");
 
-    BarangDecorator barangController = new BarangDecorator();
-    barangController.setDataIO(controller.getBarangCon().getDataIO());
+    BarangDecorator barangDecorator = new BarangDecorator();
+    barangDecorator.setDataIO(controller.getBarangDataIO());
 
     MainController newController = new MainController();
-    newController.setCustomerCon(controller.getCustomerCon());
-    newController.setFixedBillCon(controller.getFixedBillCon());
-    newController.setMemberCon(controller.getMemberCon());
-    newController.setVipCon(controller.getVipCon());
+    newController.setCustomerDataIO(controller.getCustomerDataIO());
+    newController.setFixedBillDataIO(controller.getFixedBillDataIO());
+    newController.setMemberDataIO(controller.getMemberDataIO());
+    newController.setVIPDataIO(controller.getVIPDataIO());
+    newController.setBarangDataIO(barangDecorator);
 
     return newController;
   }
