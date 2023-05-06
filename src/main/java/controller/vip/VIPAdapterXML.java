@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import model.VIP;
 import org.jetbrains.annotations.Nullable;
 
+import controller.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class VIPAdapterXML implements VIPIO {
+public class VIPAdapterXML implements GenericDataIO<VIP> {
     private static final XmlMapper mapper = (XmlMapper) new XmlMapper().registerModule(new JavaTimeModule());
     private final String filePath;
     private List<VIP> list = new ArrayList<>();
@@ -22,13 +23,15 @@ public class VIPAdapterXML implements VIPIO {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllVIP(),"VIP list must be a non-null value");
+            Objects.requireNonNull(getAll(), "VIP list must be a non-null value");
         }
     }
 
-    @Override @Nullable
+    @Override
+    @Nullable
     public VIP getByID(int id) {
-        List<VIP> filtered = Objects.requireNonNull(getAllVIP(), "VIP list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+        List<VIP> filtered = Objects.requireNonNull(getAll(), "VIP list must be a non-null value").stream()
+                .filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -37,10 +40,12 @@ public class VIPAdapterXML implements VIPIO {
         }
     }
 
-    @Override @Nullable
-    public List<VIP> getAllVIP() {
+    @Override
+    @Nullable
+    public List<VIP> getAll() {
         try {
-            list = mapper.readValue(new File(filePath), new TypeReference<List<VIP>>() { });
+            list = mapper.readValue(new File(filePath), new TypeReference<List<VIP>>() {
+            });
             return list;
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +54,7 @@ public class VIPAdapterXML implements VIPIO {
     }
 
     @Override
-    public boolean insertVIP(VIP data) {
+    public boolean insert(VIP data) {
         try {
             list.add(data);
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
@@ -62,8 +67,8 @@ public class VIPAdapterXML implements VIPIO {
     }
 
     @Override
-    public boolean updateVIP(VIP newData) {
-        Objects.requireNonNull(getAllVIP(),"VIP list must be a non-null value");
+    public boolean update(VIP newData) {
+        Objects.requireNonNull(getAll(), "VIP list must be a non-null value");
 
         int pos = -1;
 
@@ -91,14 +96,14 @@ public class VIPAdapterXML implements VIPIO {
     }
 
     @Override
-    public boolean deleteVIP(int id) {
+    public boolean delete(int id) {
         VIP data = getByID(id);
         if (data != null) {
             try {
                 list.remove(data);
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
                 return true;
-            } catch (IOException e){
+            } catch (IOException e) {
                 list.add(data); // recover
                 e.printStackTrace();
                 return false;

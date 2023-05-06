@@ -1,18 +1,19 @@
 package controller;
 
-import controller.barang.BarangController;
-import controller.customer.CustomerController;
-import controller.fixedbill.FixedBillController;
-import controller.member.MemberController;
-import controller.vip.VIPController;
-import lombok.Getter;
-import lombok.Setter;
+import controller.barang.*;
+import controller.customer.*;
+import controller.fixedbill.*;
+import controller.member.*;
+import controller.vip.*;
+import lombok.*;
+import model.*;
 
-@Getter @Setter
+@Getter
+@Setter
 public class MainController {
-    BarangController barangCon;
-    CustomerController customerCon;
-    FixedBillController fixedBillCon;
-    MemberController memberCon;
-    VIPController vipCon;
+    GenericDataIO<Barang> barangDataIO;
+    GenericDataIO<Customer> customerDataIO;
+    GenericDataIO<FixedBill> fixedBillDataIO;
+    GenericDataIO<Member> memberDataIO;
+    GenericDataIO<VIP> VIPDataIO;
 }

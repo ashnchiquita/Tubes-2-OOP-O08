@@ -10,6 +10,9 @@ public class DollarPlugin implements SystemPlugin {
   public MainController getController(MainController controller) {
     System.out.println("Masuk dollar plugin");
 
+    BarangDecorator barangController = new BarangDecorator();
+    barangController.setDataIO(controller.getBarangCon().getDataIO());
+
     MainController newController = new MainController();
     newController.setCustomerCon(controller.getCustomerCon());
     newController.setFixedBillCon(controller.getFixedBillCon());

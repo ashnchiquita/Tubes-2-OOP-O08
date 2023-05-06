@@ -1,6 +1,7 @@
 package controller.barang;
 
 import model.Barang;
+import controller.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class BarangAdapterOBJ implements BarangIO {
+public class BarangAdapterOBJ implements GenericDataIO<Barang> {
     private final String filePath;
     private List<Barang> list = new ArrayList<>();
 
@@ -17,7 +18,7 @@ public class BarangAdapterOBJ implements BarangIO {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllBarang(),"Barang list must be a non-null value");
+            Objects.requireNonNull(getAll(), "Barang list must be a non-null value");
         }
     }
 
@@ -35,9 +36,11 @@ public class BarangAdapterOBJ implements BarangIO {
         ois.close();
     }
 
-    @Override @Nullable
+    @Override
+    @Nullable
     public Barang getByID(int id) {
-        List<Barang> filtered = Objects.requireNonNull(getAllBarang(), "Barang list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+        List<Barang> filtered = Objects.requireNonNull(getAll(), "Barang list must be a non-null value").stream()
+                .filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -46,8 +49,9 @@ public class BarangAdapterOBJ implements BarangIO {
         }
     }
 
-    @Override @Nullable
-    public List<Barang> getAllBarang() {
+    @Override
+    @Nullable
+    public List<Barang> getAll() {
         try {
             read();
             return list;
@@ -58,7 +62,7 @@ public class BarangAdapterOBJ implements BarangIO {
     }
 
     @Override
-    public boolean insertBarang(Barang data) {
+    public boolean insert(Barang data) {
         try {
             list.add(data);
             write();
@@ -71,8 +75,8 @@ public class BarangAdapterOBJ implements BarangIO {
     }
 
     @Override
-    public boolean updateBarang(Barang newData) {
-        Objects.requireNonNull(getAllBarang(),"Barang list must be a non-null value");
+    public boolean update(Barang newData) {
+        Objects.requireNonNull(getAll(), "Barang list must be a non-null value");
 
         int pos = -1;
 
@@ -100,14 +104,14 @@ public class BarangAdapterOBJ implements BarangIO {
     }
 
     @Override
-    public boolean deleteBarang(int id) {
+    public boolean delete(int id) {
         Barang data = getByID(id);
         if (data != null) {
             try {
                 list.remove(data);
                 write();
                 return true;
-            } catch (IOException e){
+            } catch (IOException e) {
                 list.add(data); // recover
                 e.printStackTrace();
                 return false;

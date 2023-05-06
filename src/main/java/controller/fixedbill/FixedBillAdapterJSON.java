@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import model.FixedBill;
 import org.jetbrains.annotations.Nullable;
 
+import controller.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FixedBillAdapterJSON implements FixedBillIO {
+public class FixedBillAdapterJSON implements GenericDataIO<FixedBill> {
     private static final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private final String filePath;
     private List<FixedBill> list = new ArrayList<>();
@@ -22,13 +23,15 @@ public class FixedBillAdapterJSON implements FixedBillIO {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
+            Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value");
         }
     }
 
-    @Override @Nullable
+    @Override
+    @Nullable
     public FixedBill getByID(int id) {
-        List<FixedBill> filtered = Objects.requireNonNull(getAllFixedBill(), "Fixed Bill list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+        List<FixedBill> filtered = Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value")
+                .stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -37,10 +40,12 @@ public class FixedBillAdapterJSON implements FixedBillIO {
         }
     }
 
-    @Override @Nullable
-    public List<FixedBill> getAllFixedBill() {
+    @Override
+    @Nullable
+    public List<FixedBill> getAll() {
         try {
-            list = mapper.readValue(new File(filePath), new TypeReference<List<FixedBill>>() { });
+            list = mapper.readValue(new File(filePath), new TypeReference<List<FixedBill>>() {
+            });
             return list;
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +54,7 @@ public class FixedBillAdapterJSON implements FixedBillIO {
     }
 
     @Override
-    public boolean insertFixedBill(FixedBill data) {
+    public boolean insert(FixedBill data) {
         try {
             list.add(data);
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
@@ -62,8 +67,8 @@ public class FixedBillAdapterJSON implements FixedBillIO {
     }
 
     @Override
-    public boolean updateFixedBill(FixedBill newData) {
-        Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
+    public boolean update(FixedBill newData) {
+        Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value");
 
         int pos = -1;
 
@@ -91,14 +96,14 @@ public class FixedBillAdapterJSON implements FixedBillIO {
     }
 
     @Override
-    public boolean deleteFixedBill(int id) {
+    public boolean delete(int id) {
         FixedBill data = getByID(id);
         if (data != null) {
             try {
                 list.remove(data);
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
                 return true;
-            } catch (IOException e){
+            } catch (IOException e) {
                 list.add(data); // recover
                 e.printStackTrace();
                 return false;

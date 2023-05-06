@@ -3,13 +3,14 @@ package controller.fixedbill;
 import model.FixedBill;
 import org.jetbrains.annotations.Nullable;
 
+import controller.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FixedBillAdapterOBJ implements FixedBillIO {
+public class FixedBillAdapterOBJ implements GenericDataIO<FixedBill> {
     private final String filePath;
     private List<FixedBill> list = new ArrayList<>();
 
@@ -17,7 +18,7 @@ public class FixedBillAdapterOBJ implements FixedBillIO {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
+            Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value");
         }
     }
 
@@ -35,9 +36,11 @@ public class FixedBillAdapterOBJ implements FixedBillIO {
         ois.close();
     }
 
-    @Override @Nullable
+    @Override
+    @Nullable
     public FixedBill getByID(int id) {
-        List<FixedBill> filtered = Objects.requireNonNull(getAllFixedBill(), "Fixed Bill list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+        List<FixedBill> filtered = Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value").stream()
+                .filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -46,8 +49,9 @@ public class FixedBillAdapterOBJ implements FixedBillIO {
         }
     }
 
-    @Override @Nullable
-    public List<FixedBill> getAllFixedBill() {
+    @Override
+    @Nullable
+    public List<FixedBill> getAll() {
         try {
             read();
             return list;
@@ -58,7 +62,7 @@ public class FixedBillAdapterOBJ implements FixedBillIO {
     }
 
     @Override
-    public boolean insertFixedBill(FixedBill data) {
+    public boolean insert(FixedBill data) {
         try {
             list.add(data);
             write();
@@ -71,8 +75,8 @@ public class FixedBillAdapterOBJ implements FixedBillIO {
     }
 
     @Override
-    public boolean updateFixedBill(FixedBill newData) {
-        Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
+    public boolean update(FixedBill newData) {
+        Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value");
 
         int pos = -1;
 
@@ -100,14 +104,14 @@ public class FixedBillAdapterOBJ implements FixedBillIO {
     }
 
     @Override
-    public boolean deleteFixedBill(int id) {
+    public boolean delete(int id) {
         FixedBill data = getByID(id);
         if (data != null) {
             try {
                 list.remove(data);
                 write();
                 return true;
-            } catch (IOException e){
+            } catch (IOException e) {
                 list.add(data); // recover
                 e.printStackTrace();
                 return false;

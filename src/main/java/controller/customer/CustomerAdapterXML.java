@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import model.Customer;
 import org.jetbrains.annotations.Nullable;
 
+import controller.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class CustomerAdapterXML implements CustomerIO {
+public class CustomerAdapterXML implements GenericDataIO<Customer> {
     private static final XmlMapper mapper = (XmlMapper) new XmlMapper().registerModule(new JavaTimeModule());
     private final String filePath;
     private List<Customer> list = new ArrayList<>();
@@ -22,13 +23,15 @@ public class CustomerAdapterXML implements CustomerIO {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllCustomer(),"Customer list must be a non-null value");
+            Objects.requireNonNull(getAll(), "Customer list must be a non-null value");
         }
     }
 
-    @Override @Nullable
+    @Override
+    @Nullable
     public Customer getByID(int id) {
-        List<Customer> filtered = Objects.requireNonNull(getAllCustomer(), "Customer list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+        List<Customer> filtered = Objects.requireNonNull(getAll(), "Customer list must be a non-null value").stream()
+                .filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -37,10 +40,12 @@ public class CustomerAdapterXML implements CustomerIO {
         }
     }
 
-    @Override @Nullable
-    public List<Customer> getAllCustomer() {
+    @Override
+    @Nullable
+    public List<Customer> getAll() {
         try {
-            list = mapper.readValue(new File(filePath), new TypeReference<List<Customer>>() { });
+            list = mapper.readValue(new File(filePath), new TypeReference<List<Customer>>() {
+            });
             return list;
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +54,7 @@ public class CustomerAdapterXML implements CustomerIO {
     }
 
     @Override
-    public boolean insertCustomer(Customer data) {
+    public boolean insert(Customer data) {
         try {
             list.add(data);
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
@@ -62,8 +67,8 @@ public class CustomerAdapterXML implements CustomerIO {
     }
 
     @Override
-    public boolean updateCustomer(Customer newData) {
-        Objects.requireNonNull(getAllCustomer(),"Customer list must be a non-null value");
+    public boolean update(Customer newData) {
+        Objects.requireNonNull(getAll(), "Customer list must be a non-null value");
 
         int pos = -1;
 
@@ -91,14 +96,14 @@ public class CustomerAdapterXML implements CustomerIO {
     }
 
     @Override
-    public boolean deleteCustomer(int id) {
+    public boolean delete(int id) {
         Customer data = getByID(id);
         if (data != null) {
             try {
                 list.remove(data);
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
                 return true;
-            } catch (IOException e){
+            } catch (IOException e) {
                 list.add(data); // recover
                 e.printStackTrace();
                 return false;
