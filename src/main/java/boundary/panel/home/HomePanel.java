@@ -10,13 +10,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-public class HomeUI extends JPanel {
+public class HomePanel extends JPanel {
     Clock clock = new Clock();
     Thread timerThread = new Thread(new Clock());
 
-    public HomeUI() {
+    public HomePanel() {
         super();
         setLayout(null);
         setMinimumSize(new Dimension(720, 720));

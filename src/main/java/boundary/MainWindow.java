@@ -4,11 +4,12 @@ import boundary.constants.Colors;
 import boundary.constants.PanelCode;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabListener;
-import boundary.panel.home.HomeUI;
+import boundary.panel.home.HomePanel;
 import boundary.panel.inventaris.InventarisPanel;
 import boundary.panel.kasir.KasirPanel;
 import boundary.panel.laporan.LaporanPanel;
 import boundary.panel.member.MemberPanel;
+import boundary.panel.settings.Settings;
 import boundary.widget.*;
 import controller.MainController;
 
@@ -123,7 +124,7 @@ public class MainWindow extends JFrame implements TabListener {
                     public void actionPerformed(ActionEvent e) {
                         // activePanels.containsValue(JPanel.class);
                         if (!topBar.hasType(PanelCode.PENGATURAN))
-                            addWindow("Pengaturan", new TabPanel(), PanelCode.PENGATURAN);
+                            addWindow("Pengaturan", new Settings(), PanelCode.PENGATURAN);
                         else {
                             TopBarTab tab = ((TopBarTab) topBar
                                     .getComponent(topBar.getTabsWithType(PanelCode.PENGATURAN).get(0)));
@@ -134,7 +135,7 @@ public class MainWindow extends JFrame implements TabListener {
                 });
 
         TopBarButton homeButton = (TopBarButton) topBar.getComponent("homeButton");
-        activePanels.put("homeButton", new HomeUI());
+        activePanels.put("homeButton", new HomePanel());
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (topBar.getActive() != "homeButton") {
@@ -166,7 +167,7 @@ public class MainWindow extends JFrame implements TabListener {
             public void windowIconified(WindowEvent e) {
                 super.windowIconified(e);
                 if (contentCode == PanelCode.HOME) {
-                    HomeUI home = (HomeUI) contentPanelView;
+                    HomePanel home = (HomePanel) contentPanelView;
                     home.stopTimer();
                 }
             }
@@ -175,7 +176,7 @@ public class MainWindow extends JFrame implements TabListener {
             public void windowDeiconified(WindowEvent e) {
                 super.windowDeiconified(e);
                 if (contentCode == PanelCode.HOME) {
-                    HomeUI home = (HomeUI) contentPanelView;
+                    HomePanel home = (HomePanel) contentPanelView;
                     home.startTimer();
                 }
             }
