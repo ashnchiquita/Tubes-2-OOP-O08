@@ -14,9 +14,9 @@ public class TesBarang {
         MainController controller = new MainController();
         // dataIO.setDataIO(new
         // BarangAdapterJSON("src/main/resources/data/tes_barang.json"));
-        // dataIO.setDataIO(new
-        // BarangAdapterXML("src/main/resources/data/tes_barang.xml"));
-        controller.setBarangDataIO(new BarangAdapterOBJ("src/main/resources/data/tes_barang"));
+        controller.setBarangDataIO(new BarangAdapterXML("src/main/resources/data/tes_barang.xml"));
+        // controller.setBarangDataIO(new
+        // BarangAdapterOBJ("src/main/resources/data/tes_barang"));
 
         Barang b1 = Barang.builder().id(1).name("ayam").kategori("a").gambar("hai").hargaJual(2).hargaBeli(3).jumlah(4)
                 .build();
