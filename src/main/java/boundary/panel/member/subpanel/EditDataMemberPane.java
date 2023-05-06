@@ -156,14 +156,17 @@ public class EditDataMemberPane extends TabPane {
                         vipController.updateVIP(b);
                     }
                     else {
-                        VIP b = VIP.builder()
-                                .id(member.getId())
+                        // TODO: gantengin
+                        VIP b = VIP
+                                .builder()
+                                .id()
                                 .point(member.getPoint())
                                 .transactions(member.getTransactions())
                                 .name(namaTextField.getText())
                                 .phone(kategoriTextField.getText())
                                 .active(false)
                                 .build();
+                        b.setId(member.getId());
                         vipController.insertVIP(b);
                         memberController.deleteMember(member.getId());
                     }
@@ -171,13 +174,14 @@ public class EditDataMemberPane extends TabPane {
                 else{
                     if(member instanceof VIP){
                         Member b = Member.builder()
-                                .id(member.getId())
+                                .id()
                                 .point(member.getPoint())
                                 .transactions(member.getTransactions())
                                 .name(namaTextField.getText())
                                 .phone(kategoriTextField.getText())
                                 .active(false)
                                 .build();
+                        b.setId(member.getId());
                         memberController.insertMember(b);
                         vipController.deleteVIP(member.getId());
                     }

@@ -20,7 +20,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class PembelianList extends RoundedPanel {
   public int count;
-  public float price;
+  public double price;
 
   private ActionListener closeListener;
   private JButton closeButton = new JButton();
@@ -29,7 +29,7 @@ public class PembelianList extends RoundedPanel {
   JLabel countText = new JLabel(String.valueOf(count) + "x");
   JLabel priceText = new JLabel(RupiahConverter.convert(price));
 
-  public PembelianList(String title, String subtitle, int count, float price, String imagePath, int index) {
+  public PembelianList(String title, String subtitle, int count, double price, String imagePath, int index) {
     super(21, Colors.PEMBELIAN_BLUE, false, Color.WHITE, 0);
     this.count = count;
     this.price = price;

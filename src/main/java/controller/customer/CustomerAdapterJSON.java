@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controller.customer.CustomerIO;
 import controller.member.MemberIO;
+import model.Barang;
 import model.Customer;
 import model.Member;
 import org.jetbrains.annotations.Nullable;
@@ -26,6 +27,11 @@ public class CustomerAdapterJSON implements CustomerIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllCustomer(),"Customer list must be a non-null value");
         }
+
+        // handle lazy loading
+        Customer b = Customer.builder().id().build();
+        insertCustomer(b);
+        deleteCustomer(b.getId());
     }
 
     @Override @Nullable

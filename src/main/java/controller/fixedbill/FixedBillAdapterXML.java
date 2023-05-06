@@ -24,6 +24,11 @@ public class FixedBillAdapterXML implements FixedBillIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
         }
+
+        // handle lazy loading
+        FixedBill fb = FixedBill.builder().id().billing(0).build();
+        insertFixedBill(fb);
+        deleteFixedBill(fb.getId());
     }
 
     @Override @Nullable

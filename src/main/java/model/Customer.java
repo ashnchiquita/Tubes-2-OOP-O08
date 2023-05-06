@@ -18,9 +18,21 @@ import lombok.experimental.SuperBuilder;
 
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static int count = 0;
     private int id;
 
     public void polymorphTest() {
         System.out.println("from Customer");
+    }
+
+    public abstract static class CustomerBuilder< C extends Customer, B extends Customer.CustomerBuilder<C,B> > {
+        private B id(int b) {
+            this.id = ++count;
+            return self();
+        }
+
+        public B id() {
+            return id(0);
+        }
     }
 }

@@ -93,7 +93,7 @@ public class CheckoutPane extends TabPane {
     Integer vipsize =  + vipList.size();
     Integer size = membersize + vipsize;
     nameList = new Member[size + 1];
-    nameList[0] = Member.builder().id(0).point(0).transactions(0).name("").phone("").active(false).build();;
+    nameList[0] = Member.builder().id().point(0).transactions(0).name("").phone("").active(false).build();;
     for(int i = 0; i < vipsize; i++){
       nameList[i + 1] = vipList.get(i);
     }

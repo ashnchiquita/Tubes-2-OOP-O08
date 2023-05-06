@@ -3,6 +3,7 @@ package controller.member;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controller.member.MemberIO;
+import model.FixedBill;
 import model.Member;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +25,11 @@ public class MemberAdapterJSON implements MemberIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllMember(),"Member list must be a non-null value");
         }
+
+        // handle lazy loading
+        Member fb = Member.builder().id().point(0).transactions(0).active(true).build();
+        insertMember(fb);
+        deleteMember(fb.getId());
     }
 
     @Override @Nullable

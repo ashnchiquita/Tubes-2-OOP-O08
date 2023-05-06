@@ -134,7 +134,7 @@ public class TambahBarangPane extends TabPane {
                 //TODO: Insertion
                 try{
                     Barang b = Barang.builder()
-                            .id(1)
+                            .id()
                             .name("ayam")
                             .kategori("a")
                             .gambar("hai")

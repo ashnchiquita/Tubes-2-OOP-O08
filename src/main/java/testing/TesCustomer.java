@@ -13,11 +13,11 @@ public class TesCustomer {
     public static void main(String[] args) {
         CustomerController dataIO = new CustomerController();
         // dataIO.setDataIO(new CustomerAdapterJSON("src/main/resources/data/tes_customer.json"));
-        // dataIO.setDataIO(new CustomerAdapterXML("src/main/resources/data/tes_customer.xml"));
-        dataIO.setDataIO(new CustomerAdapterOBJ("src/main/resources/data/tes_customer"));
+        dataIO.setDataIO(new CustomerAdapterXML("src/main/resources/data/tes_customer.xml"));
+        // dataIO.setDataIO(new CustomerAdapterOBJ("src/main/resources/data/tes_customer"));
 
-        Customer c = Customer.builder().id(1).build();
-        Customer c2 = Customer.builder().id(3).build();
+        Customer c = Customer.builder().id().build();
+        Customer c2 = Customer.builder().id().build();
 
         dataIO.insertCustomer(c);
         dataIO.insertCustomer(c2);

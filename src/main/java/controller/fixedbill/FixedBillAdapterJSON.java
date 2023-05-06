@@ -3,6 +3,7 @@ package controller.fixedbill;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import model.Barang;
 import model.FixedBill;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +25,11 @@ public class FixedBillAdapterJSON implements FixedBillIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllFixedBill(),"Fixed Bill list must be a non-null value");
         }
+
+        // handle lazy loading
+        FixedBill fb = FixedBill.builder().id().billing(0).build();
+        insertFixedBill(fb);
+        deleteFixedBill(fb.getId());
     }
 
     @Override @Nullable

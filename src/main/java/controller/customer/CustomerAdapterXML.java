@@ -24,6 +24,11 @@ public class CustomerAdapterXML implements CustomerIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllCustomer(),"Customer list must be a non-null value");
         }
+
+        // handle lazy loading
+        Customer b = Customer.builder().id().build();
+        insertCustomer(b);
+        deleteCustomer(b.getId());
     }
 
     @Override @Nullable

@@ -18,7 +18,7 @@ import java.awt.geom.RoundRectangle2D;
 public class PembelianCard extends RoundedPanel {
   private PembelianObserver observer;
 
-  public PembelianCard(int id, String title, String subtitle, float price, String imagePath) {
+  public PembelianCard(int id, String title, String subtitle, double price, String imagePath) {
     super(20, Colors.WHITE, true, Colors.MED_GRAY, 1);
 
     this.setLayout(null);

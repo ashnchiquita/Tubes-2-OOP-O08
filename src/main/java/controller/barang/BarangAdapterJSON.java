@@ -25,6 +25,11 @@ public class BarangAdapterJSON implements BarangIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllBarang(),"Barang list must be a non-null value");
         }
+
+        // handle lazy loading
+        Barang b = Barang.builder().id().jumlah(10).hargaJual(5).hargaBeli(2).build();
+        insertBarang(b);
+        deleteBarang(b.getId());
     }
 
     @Override @Nullable

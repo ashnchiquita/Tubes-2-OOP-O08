@@ -24,6 +24,11 @@ public class VIPAdapterXML implements VIPIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllVIP(),"VIP list must be a non-null value");
         }
+
+        // handle lazy loading
+        VIP fb = VIP.builder().id().point(0).transactions(0).active(true).build();
+        insertVIP(fb);
+        deleteVIP(fb.getId());
     }
 
     @Override @Nullable

@@ -143,7 +143,7 @@ public class CreateMemberPane extends TabPane {
                   //TODO: Insertion
                   if(vipOption.isSelected()){
                     VIP b = VIP.builder()
-                            .id(1)
+                            .id()
                             .point(0)
                             .transactions(0)
                             .name("chi")
@@ -154,7 +154,7 @@ public class CreateMemberPane extends TabPane {
                   }
                   else{
                     Member b = Member.builder()
-                            .id(1)
+                            .id()
                             .point(0)
                             .transactions(0)
                             .name("chi")

@@ -344,9 +344,9 @@ public class PembelianPane extends TabPane implements PembelianListener {
 
   private static class DataObj {
     public String title, subtitle, imagePath;
-    public float price;
+    public double price;
 
-    public DataObj(String title, String subtitle, float price, String imagePath) {
+    public DataObj(String title, String subtitle, double price, String imagePath) {
       this.title = title;
       this.subtitle = subtitle;
       this.price = price;

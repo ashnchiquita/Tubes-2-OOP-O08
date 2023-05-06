@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainWindow extends JFrame implements TabListener {
-    private MainController controller = new MainController();
+    private MainController controller;
     private JPanel contentPanel;
     private JPanel contentPanelView;
     private String contentCode;
@@ -29,6 +29,7 @@ public class MainWindow extends JFrame implements TabListener {
     private Map<String, JPanel> activePanels;
 
     public MainWindow(){
+        controller = new MainController();
         try{
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (Exception e){

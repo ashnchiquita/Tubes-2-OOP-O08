@@ -24,6 +24,11 @@ public class MemberAdapterXML implements MemberIO {
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAllMember(),"Member list must be a non-null value");
         }
+
+        // handle lazy loading
+        Member fb = Member.builder().id().point(0).transactions(0).active(true).build();
+        insertMember(fb);
+        deleteMember(fb.getId());
     }
 
     @Override @Nullable
