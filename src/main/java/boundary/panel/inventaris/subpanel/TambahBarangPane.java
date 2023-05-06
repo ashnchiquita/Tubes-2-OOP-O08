@@ -4,13 +4,20 @@ import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 import boundary.widget.TabPane;
+import controller.barang.BarangController;
+import model.Barang;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TambahBarangPane extends TabPane {
-    public TambahBarangPane(){
+    private BarangController controller;
+
+    public TambahBarangPane(BarangController controller){
+        this.controller = controller;
         this.setBackground(Color.WHITE);
         setupLeftPanel();
         this.add(leftPanel, BorderLayout.NORTH);
@@ -121,6 +128,28 @@ public class TambahBarangPane extends TabPane {
         createNewItemButton.setOpaque(true);
         createNewItemButton.setFocusable(false);
         createNewItemButton.setPreferredSize(new Dimension(180,43));
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: Insertion
+                try{
+                    Barang b = Barang.builder()
+                            .id(1)
+                            .name("ayam")
+                            .kategori("a")
+                            .gambar("hai")
+                            .hargaJual(2)
+                            .hargaBeli(3)
+                            .jumlah(0)
+                            .build();
+                    controller.insertBarang(b);
+                    panelFlowObserver.newEvent(new PanelFlowEvent(new DaftarBarangPane(controller), false));
+                } catch (Exception exception){
+                    System.out.println(exception.getMessage());
+                }
+                backButton.addActionListener(e2 -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
+            }
+        });
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
         leftPanel.add(createNewItemButton, BorderLayout.WEST);

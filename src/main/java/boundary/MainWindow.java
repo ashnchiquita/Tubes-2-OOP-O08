@@ -10,6 +10,8 @@ import boundary.panel.laporan.LaporanPanel;
 import boundary.panel.member.MemberPanel;
 import boundary.widget.*;
 import boundary.enums.PanelEnum;
+import controller.MainController;
+import controller.fixedbill.FixedBillController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainWindow extends JFrame implements TabListener {
+    private MainController controller = new MainController();
     private JPanel contentPanel;
     private JPanel contentPanelView;
     private boundary.enums.PanelEnum contentEnum;
@@ -69,13 +72,13 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanel.addButton(new SideBarButton("/kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                addWindow("Pembayaran", new KasirPanel(), PanelEnum.KASIR);
+                addWindow("Pembayaran", new KasirPanel(controller.getBarangCon(), controller.getFixedBillCon(), controller.getMemberCon(), controller.getVipCon()), PanelEnum.KASIR);
             }
         } );
         sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!topBar.hasType(PanelEnum.LAPORAN))
-                    addWindow("Laporan", new LaporanPanel(), PanelEnum.LAPORAN);
+                    addWindow("Laporan", new LaporanPanel(controller.getFixedBillCon()), PanelEnum.LAPORAN);
                 else{
                     TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.LAPORAN).get(0)));
                     if(!tab.getStatus())
@@ -87,7 +90,7 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanel.addButton(new SideBarButton("/member.png", "Member"), "MemberButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!topBar.hasType(PanelEnum.MEMBER))
-                    addWindow("Member", new MemberPanel(), PanelEnum.MEMBER);
+                    addWindow("Member", new MemberPanel(controller.getMemberCon(), controller.getVipCon(), controller.getFixedBillCon()), PanelEnum.MEMBER);
                 else{
                     TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.MEMBER).get(0)));
                     if(!tab.getStatus())
@@ -98,7 +101,7 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanel.addButton(new SideBarButton("/inventaris.png", "Inventaris"), "inventarisButton").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!topBar.hasType(PanelEnum.INVENTARIS))
-                    addWindow("Inventaris", new InventarisPanel(), PanelEnum.INVENTARIS);
+                    addWindow("Inventaris", new InventarisPanel(controller.getBarangCon()), PanelEnum.INVENTARIS);
                 else{
                     TopBarTab tab = ((TopBarTab) topBar.getComponent(topBar.getTabsWithType(PanelEnum.INVENTARIS).get(0)));
                     if(!tab.getStatus())

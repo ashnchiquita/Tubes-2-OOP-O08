@@ -3,6 +3,8 @@ package boundary.panel.inventaris.subpanel;
 import boundary.constants.Colors;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.*;
+import controller.barang.BarangController;
+import model.Barang;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,10 +12,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.List;
 
 public class DaftarBarangPane extends TabPane {
-    private static JPanel headerPanel;
-    private static JScrollPane scrollListPanel;
+    private BarangController controller;
+    private JPanel headerPanel;
+    private JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
     private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8),  2);
@@ -39,7 +43,7 @@ public class DaftarBarangPane extends TabPane {
         headerPanel.add(separator1);
 
         // Label "Total Barang"
-        JLabel totalBarangLabel = new JLabel("Total Barang : 127");
+        JLabel totalBarangLabel = new JLabel("Total Barang : " + controller.getAllBarang().size());
         totalBarangLabel.setHorizontalAlignment(SwingConstants.CENTER);
         totalBarangLabel.setPreferredSize(new Dimension(180,38));
         totalBarangLabel.setFont(new Font("Inter", Font.PLAIN, 15));
@@ -83,7 +87,7 @@ public class DaftarBarangPane extends TabPane {
         createNewItemButton.setPreferredSize(new Dimension(180,38));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
-        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(), true)));
+        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(controller), true)));
         createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
         headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);
     }
@@ -145,8 +149,16 @@ public class DaftarBarangPane extends TabPane {
         tableHeader.setPreferredSize(new Dimension(600, 43));
     }
 
-    private static Object[][] getData() {
-        Object[][] data = {
+    private Object[][] getData() {
+        List<Barang> listBarang = controller.getAllBarang();
+        Object [][] data = new Object[listBarang.size()][6];
+        for (int i = 0; i < listBarang.size(); i++){
+            Barang barang = listBarang.get(i);
+            data[i] = new Object[]{
+                    barang.getId(), barang.getName(), barang.getKategori(), barang.getHargaBeli(), barang.getHargaJual(), barang.getJumlah()
+            };
+        }
+        /*Object[][] data = {
                 {"", "Salad Tuna", "(Must choose level)", "$10.99",
                         "$10.99", "2000"},
                 {"","Beef Contoh", "", "$10.99",
@@ -157,7 +169,7 @@ public class DaftarBarangPane extends TabPane {
                         "$10.99", "2000"},
                 {"","Salad Tuna", "(Must choose level)", "$10.99",
                         "$10.99", "2000"},
-        };
+        };*/
         return data;
     }
 
@@ -168,7 +180,8 @@ public class DaftarBarangPane extends TabPane {
         return columnNames;
     }
 
-    public DaftarBarangPane(){
+    public DaftarBarangPane(BarangController controller){
+        this.controller = controller;
         this.setBackground(Color.WHITE);
         setupHeaderPanel();
         this.add(headerPanel,BorderLayout.NORTH);

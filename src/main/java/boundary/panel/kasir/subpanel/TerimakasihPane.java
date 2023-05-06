@@ -7,12 +7,16 @@ import boundary.constants.Colors;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.observer.tab.TabEvent;
 import boundary.widget.TabPane;
+import controller.member.MemberController;
+import controller.vip.VIPController;
 import util.RupiahConverter;
 import boundary.widget.RoundedPanel;
 
 import java.awt.*;
 
 public class TerimakasihPane extends TabPane {
+  private MemberController memberController;
+  private VIPController vipController;
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
   private String memberName;
 
@@ -57,8 +61,10 @@ public class TerimakasihPane extends TabPane {
   private RoundedPanel selesaiButtonContainer = new RoundedPanel(24, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton selesaiButton = new JButton("Selesai");
-  public TerimakasihPane(String memberName) {
+  public TerimakasihPane(MemberController memberController, VIPController vipController, String memberName) {
     //TODO: Data Flow from pembelian
+    this.memberController = memberController;
+    this.vipController = vipController;
     this.memberName = memberName;
     this.initializeUI();
   }
@@ -211,7 +217,7 @@ public class TerimakasihPane extends TabPane {
     tambahButton.setBounds(12, 2, 326, 32);
     tambahButton.setForeground(Color.WHITE);
     tambahButton.setFont(new Font("Inter", Font.BOLD, 16));
-    tambahButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CreateMemberPane(), false)));
+    tambahButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CreateMemberPane(memberController, vipController), false)));
     tambahButtonContainer.add(tambahButton);
 
     selesaiButtonContainer.setLayout(null);

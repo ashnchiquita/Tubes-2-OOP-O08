@@ -5,6 +5,9 @@ import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.PlainScrollBar;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
+import controller.fixedbill.FixedBillController;
+import model.FixedBill;
+import model.Member;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,13 +15,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HistoriTransaksiPane extends TabPane {
-    private static JPanel headerPanel;
-    private static JScrollPane scrollListPanel;
+    private FixedBillController fixedBillController;
+    private Member member;
+    private JPanel headerPanel;
+    private JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
     private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8),  2);
+    Object[][] data;
 
     private void setupHeaderPanel(){
         headerPanel = new JPanel();
@@ -116,35 +124,31 @@ public class HistoriTransaksiPane extends TabPane {
         tableHeader.setPreferredSize(new Dimension(600, 43));
     }
 
-    private static Object[][] getData() {
-        Object[][] data = {
-                {" ", "jennie", "29/04/2023", "$3", ""},
-                {" ", "rose", "05/10/2023", "$10", ""},
-                {" ", "jisoo", "25/12/2023", "$5", ""},
-                {" ", "lisa", "31/12/2023", "$8", ""},
-                {" ", "jennie", "29/04/2023", "$3", ""},
-                {" ", "rose", "05/10/2023", "$10", ""},
-                {" ", "jisoo", "25/12/2023", "$5", ""},
-                {" ", "lisa", "31/12/2023", "$8", ""},
-                {" ", "jennie", "29/04/2023", "$3", ""},
-                {" ", "rose", "05/10/2023", "$10", ""},
-                {" ", "jisoo", "25/12/2023", "$5", ""},
-                {" ", "lisa", "31/12/2023", "$8", ""},
-                {" ", "jennie", "29/04/2023", "$3", ""},
-                {" ", "rose", "05/10/2023", "$10", ""},
-                {" ", "jisoo", "25/12/2023", "$5", ""},
-                {" ", "lisa", "31/12/2023", "$8", ""},
-        };
+    private Object[][] getData() {
+        //TODO: Resolve getAllFixedBill
+        List<FixedBill> bills = fixedBillController.getAllFixedBill();
+        bills = bills.stream()
+                .filter(bill -> bill.getCust().getId() == member.getId())
+                .collect(Collectors.toList());
+        data = new Object[bills.size()][5];
+        for(int i = 0; i < bills.size(); i++){
+            //TODO: Resolve name, price, and discount
+            FixedBill bill = bills.get(i);
+            data[i] = new Object[]{
+                    bill.getId(), "", bill.getDate(), "", ""
+            };
+        }
         return data;
     }
 
-
-    private static String[] getColumnNames() {
+    private String[] getColumnNames() {
         String[] columnNames = {"ID", "Nama", "Tanggal Transaksi", "Subtotal", "Diskon"};
         return columnNames;
     }
 
-    public HistoriTransaksiPane(){
+    public HistoriTransaksiPane(Member member, FixedBillController fixedBillController){
+        this.member = member;
+        this.fixedBillController = fixedBillController;
         this.setBackground(Color.WHITE);
         setupHeaderPanel();
         this.add(headerPanel,BorderLayout.NORTH);

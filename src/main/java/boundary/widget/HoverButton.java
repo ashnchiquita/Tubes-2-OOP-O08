@@ -18,11 +18,13 @@ public class HoverButton extends JButton {
             public void mouseEntered(java.awt.event.MouseEvent evt){
                 previousColor = getBackground();
                 setBackground(hoverColor);
+                setCursor(new Cursor(Cursor.HAND_CURSOR));
                 repaint();
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt){
                 setBackground(previousColor);
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 repaint();
             }
         };

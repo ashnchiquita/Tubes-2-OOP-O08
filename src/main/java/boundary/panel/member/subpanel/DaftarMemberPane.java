@@ -4,6 +4,11 @@ import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.*;
+import controller.fixedbill.FixedBillController;
+import controller.member.MemberController;
+import controller.vip.VIPController;
+import model.Member;
+import model.VIP;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,11 +20,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 
 public class DaftarMemberPane extends TabPane {
     private static JPanel headerPanel;
     private static JScrollPane scrollListPanel;
+    private MemberController memberController;
+    private FixedBillController fixedBillController;
+    private VIPController vipController;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
     private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8),  2);
@@ -45,7 +54,7 @@ public class DaftarMemberPane extends TabPane {
         headerPanel.add(separator1);
 
         // Label "Total Barang"
-        JLabel totalBarangLabel = new JLabel("Total Member : 127");
+        JLabel totalBarangLabel = new JLabel("Total Member : " + (memberController.getAllMember().size() + vipController.getAllVIP().size()));
         totalBarangLabel.setHorizontalAlignment(SwingConstants.CENTER);
         totalBarangLabel.setPreferredSize(new Dimension(180,38));
         totalBarangLabel.setFont(new Font("Inter", Font.PLAIN, 15));
@@ -189,7 +198,17 @@ public class DaftarMemberPane extends TabPane {
             }
 
             public void actionPerformed(ActionEvent e) {
-                panelFlowObserver.newEvent(new PanelFlowEvent(new HistoriTransaksiPane(), true));
+                List<Member> memberList = memberController.getAllMember();
+                List<VIP> vipList = vipController.getAllVIP();
+                Integer memberlen = memberList.size();
+                Integer viplen = vipList.size();
+
+                if(index >= viplen){
+                    panelFlowObserver.newEvent(new PanelFlowEvent(new HistoriTransaksiPane(memberList.get(index-viplen), fixedBillController), true));
+                }
+                else{
+                    panelFlowObserver.newEvent(new PanelFlowEvent(new HistoriTransaksiPane(vipList.get(index), fixedBillController), true));
+                }
             }
         }
 
@@ -231,7 +250,17 @@ public class DaftarMemberPane extends TabPane {
             }
 
             public void actionPerformed(ActionEvent e) {
-                panelFlowObserver.newEvent(new PanelFlowEvent(new EditDataMemberPane(), true));
+                List<Member> memberList = memberController.getAllMember();
+                List<VIP> vipList = vipController.getAllVIP();
+                Integer memberlen = memberList.size();
+                Integer viplen = vipList.size();
+
+                if(index >= viplen){
+                    panelFlowObserver.newEvent(new PanelFlowEvent(new EditDataMemberPane(memberList.get(index-viplen), memberController, vipController), true));
+                }
+                else{
+                    panelFlowObserver.newEvent(new PanelFlowEvent(new EditDataMemberPane(vipList.get(index), memberController, vipController), true));
+                }
             }
         }
 
@@ -252,7 +281,7 @@ public class DaftarMemberPane extends TabPane {
 //    JButton perlihatkanButton = new JButton("Perlihatkan");
 
     //TODO: Edit and history button functionality
-    private static Object[][] getData() {
+    private Object[][] getData() {
         JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
         editButton.setBackground(new Color(0xFFFFFF));
         editButton.setForeground(Color.WHITE);
@@ -263,11 +292,6 @@ public class DaftarMemberPane extends TabPane {
             }
             public void mouseExited(MouseEvent e) {
                 editButton.setBackground(new Color(0x4C6EDF));
-            }
-        });
-        editButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // TODO: Handle button click event
             }
         });
 
@@ -288,17 +312,30 @@ public class DaftarMemberPane extends TabPane {
                 perlihatkanButton.setBackground(new Color(0x070303));
             }
         });
-        perlihatkanButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // TODO: Handle button click event
-            }
-        });
 
-        Object[][] data = {
-                {" ", "jennie", "0812", "vip", editButton, perlihatkanButton},
-                {" ", "rose", "021", "member", editButton, perlihatkanButton},
-                {" ", "jisoo", "0896", "vip", editButton, perlihatkanButton},
-        };
+        List<Member> memberList = memberController.getAllMember();
+        List<VIP> vipList = vipController.getAllVIP();
+        Integer memberlen = memberList.size();
+        Integer viplen = vipList.size();
+        Object[][] data = new Object[memberlen+viplen][6];
+        for (int i = 0; i < viplen; i++){
+            VIP vip = vipList.get(i);
+            data[i] = new Object[]{
+                    vip.getId(), vip.getName(), vip.getPhone(), "VIP", editButton, perlihatkanButton
+            };
+        }
+        for (int i = 0; i < memberlen; i++){
+            Member member = memberList.get(i);
+            data[viplen + i] = new Object[]{
+                    member.getId(), member.getName(), member.getPhone(), "member", editButton, perlihatkanButton
+            };
+        }
+
+//        Object[][] data = {
+//                {" ", "jennie", "0812", "vip", editButton, perlihatkanButton},
+//                {" ", "rose", "021", "member", editButton, perlihatkanButton},
+//                {" ", "jisoo", "0896", "vip", editButton, perlihatkanButton},
+//        };
         return data;
     }
 
@@ -308,7 +345,10 @@ public class DaftarMemberPane extends TabPane {
         return columnNames;
     }
 
-    public DaftarMemberPane(){
+    public DaftarMemberPane(MemberController memberController, VIPController vipController, FixedBillController fixedBillController){
+        this.fixedBillController = fixedBillController;
+        this.memberController = memberController;
+        this.vipController = vipController;
         this.setBackground(Color.WHITE);
         setupHeaderPanel();
         this.add(headerPanel,BorderLayout.NORTH);

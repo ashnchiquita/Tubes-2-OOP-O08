@@ -1,15 +1,24 @@
 package boundary.panel.kasir.subpanel;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import boundary.constants.Colors;
+import boundary.observer.tab.TabEvent;
 import boundary.widget.HintTextField;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
+import controller.member.MemberController;
+import controller.vip.VIPController;
+import model.Member;
+import model.VIP;
 
 public class CreateMemberPane extends TabPane {
   // UI Components
+  private MemberController memberController;
+  private VIPController vipController;
   private JButton exitButton = new JButton();
   private JLabel checkoutLabel = new JLabel("Data Member Baru");
 
@@ -30,7 +39,9 @@ public class CreateMemberPane extends TabPane {
       0);
   private JButton createButton = new JButton("+ Create Member");
 
-  public CreateMemberPane() {
+  public CreateMemberPane(MemberController memberController, VIPController vipController) {
+    this.memberController = memberController;
+    this.vipController = vipController;
     this.initializeUI();
   }
 
@@ -124,6 +135,42 @@ public class CreateMemberPane extends TabPane {
     createButton.setBounds(9, 2, 194, 41);
     createButton.setForeground(Color.WHITE);
     createButton.setFont(new Font("Inter", Font.BOLD, 18));
+    createButton.addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                try{
+                  //TODO: Insertion
+                  if(vipOption.isSelected()){
+                    VIP b = VIP.builder()
+                            .id(1)
+                            .point(0)
+                            .transactions(0)
+                            .name("chi")
+                            .phone("123")
+                            .active(true)
+                            .build();
+                    vipController.insertVIP(b);
+                  }
+                  else{
+                    Member b = Member.builder()
+                            .id(1)
+                            .point(0)
+                            .transactions(0)
+                            .name("chi")
+                            .phone("123")
+                            .active(true)
+                            .build();
+                    memberController.insertMember(b);
+                  }
+                } catch (Exception exception){
+                  System.out.println(exception.getMessage());
+                }
+                tabObserver.newEvent(new TabEvent(TabEvent.CLOSE));
+              }
+            }
+    );
+
     createButtonContainer.add(createButton);
   }
 }

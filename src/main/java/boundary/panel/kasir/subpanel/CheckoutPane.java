@@ -2,21 +2,32 @@ package boundary.panel.kasir.subpanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import boundary.constants.Colors;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.FlowablePane;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
+import controller.fixedbill.FixedBillController;
+import controller.member.MemberController;
+import controller.vip.VIPController;
+import model.Member;
+import model.VIP;
 import util.RupiahConverter;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class CheckoutPane extends TabPane {
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
-  private String[] memberNameList = { "", "Kim", "Jisoo", "Unnie" };
+  private Member[] nameList = new Member[0];
+  private FixedBillController fixedBillController;
+  private MemberController memberController;
+  private VIPController vipController;
+
 
   // UI Components
   private JButton exitButton = new JButton();
@@ -50,7 +61,7 @@ public class CheckoutPane extends TabPane {
   private JLabel totalValue = new JLabel(RupiahConverter.convert(total));
 
   private JLabel memberHeader = new JLabel("Member");
-  private JComboBox<String> memberDropdown = new JComboBox<>(memberNameList);
+  private JComboBox<Member> nameDropdown = new JComboBox<Member>(nameList);
 
   private RoundedPanel unduhButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(82, 117, 226), 2);
   private JButton unduhButton = new JButton("Unduh Transaksi");
@@ -61,15 +72,59 @@ public class CheckoutPane extends TabPane {
   private RoundedPanel orderButtonContainer = new RoundedPanel(10, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton orderButton = new JButton("Place Order");
-  private FlowablePane terimakasihPane = new TerimakasihPane("");
-  public CheckoutPane() {
-    //TODO: Data Flow from pembelian
+  private FlowablePane terimakasihPane;
+  public CheckoutPane(FixedBillController fixedBillController, MemberController memberController, VIPController vipController, float sub) {
+    //TODO: Integrate discounts
+    this.sub = sub;
+    subValue.setText(RupiahConverter.convert(sub));
+    this.fixedBillController = fixedBillController;
+    this.memberController = memberController;
+    this.vipController = vipController;
+
+    terimakasihPane = new TerimakasihPane(memberController, vipController, "");
+
     this.initializeUI();
   }
+
+  private void getMemberData(){
+    List<Member> memberList = memberController.getAllMember();
+    List<VIP> vipList = vipController.getAllVIP();
+    Integer membersize = memberList.size();
+    Integer vipsize =  + vipList.size();
+    Integer size = membersize + vipsize;
+    nameList = new Member[size + 1];
+    nameList[0] = Member.builder().id(0).point(0).transactions(0).name("").phone("").active(false).build();;
+    for(int i = 0; i < vipsize; i++){
+      nameList[i + 1] = vipList.get(i);
+    }
+    for (int i = 0; i < membersize; i++){
+      nameList[vipsize + 1] = memberList.get(i);
+    }
+    nameDropdown = new JComboBox<>(nameList);
+    class ItemRenderer extends BasicComboBoxRenderer {
+      @Override
+      public Component getListCellRendererComponent(JList list, Object value,
+                                                    int index, boolean isSelected, boolean cellHasFocus) {
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        if (value != null) {
+          Member item = (Member) value;
+          setText(item.getName());
+        }
+        return this;
+      }
+    }
+    nameDropdown.setRenderer(new ItemRenderer());
+  }
+
+  private JComboBox combo = new JComboBox();
+  private JFrame frame = new JFrame("MyComboEg");
+  private JTextField txt = new JTextField(10);
+  private JPanel panel = new JPanel();
 
   private void initializeUI() {
     this.setLayout(null);
     this.setBackground(Color.WHITE);
+    getMemberData();
 
     ImageIcon buttonImage = new ImageIcon(
         "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/icon/left-arrow.png");
@@ -187,16 +242,25 @@ public class CheckoutPane extends TabPane {
     memberHeader.setForeground(Colors.DARK_BLUE);
     this.add(memberHeader);
 
-    memberDropdown.setBounds(105, 427, 373, 34);
-    memberDropdown.setFocusable(false);
-    memberDropdown.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    memberDropdown.addActionListener(new ActionListener() {
+    nameDropdown.setBounds(105, 427, 373, 34);
+    nameDropdown.setFocusable(false);
+    nameDropdown.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    nameDropdown.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        terimakasihPane = new TerimakasihPane(memberDropdown.getSelectedItem().toString());
+        Member item = (Member) nameDropdown.getSelectedItem();
+        if(item instanceof VIP){
+          //TODO: repercussions for VIP
+          System.out.println("is vip");
+        }
+        else{
+          //TODO: repercussions for member
+          System.out.println("is member");
+        }
+        terimakasihPane = new TerimakasihPane(memberController, vipController, item.getName().toString());
       }
     });
-    this.add(memberDropdown);
+    this.add(nameDropdown);
 
     unduhButtonContainer.setLayout(null);
     unduhButtonContainer.setBounds(105, 503, 373, 49);

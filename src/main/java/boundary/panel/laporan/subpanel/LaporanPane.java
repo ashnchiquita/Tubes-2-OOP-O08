@@ -2,6 +2,7 @@ package boundary.panel.laporan.subpanel;
 
 import boundary.widget.*;
 import boundary.constants.Colors;
+import controller.fixedbill.FixedBillController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Arrays;
 
 public class LaporanPane extends TabPane {
+    private FixedBillController controller;
     private int vw = 1280, vh = 720;
     private boolean isIDFound;
     // TODO: hapus ini bwt contoh aj
@@ -60,8 +62,9 @@ public class LaporanPane extends TabPane {
         }
     }
 
-    public LaporanPane() {
+    public LaporanPane(FixedBillController controller) {
         isIDFound = false;
+        this.controller = controller;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(Colors.WHITE);
         Font light =  new Font("Inter", Font.PLAIN, 17);
