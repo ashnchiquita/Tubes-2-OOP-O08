@@ -65,7 +65,7 @@ public class CustomerAdapterJSON implements CustomerIO {
 
     @Override
     public boolean updateCustomer(Customer newData) {
-        Objects.requireNonNull(getAllCustomer(),"Fixed Bill list must be a non-null value");
+        Objects.requireNonNull(getAllCustomer(),"Customer list must be a non-null value");
 
         int pos = -1;
 

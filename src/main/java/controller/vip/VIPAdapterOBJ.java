@@ -17,7 +17,7 @@ public class VIPAdapterOBJ implements VIPIO {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllVIP(),"Fixed Bill list must be a non-null value");
+            Objects.requireNonNull(getAllVIP(),"VIP list must be a non-null value");
         }
     }
 
@@ -37,7 +37,7 @@ public class VIPAdapterOBJ implements VIPIO {
 
     @Override @Nullable
     public VIP getByID(int id) {
-        List<VIP> filtered = Objects.requireNonNull(getAllVIP(), "Fixed Bill list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+        List<VIP> filtered = Objects.requireNonNull(getAllVIP(), "VIP list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -72,7 +72,7 @@ public class VIPAdapterOBJ implements VIPIO {
 
     @Override
     public boolean updateVIP(VIP newData) {
-        Objects.requireNonNull(getAllVIP(),"Fixed Bill list must be a non-null value");
+        Objects.requireNonNull(getAllVIP(),"VIP list must be a non-null value");
 
         int pos = -1;
 

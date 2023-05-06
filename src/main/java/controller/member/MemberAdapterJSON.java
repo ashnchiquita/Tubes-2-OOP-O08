@@ -22,13 +22,13 @@ public class MemberAdapterJSON implements MemberIO {
         this.filePath = filePath;
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
-            Objects.requireNonNull(getAllMember(),"Customer list must be a non-null value");
+            Objects.requireNonNull(getAllMember(),"Member list must be a non-null value");
         }
     }
 
     @Override @Nullable
     public Member getByID(int id) {
-        List<Member> filtered = Objects.requireNonNull(getAllMember(), "Fixed Bill list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
+        List<Member> filtered = Objects.requireNonNull(getAllMember(), "Member list must be a non-null value").stream().filter(fixedBill -> fixedBill.getId() == id).collect(Collectors.toList());
         if (!filtered.isEmpty()) {
             return filtered.get(0);
         } else {
@@ -63,7 +63,7 @@ public class MemberAdapterJSON implements MemberIO {
 
     @Override
     public boolean updateMember(Member newData) {
-        Objects.requireNonNull(getAllMember(),"Fixed Bill list must be a non-null value");
+        Objects.requireNonNull(getAllMember(),"Member list must be a non-null value");
 
         int pos = -1;
 

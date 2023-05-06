@@ -1,0 +1,11 @@
+<ArrayList>
+  <item>
+    <id>2</id>
+    <name>ayam</name>
+    <kategori>a</kategori>
+    <gambar>hai</gambar>
+    <hargaJual>3</hargaJual>
+    <hargaBeli>4</hargaBeli>
+    <jumlah>5</jumlah>
+  </item>
+</ArrayList>

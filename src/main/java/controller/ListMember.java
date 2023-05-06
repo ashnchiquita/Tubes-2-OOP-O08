@@ -1,7 +1,7 @@
 package controller;
 
 import model.Member;
-import model.Vip;
+import model.VIP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,13 @@ import java.util.List;
 public class ListMember {
     // asumsi nama & no telp gakan bubah -> final
     private final List<Member> members = new ArrayList<>();
-    private final List<Vip> vips = new ArrayList<>();
+    private final List<VIP> vips = new ArrayList<>();
 
     public void addMember(Member member) {
         members.add(member);
     }
 
-    public void addVip(Vip vip) {
+    public void addVip(VIP vip) {
         vips.add(vip);
     }
 
@@ -23,7 +23,7 @@ public class ListMember {
         return members;
     }
 
-    public List<Vip> getVIPs() {
+    public List<VIP> getVIPs() {
         return vips;
     }
 
@@ -37,12 +37,12 @@ public class ListMember {
     public void printMemberList() {
         System.out.println("=== List of Members ===");
         for (Member member : members) {
-            System.out.println(member.getNama() + " - " + member.getNoTelp());
+            System.out.println(member.getName() + " - " + member.getPhone());
         }
     
         System.out.println("=== List of VIPs ===");
-        for (Vip vip : vips) {
-            System.out.println(vip.getNama() + " - " + vip.getNoTelp());
+        for (VIP vip : vips) {
+            System.out.println(vip.getName() + " - " + vip.getPhone());
         }
     }
     

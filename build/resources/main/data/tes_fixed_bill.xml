@@ -1,0 +1,44 @@
+<ArrayList>
+  <item>
+    <id>1</id>
+    <cust __typename="Customer">
+      <id>1</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>1</id>
+        <name>anjay</name>
+        <kategori>ayam</kategori>
+        <gambar>a</gambar>
+        <hargaJual>5</hargaJual>
+        <hargaBeli>1</hargaBeli>
+        <jumlah>10</jumlah>
+      </keranjang>
+    </keranjang>
+    <date>05/06/2023</date>
+    <time>10:49:44</time>
+  </item>
+  <item>
+    <id>5</id>
+    <cust __typename="Member">
+      <id>2</id>
+      <name>chigans</name>
+      <phone>12345</phone>
+      <point>0</point>
+      <transactions>0</transactions>
+      <active>true</active>
+    </cust>
+    <keranjang/>
+    <date>05/06/2023</date>
+    <time>10:49:44</time>
+  </item>
+  <item>
+    <id>3</id>
+    <cust __typename="Customer">
+      <id>1</id>
+    </cust>
+    <keranjang/>
+    <date>05/06/2023</date>
+    <time>10:49:44</time>
+  </item>
+</ArrayList>
