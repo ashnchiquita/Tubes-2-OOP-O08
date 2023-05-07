@@ -30,6 +30,8 @@ public class MainWindow extends JFrame implements TabListener {
     private Integer counter = 0;
     private Map<String, JPanel> activePanels;
 
+
+
     public MainWindow(MainController controller) {
         this.controller = controller;
         try {
@@ -190,6 +192,7 @@ public class MainWindow extends JFrame implements TabListener {
     public SideBar getSidePanel() {
         return sidePanel;
     }
+    public MainController getContoller(){ return this.controller; }
 
     public TopBar getTopBar() {
         return topBar;

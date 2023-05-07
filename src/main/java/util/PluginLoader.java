@@ -50,6 +50,8 @@ public class PluginLoader {
 
         for (final BasePluginInterface g : basePluginLoader) {
             g.setupMainWindow(mainWindow);
+            g.addURL(urls);
+            g.loadPlugin(mainWindow);
         }
         for (final SystemPlugin g : systemPluginLoader) {
             System.out.println("Pancake");
