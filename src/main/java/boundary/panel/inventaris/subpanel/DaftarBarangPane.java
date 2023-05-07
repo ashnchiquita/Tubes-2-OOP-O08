@@ -12,16 +12,18 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 
 public class DaftarBarangPane extends TabPane {
     private GenericDataIO<Barang> barangDataIO;
     private JPanel headerPanel;
     private JScrollPane scrollListPanel;
-    private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
-    private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
-    private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
+    private final RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    private final RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    private final RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
 
     private void setupHeaderPanel() {
         headerPanel = new JPanel();
@@ -65,7 +67,6 @@ public class DaftarBarangPane extends TabPane {
         importButton.setBackground(new Color(76, 110, 223));
         importButton.setForeground(Color.WHITE);
         importButton.setOpaque(true);
-        importButton.setFocusable(false);
         importButton.setPreferredSize(new Dimension(130, 38));
         importButton.setUI(buttonUI);
         importButton.setBorder(new RoundBorder(20));
@@ -88,8 +89,7 @@ public class DaftarBarangPane extends TabPane {
         createNewItemButton.setPreferredSize(new Dimension(180, 38));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
-        createNewItemButton.addActionListener(
-                e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(barangDataIO), true)));
+        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(barangDataIO), true)));
         createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
         headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);
     }
@@ -111,14 +111,15 @@ public class DaftarBarangPane extends TabPane {
         itemList.getColumnModel().getColumn(3).setPreferredWidth(200);
         itemList.getColumnModel().getColumn(4).setPreferredWidth(200);
         itemList.getColumnModel().getColumn(5).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(6).setPreferredWidth(200);
         itemList.setBorder(BorderFactory.createEmptyBorder());
         itemList.setShowVerticalLines(false);
         itemList.setBackground(Colors.WHITE);
         itemList.setPreferredScrollableViewportSize(itemList.getPreferredSize());
+
         itemList.setRowSelectionAllowed(false);
         itemList.setColumnSelectionAllowed(false);
-        itemList.setCellSelectionEnabled(false);
-        itemList.setFocusable(false);
+        itemList.setCellSelectionEnabled(true);
         scrollListPanel.setViewportView(itemList);
         scrollListPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
@@ -148,39 +149,82 @@ public class DaftarBarangPane extends TabPane {
         tableHeader.setAlignmentX(10);
         tableHeader.setFont(tableHeader.getFont().deriveFont(Font.BOLD, 14));
         tableHeader.setPreferredSize(new Dimension(600, 43));
+
+        class ButtonRenderer extends JButton implements TableCellRenderer, ActionListener {
+            private boolean isButtonClicked;
+            private int index;
+            public ButtonRenderer() {
+                setOpaque(true);
+                setBackground(new Color(0x4C6EDF));
+                setForeground(Color.WHITE);
+                setPreferredSize(new Dimension(25, 20));
+                setBorderPainted(false);
+                setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+                this.addActionListener(this);
+                isButtonClicked = false;
+            }
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                           boolean hasFocus, int row, int column) {
+                index = row;
+                if (isSelected && column == 6 && hasFocus) {
+                    if (!isButtonClicked) {
+                        this.doClick();
+                        setBackground(Colors.LOMBOK_RED);
+                        isButtonClicked = true;
+                    }
+                } else {
+                    setBackground(Colors.LOMBOK_RED_LESSOPAQUE);
+                    isButtonClicked = false;
+                }
+                if (column == 6) {
+                    setText("Hapus");
+                }
+                return this;
+            }
+            public void actionPerformed(ActionEvent e) {
+                barangDataIO.delete((Integer) itemList.getValueAt(index, 0));
+                panelFlowObserver.newEvent(new PanelFlowEvent(
+                        new DaftarBarangPane(barangDataIO), false));
+            }
+        }
+        TableCellRenderer nonselectableRenderer = new TableCellRenderer() {
+            JLabel label;
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                           boolean hasFocus, int row, int column) {
+                if (label == null) {
+                    label = new JLabel();
+                    label.setBackground(Colors.WHITE); // warna judul kolom
+                    label.setForeground(Colors.BLACK); // set the color of the header text
+                    label.setFont(label.getFont().deriveFont(Font.PLAIN)); // set the font style to bold
+                }
+                label.setText(value != null ? value.toString() : "");
+                return label;
+            }
+        };
+        TableColumn column = itemList.getColumnModel().getColumn(6);
+        column.setCellRenderer(new ButtonRenderer());
+        for (int i = 0; i < 6; i++) {
+            itemList.getColumnModel().getColumn(i).setCellRenderer(nonselectableRenderer);
+        }
     }
 
     private Object[][] getData() {
         List<Barang> listBarang = barangDataIO.getAll();
-        Object[][] data = new Object[listBarang.size()][6];
+        Object[][] data = new Object[listBarang.size()][7];
         for (int i = 0; i < listBarang.size(); i++) {
             Barang barang = listBarang.get(i);
             data[i] = new Object[] {
                     barang.getId(), barang.getName(), barang.getKategori(), barang.getHargaBeli(),
-                    barang.getHargaJual(), barang.getJumlah()
+                    barang.getHargaJual(), barang.getJumlah(), ""
             };
         }
-        /*
-         * Object[][] data = {
-         * {"", "Salad Tuna", "(Must choose level)", "$10.99",
-         * "$10.99", "2000"},
-         * {"","Beef Contoh", "", "$10.99",
-         * "$10.99", "2000"},
-         * {"","Iga Bakar", "(Must choose level)", "$10.99",
-         * "$10.99", "2000"},
-         * {"","Salad Egg", "", "$10.99",
-         * "$10.99", "2000"},
-         * {"","Salad Tuna", "(Must choose level)", "$10.99",
-         * "$10.99", "2000"},
-         * };
-         */
         return data;
     }
 
     private static String[] getColumnNames() {
-        String[] columnNames = { "ID", "Nama", "Kategori", "Harga Beli", "Harga Jual", "Stok" };
 
-        return columnNames;
+        return new String[]{ "ID", "Nama", "Kategori", "Harga Beli", "Harga Jual", "Stok", "Hapus"};
     }
 
     public DaftarBarangPane(GenericDataIO<Barang> barangDataIO) {

@@ -76,7 +76,6 @@ public class DaftarMemberPane extends TabPane {
         importButton.setPreferredSize(new Dimension(130, 38));
         importButton.setUI(buttonUI);
         importButton.setBorder(new RoundBorder(20));
-        // TODO: Import functionality
         importButtonPanel.add(importButton, BorderLayout.WEST);
         headerPanel.add(importButtonPanel, BorderLayout.WEST);
 

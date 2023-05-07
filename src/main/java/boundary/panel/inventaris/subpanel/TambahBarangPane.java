@@ -33,7 +33,6 @@ public class TambahBarangPane extends TabPane {
 
     // Setup
     private static JPanel rightPanel;
-
     private static JPanel leftPanel;
     private static JTextField fileTextField;
     private static File pluginStore = new File(ResourcePath.DATA + "/plugins.txt");
@@ -142,26 +141,24 @@ public class TambahBarangPane extends TabPane {
         createNewItemButton.setOpaque(true);
         createNewItemButton.setFocusable(false);
         createNewItemButton.setPreferredSize(new Dimension(180, 43));
-        backButton.addActionListener(new ActionListener() {
+        createNewItemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Kalo ngeback tuh gajadi nambah, kalo + baru nambah
                 try {
                     Barang b = Barang.builder()
                             .id()
                             .name(namaTextField.getText())
                             .kategori(kategoriTextField.getText())
-                            .gambar("hai")
-                            .hargaJual(2)
-                            .hargaBeli(3)
-                            .jumlah(0)
+                            .gambar(fileTextField.getText())
+                            .hargaJual(Double.valueOf(hargaJualTextField.getText()))
+                            .hargaBeli(Double.valueOf(hargaBeliTextField.getText()))
+                            .jumlah(Integer.valueOf(stokTextField.getText()))
                             .build();
                     barangDataIO.insert(b);
                     panelFlowObserver.newEvent(new PanelFlowEvent(new DaftarBarangPane(barangDataIO), false));
                 } catch (Exception exception) {
-                    System.out.println(exception.getMessage());
+                    JOptionPane.showMessageDialog(null, "Invalid input!\n" + exception.toString());
                 }
-                backButton.addActionListener(e2 -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
             }
         });
         createNewItemButton.setUI(buttonUI);
@@ -175,11 +172,11 @@ public class TambahBarangPane extends TabPane {
         rightPanel = new JPanel();
         Border paddingBorder = BorderFactory.createEmptyBorder(75, 20, 60, 20);
         rightPanel.setBackground(Color.WHITE);
-        rightPanel.setPreferredSize(new Dimension(450, 670));
+        rightPanel.setPreferredSize(new Dimension(400, 670));
         rightPanel.setBorder(paddingBorder);
         try {
             BufferedImage myPicture;
-            myPicture = ImageIO.read(new File("/Users/alishalistya/VSCode/Tubes-2-OOP-O08/src/main/resources/assets/image/image_file_input.png"));
+            myPicture = ImageIO.read(new File(ResourcePath.IMAGE + "/image_file_input.png"));
             JLabel picMag = new JLabel(new ImageIcon(myPicture));
             picMag.setBounds(68, 104, 314, 232);
             picMag.setOpaque(false);
@@ -228,36 +225,12 @@ public class TambahBarangPane extends TabPane {
         fileChooser.setAcceptAllFileFilterUsed(false);
 
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                File fileToSave = fileChooser.getSelectedFile();
-                FileWriter fw = new FileWriter(pluginStore.getPath(), true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter out = new PrintWriter(bw);
-
-                Path path = Paths.get(fileToSave.getPath());
-                Path rootPath = Paths.get(ResourcePath.ABSOLUTE);
-
-                out.println(rootPath.relativize(path));
-                out.flush();
-                out.close();
-
-                BufferedReader br = new BufferedReader(new FileReader(pluginStore.getPath()));
-                String line;
-                StringBuilder builder = new StringBuilder();
-                Integer rows = 0;
-                while ((line = br.readLine()) != null) {
-                    builder.append(line).append("\n");
-                    rows++;
-                }
-                fileTextField.setText(builder.toString());
-            } catch (IOException e) {
-                System.out.println("Photo loading failed");
-                e.printStackTrace();
-            }
+            File fileToSave = fileChooser.getSelectedFile();
+            Path path = Paths.get(fileToSave.getPath());
+            Path rootPath = Paths.get(ResourcePath.ABSOLUTE);
+            fileTextField.setText(rootPath.relativize(path).toString());
         } else {
             System.out.println("No Selection");
         }
-
-
     }
 }
