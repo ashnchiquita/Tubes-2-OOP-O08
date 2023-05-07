@@ -3,6 +3,7 @@ package boundary.panel.inventaris.subpanel;
 import boundary.constants.ResourcePath;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.*;
+import util.ImageFilter;
 
 import model.*;
 import controller.*;
@@ -14,7 +15,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TambahBarangPane extends TabPane {
     private GenericDataIO<Barang> barangDataIO;
@@ -32,6 +35,8 @@ public class TambahBarangPane extends TabPane {
     private static JPanel rightPanel;
 
     private static JPanel leftPanel;
+    private static JTextField fileTextField;
+    private static File pluginStore = new File(ResourcePath.DATA + "/plugins.txt");
 
     private void setupLeftPanel() {
         /* Setting up left panel buttons */
@@ -172,13 +177,6 @@ public class TambahBarangPane extends TabPane {
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setPreferredSize(new Dimension(450, 670));
         rightPanel.setBorder(paddingBorder);
-
-//        JPanel filePanel = new JPanel();
-//        Border dashedBorder = BorderFactory.createDashedBorder(new Color(0x4B4FC4));
-//        filePanel.setBackground(new Color(0, 255, 255));
-//        filePanel.setPreferredSize(new Dimension(318, 333));
-//        filePanel.setBorder(dashedBorder);
-        // filePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
         try {
             BufferedImage myPicture;
             myPicture = ImageIO.read(new File("/Users/alishalistya/VSCode/Tubes-2-OOP-O08/src/main/resources/assets/image/image_file_input.png"));
@@ -186,14 +184,14 @@ public class TambahBarangPane extends TabPane {
             picMag.setBounds(68, 104, 314, 232);
             picMag.setOpaque(false);
             rightPanel.add(picMag);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Image Loading Failure: " + e.getMessage());
         }
 
         // File Text Field
-        JPanel fileTextFieldPanel = new RoundedPanel(32, Color.WHITE, true, new Color(0X4B4FC4),  1);
-        JTextField fileTextField = new HintTextField("Link File", 10);
-        fileTextField.setBounds(68, 104, 300, 40);
+        JPanel fileTextFieldPanel = new RoundedPanel(32, Color.WHITE, true, new Color(0X4B4FC4), 1);
+        fileTextField = new HintTextField("Link File", 10);
+        fileTextField.setBounds(68, 120, 300, 55);
         fileTextField.setFont(new Font("Inter", Font.PLAIN, 15));
         fileTextField.setForeground(new Color(0x000000));
         fileTextField.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -202,18 +200,19 @@ public class TambahBarangPane extends TabPane {
         rightPanel.add(fileTextFieldPanel);
 
         // File Button
-        RoundedPanel fileButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,  0);
+        RoundedPanel fileButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
         JButton fileButton = new JButton("Cari File");
-        PressedButton buttonUI = new PressedButton(new Color(45,77,182));
+        PressedButton buttonUI = new PressedButton(new Color(45, 77, 182));
         fileButton.setFont(new Font("Inter", Font.PLAIN, 15));
-        fileButton.setBackground(new Color(76,110,223));
+        fileButton.setBackground(new Color(76, 110, 223));
         fileButton.setForeground(Color.WHITE);
         fileButton.setOpaque(true);
         fileButton.setFocusable(false);
-        fileButton.setBounds(68, 104, 100, 40);
+        fileButton.setBounds(68, 120, 100, 40);
         fileButton.setUI(buttonUI);
         fileButton.setVisible(true);
         fileButtonPanel.add(fileButton, BorderLayout.WEST);
+        fileButton.addActionListener(e -> seekFile());
         rightPanel.add(fileButtonPanel);
 
         rightPanel.setVisible(true);
@@ -221,4 +220,44 @@ public class TambahBarangPane extends TabPane {
 
     }
 
+    private void seekFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Pilih File");
+        fileChooser.setCurrentDirectory(new java.io.File("."));
+        fileChooser.addChoosableFileFilter(new ImageFilter());
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                File fileToSave = fileChooser.getSelectedFile();
+                FileWriter fw = new FileWriter(pluginStore.getPath(), true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter out = new PrintWriter(bw);
+
+                Path path = Paths.get(fileToSave.getPath());
+                Path rootPath = Paths.get(ResourcePath.ABSOLUTE);
+
+                out.println(rootPath.relativize(path));
+                out.flush();
+                out.close();
+
+                BufferedReader br = new BufferedReader(new FileReader(pluginStore.getPath()));
+                String line;
+                StringBuilder builder = new StringBuilder();
+                Integer rows = 0;
+                while ((line = br.readLine()) != null) {
+                    builder.append(line).append("\n");
+                    rows++;
+                }
+                fileTextField.setText(builder.toString());
+            } catch (IOException e) {
+                System.out.println("Photo loading failed");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No Selection");
+        }
+
+
+    }
 }
