@@ -1,7 +1,6 @@
 package util;
 
 import boundary.MainWindow;
-import boundary.constants.ResourcePath;
 import boundary.panel.settings.Settings;
 import controller.BasePluginInterface;
 import controller.MainController;
@@ -9,9 +8,7 @@ import controller.SystemPlugin;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;

@@ -6,12 +6,15 @@ import boundary.widget.RingkasanCard;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPanel;
 import controller.*;
+import controller.fixedbill.FixedBillAdapterXML;
 import model.*;
+import util.RupiahConverter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,16 +22,18 @@ public class LaporanPanel extends TabPanel {
     private GenericDataIO<FixedBill> fixedBillDataIO;
     private int vw = 1280, vh = 720;
     private boolean isIDFound;
-    // TODO: hapus ini bwt contoh aj
-    private static final String[] userIDs = { "1", "2", "3", "4" };
-    private String currSelectedID = "";
+    private List<Integer> userIDs = new ArrayList<>();
+    private Integer currSelectedID = -1;
 
     private void resetIDFound() {
         isIDFound = false;
     }
+    private GenericDataIO<Member> memberDataIO;
+    private GenericDataIO<VIP> VIPDataIO;
 
     private void laporanBtnAction() {
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new java.io.File("."));
         fileChooser.setDialogTitle("Pilih Nama File Laporan Penjualan");
 
         int userSelection = fileChooser.showSaveDialog(this);
@@ -36,40 +41,33 @@ public class LaporanPanel extends TabPanel {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
             System.out.println("Nama File Laporan Penjualan: " + fileToSave.getAbsolutePath());
-            // TODO: get laporan penjualan as pdf dengan path fileToSave.getAbsolutePath() +
-            // .pdf kalo perlu
+            FixedBill.laporanAll(fixedBillDataIO.getAll(), fileToSave.getPath() + ".pdf");
         }
     }
 
-    private void searchIDBtnAction(String id, JPanel fixedBillBtnP) {
-        // TODO: ganti dengan cari ke data store
-        System.out.println(id);
-        List<String> idList = Arrays.asList(userIDs);
-        isIDFound = idList.contains(id);
-        currSelectedID = isIDFound ? id : "";
-        System.out.println(isIDFound);
+    private void searchIDBtnAction(Integer id, JPanel fixedBillBtnP) {
+        isIDFound = userIDs.contains(id);
+        currSelectedID = isIDFound ? id : -1;
         fixedBillBtnP.setVisible(isIDFound);
     }
 
     private void fixedBillBtnAction() {
-        // TODO: ganti dengan cari ke data store
         if (isIDFound && !currSelectedID.equals("")) {
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new java.io.File("."));
             fileChooser.setDialogTitle("Pilih Nama File Fixed Bill untuk ID " + currSelectedID);
 
             int userSelection = fileChooser.showSaveDialog(this);
 
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
-                System.out.println(
-                        "Nama File Fixed Bill untuk ID " + currSelectedID + ": " + fileToSave.getAbsolutePath());
-                // TODO: get File Fixed Bill untuk ID as pdf dengan path
-                // fileToSave.getAbsolutePath() + .pdf kalo perlu
+                System.out.println("Nama File Fixed Bill untuk ID " + currSelectedID + ": " + fileToSave.getAbsolutePath());
+                FixedBill.laporanByID(currSelectedID, fixedBillDataIO.getAll(), fileToSave.getPath() + ".pdf");
             }
         }
     }
 
-    public LaporanPanel(GenericDataIO<FixedBill> fixedBillDataIO) {
+    public LaporanPanel(GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
         isIDFound = false;
         this.fixedBillDataIO = fixedBillDataIO;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -78,12 +76,30 @@ public class LaporanPanel extends TabPanel {
         Font medium = new Font("Inter", Font.BOLD, 24);
         Font bold = new Font("Inter", Font.BOLD, 33);
 
-        // Subpanel: Ringkasan Penjualan
-        // TODO: sambungin dengan statistik penjualan
+        for(Member mem: memberDataIO.getAll()){
+            userIDs.add(mem.getId());
+        }
+        for(VIP vip: VIPDataIO.getAll()){
+            userIDs.add(vip.getId());
+        }
+
+
+        Double grossSales = 0d;
+        Double netSales = 0d;
+        Double grossProfit = 0d;
+
+        for(FixedBill bill : fixedBillDataIO.getAll()){
+            for(Barang barang : bill.getKeranjang()){
+                netSales += barang.getHargaBeli();
+                grossSales += barang.getHargaJual();
+            }
+        }
+        grossProfit = grossSales - netSales;
+
         String[][] ringkasanStr = {
-                { "GROSS SALES", "Rp10000" },
-                { "NET SALES", "Rp10000" },
-                { "GROSS PROFIT", "Rp10000" }
+                { "GROSS SALES", RupiahConverter.convert(grossSales) },
+                { "NET SALES", RupiahConverter.convert(netSales) },
+                { "GROSS PROFIT", RupiahConverter.convert(grossProfit) }
         };
 
         JPanel wrapperRingkasan = new JPanel(new BorderLayout());
@@ -247,7 +263,6 @@ public class LaporanPanel extends TabPanel {
         fixedBillBtnP.setMaximumSize(new Dimension(170, 40));
         fixedBillBtnP.setMinimumSize(new Dimension(170, 40));
         JButton fixedBillBtn = new JButton("Unduh Fixed Bill");
-        // TODO: sepertinya lebih bagus pake ChangeListener:
         // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
         // jadi tombol search ID gaperlu ada
         fixedBillBtn.addActionListener(e -> fixedBillBtnAction());
@@ -261,7 +276,7 @@ public class LaporanPanel extends TabPanel {
 
         fixedBillBtnP.add(fixedBillBtn);
         fixedBillBtnP.setVisible(isIDFound);
-        searchIDBtn.addActionListener(e -> searchIDBtnAction(idField.getText(), fixedBillBtnP));
+        searchIDBtn.addActionListener(e -> searchIDBtnAction(Integer.valueOf(idField.getText()), fixedBillBtnP));
         fixedBillPsubBtn.add(fixedBillBtnP, BorderLayout.WEST);
 
         fixedBillP.add(fixedBillPsubL, BorderLayout.WEST);
