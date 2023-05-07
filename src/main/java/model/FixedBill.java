@@ -47,7 +47,6 @@ public class FixedBill implements Serializable {
 
     public void addBarang(Barang barang) {
         int pos = -1;
-        barang.setJumlah(1);
 
         for (int i = 0; i < keranjang.size(); i++) {
             if (keranjang.get(i).getId() == barang.getId()) {
@@ -57,12 +56,13 @@ public class FixedBill implements Serializable {
         }
 
         if (pos != -1) {
-            keranjang.get(pos).addJumlah(barang.getJumlah());
+            keranjang.get(pos).addJumlah(1);
         } else {
+            barang.setJumlah(1);
             keranjang.add(barang);
         }
 
-        billing += barang.calcTotalHargaJual();
+        billing += barang.getHargaJual();
     }
 
     public void removeBarang(Barang barang) {

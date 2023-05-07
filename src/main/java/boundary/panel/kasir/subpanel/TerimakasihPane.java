@@ -67,6 +67,24 @@ public class TerimakasihPane extends TabPane {
   private Customer customer;
 
   public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, Customer customer, String memberName, FixedBill bill) {
+    if(customer instanceof Member){
+      Double value = (bill.getBilling() * 0.001);
+      Integer addPoint = value.intValue();
+
+      System.out.println(addPoint);
+      if(customer instanceof VIP){
+        VIP vip = (VIP) customer;
+        vip.setPoint(vip.getPoint() + addPoint);
+        vip.setTransactions(vip.getTransactions() + 1);
+        VIPDataIO.update(vip);
+      }
+      else{
+        Member member = (Member) customer;
+        member.setPoint(member.getPoint() + addPoint);
+        member.setTransactions(member.getTransactions() + 1);
+        memberDataIO.update(member);
+      }
+    }
     this.customer = customer;
     this.bill = bill;
     this.memberDataIO = memberDataIO;
@@ -185,6 +203,7 @@ public class TerimakasihPane extends TabPane {
     totalValue.setForeground(Colors.DARK_BLUE);
     totalValue.setFont(summaryFont);
     totalValue.setHorizontalAlignment(SwingConstants.RIGHT);
+    totalValue.setText(String.valueOf(bill.getBilling()));
     totalValueContainer.add(totalValue, BorderLayout.CENTER);
     summaryTextPanel.add(totalValueContainer, c);
 

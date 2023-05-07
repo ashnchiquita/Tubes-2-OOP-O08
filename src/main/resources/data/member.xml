@@ -1,1 +1,10 @@
-<ArrayList/>
+<ArrayList>
+  <item>
+    <id>4</id>
+    <name>member1</name>
+    <phone>0</phone>
+    <point>199150</point>
+    <transactions>7</transactions>
+    <active>true</active>
+  </item>
+</ArrayList>

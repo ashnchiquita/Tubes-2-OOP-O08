@@ -31,6 +31,7 @@ public class CheckoutPane extends TabPane {
   private GenericDataIO<Member> memberDataIO;
   private GenericDataIO<VIP> VIPDataIO;
   private GenericDataIO<Customer> customerDataIO;
+  private GenericDataIO<Barang> barangDataIO;
   // UI Components
   private JButton exitButton = new JButton();
   private JLabel checkoutLabel = new JLabel("Cek Keluar");
@@ -79,11 +80,11 @@ public class CheckoutPane extends TabPane {
   private FixedBill bill;
   private ArrayList<Barang> listBarang;
 
-  public CheckoutPane(GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO,
-      GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO, float sub, ArrayList<Barang> listBarang,
-      List<Integer> counts) {
+  public CheckoutPane(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO,
+      GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO, float sub, ArrayList<Barang> listBarang) {
     // TODO: Integrate discounts
     this.sub = sub;
+    this.barangDataIO = barangDataIO;
     subValue.setText(RupiahConverter.convert(sub));
     this.fixedBillDataIO = fixedBillDataIO;
     this.memberDataIO = memberDataIO;
@@ -100,11 +101,11 @@ public class CheckoutPane extends TabPane {
         .billing(0)
         .build();
     for (int i = 0; i < listBarang.size(); i++) {
-      for (int j = 0; j < counts.get(i); j++) {
+      Integer count = listBarang.get(i).getJumlah();
+      for (int j = 0; j < count; j++) {
         bill.addBarang(listBarang.get(i));
       }
     }
-    System.out.println(bill);
     terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, customer, "", bill);
 
     this.initializeUI();
@@ -274,23 +275,25 @@ public class CheckoutPane extends TabPane {
       public void actionPerformed(ActionEvent e) {
         Member item = (Member) nameDropdown.getSelectedItem();
         if (item instanceof VIP) {
-          customer = item;
-          // TODO: repercussions for VIP
           System.out.println("is vip");
+          customer = item;
+          VIP member = (VIP) customer;
+          bill.setBilling(bill.getBilling() - member.getPoint());
+          // TODO: repercussions for VIP
         } else {
+          System.out.println("is member");
           if (item.getName() == "") {
             customer = Customer.builder().id().build();
           } else {
             customer = item;
+            Member member = (Member) customer;
           }
           // TODO: repercussions for member
-          System.out.println("is member");
         }
         bill.setCust(customer);
         bill.setTime(LocalTime.now());
         bill.setDate(LocalDate.now());
 
-        fixedBillDataIO.insert(bill);
         terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, customer, item.getName().toString(), bill);
       }
     });
@@ -339,8 +342,40 @@ public class CheckoutPane extends TabPane {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
+          for(Barang b : bill.getKeranjang()){
+            Barang update = barangDataIO.getByID(b.getId());
+            if(update.getJumlah() - b.getJumlah() < 0){
+              throw new Exception("Invalid stock");
+            }
+          }
+
           if (!(customer instanceof Member)) {
             customerDataIO.insert(customer);
+          }
+          else{
+            if(customer instanceof VIP){
+              //TODO: masukin poin pas dipake
+              VIP vip = (VIP) customer;
+              Double change = vip.getPoint() - bill.getBilling();
+              if(change > 0) vip.setPoint(Math.max(0, change.intValue()));
+              bill.setBilling(bill.getBilling() - vip.getPoint());
+
+              VIPDataIO.update(vip);
+            }
+            else{
+              Member member = (Member) customer;
+              Double change = bill.getBilling() - member.getPoint();
+              member.setPoint(Math.max(0, change.intValue()));
+              bill.setBilling(bill.getBilling() - member.getPoint());
+
+              memberDataIO.update(member);
+            }
+          }
+
+          for(Barang b : bill.getKeranjang()){
+            Barang update = barangDataIO.getByID(b.getId());
+            update.setJumlah(update.getJumlah() - b.getJumlah());
+            barangDataIO.update(update);
           }
           fixedBillDataIO.insert(bill);
           panelFlowObserver.newEvent(new PanelFlowEvent(terimakasihPane, false));

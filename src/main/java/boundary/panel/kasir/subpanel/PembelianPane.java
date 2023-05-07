@@ -283,12 +283,12 @@ public class PembelianPane extends TabPane implements PembelianListener {
         barangList.clear();
         List<Integer> counts = new ArrayList<>();
         for (PembelianList buylist : buyItemList) {
+          buylist.barang.setJumlah(buylist.count);
           barangList.add(buylist.barang);
-          counts.add(buylist.count);
         }
 
         panelFlowObserver.newEvent(new PanelFlowEvent(
-            new CheckoutPane(fixedBillDataIO, memberDataIO, VIPDataIO, customerDataIO, total, barangList, counts),
+            new CheckoutPane(barangDataIO, fixedBillDataIO, memberDataIO, VIPDataIO, customerDataIO, total, barangList),
             true));
       }
     });

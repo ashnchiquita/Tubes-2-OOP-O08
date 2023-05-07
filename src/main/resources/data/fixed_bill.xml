@@ -1,52 +1,97 @@
 <ArrayList>
   <item>
-    <id>4</id>
+    <id>2</id>
     <cust __typename="Customer">
-      <id>10</id>
+      <id>4</id>
     </cust>
-    <keranjang/>
+    <keranjang>
+      <keranjang>
+        <id>2</id>
+        <jumlah>2</jumlah>
+        <name>tes1</name>
+        <kategori>testing</kategori>
+        <gambar>src\main\resources\assets\image\beef-contoh.png</gambar>
+        <hargaJual>10000.0</hargaJual>
+        <hargaBeli>1000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
     <date>05/07/2023</date>
-    <time>21:12:24</time>
-    <billing>87600.0</billing>
+    <time>23:12:28</time>
+    <billing>50000.0</billing>
   </item>
   <item>
-    <id>6</id>
-    <cust __typename="Customer">
-      <id>10</id>
+    <id>2</id>
+    <cust __typename="Member">
+      <id>4</id>
+      <name>member1</name>
+      <phone>0</phone>
+      <point>50</point>
+      <transactions>2</transactions>
+      <active>true</active>
     </cust>
-    <keranjang/>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>1</jumlah>
+        <name>tes2</name>
+        <kategori>Testing</kategori>
+        <gambar>src\main\resources\assets\image\iga-bakar.png</gambar>
+        <hargaJual>50000.0</hargaJual>
+        <hargaBeli>5000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
     <date>05/07/2023</date>
-    <time>21:15:05</time>
-    <billing>87600.0</billing>
+    <time>23:22:25</time>
+    <billing>50000.0</billing>
   </item>
   <item>
-    <id>8</id>
-    <cust __typename="Customer">
-      <id>10</id>
+    <id>2</id>
+    <cust __typename="Member">
+      <id>4</id>
+      <name>member1</name>
+      <phone>0</phone>
+      <point>250</point>
+      <transactions>4</transactions>
+      <active>true</active>
     </cust>
-    <keranjang/>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>3</jumlah>
+        <name>tes2</name>
+        <kategori>Testing</kategori>
+        <gambar>src\main\resources\assets\image\iga-bakar.png</gambar>
+        <hargaJual>50000.0</hargaJual>
+        <hargaBeli>5000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
     <date>05/07/2023</date>
-    <time>21:15:50</time>
-    <billing>87600.0</billing>
+    <time>23:37:34</time>
+    <billing>150000.0</billing>
   </item>
   <item>
-    <id>10</id>
-    <cust __typename="Customer">
-      <id>10</id>
+    <id>2</id>
+    <cust __typename="Member">
+      <id>4</id>
+      <name>member1</name>
+      <phone>0</phone>
+      <point>199150</point>
+      <transactions>7</transactions>
+      <active>true</active>
     </cust>
-    <keranjang/>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>4</jumlah>
+        <name>tes2</name>
+        <kategori>Testing</kategori>
+        <gambar>src\main\resources\assets\image\iga-bakar.png</gambar>
+        <hargaJual>50000.0</hargaJual>
+        <hargaBeli>5000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
     <date>05/07/2023</date>
-    <time>21:20:34</time>
-    <billing>29200.0</billing>
-  </item>
-  <item>
-    <id>12</id>
-    <cust __typename="Customer">
-      <id>10</id>
-    </cust>
-    <keranjang/>
-    <date>05/07/2023</date>
-    <time>21:21:51</time>
-    <billing>14600.0</billing>
+    <time>23:51:30</time>
+    <billing>850.0</billing>
   </item>
 </ArrayList>

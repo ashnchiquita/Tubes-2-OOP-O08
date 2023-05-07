@@ -131,12 +131,8 @@ public class HistoriTransaksiPane extends TabPane {
         for (int i = 0; i < bills.size(); i++) {
             // TODO: Resolve name, price, and discount
             FixedBill bill = bills.get(i);
-            Double sub = 0d;
-            for (Barang b : bill.getKeranjang()){
-                sub += b.getHargaJual();
-            }
             data[i] = new Object[] {
-                    bill.getId(), bill.getDate(), sub.toString(), ""
+                    bill.getId(), bill.getDate(), bill.getBilling(), ""
             };
         }
         return data;

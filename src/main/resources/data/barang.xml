@@ -1,11 +1,11 @@
 <ArrayList>
   <item>
-    <id>4</id>
+    <id>3</id>
     <jumlah>2</jumlah>
-    <name>f</name>
-    <kategori>f</kategori>
-    <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-    <hargaJual>29200.0</hargaJual>
-    <hargaBeli>29200.0</hargaBeli>
+    <name>tes2</name>
+    <kategori>Testing</kategori>
+    <gambar>src\main\resources\assets\image\iga-bakar.png</gambar>
+    <hargaJual>50000.0</hargaJual>
+    <hargaBeli>5000.0</hargaBeli>
   </item>
 </ArrayList>
