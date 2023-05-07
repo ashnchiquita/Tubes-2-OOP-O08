@@ -3,8 +3,8 @@
     <id>4</id>
     <name>member1</name>
     <phone>0</phone>
-    <point>199150</point>
-    <transactions>7</transactions>
+    <point>0</point>
+    <transactions>8</transactions>
     <active>true</active>
   </item>
 </ArrayList>
