@@ -1,13 +1,14 @@
 ### Tugas Besar 2 IF2210 Object-Oriented Programming
 ## BNMO Business Management: Cashoria
 ### Created by Group * ~ ' . * ♡ OOPin 1pin ♡ * . ' ~ * (O08)
-![Uploading B097ACE4-C070-4B8A-8C08-7478AF27C4D1 2.GIF…]()
+![B097ACE4-C070-4B8A-8C08-7478AF27C4D1 2](https://user-images.githubusercontent.com/73476678/236684321-dd4f6432-90f4-4830-9697-d6d36dcadc0f.GIF)
 
 ---
 
 ## General Information
 This is a POS (Point of Sales) app to track every transactions inside BNMO's business in order to help BNMO manages its business.
-![Uploading Screen Shot 2023-05-07 at 21.38.35.png…]()
+<img width="830" alt="Screen Shot 2023-05-07 at 21 38 35" src="https://user-images.githubusercontent.com/73476678/236684318-82bf9c5d-982f-4d02-9345-da32318bdabb.png">
+
 
 ## Tech Stack
 - Java (8)
