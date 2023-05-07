@@ -30,31 +30,31 @@ public class MainController {
 
             path = br.readLine();
             extension = br.readLine();
-//            if(extension.equals("OBJ")){
-//                // urutannya harus banget gini harus
-//                extension = "";
-//                barangDataIO = new BarangAdapterOBJ(path + "/barang" + extension);
-//                customerDataIO = new CustomerAdapterOBJ(path + "/customer" + extension);
-//                memberDataIO = new MemberAdapterOBJ(path + "" + "/member" + extension);
-//                VIPDataIO = new VIPAdapterOBJ(path + "" + "/vip" + extension);
-//                fixedBillDataIO = new FixedBillAdapterOBJ(path + "/fixed_bill" + extension);
-//            }
-//            else if(extension.equals("XML")){
-//                extension = ".xml";
-//                barangDataIO = new BarangAdapterXML(path + "/barang" + extension);
-//                memberDataIO = new MemberAdapterXML(path + "" + "/member" + extension);
-//                VIPDataIO = new VIPAdapterXML(path + "" + "/vip" + extension);
-//                customerDataIO = new CustomerAdapterXML(path + "/customer" + extension);
-//                fixedBillDataIO = new FixedBillAdapterXML(path + "/fixed_bill" + extension);
-//            }
-//            else if(extension.equals("JSON")) {
+            if(extension.equals("OBJ")){
+                // urutannya harus banget gini harus
+                extension = "";
+                barangDataIO = new BarangAdapterOBJ(path + "/barang" + extension);
+                customerDataIO = new CustomerAdapterOBJ(path + "/customer" + extension);
+                memberDataIO = new MemberAdapterOBJ(path + "" + "/member" + extension);
+                VIPDataIO = new VIPAdapterOBJ(path + "" + "/vip" + extension);
+                fixedBillDataIO = new FixedBillAdapterOBJ(path + "/fixed_bill" + extension);
+            }
+            else if(extension.equals("XML")){
+                extension = ".xml";
+                barangDataIO = new BarangAdapterXML(path + "/barang" + extension);
+                memberDataIO = new MemberAdapterXML(path + "" + "/member" + extension);
+                VIPDataIO = new VIPAdapterXML(path + "" + "/vip" + extension);
+                customerDataIO = new CustomerAdapterXML(path + "/customer" + extension);
+                fixedBillDataIO = new FixedBillAdapterXML(path + "/fixed_bill" + extension);
+            }
+            else if(extension.equals("JSON")) {
                 extension = ".json";
                 barangDataIO = new BarangAdapterJSON(path + "/barang" + extension);
                 memberDataIO = new MemberAdapterJSON(path + "" + "/member" + extension);
                 VIPDataIO = new VIPAdapterJSON(path + "" + "/vip" + extension);
                 customerDataIO = new CustomerAdapterJSON(path + "/customer" + extension);
                 fixedBillDataIO = new FixedBillAdapterJSON(path + "/fixed_bill" + extension);
-//            }
+            }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Data loading failed\n" + e.toString());
         }
