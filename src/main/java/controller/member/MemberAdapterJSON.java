@@ -2,13 +2,16 @@ package controller.member;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.Customer;
 import model.Member;
+import model.VIP;
 import org.jetbrains.annotations.Nullable;
 
 import controller.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -23,12 +26,16 @@ public class MemberAdapterJSON implements GenericDataIO<Member> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Member list must be a non-null value");
+            if (list.size() != 0) {
+                Member.resetMaxMemID(list.stream().max(Comparator.comparing(Customer::getId)).get().getId());
+            }
         }
 
         // handle lazy loading
         Member fb = Member.builder().id().point(0).transactions(0).active(true).build();
         insert(fb);
         delete(fb.getId());
+        Customer.resetCount(Customer.checkCount() - 1);
     }
 
     @Override
@@ -85,6 +92,7 @@ public class MemberAdapterJSON implements GenericDataIO<Member> {
 
         if (pos != -1) {
             Member prevData = list.get(pos).toBuilder().build();
+            Customer.resetCount(Customer.checkCount() - 1);
             try {
                 list.set(pos, newData);
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);

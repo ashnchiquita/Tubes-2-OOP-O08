@@ -31,4 +31,4 @@ bin/
 ### binary file ##
 /build
 build
-.gradle
+/.gradle

@@ -11,7 +11,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -108,26 +107,11 @@ public class FixedBill implements Serializable {
     }
 
     public String formattedDateTime() {
-        return (date != null && time != null ? date.toString() + " " + time.toString() : "-");
-    }
-
-    public static void addTableHeader1(PdfPTable table) {
-        Stream.of("Hari", "Waktu", "Keranjang", "Billing")
-                .forEach(columnTitle -> {
-                    PdfPCell header = new PdfPCell();
-                    header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                    header.setBorderWidth(2);
-                    header.setPhrase(new Phrase(columnTitle));
-                    table.addCell(header);
-                });
+        return (date != null && time != null ? date + " " + time : "-");
     }
 
     public void fixedBillPdf(Document document) throws DocumentException {
-        Font heading = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
-        Font med = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13, BaseColor.BLACK);
         Font subheading = FontFactory.getFont(FontFactory.HELVETICA, 11, BaseColor.BLACK);
-        Chunk line = new Chunk("____________________________________________________________________________________",
-                subheading);
 
         Chunk tanggal = new Chunk("Tanggal, pukul     : " + formattedDateTime(), subheading);
         document.add(Chunk.NEWLINE);
@@ -227,8 +211,10 @@ public class FixedBill implements Serializable {
             e.printStackTrace();
         }
     }
+    public static void resetCount(int start) { count = start; }
+    public static int checkCount() { return count; }
 
-    public abstract static class FixedBillBuilder<C extends FixedBill, B extends FixedBill.FixedBillBuilder<C, B>> {
+    public abstract static class FixedBillBuilder< C extends FixedBill, B extends FixedBill.FixedBillBuilder<C,B> > {
         private B id(int b) {
             this.id = ++count;
             return self();

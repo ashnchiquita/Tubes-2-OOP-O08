@@ -23,8 +23,8 @@ public class TesBarang {
     // BarangAdapterXML("src/main/resources/data/tes_barang.xml"));
     // controller.setBarangDataIO(new
     // BarangAdapterOBJ("src/main/resources/data/tes_barang"));
-    controller.setBarangDataIO(
-        new BarangAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", ""));
+    controller.setBarangDataIO(new BarangAdapterJSON("src/main/resources/data/barang.json"));
+//        new BarangAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", ""));
 
     try {
       final URL plugin_1 = new File("./plugin/dollar-plugin/app/build/libs/app.jar").toURI().toURL();
@@ -41,15 +41,15 @@ public class TesBarang {
 
     controller.getBarangDataIO().getAll().stream().forEach(barang -> System.out.println(barang));
 
-    Barang b1 = Barang.builder().id().name("ayam").kategori("a").gambar("hai").hargaJual(3).hargaBeli(3)
+    Barang b1 = Barang.builder().id().name("ayam111222").kategori("a").gambar("hai").hargaJual(3).hargaBeli(3)
         .jumlah(4)
         .build();
-    Barang b2 = Barang.builder().id().name("ayam").kategori("a").gambar("hai").hargaJual(2).hargaBeli(2)
+    Barang b2 = Barang.builder().id().name("ayam221222").kategori("a").gambar("hai").hargaJual(2).hargaBeli(2)
         .jumlah(5)
         .build();
 
-    // controller.getBarangDataIO().insert(b1);
-    // controller.getBarangDataIO().insert(b2);
+     controller.getBarangDataIO().insert(b1);
+     controller.getBarangDataIO().insert(b2);
 
     // b1.setHargaBeli(10);
     // controller.getBarangDataIO().update(b1);

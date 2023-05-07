@@ -1,11 +1,13 @@
 package controller.member;
 
+import model.Customer;
 import model.Member;
 import org.jetbrains.annotations.Nullable;
 
 import controller.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,6 +21,9 @@ public class MemberAdapterOBJ implements GenericDataIO<Member> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Member list must be a non-null value");
+            if (list.size() != 0) {
+                Member.resetMaxMemID(list.stream().max(Comparator.comparing(Customer::getId)).get().getId());
+            }
         }
 
         // handle lazy loading
@@ -94,6 +99,7 @@ public class MemberAdapterOBJ implements GenericDataIO<Member> {
 
         if (pos != -1) {
             Member prevData = list.get(pos).toBuilder().build();
+            Customer.resetCount(Customer.checkCount() - 1);
             try {
                 list.set(pos, newData);
                 write();

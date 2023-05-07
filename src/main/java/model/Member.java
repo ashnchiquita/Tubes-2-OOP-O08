@@ -16,12 +16,20 @@ import lombok.experimental.SuperBuilder;
         @JsonSubTypes.Type(value=VIP.class, name = "VIP"),
 })
 public class Member extends Customer {
+    private static final long serialVersionUID = 8L;
     private String name, phone;
     private int point, transactions;
     private boolean active;
+    private static int maxMemID = 0;
 
     @Override
     public void polymorphTest() {
         System.out.println("from Member");
     }
+
+    public static void resetMaxMemID(int start) {
+        maxMemID = start;
+    }
+
+    public static int checkMaxMemID() { return maxMemID; }
 }

@@ -16,6 +16,8 @@ public class Barang implements Serializable {
     private String name, kategori, gambar;
     private double hargaJual, hargaBeli;
 
+    public static int getCount() { return count; }
+
     public void addJumlah(int jumlah) {
         this.jumlah += jumlah;
     }
@@ -31,6 +33,9 @@ public class Barang implements Serializable {
     public String formattedStringList() {
         return "- " + getName() + " (" + getJumlah() + "), harga satuan " + getHargaJual();
     }
+
+    public static void resetCount(int start) { count = start; }
+    public static int checkCount() { return count; }
 
     public abstract static class BarangBuilder< C extends Barang, B extends Barang.BarangBuilder<C,B> > {
         private B id(int b) {
