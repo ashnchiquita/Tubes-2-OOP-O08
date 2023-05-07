@@ -40,6 +40,7 @@ public class TopBarTab extends TopBarButton{
         icon = new ImageIcon(newImage);
         closeLabel.setIcon(icon);
         closeButton.addActionListener(e -> observer.newEvent(new TabEvent(TabEvent.CLOSE)));
+        closeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         addActionListener(e -> observer.newEvent(new TabEvent(TabEvent.CLICK)));
         add(marker);
         add(closeButton);

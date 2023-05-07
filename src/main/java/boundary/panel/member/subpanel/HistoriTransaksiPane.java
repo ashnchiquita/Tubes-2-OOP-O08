@@ -42,6 +42,7 @@ public class HistoriTransaksiPane extends TabPane {
         backButton.setBackground(Color.WHITE);
         backButton.setBorder(BorderFactory.createEmptyBorder());
         backButton.addActionListener(e -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         headerPanel.add(backButton, BorderLayout.WEST);
 
         // Label "Daftar Barang"

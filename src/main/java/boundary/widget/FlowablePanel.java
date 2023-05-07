@@ -39,6 +39,7 @@ public class FlowablePanel extends JPanel implements PanelFlowListener {
     }
     public void onUntraceAbleFlow(PanelFlowEvent e) {
         panelTrace.clear();
+        currentPanel = e.destination;
     }
     public void onTraceAbleFlow(PanelFlowEvent e) {
         panelTrace.push(currentPanel);

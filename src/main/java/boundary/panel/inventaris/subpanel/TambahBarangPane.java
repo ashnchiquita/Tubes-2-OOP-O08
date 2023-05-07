@@ -1,5 +1,6 @@
 package boundary.panel.inventaris.subpanel;
 
+import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.*;
@@ -56,6 +57,7 @@ public class TambahBarangPane extends TabPane {
         backButton.setBackground(Color.WHITE);
         backButton.setBorder(BorderFactory.createEmptyBorder());
         backButton.addActionListener(e -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         leftPanel.add(backButton, BorderLayout.NORTH);
         JLabel tambahBarangLabel = new JLabel("Tambah Barang Baru");
         tambahBarangLabel.setFont(new Font("Inter", Font.BOLD, 33));
@@ -97,24 +99,24 @@ public class TambahBarangPane extends TabPane {
         hargaBeliLabel.setForeground(new Color(0x243C94));
         hargaBeliLabel.setPreferredSize(new Dimension(240, 40));
         leftPanel.add(hargaBeliLabel, BorderLayout.WEST);
-        JLabel hargaJualLabel = new JLabel("Jual beli");
+        JLabel hargaJualLabel = new JLabel("Harga Jual");
         hargaJualLabel.setFont(new Font("Inter", Font.BOLD, 15));
         hargaJualLabel.setForeground(new Color(0x243C94));
         hargaJualLabel.setPreferredSize(new Dimension(230, 40));
         leftPanel.add(hargaJualLabel, BorderLayout.WEST);
 
-        JTextField hargaBeliTextField = new HintTextField("HargaBeli", 16);
+        JTextField hargaBeliTextField = new HintTextField("Harga beli", 16);
         hargaBeliTextField.setPreferredSize(new Dimension(240, 40));
         hargaBeliTextField.setFont(new Font("Inter", Font.PLAIN, 15));
-        hargaBeliTextField.setForeground(Color.BLACK);
+        hargaBeliTextField.setForeground(Colors.BLACK);
         hargaBeliTextField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(0X4B4FC4)), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         leftPanel.add(hargaBeliTextField, BorderLayout.WEST);
 
-        JTextField hargaJualTextField = new HintTextField("HargaBeli", 16);
+        JTextField hargaJualTextField = new HintTextField("Harga jual", 16);
         hargaJualTextField.setPreferredSize(new Dimension(230, 40));
         hargaJualTextField.setFont(new Font("Inter", Font.PLAIN, 15));
-        hargaJualTextField.setForeground(Color.BLACK);
+        hargaJualTextField.setForeground(Colors.BLACK);
         hargaJualTextField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(0X4B4FC4)), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         leftPanel.add(hargaJualTextField, BorderLayout.WEST);
@@ -128,7 +130,7 @@ public class TambahBarangPane extends TabPane {
         JTextField stokTextField = new HintTextField("Stok", 33);
         stokTextField.setPreferredSize(new Dimension(475, 45));
         stokTextField.setFont(new Font("Inter", Font.PLAIN, 15));
-        stokTextField.setForeground(new Color(0xD9D9D9));
+        stokTextField.setForeground(Colors.BLACK);
         stokTextField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(0X4B4FC4)),
                 BorderFactory.createEmptyBorder(0, 10, 0, 0)));
         leftPanel.add(stokTextField, BorderLayout.NORTH);
@@ -141,6 +143,7 @@ public class TambahBarangPane extends TabPane {
         createNewItemButton.setOpaque(true);
         createNewItemButton.setFocusable(false);
         createNewItemButton.setPreferredSize(new Dimension(180, 43));
+        createNewItemButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         createNewItemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

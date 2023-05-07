@@ -43,6 +43,7 @@ public class EditDataMemberPane extends TabPane {
         backButton.setBackground(Color.WHITE);
         backButton.setBorder(BorderFactory.createEmptyBorder());
         backButton.addActionListener(e -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         leftPanel.add(backButton, BorderLayout.NORTH);
         JLabel editDataMember = new JLabel("Edit data member");
         editDataMember.setFont(new Font("Inter", Font.BOLD, 33));
