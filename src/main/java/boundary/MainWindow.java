@@ -4,6 +4,7 @@ import boundary.constants.Colors;
 import boundary.constants.PanelCode;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabListener;
+import boundary.panel.history.HistoryPanel;
 import boundary.panel.home.HomePanel;
 import boundary.panel.inventaris.InventarisPanel;
 import boundary.panel.kasir.KasirPanel;
@@ -16,7 +17,6 @@ import controller.MainController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +74,7 @@ public class MainWindow extends JFrame implements TabListener {
         topBar.addArrayType(PanelCode.NULL);
         topBar.addArrayType(PanelCode.KASIR);
         topBar.addArrayType(PanelCode.LAPORAN);
+        topBar.addArrayType(PanelCode.HISTORI);
         topBar.addArrayType(PanelCode.INVENTARIS);
         topBar.addArrayType(PanelCode.MEMBER);
         topBar.addArrayType(PanelCode.PENGATURAN);
@@ -93,6 +94,19 @@ public class MainWindow extends JFrame implements TabListener {
                         else {
                             TopBarTab tab = ((TopBarTab) topBar
                                     .getComponent(topBar.getTabsWithType(PanelCode.LAPORAN).get(0)));
+                            if (!tab.getStatus())
+                                tab.doClick();
+                        }
+                    }
+                });
+        sidePanel.addButton(new SideBarButton("/simpan.png", "Transaksi"), "transaksiButton")
+                .addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!topBar.hasType(PanelCode.HISTORI))
+                            addWindow("Transaksi", new HistoryPanel(controller.getFixedBillDataIO()), PanelCode.HISTORI);
+                        else {
+                            TopBarTab tab = ((TopBarTab) topBar
+                                    .getComponent(topBar.getTabsWithType(PanelCode.HISTORI).get(0)));
                             if (!tab.getStatus())
                                 tab.doClick();
                         }

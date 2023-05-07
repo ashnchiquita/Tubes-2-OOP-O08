@@ -1,7 +1,7 @@
-package boundary.panel.member.subpanel;
+package boundary.panel.history.subpanel;
+
 
 import boundary.constants.Colors;
-import boundary.observer.panelflow.PanelFlowEvent;
 import boundary.widget.PlainScrollBar;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
@@ -16,15 +16,12 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class HistoriTransaksiPane extends TabPane {
+public class HistoryPane extends TabPane {
     private GenericDataIO<FixedBill> fixedBillDataIO;
     private List<FixedBill> bills;
-    private Member member;
     private JPanel headerPanel;
     private JScrollPane scrollListPanel;
-    private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
     Object[][] data;
 
@@ -34,16 +31,6 @@ public class HistoriTransaksiPane extends TabPane {
         headerPanel.setBackground(new Color(255, 255, 255));
         headerPanel.setPreferredSize(new Dimension(1000, 168));
         headerPanel.setBorder(paddingBorder);
-
-        JButton backButton = new JButton("<");
-        backButton.setFont(new Font("Inter", Font.BOLD, 33));
-        backButton.setForeground(new Color(229, 151, 0));
-        backButton.setPreferredSize(new Dimension(60, 40));
-        backButton.setBackground(Color.WHITE);
-        backButton.setBorder(BorderFactory.createEmptyBorder());
-        backButton.addActionListener(e -> panelFlowObserver.newEvent(PanelFlowEvent.retract()));
-        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        headerPanel.add(backButton, BorderLayout.WEST);
 
         // Label "Daftar Barang"
         JLabel historyTransaksi = new JLabel("Histori Transaksi");
@@ -83,6 +70,7 @@ public class HistoriTransaksiPane extends TabPane {
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
         itemList.getColumnModel().getColumn(2).setPreferredWidth(200);
         itemList.getColumnModel().getColumn(3).setPreferredWidth(200);
+        itemList.getColumnModel().getColumn(4).setPreferredWidth(200);
         itemList.setBorder(BorderFactory.createEmptyBorder());
         itemList.setShowVerticalLines(false);
         itemList.setBackground(Colors.WHITE);
@@ -103,7 +91,7 @@ public class HistoriTransaksiPane extends TabPane {
         TableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
-                    boolean isSelected, boolean hasFocus, int row, int column) {
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 setBorder(BorderFactory.createEmptyBorder());
                 setHorizontalAlignment(JLabel.CENTER);
@@ -124,10 +112,7 @@ public class HistoriTransaksiPane extends TabPane {
 
     private Object[][] getData() {
         bills = fixedBillDataIO.getAll();
-        bills = bills.stream()
-                .filter(bill -> bill.getCust().getId() == member.getId())
-                .collect(Collectors.toList());
-        data = new Object[bills.size()][4];
+        data = new Object[bills.size()][5];
         for (int i = 0; i < bills.size(); i++) {
             // TODO: Resolve name, price, and discount
             FixedBill bill = bills.get(i);
@@ -136,19 +121,18 @@ public class HistoriTransaksiPane extends TabPane {
                 sub += b.getHargaJual();
             }
             data[i] = new Object[] {
-                    bill.getId(), bill.getDate(), sub.toString(), ""
+                    bill.getId(), bill.getCust().getId(),bill.getDate(), sub.toString(), ""
             };
         }
         return data;
     }
 
     private String[] getColumnNames() {
-        String[] columnNames = { "ID", "Tanggal Transaksi", "Subtotal", "Diskon" };
+        String[] columnNames = { "ID", "Customer ID", "Tanggal Transaksi", "Subtotal", "Diskon" };
         return columnNames;
     }
 
-    public HistoriTransaksiPane(Member member, GenericDataIO<FixedBill> fixedBillDataIO) {
-        this.member = member;
+    public HistoryPane(GenericDataIO<FixedBill> fixedBillDataIO) {
         this.fixedBillDataIO = fixedBillDataIO;
         this.setBackground(Color.WHITE);
         setupTable();

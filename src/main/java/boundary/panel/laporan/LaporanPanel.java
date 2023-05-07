@@ -19,6 +19,30 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LaporanPanel extends TabPanel {
+    private class PDFPrinter implements Runnable{
+        Integer type, id;
+        String path;
+        public PDFPrinter(Integer type, String path, Integer id){
+            this.type = type;
+            this.path = path;
+            this.id = id;
+        }
+        @Override
+        public void run() {
+            try{
+                Thread.sleep(10000);
+                if(type == 1){
+                    FixedBill.laporanAll(fixedBillDataIO.getAll(), path + ".pdf");
+                }
+                else if(type == 2){
+                    FixedBill.laporanByID(id, fixedBillDataIO.getAll(), path + ".pdf");
+                }
+                JOptionPane.showMessageDialog(null, "Pdf printing finished successfully");
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Printing failed\n" + e.toString());
+            }
+        }
+    }
     private GenericDataIO<FixedBill> fixedBillDataIO;
     private int vw = 1280, vh = 720;
     private boolean isIDFound;
@@ -41,7 +65,8 @@ public class LaporanPanel extends TabPanel {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
             System.out.println("Nama File Laporan Penjualan: " + fileToSave.getAbsolutePath());
-            FixedBill.laporanAll(fixedBillDataIO.getAll(), fileToSave.getPath() + ".pdf");
+            Thread process = new Thread(new PDFPrinter(1, fileToSave.getPath(), -1));
+            process.run();
         }
     }
 
@@ -62,7 +87,8 @@ public class LaporanPanel extends TabPanel {
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
                 System.out.println("Nama File Fixed Bill untuk ID " + currSelectedID + ": " + fileToSave.getAbsolutePath());
-                FixedBill.laporanByID(currSelectedID, fixedBillDataIO.getAll(), fileToSave.getPath() + ".pdf");
+                Thread process = new Thread(new PDFPrinter(2, fileToSave.getPath(), currSelectedID));
+                process.run();
             }
         }
     }
