@@ -18,7 +18,7 @@ public class TesBarang {
         MainController controller = new MainController();
         // dataIO.setDataIO(new
         // BarangAdapterJSON("src/main/resources/data/tes_barang.json"));
-        controller.setBarangDataIO(new BarangAdapterXML("src/main/resources/data/tes_barang.xml"));
+        controller.setBarangDataIO(new BarangAdapterJSON("src/main/resources/data/tes_barang.json"));
         // controller.setBarangDataIO(new
         // BarangAdapterOBJ("src/main/resources/data/tes_barang"));
 
@@ -46,7 +46,7 @@ public class TesBarang {
         controller.getBarangDataIO().insert(b2);
 
         b1.setHargaBeli(10);
-        controller.getBarangDataIO().update(b1);
+        System.out.println(controller.getBarangDataIO().update(b1));
 
         System.out.println(controller.getBarangDataIO().getByID(1));
 
