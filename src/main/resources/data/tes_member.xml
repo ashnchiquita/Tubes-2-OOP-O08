@@ -8,14 +8,6 @@
     <active>true</active>
   </item>
   <item>
-    <id>6</id>
-    <name>chu</name>
-    <phone>123</phone>
-    <point>1</point>
-    <transactions>2</transactions>
-    <active>false</active>
-  </item>
-  <item>
     <id>5</id>
     <name>chi</name>
     <phone>123</phone>
@@ -25,10 +17,18 @@
   </item>
   <item>
     <id>6</id>
-    <name>chu</name>
-    <phone>123</phone>
-    <point>1</point>
-    <transactions>2</transactions>
-    <active>false</active>
+    <name></name>
+    <phone></phone>
+    <point>0</point>
+    <transactions>0</transactions>
+    <active>true</active>
+  </item>
+  <item>
+    <id>6</id>
+    <name></name>
+    <phone></phone>
+    <point>0</point>
+    <transactions>0</transactions>
+    <active>true</active>
   </item>
 </ArrayList>

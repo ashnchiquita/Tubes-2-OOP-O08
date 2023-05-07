@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Barang implements Serializable {
     private static final long serialVersionUID = 2L;
-    public static int count = 0;
+    private static int count = 0;
     private int id, jumlah;
     private String name, kategori, gambar;
     private double hargaJual, hargaBeli;
@@ -26,6 +26,10 @@ public class Barang implements Serializable {
 
     public double calcTotalHargaBeli() {
         return this.hargaJual * this.jumlah;
+    }
+
+    public String formattedStringList() {
+        return "- " + getName() + " (" + getJumlah() + "), harga satuan " + getHargaJual();
     }
 
     public abstract static class BarangBuilder< C extends Barang, B extends Barang.BarangBuilder<C,B> > {

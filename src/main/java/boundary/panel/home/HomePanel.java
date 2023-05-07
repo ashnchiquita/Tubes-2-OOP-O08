@@ -3,6 +3,7 @@ package boundary.panel.home;
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.widget.Clock;
+import boundary.widget.Logo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,13 +11,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-public class HomeUI extends JPanel {
+public class HomePanel extends JPanel {
     Clock clock = new Clock();
-    Thread timerThread = new Thread(new Clock());
+    Logo logo = new Logo();
+    Thread timerThread;
+    Thread logoThread;
 
-    public HomeUI() {
+    public HomePanel() {
         super();
         setLayout(null);
         setMinimumSize(new Dimension(720, 720));
@@ -200,19 +202,26 @@ public class HomeUI extends JPanel {
         this.add(selamatLabel);
         this.add(datangLabel);
         this.add(dateLabel);
+        this.add(logo);
         this.add(clock);
 
-        startTimer();
+        logo.setBounds(152, 172, 153, 153);
+
+        timerThread = new Thread(clock);
+        logoThread = new Thread(logo);
+        startAll();
     }
 
-    public void stopTimer() {
+    public void stopAll() {
         System.out.println("Timer stopped");
         timerThread.interrupt();
+        logoThread.interrupt();
     }
 
-    public void startTimer() {
+    public void startAll() {
         System.out.println("Timer started");
         timerThread = new Thread(clock);
         timerThread.start();
+        logoThread.start();
     }
 }

@@ -16,7 +16,7 @@
       </keranjang>
     </keranjang>
     <date>05/07/2023</date>
-    <time>00:44:29</time>
+    <time>16:48:04</time>
     <billing>50.0</billing>
   </item>
   <item>
@@ -31,7 +31,7 @@
     </cust>
     <keranjang/>
     <date>05/07/2023</date>
-    <time>00:44:29</time>
+    <time>16:47:08</time>
     <billing>0.0</billing>
   </item>
   <item>
@@ -41,7 +41,7 @@
     </cust>
     <keranjang/>
     <date>05/07/2023</date>
-    <time>00:44:29</time>
+    <time>16:47:08</time>
     <billing>0.0</billing>
   </item>
   <item>
@@ -56,7 +56,107 @@
     </cust>
     <keranjang/>
     <date>05/07/2023</date>
-    <time>00:44:29</time>
+    <time>16:47:08</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>3</id>
+    <cust __typename="Customer">
+      <id>4</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:47:50</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>4</id>
+    <cust __typename="Member">
+      <id>5</id>
+      <name>chigans</name>
+      <phone>12345</phone>
+      <point>0</point>
+      <transactions>0</transactions>
+      <active>true</active>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:47:50</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>7</id>
+    <cust __typename="Customer">
+      <id>4</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:47:50</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>5</id>
+    <cust __typename="VIP">
+      <id>6</id>
+      <name>chigansVIP</name>
+      <phone>12345</phone>
+      <point>0</point>
+      <transactions>1</transactions>
+      <active>false</active>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:47:50</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>3</id>
+    <cust __typename="Customer">
+      <id>4</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:48:04</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>4</id>
+    <cust __typename="Member">
+      <id>5</id>
+      <name>chigans</name>
+      <phone>12345</phone>
+      <point>0</point>
+      <transactions>0</transactions>
+      <active>true</active>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:48:04</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>7</id>
+    <cust __typename="Customer">
+      <id>4</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:48:04</time>
+    <billing>0.0</billing>
+  </item>
+  <item>
+    <id>5</id>
+    <cust __typename="VIP">
+      <id>6</id>
+      <name>chigansVIP</name>
+      <phone>12345</phone>
+      <point>0</point>
+      <transactions>1</transactions>
+      <active>false</active>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>16:48:04</time>
     <billing>0.0</billing>
   </item>
 </ArrayList>

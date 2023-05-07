@@ -60,14 +60,39 @@ public class BarangAdapterJSON implements GenericDataIO<Barang> {
 
     @Override
     public boolean insert(Barang data) {
-        try {
-            list.add(data);
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
-            return true;
-        } catch (IOException e) {
-            list.remove(data);
-            e.printStackTrace();
-            return false;
+        int pos = -1;
+
+        for (int i = 0; i < list.size(); i++) {
+            if (Objects.equals(list.get(i).getName(), data.getName())) {
+                pos = i;
+                break;
+            }
+        }
+
+        if (pos != -1) { // add stock
+            Barang prevData = list.get(pos).toBuilder().build();
+            Barang temp = data.toBuilder().build();
+            temp.setJumlah(temp.getJumlah() + prevData.getJumlah());
+            temp.setId(data.getId());
+            try {
+                list.set(pos, temp);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                return true;
+            } catch (IOException e) {
+                list.set(pos, prevData); // recover
+                e.printStackTrace();
+                return false;
+            }
+        } else { // add new barang
+            try {
+                list.add(data);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);
+                return true;
+            } catch (IOException e) {
+                list.remove(data);
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
