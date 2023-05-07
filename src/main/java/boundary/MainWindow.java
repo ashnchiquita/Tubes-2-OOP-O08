@@ -89,7 +89,7 @@ public class MainWindow extends JFrame implements TabListener {
                 .addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (!topBar.hasType(PanelCode.LAPORAN))
-                            addWindow("Laporan", new LaporanPanel(controller.getFixedBillDataIO()), PanelCode.LAPORAN);
+                            addWindow("Laporan", new LaporanPanel(controller.getFixedBillDataIO(), controller.getMemberDataIO(), controller.getVIPDataIO()), PanelCode.LAPORAN);
                         else {
                             TopBarTab tab = ((TopBarTab) topBar
                                     .getComponent(topBar.getTabsWithType(PanelCode.LAPORAN).get(0)));

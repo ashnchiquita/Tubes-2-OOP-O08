@@ -17,5 +17,4 @@ public class TesPrint {
         FixedBill.laporanAll(temp, filePath1);
         FixedBill.laporanByID(id, temp, filePath2);
     }
-
 }
