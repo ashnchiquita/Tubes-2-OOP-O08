@@ -24,9 +24,11 @@ public class TesFixedBill {
     // controller.setFixedBillDataIO(new
     // FixedBillAdapterOBJ("src/main/resources/data/tes_fixed_bill"));
     controller.setFixedBillDataIO(
-        new FixedBillAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", ""));
+        new FixedBillAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403",
+            ""));
     controller
-        .setCustomerDataIO(new CustomerAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", ""));
+        .setCustomerDataIO(new CustomerAdapterSQL("jdbc:mysql://localhost:3306/testing_oop",
+            "rma1403", ""));
     controller.setMemberDataIO(
         new MemberAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", ""));
     controller.setVIPDataIO(
