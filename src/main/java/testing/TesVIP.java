@@ -15,7 +15,7 @@ public class TesVIP {
     // controller.setVIPDataIO(new
     // VIPAdapterOBJ("src/main/resources/data/tes_vip"));
     controller.setVIPDataIO(
-        new VIPAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", "299792458"));
+        new VIPAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", ""));
 
     VIP c = VIP.builder().id().point(0).transactions(0).name("chi").phone("123").active(true).build();
     VIP c2 = VIP.builder().id().point(1).transactions(2).name("chu").phone("123").active(false).build();
