@@ -76,7 +76,6 @@ public class DaftarMemberPane extends TabPane {
         importButton.setPreferredSize(new Dimension(130, 38));
         importButton.setUI(buttonUI);
         importButton.setBorder(new RoundBorder(20));
-        // TODO: Import functionality
         importButtonPanel.add(importButton, BorderLayout.WEST);
         headerPanel.add(importButtonPanel, BorderLayout.WEST);
 
@@ -287,7 +286,6 @@ public class DaftarMemberPane extends TabPane {
     // "/edit.png"));
     // JButton perlihatkanButton = new JButton("Perlihatkan");
 
-    // TODO: Edit and history button functionality
     private Object[][] getData() {
         JButton editButton = new JButton(new ImageIcon(ResourcePath.ICON + "/edit.png"));
         editButton.setBackground(new Color(0xFFFFFF));

@@ -9,6 +9,7 @@ public class Colors {
   public static final Color ORANGE = new Color(229, 151, 0);
   public static final Color RED = new Color(236, 102, 102);
   public static final Color LOMBOK_RED = new Color(244, 38, 26);
+  public static final Color LOMBOK_RED_LESSOPAQUE = new Color(244, 38, 26, 100);
   public static final Color PEMBELIAN_RED = new Color(244, 114, 221);
   public static final Color PEMBELIAN_BLUE = new Color(16, 37, 109);
   public static final Color DARK_BLUE = new Color(36, 60, 148);

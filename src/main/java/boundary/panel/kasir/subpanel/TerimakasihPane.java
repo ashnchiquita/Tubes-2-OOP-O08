@@ -65,7 +65,6 @@ public class TerimakasihPane extends TabPane {
   private JButton selesaiButton = new JButton("Selesai");
 
   public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, String memberName) {
-    // TODO: Data Flow from pembelian
     this.memberDataIO = memberDataIO;
     this.VIPDataIO = VIPDataIO;
     this.memberName = memberName;

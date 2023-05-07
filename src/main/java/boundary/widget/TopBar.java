@@ -24,6 +24,10 @@ public class TopBar extends ScrollableContainer implements TabListener {
     private Integer height;
     private Integer defaultButtonSize = 180;
     private String active;
+
+    public void addArrayType(String type){
+        panelArrays.put(type, new ArrayList<>());
+    }
     public TopBar(Integer heightin, Color BgColor){
         super();
 

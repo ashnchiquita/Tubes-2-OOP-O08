@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Barang implements Serializable {
     private static final long serialVersionUID = 2L;
-    public static int count = 0;
+    private static int count = 0;
     private int id, jumlah;
     private String name, kategori, gambar;
     private double hargaJual, hargaBeli;

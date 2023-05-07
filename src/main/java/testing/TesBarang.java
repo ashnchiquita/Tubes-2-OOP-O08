@@ -24,7 +24,7 @@ public class TesBarang {
     // controller.setBarangDataIO(new
     // BarangAdapterOBJ("src/main/resources/data/tes_barang"));
     controller.setBarangDataIO(
-        new BarangAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", "299792458"));
+        new BarangAdapterSQL("jdbc:mysql://localhost:3306/testing_oop", "rma1403", ""));
 
     try {
       final URL plugin_1 = new File("./plugin/dollar-plugin/app/build/libs/app.jar").toURI().toURL();

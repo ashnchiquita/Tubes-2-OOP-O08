@@ -4,12 +4,14 @@ import boundary.constants.Colors;
 import boundary.constants.PanelCode;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabListener;
-import boundary.panel.home.HomeUI;
+import boundary.panel.home.HomePanel;
 import boundary.panel.inventaris.InventarisPanel;
 import boundary.panel.kasir.KasirPanel;
 import boundary.panel.laporan.LaporanPanel;
 import boundary.panel.member.MemberPanel;
+import boundary.panel.settings.Settings;
 import boundary.widget.*;
+import controller.BasePluginInterface;
 import controller.MainController;
 
 import javax.swing.*;
@@ -50,7 +52,6 @@ public class MainWindow extends JFrame implements TabListener {
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Colors.BLACK);
 
-        // TODO: SidePanel Logics
         GridBagConstraints sidePanelGbc = new GridBagConstraints();
         sidePanelGbc.gridx = 0;
         sidePanelGbc.gridy = 0;
@@ -58,9 +59,8 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanelGbc.weightx = 0;
         sidePanelGbc.weighty = 0;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
-        sidePanel = new SideBar(287, Colors.LIGHT_BLUE, Color.WHITE);
+        sidePanel = new SideBar(controller.getFixedBillDataIO() ,287, Colors.LIGHT_BLUE, Color.WHITE);
 
-        // TODO: TopBar logics
         topBar = new TopBar(47, Colors.DARK_BLUE);
         GridBagConstraints topBarGbc = new GridBagConstraints();
         topBarGbc.gridx = 1;
@@ -123,7 +123,7 @@ public class MainWindow extends JFrame implements TabListener {
                     public void actionPerformed(ActionEvent e) {
                         // activePanels.containsValue(JPanel.class);
                         if (!topBar.hasType(PanelCode.PENGATURAN))
-                            addWindow("Pengaturan", new TabPanel(), PanelCode.PENGATURAN);
+                            addWindow("Pengaturan", new Settings(controller), PanelCode.PENGATURAN);
                         else {
                             TopBarTab tab = ((TopBarTab) topBar
                                     .getComponent(topBar.getTabsWithType(PanelCode.PENGATURAN).get(0)));
@@ -134,7 +134,7 @@ public class MainWindow extends JFrame implements TabListener {
                 });
 
         TopBarButton homeButton = (TopBarButton) topBar.getComponent("homeButton");
-        activePanels.put("homeButton", new HomeUI());
+        activePanels.put("homeButton", new HomePanel());
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (topBar.getActive() != "homeButton") {
@@ -157,8 +157,6 @@ public class MainWindow extends JFrame implements TabListener {
         setMinimumSize(new Dimension(1280, 720));
         setResizable(false);
         add(mainPanel);
-        pack();
-        setVisible(true);
         setTitle("Cashoria");
 
         addWindowListener(new WindowAdapter() {
@@ -166,8 +164,8 @@ public class MainWindow extends JFrame implements TabListener {
             public void windowIconified(WindowEvent e) {
                 super.windowIconified(e);
                 if (contentCode == PanelCode.HOME) {
-                    HomeUI home = (HomeUI) contentPanelView;
-                    home.stopTimer();
+                    HomePanel home = (HomePanel) contentPanelView;
+                    home.stopAll();
                 }
             }
 
@@ -175,8 +173,8 @@ public class MainWindow extends JFrame implements TabListener {
             public void windowDeiconified(WindowEvent e) {
                 super.windowDeiconified(e);
                 if (contentCode == PanelCode.HOME) {
-                    HomeUI home = (HomeUI) contentPanelView;
-                    home.startTimer();
+                    HomePanel home = (HomePanel) contentPanelView;
+                    home.startAll();
                 }
             }
         });
