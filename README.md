@@ -1,18 +1,14 @@
 ### Tugas Besar 2 IF2210 Object-Oriented Programming
-## BNMO Business Management: [Nama Aplikasi kita]
+## BNMO Business Management: Cashoria
 ### Created by Group * ~ ' . * ♡ OOPin 1pin ♡ * . ' ~ * (O08)
-
-## Guide buat kelompok (nanti dihapus)
-### Cara setup lombok di IntelliJ
-1. buat pertama kali, enable annotation processing. caranya ke settings > build, execution, deployment > compiler > annotation processing > enable annotation processing
-2. reload project
-3. udah bisa dipake. langsung aja pake annotationnya. kalo mo liat contohnya ada di [sini](src/main/java/org/example/Job.java)
-
+![B097ACE4-C070-4B8A-8C08-7478AF27C4D1 2](https://user-images.githubusercontent.com/73476678/236684234-fadf5459-c98c-490f-9f53-2f2e6477af53.GIF)
 
 ---
-[insert logo aplikasi kalo udah ada]
+
 ## General Information
 This is a POS (Point of Sales) app to track every transactions inside BNMO's business in order to help BNMO manages its business.
+<img width="830" alt="Screen Shot 2023-05-07 at 21 38 35" src="https://user-images.githubusercontent.com/73476678/236684211-c5d03610-e8b3-4d98-a36d-bcc9b0d059f8.png">
+
 
 ## Tech Stack
 - Java (8)
@@ -26,26 +22,6 @@ This is a POS (Point of Sales) app to track every transactions inside BNMO's bus
 - Report generator for evaluation needs
 - Plugin loader
 
-## Folder Structure
-
-```
-│       
-├── doc
-│   └── IF2210_TB2_O08.pdf
-│ 
-├── src
-│   ├── 
-│   └── 
-│ 
-│ .gitignore
-│ build.gradle.kts
-│ gradlew
-│ gradlew.bat
-│ README.md
-│ settings.gradle.kts
-
-```
-
 ## How to Use
 
 ### Dependencies
@@ -58,7 +34,7 @@ This is a POS (Point of Sales) app to track every transactions inside BNMO's bus
 
 ### How to Run App
 1. Open terminal and go to root directory
-2. Type this in your terminal\
+2. Type this in your terminal
 `java -jar IF2210_TB2_O08.jar`
 3. Hit enter and have fun!
 
