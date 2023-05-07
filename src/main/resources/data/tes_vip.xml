@@ -1,0 +1,18 @@
+<ArrayList>
+  <item>
+    <id>6</id>
+    <name>chu</name>
+    <phone>123</phone>
+    <point>1</point>
+    <transactions>2</transactions>
+    <active>false</active>
+  </item>
+  <item>
+    <id>5</id>
+    <name></name>
+    <phone></phone>
+    <point>0</point>
+    <transactions>0</transactions>
+    <active>true</active>
+  </item>
+</ArrayList>

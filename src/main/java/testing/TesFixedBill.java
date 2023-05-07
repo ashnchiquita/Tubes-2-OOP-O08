@@ -26,15 +26,15 @@ public class TesFixedBill {
                                 .build();
 
                 FixedBill f = FixedBill.builder().cust(c).keranjang(new ArrayList<>()).id().date(LocalDate.now())
-                                .time(LocalTime.now()).build();
+                        .time(LocalTime.now()).billing(0).build();
                 FixedBill f3 = FixedBill.builder().cust(m).keranjang(new ArrayList<>()).id().date(LocalDate.now())
-                                .time(LocalTime.now()).build();
+                        .time(LocalTime.now()).billing(0).build();
                 controller.getFixedBillDataIO().insert(f);
                 controller.getFixedBillDataIO().insert(f3);
                 VIP v = VIP.builder().id().name("chigansVIP").point(0).phone("12345").transactions(1).active(false)
                                 .build();
                 FixedBill f4 = FixedBill.builder().cust(v).keranjang(new ArrayList<>()).id().date(LocalDate.now())
-                                .time(LocalTime.now()).build();
+                        .time(LocalTime.now()).billing(0).build();
                 Barang b = Barang.builder().id().gambar("a").jumlah(10).hargaBeli(1).name("anjay").hargaJual(5)
                                 .kategori("ayam").build();
                 f.addBarang(b);

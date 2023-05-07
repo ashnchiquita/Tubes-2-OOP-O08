@@ -1,0 +1,34 @@
+<ArrayList>
+  <item>
+    <id>5</id>
+    <name>chi</name>
+    <phone>123</phone>
+    <point>0</point>
+    <transactions>10</transactions>
+    <active>true</active>
+  </item>
+  <item>
+    <id>5</id>
+    <name>chi</name>
+    <phone>123</phone>
+    <point>0</point>
+    <transactions>0</transactions>
+    <active>true</active>
+  </item>
+  <item>
+    <id>6</id>
+    <name></name>
+    <phone></phone>
+    <point>0</point>
+    <transactions>0</transactions>
+    <active>true</active>
+  </item>
+  <item>
+    <id>6</id>
+    <name></name>
+    <phone></phone>
+    <point>0</point>
+    <transactions>0</transactions>
+    <active>true</active>
+  </item>
+</ArrayList>

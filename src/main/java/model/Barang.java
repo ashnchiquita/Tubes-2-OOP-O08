@@ -28,6 +28,10 @@ public class Barang implements Serializable {
         return this.hargaJual * this.jumlah;
     }
 
+    public String formattedStringList() {
+        return "- " + getName() + " (" + getJumlah() + "), harga satuan " + getHargaJual();
+    }
+
     public abstract static class BarangBuilder< C extends Barang, B extends Barang.BarangBuilder<C,B> > {
         private B id(int b) {
             this.id = ++count;

@@ -20,6 +20,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.0")
+    implementation("com.itextpdf:itextpdf:5.5.13.3")
     implementation("org.jetbrains:annotations:24.0.0")
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
