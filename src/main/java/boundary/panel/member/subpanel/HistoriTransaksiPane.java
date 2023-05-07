@@ -24,7 +24,8 @@ public class HistoriTransaksiPane extends TabPane {
     private Member member;
     private JPanel headerPanel;
     private JScrollPane scrollListPanel;
-    private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    // private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new
+    // Color(0x4C6EDF), false, Color.WHITE, 0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
     Object[][] data;
 

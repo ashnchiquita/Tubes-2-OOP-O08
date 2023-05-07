@@ -88,7 +88,7 @@ public class Settings extends TabPanel {
 
         xmlButton.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         xmlButton.setForeground(new Color(36, 60, 148));
-        xmlButton.setLabel("XML");
+        // xmlButton.setLabel("XML");
 
         JSONRadio.setFont(new Font("Inter", Font.PLAIN, 15));
         JSONRadio.setBackground(Color.WHITE);
@@ -250,6 +250,7 @@ public class Settings extends TabPanel {
                 while ((line = br.readLine()) != null) {
                     if (line.equals(relativePath)) {
                         JOptionPane.showMessageDialog(null, "Plugin already loaded\n");
+                        br.close();
                         return;
                     }
                 }

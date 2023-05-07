@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+// import com.itextpdf.text.pdf.PdfPCell;
+// import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+// import java.util.stream.Stream;
 
 @Data
 @SuperBuilder(toBuilder = true)
@@ -211,10 +211,16 @@ public class FixedBill implements Serializable {
             e.printStackTrace();
         }
     }
-    public static void resetCount(int start) { count = start; }
-    public static int checkCount() { return count; }
 
-    public abstract static class FixedBillBuilder< C extends FixedBill, B extends FixedBill.FixedBillBuilder<C,B> > {
+    public static void resetCount(int start) {
+        count = start;
+    }
+
+    public static int checkCount() {
+        return count;
+    }
+
+    public abstract static class FixedBillBuilder<C extends FixedBill, B extends FixedBill.FixedBillBuilder<C, B>> {
         private B id(int b) {
             this.id = ++count;
             return self();

@@ -79,7 +79,7 @@ public class CheckoutPane extends TabPane {
   private FlowablePane terimakasihPane;
   private Customer customer = Customer.builder().id().build();
   private FixedBill bill;
-  private ArrayList<Barang> listBarang;
+  // private ArrayList<Barang> listBarang;
 
   public CheckoutPane(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO,
       GenericDataIO<Member> memberDataIO,
@@ -93,7 +93,7 @@ public class CheckoutPane extends TabPane {
     this.memberDataIO = memberDataIO;
     this.customerDataIO = customerDataIO;
     this.VIPDataIO = VIPDataIO;
-    this.listBarang = listBarang;
+    // this.listBarang = listBarang;
 
     bill = FixedBill.builder()
         .id()
@@ -144,10 +144,10 @@ public class CheckoutPane extends TabPane {
     nameDropdown.setRenderer(new ItemRenderer());
   }
 
-  private JComboBox combo = new JComboBox();
-  private JFrame frame = new JFrame("MyComboEg");
-  private JTextField txt = new JTextField(10);
-  private JPanel panel = new JPanel();
+  // private JComboBox combo = new JComboBox();
+  // private JFrame frame = new JFrame("MyComboEg");
+  // private JTextField txt = new JTextField(10);
+  // private JPanel panel = new JPanel();
 
   private void initializeUI() {
     this.setLayout(null);
@@ -288,7 +288,7 @@ public class CheckoutPane extends TabPane {
             customer = Customer.builder().id().build();
           } else {
             customer = item;
-            Member member = (Member) customer;
+            // Member member = (Member) customer;
           }
           // TODO: repercussions for member
         }

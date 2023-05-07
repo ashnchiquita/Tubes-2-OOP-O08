@@ -25,10 +25,13 @@ public class DaftarMemberPane extends TabPane {
     private GenericDataIO<Member> memberDataIO;
     private GenericDataIO<FixedBill> fixedBillDataIO;
     private GenericDataIO<VIP> VIPDataIO;
-    private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
-    private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    // private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new
+    // Color(0x4C6EDF), false, Color.WHITE, 0);
+    // private RoundedPanel importButtonPanel = new RoundedPanel(25, new
+    // Color(0x4C6EDF), false, Color.WHITE, 0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
-    private RoundedPanel periksaPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    // private RoundedPanel periksaPanel = new RoundedPanel(25, new Color(0x4C6EDF),
+    // false, Color.WHITE, 0);
 
     private void setupHeaderPanel() {
         headerPanel = new JPanel();
@@ -176,7 +179,7 @@ public class DaftarMemberPane extends TabPane {
             public void actionPerformed(ActionEvent e) {
                 List<Member> memberList = memberDataIO.getAll();
                 List<VIP> vipList = VIPDataIO.getAll();
-                Integer memberlen = memberList.size();
+                // Integer memberlen = memberList.size();
                 Integer viplen = vipList.size();
 
                 if (index >= viplen) {
@@ -229,7 +232,7 @@ public class DaftarMemberPane extends TabPane {
             public void actionPerformed(ActionEvent e) {
                 List<Member> memberList = memberDataIO.getAll();
                 List<VIP> vipList = VIPDataIO.getAll();
-                Integer memberlen = memberList.size();
+                // Integer memberlen = memberList.size();
                 Integer viplen = vipList.size();
 
                 if (index >= viplen) {

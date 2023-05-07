@@ -2,9 +2,9 @@ package controller.vip;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Barang;
+// import model.Barang;
 import model.Customer;
-import model.Member;
+// import model.Member;
 import model.VIP;
 import org.jetbrains.annotations.Nullable;
 

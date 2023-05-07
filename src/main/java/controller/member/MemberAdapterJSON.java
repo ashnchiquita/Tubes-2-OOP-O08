@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Customer;
 import model.Member;
-import model.VIP;
+// import model.VIP;
 import org.jetbrains.annotations.Nullable;
 
 import controller.*;

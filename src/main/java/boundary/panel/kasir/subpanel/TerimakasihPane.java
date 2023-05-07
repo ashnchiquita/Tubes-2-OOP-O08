@@ -19,7 +19,7 @@ import java.awt.*;
 public class TerimakasihPane extends TabPane {
   private GenericDataIO<Member> memberDataIO;
   private GenericDataIO<VIP> VIPDataIO;
-  private GenericDataIO<FixedBill> billDataIO;
+  // private GenericDataIO<FixedBill> billDataIO;
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
   private String memberName;
 
@@ -88,7 +88,7 @@ public class TerimakasihPane extends TabPane {
       }
     }
     this.customer = customer;
-    this.billDataIO = billDataIO;
+    // this.billDataIO = billDataIO;
     this.bill = billDataIO.getByID(billId);
     this.memberDataIO = memberDataIO;
     this.VIPDataIO = VIPDataIO;

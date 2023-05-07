@@ -8,13 +8,14 @@ import boundary.observer.tab.TabObserver;
 import javax.swing.*;
 import java.awt.*;
 
-public class TopBarTab extends TopBarButton{
+public class TopBarTab extends TopBarButton {
     TabObserver observer;
     RoundedPanel marker;
     JButton closeButton;
     JLabel closeLabel;
     JLabel tabLabel;
-    public TopBarTab(String label, String name, String panelType){
+
+    public TopBarTab(String label, String name, String panelType) {
         super();
         setLayout(null);
         observer = new TabObserver(name, panelType);
@@ -24,10 +25,10 @@ public class TopBarTab extends TopBarButton{
         closeButton.setBorderPainted(false);
         closeButton.setOpaque(false);
         closeButton.setBounds(150, 12, 20, 20);
-        closeButton.hide();
+        // closeButton.hide();
         closeLabel = new JLabel();
         closeLabel.setBounds(150, 15, 15, 15);
-        closeLabel.hide();
+        // closeLabel.hide();
         tabLabel = new JLabel(label);
         tabLabel.setBounds(45, 12, 130, 20);
         tabLabel.setFont(new Font("Inter", Font.PLAIN, 15));
@@ -36,7 +37,7 @@ public class TopBarTab extends TopBarButton{
         marker.setBounds(15, 12, 20, 20);
         ImageIcon icon = new ImageIcon(ResourcePath.ICON + "/cross_dark_blue.png");
         Image image = icon.getImage();
-        Image newImage = image.getScaledInstance(15,15, Image.SCALE_SMOOTH);
+        Image newImage = image.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImage);
         closeLabel.setIcon(icon);
         closeButton.addActionListener(e -> observer.newEvent(new TabEvent(TabEvent.CLOSE)));
@@ -47,26 +48,27 @@ public class TopBarTab extends TopBarButton{
         add(closeLabel);
         add(tabLabel);
     }
+
     @Override
-    public void changeStatus(Boolean status){
+    public void changeStatus(Boolean status) {
         super.changeStatus(status);
         remove(marker);
-        if(status == true){
+        if (status == true) {
             marker = new RoundedPanel(20, Colors.TOPBAR_MARKER_ON, false, Colors.WHITE, 0);
-            closeButton.show();
-            closeLabel.show();
+            // closeButton.show();
+            // closeLabel.show();
             tabLabel.setForeground(Colors.TOPBAR_MARKER_ON);
-        }
-        else{
+        } else {
             marker = new RoundedPanel(20, Colors.TOPBAR_MARKER_OFF, false, Colors.WHITE, 0);
-            closeButton.hide();
-            closeLabel.hide();
+            // closeButton.hide();
+            // closeLabel.hide();
             tabLabel.setForeground(Colors.TOPBAR_MARKER_OFF);
         }
         marker.setBounds(15, 12, 20, 20);
         add(marker);
     }
-    public TabObserver getObserver(){
+
+    public TabObserver getObserver() {
         return observer;
     };
 }

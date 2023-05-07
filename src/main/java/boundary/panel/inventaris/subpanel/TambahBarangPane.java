@@ -36,7 +36,8 @@ public class TambahBarangPane extends TabPane {
     private static JPanel rightPanel;
     private static JPanel leftPanel;
     private static JTextField fileTextField;
-    private static File pluginStore = new File(ResourcePath.DATA + "/plugins.txt");
+    // private static File pluginStore = new File(ResourcePath.DATA +
+    // "/plugins.txt");
 
     private void setupLeftPanel() {
         /* Setting up left panel buttons */
@@ -216,7 +217,7 @@ public class TambahBarangPane extends TabPane {
         rightPanel.add(fileButtonPanel);
 
         rightPanel.setVisible(true);
-        //rightPanel.setLayout(new BorderLayout());
+        // rightPanel.setLayout(new BorderLayout());
 
     }
 

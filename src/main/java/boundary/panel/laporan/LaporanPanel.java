@@ -6,7 +6,7 @@ import boundary.widget.RingkasanCard;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPanel;
 import controller.*;
-import controller.fixedbill.FixedBillAdapterXML;
+// import controller.fixedbill.FixedBillAdapterXML;
 import model.*;
 import util.RupiahConverter;
 
@@ -15,45 +15,48 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
+// import java.util.Arrays;
 import java.util.List;
 
 public class LaporanPanel extends TabPanel {
-    private class PDFPrinter implements Runnable{
+    private class PDFPrinter implements Runnable {
         Integer type, id;
         String path;
-        public PDFPrinter(Integer type, String path, Integer id){
+
+        public PDFPrinter(Integer type, String path, Integer id) {
             this.type = type;
             this.path = path;
             this.id = id;
         }
+
         @Override
         public void run() {
-            try{
+            try {
                 Thread.sleep(10000);
-                if(type == 1){
+                if (type == 1) {
                     FixedBill.laporanAll(fixedBillDataIO.getAll(), path + ".pdf");
-                }
-                else if(type == 2){
+                } else if (type == 2) {
                     FixedBill.laporanByID(id, fixedBillDataIO.getAll(), path + ".pdf");
                 }
                 JOptionPane.showMessageDialog(null, "Pdf printing finished successfully");
-            } catch (Exception e){
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Printing failed\n" + e.toString());
             }
         }
     }
+
     private GenericDataIO<FixedBill> fixedBillDataIO;
-    private int vw = 1280, vh = 720;
+    // private int vw = 1280, vh = 720;
     private boolean isIDFound;
     private List<Integer> userIDs = new ArrayList<>();
     private Integer currSelectedID = -1;
 
-    private void resetIDFound() {
-        isIDFound = false;
-    }
-    private GenericDataIO<Member> memberDataIO;
-    private GenericDataIO<VIP> VIPDataIO;
+    // private void resetIDFound() {
+    // isIDFound = false;
+    // }
+
+    // private GenericDataIO<Member> memberDataIO;
+    // private GenericDataIO<VIP> VIPDataIO;
 
     private void laporanBtnAction() {
         JFileChooser fileChooser = new JFileChooser();
@@ -86,36 +89,37 @@ public class LaporanPanel extends TabPanel {
 
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
-                System.out.println("Nama File Fixed Bill untuk ID " + currSelectedID + ": " + fileToSave.getAbsolutePath());
+                System.out.println(
+                        "Nama File Fixed Bill untuk ID " + currSelectedID + ": " + fileToSave.getAbsolutePath());
                 Thread process = new Thread(new PDFPrinter(2, fileToSave.getPath(), currSelectedID));
                 process.run();
             }
         }
     }
 
-    public LaporanPanel(GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
+    public LaporanPanel(GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO,
+            GenericDataIO<VIP> VIPDataIO) {
         isIDFound = false;
         this.fixedBillDataIO = fixedBillDataIO;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(Colors.WHITE);
         Font light = new Font("Inter", Font.PLAIN, 17);
-        Font medium = new Font("Inter", Font.BOLD, 24);
+        // Font medium = new Font("Inter", Font.BOLD, 24);
         Font bold = new Font("Inter", Font.BOLD, 33);
 
-        for(Member mem: memberDataIO.getAll()){
+        for (Member mem : memberDataIO.getAll()) {
             userIDs.add(mem.getId());
         }
-        for(VIP vip: VIPDataIO.getAll()){
+        for (VIP vip : VIPDataIO.getAll()) {
             userIDs.add(vip.getId());
         }
-
 
         Double grossSales = 0d;
         Double netSales = 0d;
         Double grossProfit = 0d;
 
-        for(FixedBill bill : fixedBillDataIO.getAll()){
-            for(Barang barang : bill.getKeranjang()){
+        for (FixedBill bill : fixedBillDataIO.getAll()) {
+            for (Barang barang : bill.getKeranjang()) {
                 netSales += barang.getHargaBeli();
                 grossSales += barang.getHargaJual();
             }

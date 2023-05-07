@@ -21,8 +21,10 @@ public class DaftarBarangPane extends TabPane {
     private GenericDataIO<Barang> barangDataIO;
     private JPanel headerPanel;
     private JScrollPane scrollListPanel;
-    private final RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
-    private final RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
+    private final RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE,
+            0);
+    // private final RoundedPanel importButtonPanel = new RoundedPanel(25, new
+    // Color(0x4C6EDF), false, Color.WHITE, 0);
     private final RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
 
     private void setupHeaderPanel() {
@@ -78,7 +80,8 @@ public class DaftarBarangPane extends TabPane {
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
         createNewItemButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(barangDataIO), true)));
+        createNewItemButton.addActionListener(
+                e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(barangDataIO), true)));
         createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
         headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);
     }
@@ -142,6 +145,7 @@ public class DaftarBarangPane extends TabPane {
         class ButtonRenderer extends JButton implements TableCellRenderer, ActionListener {
             private boolean isButtonClicked;
             private int index;
+
             public ButtonRenderer() {
                 setOpaque(true);
                 setBackground(new Color(0x4C6EDF));
@@ -152,8 +156,9 @@ public class DaftarBarangPane extends TabPane {
                 this.addActionListener(this);
                 isButtonClicked = false;
             }
+
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                           boolean hasFocus, int row, int column) {
+                    boolean hasFocus, int row, int column) {
                 index = row;
                 if (isSelected && column == 6 && hasFocus) {
                     if (!isButtonClicked) {
@@ -170,6 +175,7 @@ public class DaftarBarangPane extends TabPane {
                 }
                 return this;
             }
+
             public void actionPerformed(ActionEvent e) {
                 barangDataIO.delete((Integer) itemList.getValueAt(index, 0));
                 panelFlowObserver.newEvent(new PanelFlowEvent(
@@ -178,9 +184,10 @@ public class DaftarBarangPane extends TabPane {
         }
         TableCellRenderer nonselectableRenderer = new TableCellRenderer() {
             JLabel label;
+
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                           boolean hasFocus, int row, int column) {
+                    boolean hasFocus, int row, int column) {
                 if (label == null) {
                     label = new JLabel();
                     label.setBackground(Colors.WHITE); // warna judul kolom
@@ -213,7 +220,7 @@ public class DaftarBarangPane extends TabPane {
 
     private static String[] getColumnNames() {
 
-        return new String[]{ "ID", "Nama", "Kategori", "Harga Beli", "Harga Jual", "Stok", "Hapus"};
+        return new String[] { "ID", "Nama", "Kategori", "Harga Beli", "Harga Jual", "Stok", "Hapus" };
     }
 
     public DaftarBarangPane(GenericDataIO<Barang> barangDataIO) {

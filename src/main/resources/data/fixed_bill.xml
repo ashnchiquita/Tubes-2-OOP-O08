@@ -34,4 +34,24 @@
     <time>03:13:54</time>
     <billing>0.0</billing>
   </item>
+  <item>
+    <id>7</id>
+    <cust __typename="Customer">
+      <id>76</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>3</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>03:47:07</time>
+    <billing>42000.0</billing>
+  </item>
 </ArrayList>

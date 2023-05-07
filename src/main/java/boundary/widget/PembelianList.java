@@ -40,7 +40,7 @@ public class PembelianList extends RoundedPanel {
     int count = 1;
     double price = barang.getHargaJual();
     String imagePath = barang.getGambar();
-    int index = barang.getId();
+    // int index = barang.getId();
 
     this.count = count;
     this.price = price;

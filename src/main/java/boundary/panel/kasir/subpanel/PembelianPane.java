@@ -281,7 +281,7 @@ public class PembelianPane extends TabPane implements PembelianListener {
       @Override
       public void actionPerformed(ActionEvent e) {
         barangList.clear();
-        List<Integer> counts = new ArrayList<>();
+        // List<Integer> counts = new ArrayList<>();
         for (PembelianList buylist : buyItemList) {
           buylist.barang.setJumlah(buylist.count);
           barangList.add(buylist.barang);
@@ -362,17 +362,18 @@ public class PembelianPane extends TabPane implements PembelianListener {
     totalValue.setText(RupiahConverter.convert(total));
   }
 
-  private static class DataObj {
-    public String title, subtitle, imagePath;
-    public int id;
-    public double price;
+  // private static class DataObj {
+  // public String title, subtitle, imagePath;
+  // public int id;
+  // public double price;
 
-    public DataObj(int id, String title, String subtitle, double price, String imagePath) {
-      this.id = id;
-      this.title = title;
-      this.subtitle = subtitle;
-      this.price = price;
-      this.imagePath = imagePath;
-    }
-  }
+  // public DataObj(int id, String title, String subtitle, double price, String
+  // imagePath) {
+  // this.id = id;
+  // this.title = title;
+  // this.subtitle = subtitle;
+  // this.price = price;
+  // this.imagePath = imagePath;
+  // }
+  // }
 }

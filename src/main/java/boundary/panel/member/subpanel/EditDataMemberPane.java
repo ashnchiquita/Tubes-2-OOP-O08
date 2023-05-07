@@ -1,7 +1,7 @@
 package boundary.panel.member.subpanel;
 
 import boundary.observer.panelflow.PanelFlowEvent;
-import boundary.panel.inventaris.subpanel.DaftarBarangPane;
+// import boundary.panel.inventaris.subpanel.DaftarBarangPane;
 import boundary.widget.PressedButton;
 import boundary.widget.RoundBorder;
 import boundary.widget.TabPane;

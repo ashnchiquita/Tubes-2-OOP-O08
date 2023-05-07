@@ -2,7 +2,7 @@ package controller;
 
 import java.sql.*;
 
-import lombok.RequiredArgsConstructor;
+// import lombok.RequiredArgsConstructor;
 
 public abstract class SQLConnector<T> implements GenericDataIO<T> {
   protected Connection connection;
