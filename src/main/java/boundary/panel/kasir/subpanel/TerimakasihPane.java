@@ -63,8 +63,12 @@ public class TerimakasihPane extends TabPane {
   private RoundedPanel selesaiButtonContainer = new RoundedPanel(24, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton selesaiButton = new JButton("Selesai");
+  private FixedBill bill;
+  private Customer customer;
 
-  public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, String memberName) {
+  public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, Customer customer, String memberName, FixedBill bill) {
+    this.customer = customer;
+    this.bill = bill;
     this.memberDataIO = memberDataIO;
     this.VIPDataIO = VIPDataIO;
     this.memberName = memberName;
@@ -220,7 +224,7 @@ public class TerimakasihPane extends TabPane {
     tambahButton.setForeground(Color.WHITE);
     tambahButton.setFont(new Font("Inter", Font.BOLD, 16));
     tambahButton.addActionListener(
-        e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CreateMemberPane(memberDataIO, VIPDataIO), false)));
+        e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CreateMemberPane(memberDataIO, VIPDataIO, customer), false)));
     tambahButtonContainer.add(tambahButton);
 
     selesaiButtonContainer.setLayout(null);

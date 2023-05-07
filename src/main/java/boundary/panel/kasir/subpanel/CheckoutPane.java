@@ -5,7 +5,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import boundary.constants.Colors;
+import boundary.constants.ResourcePath;
 import boundary.observer.panelflow.PanelFlowEvent;
+import boundary.panel.inventaris.subpanel.DaftarBarangPane;
 import boundary.widget.FlowablePane;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
@@ -17,6 +19,9 @@ import util.RupiahConverter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutPane extends TabPane {
@@ -25,7 +30,7 @@ public class CheckoutPane extends TabPane {
   private GenericDataIO<FixedBill> fixedBillDataIO;
   private GenericDataIO<Member> memberDataIO;
   private GenericDataIO<VIP> VIPDataIO;
-
+  private GenericDataIO<Customer> customerDataIO;
   // UI Components
   private JButton exitButton = new JButton();
   private JLabel checkoutLabel = new JLabel("Cek Keluar");
@@ -70,17 +75,29 @@ public class CheckoutPane extends TabPane {
       0);
   private JButton orderButton = new JButton("Place Order");
   private FlowablePane terimakasihPane;
+  private Customer customer = Customer.builder().id().build();
+  private FixedBill bill;
+  private ArrayList<Barang> listBarang;
 
   public CheckoutPane(GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO,
-      GenericDataIO<VIP> VIPDataIO, float sub) {
+      GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO, float sub, ArrayList<Barang> listBarang) {
     // TODO: Integrate discounts
     this.sub = sub;
     subValue.setText(RupiahConverter.convert(sub));
     this.fixedBillDataIO = fixedBillDataIO;
     this.memberDataIO = memberDataIO;
+    this.customerDataIO = customerDataIO;
     this.VIPDataIO = VIPDataIO;
+    this.listBarang = listBarang;
 
-    terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, "");
+    bill = FixedBill.builder()
+            .id()
+            .cust(customer)
+            .keranjang(listBarang)
+            .date(LocalDate.now())
+            .time(LocalTime.now())
+            .build();
+    terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, customer, "", bill);
 
     this.initializeUI();
   }
@@ -93,7 +110,7 @@ public class CheckoutPane extends TabPane {
     Integer size = membersize + vipsize;
     nameList = new Member[size + 1];
     nameList[0] = Member.builder().id().point(0).transactions(0).name("").phone("").active(false).build();
-    ;
+
     for (int i = 0; i < vipsize; i++) {
       nameList[i + 1] = vipList.get(i);
     }
@@ -126,8 +143,7 @@ public class CheckoutPane extends TabPane {
     this.setBackground(Color.WHITE);
     getMemberData();
 
-    ImageIcon buttonImage = new ImageIcon(
-        "/home/rma1403/Documents/Programming/kuliah/Tubes-2-OOP-O08/src/main/resources/assets/icon/left-arrow.png");
+    ImageIcon buttonImage = new ImageIcon(ResourcePath.ICON + "/left-arrow.png");
     ImageIcon buttonImageScaled = new ImageIcon(
         buttonImage.getImage().getScaledInstance(18, 23, java.awt.Image.SCALE_SMOOTH));
     exitButton.setIcon(buttonImageScaled);
@@ -250,13 +266,25 @@ public class CheckoutPane extends TabPane {
       public void actionPerformed(ActionEvent e) {
         Member item = (Member) nameDropdown.getSelectedItem();
         if (item instanceof VIP) {
+          customer = item;
           // TODO: repercussions for VIP
           System.out.println("is vip");
         } else {
+          if (item.getName() == ""){
+            customer = Customer.builder().id().build();
+          }
+          else{
+            customer = item;
+          }
           // TODO: repercussions for member
           System.out.println("is member");
         }
-        terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, item.getName().toString());
+        bill.setCust(customer);
+        bill.setTime(LocalTime.now());
+        bill.setDate(LocalDate.now());
+
+        fixedBillDataIO.insert(bill);
+        terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, customer, item.getName().toString(), bill);
       }
     });
     this.add(nameDropdown);
@@ -300,7 +328,20 @@ public class CheckoutPane extends TabPane {
     orderButton.setForeground(Color.WHITE);
     orderButton.setFont(new Font("Inter", Font.BOLD, 18));
     // TODO: Integrate member data
-    orderButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(terimakasihPane, false)));
+    orderButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        try {
+          if(!(customer instanceof Member)){
+            customerDataIO.insert(customer);
+          }
+          fixedBillDataIO.insert(bill);
+          panelFlowObserver.newEvent(new PanelFlowEvent(terimakasihPane, false));
+        } catch (Exception exception) {
+          JOptionPane.showMessageDialog(null, "Purchase failed\n" + exception.toString());
+        }
+      }
+    });
     orderButtonContainer.add(orderButton);
   }
 }

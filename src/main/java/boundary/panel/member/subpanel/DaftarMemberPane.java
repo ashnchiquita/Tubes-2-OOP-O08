@@ -32,7 +32,7 @@ public class DaftarMemberPane extends TabPane {
 
     private void setupHeaderPanel() {
         headerPanel = new JPanel();
-        Border paddingBorder = BorderFactory.createEmptyBorder(75, 40, 60, 20);
+        Border paddingBorder = BorderFactory.createEmptyBorder(75, 20, 60, 20);
         headerPanel.setBackground(new Color(255, 255, 255));
         headerPanel.setPreferredSize(new Dimension(1000, 168));
         headerPanel.setBorder(paddingBorder);
@@ -46,7 +46,7 @@ public class DaftarMemberPane extends TabPane {
 
         // Horizontal Divider
         JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator1.setPreferredSize(new Dimension(280, 0));
+        separator1.setPreferredSize(new Dimension(450, 0));
         headerPanel.add(separator1);
 
         // Label "Total Barang"
@@ -58,32 +58,6 @@ public class DaftarMemberPane extends TabPane {
         totalBarangLabel.setForeground(new Color(36, 60, 148));
         totalBarangPanel.add(totalBarangLabel, BorderLayout.WEST);
         headerPanel.add(totalBarangPanel, BorderLayout.WEST);
-
-        // Horizontal Divider
-        JSeparator separator2 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator2.setPreferredSize(new Dimension(20, 0));
-        separator2.setVisible(true);
-        headerPanel.add(separator2);
-
-        // Button Import
-        JButton importButton = new JButton("Import");
-        PressedButton buttonUI = new PressedButton(new Color(45, 77, 182));
-        importButton.setFont(new Font("Inter", Font.PLAIN, 15));
-        importButton.setBackground(new Color(76, 110, 223));
-        importButton.setForeground(Color.WHITE);
-        importButton.setOpaque(true);
-        importButton.setFocusable(false);
-        importButton.setPreferredSize(new Dimension(130, 38));
-        importButton.setUI(buttonUI);
-        importButton.setBorder(new RoundBorder(20));
-        importButtonPanel.add(importButton, BorderLayout.WEST);
-        headerPanel.add(importButtonPanel, BorderLayout.WEST);
-
-        // Horizontal Divider
-        JSeparator separator3 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator3.setPreferredSize(new Dimension(20, 0));
-        separator3.setVisible(true);
-        headerPanel.add(separator3);
     }
 
     private void setupTable() {

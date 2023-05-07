@@ -38,7 +38,9 @@ public class CreateMemberPane extends TabPane {
       0);
   private JButton createButton = new JButton("+ Create Member");
 
-  public CreateMemberPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
+  private Customer customer;
+  public CreateMemberPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, Customer customer) {
+    this.customer = customer;
     this.memberDataIO = memberDataIO;
     this.VIPDataIO = VIPDataIO;
     this.initializeUI();
@@ -148,6 +150,7 @@ public class CreateMemberPane extends TabPane {
                     .phone(teleponField.getText())
                     .active(true)
                     .build();
+                b.setId(customer.getId());
                 VIPDataIO.insert(b);
               } else {
                 Member b = Member.builder()
@@ -158,6 +161,7 @@ public class CreateMemberPane extends TabPane {
                     .phone(teleponField.getText())
                     .active(true)
                     .build();
+                b.setId(customer.getId());
                 memberDataIO.insert(b);
               }
             } catch (Exception exception) {

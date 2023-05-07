@@ -41,7 +41,7 @@ public class DaftarBarangPane extends TabPane {
 
         // Horizontal Divider
         JSeparator separator1 = new JSeparator(SwingConstants.HORIZONTAL);
-        separator1.setPreferredSize(new Dimension(80, 0));
+        separator1.setPreferredSize(new Dimension(220, 0));
         separator1.setVisible(true);
         headerPanel.add(separator1);
 
@@ -60,19 +60,6 @@ public class DaftarBarangPane extends TabPane {
         separator2.setVisible(true);
         headerPanel.add(separator2);
 
-        // Button Import
-        JButton importButton = new JButton("Import");
-        PressedButton buttonUI = new PressedButton(new Color(45, 77, 182));
-        importButton.setFont(new Font("Inter", Font.PLAIN, 15));
-        importButton.setBackground(new Color(76, 110, 223));
-        importButton.setForeground(Color.WHITE);
-        importButton.setOpaque(true);
-        importButton.setPreferredSize(new Dimension(130, 38));
-        importButton.setUI(buttonUI);
-        importButton.setBorder(new RoundBorder(20));
-        importButtonPanel.add(importButton, BorderLayout.WEST);
-        headerPanel.add(importButtonPanel, BorderLayout.WEST);
-
         // Horizontal Divider
         JSeparator separator3 = new JSeparator(SwingConstants.HORIZONTAL);
         separator3.setPreferredSize(new Dimension(20, 0));
@@ -80,6 +67,7 @@ public class DaftarBarangPane extends TabPane {
         headerPanel.add(separator3);
 
         // Button Tambah Baru
+        PressedButton buttonUI = new PressedButton(new Color(45, 77, 182));
         JButton createNewItemButton = new JButton("+ Tambah Baru");
         createNewItemButton.setFont(new Font("Inter", Font.PLAIN, 15));
         createNewItemButton.setBackground(new Color(76, 110, 223));
@@ -89,6 +77,7 @@ public class DaftarBarangPane extends TabPane {
         createNewItemButton.setPreferredSize(new Dimension(180, 38));
         createNewItemButton.setUI(buttonUI);
         createNewItemButton.setBorder(new RoundBorder(20));
+        createNewItemButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         createNewItemButton.addActionListener(e -> panelFlowObserver.newEvent(new PanelFlowEvent(new TambahBarangPane(barangDataIO), true)));
         createNewItemButtonPanel.add(createNewItemButton, BorderLayout.WEST);
         headerPanel.add(createNewItemButtonPanel, BorderLayout.WEST);

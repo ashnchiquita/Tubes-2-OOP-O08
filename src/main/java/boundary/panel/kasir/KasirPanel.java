@@ -8,7 +8,7 @@ import controller.*;
 
 public class KasirPanel extends TabPanel {
     public KasirPanel(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO,
-            GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
-        super(new PembelianPane(barangDataIO, fixedBillDataIO, memberDataIO, VIPDataIO));
+            GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO) {
+        super(new PembelianPane(barangDataIO, fixedBillDataIO, memberDataIO, VIPDataIO, customerDataIO));
     }
 }

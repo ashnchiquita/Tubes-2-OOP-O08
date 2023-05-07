@@ -109,14 +109,18 @@ public class Settings extends TabPanel {
         JSONRadio.setFont(new Font("Inter", Font.PLAIN, 15));
         JSONRadio.setBackground(Color.WHITE);
         JSONRadio.setForeground(new Color(36, 60, 148));
+        JSONRadio.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         XMLRadio.setFont(new Font("Inter", Font.PLAIN, 15));
         XMLRadio.setBackground(Color.WHITE);
         XMLRadio.setForeground(new Color(36, 60, 148));
+        XMLRadio.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         OBJRadio.setFont(new Font("Inter", Font.PLAIN, 15));
         OBJRadio.setBackground(Color.WHITE);
         OBJRadio.setForeground(new Color(36, 60, 148));
+        OBJRadio.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
@@ -194,6 +198,7 @@ public class Settings extends TabPanel {
         tambahkanBaruButton.setBorderPainted(false);
         tambahkanBaruButton.setBounds(85, 550, 200, 40);
         tambahkanBaruButton.addActionListener(e -> seekPlugin());
+        tambahkanBaruButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         add(tambahkanBaruButton);
     }
 

@@ -80,7 +80,7 @@ public class MainWindow extends JFrame implements TabListener {
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Pembayaran", new KasirPanel(controller.getBarangDataIO(), controller.getFixedBillDataIO(),
-                        controller.getMemberDataIO(), controller.getVIPDataIO()), PanelCode.KASIR);
+                        controller.getMemberDataIO(), controller.getVIPDataIO(), controller.getCustomerDataIO()), PanelCode.KASIR);
             }
         });
         sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton")

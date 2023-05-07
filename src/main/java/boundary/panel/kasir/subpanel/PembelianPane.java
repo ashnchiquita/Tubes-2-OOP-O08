@@ -3,7 +3,10 @@ package boundary.panel.kasir.subpanel;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.event.ChangeListener;
 
 import boundary.constants.Colors;
@@ -28,13 +31,13 @@ public class PembelianPane extends TabPane implements PembelianListener {
   private GenericDataIO<FixedBill> fixedBillDataIO;
   private GenericDataIO<Member> memberDataIO;
   private GenericDataIO<VIP> VIPDataIO;
-  private DataObj[] data = new DataObj[0];
-
+  private GenericDataIO<Customer> customerDataIO;
   PembelianObserver pembelianObserver = new PembelianObserver();
   ArrayList<Integer> buyIdList = new ArrayList<>();
 
   ArrayList<JPanel> gridItemList = new ArrayList<>();
   ArrayList<PembelianList> buyItemList = new ArrayList<>();
+  ArrayList<Barang> barangList = new ArrayList<>();
 
   // UI Components
   JScrollPane scrollGridPanel = new JScrollPane();
@@ -82,14 +85,14 @@ public class PembelianPane extends TabPane implements PembelianListener {
   JScrollPane buyListScroll = new JScrollPane(buyListPanel);
 
   public PembelianPane(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO,
-      GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO) {
+      GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO) {
+    this.customerDataIO = customerDataIO;
     this.VIPDataIO = VIPDataIO;
     this.barangDataIO = barangDataIO;
     this.fixedBillDataIO = fixedBillDataIO;
     this.memberDataIO = memberDataIO;
     this.pembelianObserver.addListener(this);
-    this.orderNumLabel.setText("#" + String.valueOf(barangDataIO.getAll().size() + 1));
-    getData();
+    this.orderNumLabel.setText("#" + String.valueOf(fixedBillDataIO.getAll().size() + 1));
     this.initializeUI();
   }
 
@@ -111,7 +114,8 @@ public class PembelianPane extends TabPane implements PembelianListener {
     scrollGridPanel.getVerticalScrollBar().setUnitIncrement(10);
     scrollGridPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
-    for (int i = 0; i < data.length; i++) {
+    List<Barang> listBarang = barangDataIO.getAll();
+    for(int i = 0; i < listBarang.size(); i++){
       JPanel container = new JPanel(new BorderLayout());
       container.setBorder(new EmptyBorder(16, 16, 16, 16));
       container.setBackground(Color.WHITE);
@@ -119,7 +123,7 @@ public class PembelianPane extends TabPane implements PembelianListener {
       c.gridx = i % 3;
       c.gridy = i / 3;
 
-      PembelianCard card = new PembelianCard(i, data[i].title, data[i].subtitle, data[i].price, data[i].imagePath);
+      PembelianCard card = new PembelianCard(listBarang.get(i));
       card.setObserver(pembelianObserver);
       card.setPreferredSize(new Dimension(155, 185));
       container.add(card, BorderLayout.CENTER);
@@ -273,8 +277,17 @@ public class PembelianPane extends TabPane implements PembelianListener {
     checkoutButton.setBorder(null);
     checkoutButton.setFocusPainted(false);
     checkoutButton.setBounds(10, 4, 185, 41);
-    checkoutButton.addActionListener(e -> panelFlowObserver.newEvent(
-        new PanelFlowEvent(new CheckoutPane(fixedBillDataIO, memberDataIO, VIPDataIO, total), true)));
+    checkoutButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        barangList.clear();
+        for(PembelianList buylist : buyItemList){
+          barangList.add(buylist.barang);
+        }
+
+        panelFlowObserver.newEvent(new PanelFlowEvent(new CheckoutPane(fixedBillDataIO, memberDataIO, VIPDataIO, customerDataIO, total, barangList), true));
+      }
+    });
     checkoutContainer.add(checkoutButton);
     buttonPanel.add(checkoutContainer, BorderLayout.EAST);
 
@@ -294,28 +307,26 @@ public class PembelianPane extends TabPane implements PembelianListener {
   }
 
   public void handleAddItem(PembelianEvent e) {
-    if (buyIdList.contains(e.id)) {
-      int index = buyIdList.indexOf(e.id);
+    if (buyIdList.contains(e.barang.getId())) {
+      int index = buyIdList.indexOf(e.barang.getId());
       int prevCount = buyItemList.get(index).count;
       buyItemList.get(index).setCount(prevCount + 1);
     } else {
-      PembelianList temp = new PembelianList(e.title, e.subtitle, 1, e.price,
-          e.imagePath, buyItemList.size());
+      PembelianList temp = new PembelianList(e.barang);
       temp.setPreferredSize(new Dimension(0, 103));
       temp.setMaximumSize(new Dimension(346, 103));
       temp.setObserver(pembelianObserver);
       buyItemList.add(temp);
       buyListPanel.add(buyItemList.get(buyItemList.size() - 1));
       buyListPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-
-      buyIdList.add(e.id);
+      buyIdList.add(e.barang.getId());
     }
     buyListPanel.revalidate();
     buyListPanel.repaint();
 
     // TODO: integrate discounts
-    sub += e.price;
-    total += e.price;
+    sub += e.barang.getHargaJual();
+    total += e.barang.getHargaJual();
 
     subValue.setText(RupiahConverter.convert(sub));
     totalValue.setText(RupiahConverter.convert(total));
@@ -325,11 +336,16 @@ public class PembelianPane extends TabPane implements PembelianListener {
     sub = 0;
     total = discount + tax;
 
+    for(int i = 0; i < buyItemList.size(); i++){
+      if (buyItemList.get(i).barang.getId() == e.barang.getId()){
+        buyItemList.remove(i);
+        buyIdList.remove(i);
+        break;
+      }
+    }
+
     buyListPanel.removeAll();
-    buyItemList.remove(e.index);
-    buyIdList.remove(e.index);
     for (int i = 0; i < buyItemList.size(); i++) {
-      buyItemList.get(i).setIndex(i);
       sub += buyItemList.get(i).price * buyItemList.get(i).count;
       buyListPanel.add(buyItemList.get(i));
       buyListPanel.add(Box.createRigidArea(new Dimension(0, 15)));
@@ -344,23 +360,15 @@ public class PembelianPane extends TabPane implements PembelianListener {
 
   private static class DataObj {
     public String title, subtitle, imagePath;
+    public int id;
     public double price;
 
-    public DataObj(String title, String subtitle, double price, String imagePath) {
+    public DataObj(int id, String title, String subtitle, double price, String imagePath) {
+      this.id = id;
       this.title = title;
       this.subtitle = subtitle;
       this.price = price;
       this.imagePath = imagePath;
     }
-  }
-
-  private void getData() {
-    java.util.List<Barang> listBarang = barangDataIO.getAll();
-    DataObj[] data = new DataObj[listBarang.size()];
-    for (int i = 0; i < listBarang.size(); i++) {
-      Barang barang = listBarang.get(i);
-      data[i] = new DataObj(barang.getName(), barang.getKategori(), barang.getHargaJual(), barang.getGambar());
-    }
-    this.data = data;
   }
 }
