@@ -30,7 +30,6 @@ public class Customer implements Serializable {
 
     public abstract static class CustomerBuilder< C extends Customer, B extends Customer.CustomerBuilder<C,B> > {
         private B id(int b) {
-            System.out.println("babi");
             this.id = ++count;
             return self();
         }

@@ -273,9 +273,8 @@ public class Settings extends TabPanel {
                 pluginTextField.setRows(rows);
                 pluginTextField.setText(builder.toString());
 
-                mainWindow = new MainWindow(controller);
-                new PluginLoader(mainWindow, controller);
                 mainWindow.resetUI();
+                new PluginLoader(mainWindow, controller);
 
                 fw.close();
                 out.close();
