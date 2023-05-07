@@ -8,9 +8,6 @@ import controller.barang.*;
 public class DollarPlugin implements SystemPlugin {
   @Override
   public MainController getController(MainController controller) {
-    System.out.println("Masuk dollar plugin");
-    System.out.println("Baru lagi");
-
     BarangDecorator barangDecorator = new BarangDecorator();
     barangDecorator.setDataIO(controller.getBarangDataIO());
 
