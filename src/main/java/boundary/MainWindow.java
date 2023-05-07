@@ -16,6 +16,7 @@ import controller.MainController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +68,13 @@ public class MainWindow extends JFrame implements TabListener {
         topBarGbc.weightx = 0;
         topBarGbc.weighty = 0;
         topBarGbc.fill = GridBagConstraints.BOTH;
+
+        topBar.addArrayType(PanelCode.NULL);
+        topBar.addArrayType(PanelCode.KASIR);
+        topBar.addArrayType(PanelCode.LAPORAN);
+        topBar.addArrayType(PanelCode.INVENTARIS);
+        topBar.addArrayType(PanelCode.MEMBER);
+        topBar.addArrayType(PanelCode.PENGATURAN);
 
         sidePanel.addButton(new SideBarButton("/kasir.png", "Kasir"), "kasirButton");
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {

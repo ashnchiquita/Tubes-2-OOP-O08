@@ -25,19 +25,8 @@ public class TopBar extends ScrollableContainer implements TabListener {
     private Integer defaultButtonSize = 180;
     private String active;
 
-    public void addArrayType(String type){
-        panelArrays.put(type, new ArrayList<>());
-    }
     public TopBar(Integer heightin, Color BgColor){
         super();
-
-        panelArrays.put(PanelCode.NULL, new ArrayList<>());
-        panelArrays.put(PanelCode.HOME, new ArrayList<>());
-        panelArrays.put(PanelCode.KASIR, new ArrayList<>());
-        panelArrays.put(PanelCode.LAPORAN, new ArrayList<>());
-        panelArrays.put(PanelCode.INVENTARIS, new ArrayList<>());
-        panelArrays.put(PanelCode.MEMBER, new ArrayList<>());
-        panelArrays.put(PanelCode.PENGATURAN, new ArrayList<>());
 
         bgColor = BgColor;
         height = heightin;
@@ -64,6 +53,7 @@ public class TopBar extends ScrollableContainer implements TabListener {
         final ImageIcon inactiveIcon = new ImageIcon(newImage);
 
 
+        addArrayType(PanelCode.HOME);
         TopBarButton homeButton = (TopBarButton) addComponent(new TopBarButton(){
             @Override
             public void changeStatus(Boolean status) {
@@ -111,7 +101,6 @@ public class TopBar extends ScrollableContainer implements TabListener {
 
         setViewportView(contentPanel);
     }
-
     public String getActive(){
         return active;
     }
@@ -150,6 +139,10 @@ public class TopBar extends ScrollableContainer implements TabListener {
             }
         });
         repaint();
+    }
+
+    public void addArrayType(String type){
+        panelArrays.put(type, new ArrayList<>());
     }
 
     public boolean hasType(String type){
