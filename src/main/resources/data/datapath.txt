@@ -1,2 +1,2 @@
-src\main\resources\data
-OBJ
+src/main/resources/data
+XML

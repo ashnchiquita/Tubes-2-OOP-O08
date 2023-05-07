@@ -75,7 +75,8 @@ public class Settings extends TabPanel {
         tempatPenyimpananFileLabel.setBounds(85, 95, 300, 40);
         add(tempatPenyimpananFileLabel);
 
-        tempatPenyimpananFileTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(75, 79, 196), 2, true));
+        tempatPenyimpananFileTextField
+                .setBorder(new javax.swing.border.LineBorder(new java.awt.Color(75, 79, 196), 2, true));
         tempatPenyimpananFileTextField.setPreferredSize(new java.awt.Dimension(440, 44));
         tempatPenyimpananFileTextField.setBounds(85, 135, 400, 40);
         tempatPenyimpananFileTextField.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
@@ -121,23 +122,20 @@ public class Settings extends TabPanel {
         OBJRadio.setForeground(new Color(36, 60, 148));
         OBJRadio.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-
-        try{
+        try {
             BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
 
             tempatPenyimpananFileTextField.setText(br.readLine());
             String extension = br.readLine();
-            if(extension.equals("OBJ")){
+            if (extension.equals("OBJ")) {
                 OBJRadio.setSelected(true);
-            }
-            else if(extension.equals("XML")){
+            } else if (extension.equals("XML")) {
                 XMLRadio.setSelected(true);
-            }
-            else if(extension.equals("JSON")){
+            } else if (extension.equals("JSON")) {
                 JSONRadio.setSelected(true);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Data loading failed");
         }
 
@@ -163,7 +161,6 @@ public class Settings extends TabPanel {
 
         JScrollPane pluginScrollPane = new JScrollPane();
 
-
         pluginTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(75, 79, 196), 2, true));
         pluginTextField.setPreferredSize(new java.awt.Dimension(300, 44));
         pluginTextField.setBounds(85, 340, 500, 200);
@@ -180,7 +177,7 @@ public class Settings extends TabPanel {
             }
             pluginTextField.setRows(rows);
             pluginTextField.setText(builder.toString());
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Plugin loading failed");
         }
         pluginScrollPane.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(75, 79, 196), 2, true));
@@ -189,7 +186,6 @@ public class Settings extends TabPanel {
         pluginScrollPane.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
         pluginScrollPane.setBounds(85, 340, 500, 200);
         add(pluginScrollPane);
-
 
         tambahkanBaruButton.setBackground(new java.awt.Color(76, 110, 223));
         tambahkanBaruButton.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
@@ -211,7 +207,7 @@ public class Settings extends TabPanel {
 
         if (folderChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                //TODO: input handling
+                // TODO: input handling
                 File fileToSave = folderChooser.getSelectedFile();
                 FileWriter fw = new FileWriter(dataStore.getPath(), false);
                 BufferedWriter bw = new BufferedWriter(fw);
@@ -222,13 +218,11 @@ public class Settings extends TabPanel {
 
                 out.println(rootPath.relativize(path));
 
-                if(OBJRadio.isSelected()){
+                if (OBJRadio.isSelected()) {
                     out.println("OBJ");
-                }
-                else if(XMLRadio.isSelected()){
+                } else if (XMLRadio.isSelected()) {
                     out.println("XML");
-                }
-                else if(JSONRadio.isSelected()){
+                } else if (JSONRadio.isSelected()) {
                     out.println("JSON");
                 }
 
@@ -237,6 +231,11 @@ public class Settings extends TabPanel {
                 BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
                 tempatPenyimpananFileTextField.setText(br.readLine());
                 controller = new MainController();
+                mainWindow.dispose();
+                mainWindow = new MainWindow(controller);
+                new PluginLoader(mainWindow, controller);
+                mainWindow.pack();
+                mainWindow.setVisible(true);
                 fw.close();
                 out.close();
                 br.close();
@@ -244,8 +243,7 @@ public class Settings extends TabPanel {
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Data loading failed\n" + e.toString());
             }
-        }
-        else {
+        } else {
             System.out.println("No Selection");
         }
     }
@@ -258,7 +256,7 @@ public class Settings extends TabPanel {
 
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                //TODO: input handling jenis plugin
+                // TODO: input handling jenis plugin
                 File fileToSave = fileChooser.getSelectedFile();
                 String strpath = fileToSave.getPath();
 
@@ -269,14 +267,14 @@ public class Settings extends TabPanel {
                 String line;
                 String relativePath = rootPath.relativize(path).toString();
                 while ((line = br.readLine()) != null) {
-                    if(line.equals(relativePath)){
+                    if (line.equals(relativePath)) {
                         JOptionPane.showMessageDialog(null, "Plugin already loaded\n");
                         return;
                     }
                 }
                 br.close();
 
-                FileWriter fw = new FileWriter(pluginStore.getPath(), true );
+                FileWriter fw = new FileWriter(pluginStore.getPath(), true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter out = new PrintWriter(bw);
 
@@ -307,8 +305,7 @@ public class Settings extends TabPanel {
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Plugin loading failed\n" + e.toString());
             }
-        }
-        else {
+        } else {
             System.out.println("No Selection");
         }
     }

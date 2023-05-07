@@ -115,7 +115,7 @@ public class PembelianPane extends TabPane implements PembelianListener {
     scrollGridPanel.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
 
     List<Barang> listBarang = barangDataIO.getAll();
-    for(int i = 0; i < listBarang.size(); i++){
+    for (int i = 0; i < listBarang.size(); i++) {
       JPanel container = new JPanel(new BorderLayout());
       container.setBorder(new EmptyBorder(16, 16, 16, 16));
       container.setBackground(Color.WHITE);
@@ -281,11 +281,15 @@ public class PembelianPane extends TabPane implements PembelianListener {
       @Override
       public void actionPerformed(ActionEvent e) {
         barangList.clear();
-        for(PembelianList buylist : buyItemList){
+        List<Integer> counts = new ArrayList<>();
+        for (PembelianList buylist : buyItemList) {
           barangList.add(buylist.barang);
+          counts.add(buylist.count);
         }
 
-        panelFlowObserver.newEvent(new PanelFlowEvent(new CheckoutPane(fixedBillDataIO, memberDataIO, VIPDataIO, customerDataIO, total, barangList), true));
+        panelFlowObserver.newEvent(new PanelFlowEvent(
+            new CheckoutPane(fixedBillDataIO, memberDataIO, VIPDataIO, customerDataIO, total, barangList, counts),
+            true));
       }
     });
     checkoutContainer.add(checkoutButton);
@@ -336,8 +340,8 @@ public class PembelianPane extends TabPane implements PembelianListener {
     sub = 0;
     total = discount + tax;
 
-    for(int i = 0; i < buyItemList.size(); i++){
-      if (buyItemList.get(i).barang.getId() == e.barang.getId()){
+    for (int i = 0; i < buyItemList.size(); i++) {
+      if (buyItemList.get(i).barang.getId() == e.barang.getId()) {
         buyItemList.remove(i);
         buyIdList.remove(i);
         break;

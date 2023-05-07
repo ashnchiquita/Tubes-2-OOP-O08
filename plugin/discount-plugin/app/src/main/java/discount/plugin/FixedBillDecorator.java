@@ -15,19 +15,24 @@ public class FixedBillDecorator implements GenericDataIO<FixedBill> {
   }
 
   public FixedBill getByID(int id) {
-    return dataIO.getByID(int id);
+    return dataIO.getByID(id);
   }
 
   public List<FixedBill> getAll() {
     return dataIO.getAll();
   }
 
-  public boolean insert(FixedBill data) {
+  public boolean insert(FixedBill billData) {
+    System.out.println(billData.getBilling());
+    FixedBill modifiedData = FixedBill.builder().id().cust(billData.getCust()).keranjang(new ArrayList<>())
+        .date(billData.getDate()).time(billData.getTime()).billing(billData.getBilling() * discount).build();
+    modifiedData.setId(billData.getId());
 
+    return dataIO.insert(modifiedData);
   }
 
   public boolean update(FixedBill newData) {
-    return dataIO.update(newData)
+    return dataIO.update(newData);
   }
 
   public boolean delete(int id) {

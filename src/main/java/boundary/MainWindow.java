@@ -30,8 +30,6 @@ public class MainWindow extends JFrame implements TabListener {
     private Integer counter = 0;
     private Map<String, JPanel> activePanels;
 
-
-
     public MainWindow(MainController controller) {
         this.controller = controller;
         try {
@@ -41,6 +39,11 @@ public class MainWindow extends JFrame implements TabListener {
         }
         contentCode = PanelCode.HOME;
         activePanels = new HashMap<>();
+
+        initUI();
+    }
+
+    public void initUI() {
         JPanel mainPanel = new JPanel();
 
         mainPanel.setLayout(new GridBagLayout());
@@ -61,7 +64,7 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanelGbc.weightx = 0;
         sidePanelGbc.weighty = 0;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
-        sidePanel = new SideBar(controller.getFixedBillDataIO() ,287, Colors.LIGHT_BLUE, Color.WHITE);
+        sidePanel = new SideBar(controller.getFixedBillDataIO(), 287, Colors.LIGHT_BLUE, Color.WHITE);
 
         topBar = new TopBar(47, Colors.DARK_BLUE);
         GridBagConstraints topBarGbc = new GridBagConstraints();
@@ -83,7 +86,8 @@ public class MainWindow extends JFrame implements TabListener {
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Pembayaran", new KasirPanel(controller.getBarangDataIO(), controller.getFixedBillDataIO(),
-                        controller.getMemberDataIO(), controller.getVIPDataIO(), controller.getCustomerDataIO()), PanelCode.KASIR);
+                        controller.getMemberDataIO(), controller.getVIPDataIO(), controller.getCustomerDataIO()),
+                        PanelCode.KASIR);
             }
         });
         sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton")
@@ -206,7 +210,14 @@ public class MainWindow extends JFrame implements TabListener {
     public SideBar getSidePanel() {
         return sidePanel;
     }
-    public MainController getContoller(){ return this.controller; }
+
+    public MainController getController() {
+        return this.controller;
+    }
+
+    public void setController(MainController controller) {
+        this.controller = controller;
+    }
 
     public TopBar getTopBar() {
         return topBar;

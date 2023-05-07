@@ -1,6 +1,5 @@
 package model;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,15 +36,18 @@ public class FixedBill implements Serializable {
     private Customer cust;
     @JsonProperty("keranjang")
     private ArrayList<Barang> keranjang;
-    @JsonProperty("date") @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonProperty("date")
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate date;
-    @JsonProperty("time") @JsonFormat(pattern="HH:mm:ss")
+    @JsonProperty("time")
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime time;
     @JsonProperty("billing")
     private double billing;
 
     public void addBarang(Barang barang) {
         int pos = -1;
+        barang.setJumlah(1);
 
         for (int i = 0; i < keranjang.size(); i++) {
             if (keranjang.get(i).getId() == barang.getId()) {
@@ -91,7 +93,7 @@ public class FixedBill implements Serializable {
 
     public double calcTotalHargaJual() {
         double sum = 0.0;
-        for (Barang b: keranjang) {
+        for (Barang b : keranjang) {
             sum += b.calcTotalHargaJual();
         }
         return sum;
@@ -99,7 +101,7 @@ public class FixedBill implements Serializable {
 
     public double calcTotalHargaBeli() {
         double sum = 0.0;
-        for (Barang b: keranjang) {
+        for (Barang b : keranjang) {
             sum += b.calcTotalHargaBeli();
         }
         return sum;
@@ -124,7 +126,8 @@ public class FixedBill implements Serializable {
         Font heading = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
         Font med = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13, BaseColor.BLACK);
         Font subheading = FontFactory.getFont(FontFactory.HELVETICA, 11, BaseColor.BLACK);
-        Chunk line = new Chunk("____________________________________________________________________________________", subheading);
+        Chunk line = new Chunk("____________________________________________________________________________________",
+                subheading);
 
         Chunk tanggal = new Chunk("Tanggal, pukul     : " + formattedDateTime(), subheading);
         document.add(Chunk.NEWLINE);
@@ -172,7 +175,8 @@ public class FixedBill implements Serializable {
             document.add(Chunk.NEWLINE);
             document.add(new Phrase(fbTitle));
 
-            Chunk line = new Chunk("____________________________________________________________________________________", subheading);
+            Chunk line = new Chunk(
+                    "____________________________________________________________________________________", subheading);
             document.add(Chunk.NEWLINE);
             document.add(new Phrase(line));
 
@@ -205,7 +209,8 @@ public class FixedBill implements Serializable {
             document.add(Chunk.NEWLINE);
             document.add(new Phrase(fbTitle));
 
-            Chunk line = new Chunk("____________________________________________________________________________________", subheading);
+            Chunk line = new Chunk(
+                    "____________________________________________________________________________________", subheading);
             document.add(Chunk.NEWLINE);
             document.add(new Phrase(line));
 
@@ -223,7 +228,7 @@ public class FixedBill implements Serializable {
         }
     }
 
-    public abstract static class FixedBillBuilder< C extends FixedBill, B extends FixedBill.FixedBillBuilder<C,B> > {
+    public abstract static class FixedBillBuilder<C extends FixedBill, B extends FixedBill.FixedBillBuilder<C, B>> {
         private B id(int b) {
             this.id = ++count;
             return self();
