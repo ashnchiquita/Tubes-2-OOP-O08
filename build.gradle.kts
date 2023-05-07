@@ -25,6 +25,8 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("mysql:mysql-connector-java:5.1.32")
+    implementation("org.knowm.xchart:xchart:3.2.2")
+    implementation("org.knowm.xchart:xchart-demo:3.5.2")
 }
 
 tasks.test {

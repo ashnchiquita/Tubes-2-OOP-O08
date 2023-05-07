@@ -48,7 +48,7 @@ public class PluginLoader {
         for (final BasePluginInterface g : basePluginLoader) {
             g.setupMainWindow(mainWindow);
             g.addURL(urls);
-            g.loadPlugin(mainWindow);
+            g.loadPlugin(mainWindow, ucl);
         }
 
         MainController newController = mainController;
