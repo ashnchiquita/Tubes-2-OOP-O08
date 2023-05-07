@@ -59,7 +59,7 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanelGbc.weightx = 0;
         sidePanelGbc.weighty = 0;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
-        sidePanel = new SideBar(287, Colors.LIGHT_BLUE, Color.WHITE);
+        sidePanel = new SideBar(controller.getFixedBillDataIO() ,287, Colors.LIGHT_BLUE, Color.WHITE);
 
         topBar = new TopBar(47, Colors.DARK_BLUE);
         GridBagConstraints topBarGbc = new GridBagConstraints();
@@ -165,7 +165,7 @@ public class MainWindow extends JFrame implements TabListener {
                 super.windowIconified(e);
                 if (contentCode == PanelCode.HOME) {
                     HomePanel home = (HomePanel) contentPanelView;
-                    home.stopTimer();
+                    home.stopAll();
                 }
             }
 
@@ -174,7 +174,7 @@ public class MainWindow extends JFrame implements TabListener {
                 super.windowDeiconified(e);
                 if (contentCode == PanelCode.HOME) {
                     HomePanel home = (HomePanel) contentPanelView;
-                    home.startTimer();
+                    home.startAll();
                 }
             }
         });
