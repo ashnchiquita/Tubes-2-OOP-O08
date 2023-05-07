@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 public class PluginLoader {
-    public List<URL> readPlugin(){
+    public List<URL> readPlugin() {
         BufferedReader reader;
         List<URL> urls = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class PluginLoader {
         return urls;
     }
 
-    public PluginLoader(MainWindow mainWindow, MainController mainController){
+    public PluginLoader(MainWindow mainWindow, MainController mainController) {
         List<URL> urls = readPlugin();
         ClassLoader ucl = new URLClassLoader((URL[]) urls.toArray(new URL[urls.size()]));
         ServiceLoader<BasePluginInterface> basePluginLoader = ServiceLoader.load(BasePluginInterface.class, ucl);
@@ -53,11 +53,14 @@ public class PluginLoader {
             g.addURL(urls);
             g.loadPlugin(mainWindow);
         }
+
+        MainController newController = mainController;
         for (final SystemPlugin g : systemPluginLoader) {
-            System.out.println("Pancake");
+            System.out.println("hai");
+            newController = g.getController(newController);
+            System.out.println(newController.getBarangDataIO());
         }
+        mainWindow.setController(newController);
     }
-
-
 
 }

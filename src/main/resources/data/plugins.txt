@@ -1,1 +1,2 @@
-plugin\chart.jar
+plugin/dollar-plugin/app/build/libs/app.jar
+plugin/discount-plugin/app/build/libs/app.jar

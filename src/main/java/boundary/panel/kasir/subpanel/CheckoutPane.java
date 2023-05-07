@@ -80,7 +80,8 @@ public class CheckoutPane extends TabPane {
   private ArrayList<Barang> listBarang;
 
   public CheckoutPane(GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO,
-      GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO, float sub, ArrayList<Barang> listBarang) {
+      GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO, float sub, ArrayList<Barang> listBarang,
+      List<Integer> counts) {
     // TODO: Integrate discounts
     this.sub = sub;
     subValue.setText(RupiahConverter.convert(sub));
@@ -91,12 +92,19 @@ public class CheckoutPane extends TabPane {
     this.listBarang = listBarang;
 
     bill = FixedBill.builder()
-            .id()
-            .cust(customer)
-            .keranjang(listBarang)
-            .date(LocalDate.now())
-            .time(LocalTime.now())
-            .build();
+        .id()
+        .cust(customer)
+        .keranjang(new ArrayList<>())
+        .date(LocalDate.now())
+        .time(LocalTime.now())
+        .billing(0)
+        .build();
+    for (int i = 0; i < listBarang.size(); i++) {
+      for (int j = 0; j < counts.get(i); j++) {
+        bill.addBarang(listBarang.get(i));
+      }
+    }
+    System.out.println(bill);
     terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, customer, "", bill);
 
     this.initializeUI();
@@ -270,10 +278,9 @@ public class CheckoutPane extends TabPane {
           // TODO: repercussions for VIP
           System.out.println("is vip");
         } else {
-          if (item.getName() == ""){
+          if (item.getName() == "") {
             customer = Customer.builder().id().build();
-          }
-          else{
+          } else {
             customer = item;
           }
           // TODO: repercussions for member
@@ -332,7 +339,7 @@ public class CheckoutPane extends TabPane {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          if(!(customer instanceof Member)){
+          if (!(customer instanceof Member)) {
             customerDataIO.insert(customer);
           }
           fixedBillDataIO.insert(bill);

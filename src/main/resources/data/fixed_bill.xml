@@ -1,0 +1,52 @@
+<ArrayList>
+  <item>
+    <id>4</id>
+    <cust __typename="Customer">
+      <id>10</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>21:12:24</time>
+    <billing>87600.0</billing>
+  </item>
+  <item>
+    <id>6</id>
+    <cust __typename="Customer">
+      <id>10</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>21:15:05</time>
+    <billing>87600.0</billing>
+  </item>
+  <item>
+    <id>8</id>
+    <cust __typename="Customer">
+      <id>10</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>21:15:50</time>
+    <billing>87600.0</billing>
+  </item>
+  <item>
+    <id>10</id>
+    <cust __typename="Customer">
+      <id>10</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>21:20:34</time>
+    <billing>29200.0</billing>
+  </item>
+  <item>
+    <id>12</id>
+    <cust __typename="Customer">
+      <id>10</id>
+    </cust>
+    <keranjang/>
+    <date>05/07/2023</date>
+    <time>21:21:51</time>
+    <billing>14600.0</billing>
+  </item>
+</ArrayList>

@@ -7,6 +7,7 @@ public class Main {
     MainController mainController = new MainController();
     MainWindow mainWindow = new MainWindow(mainController);
     new PluginLoader(mainWindow, mainController);
+    mainWindow.initUI();
 
     javax.swing.SwingUtilities.invokeLater(new Runnable() {
       public void run() {

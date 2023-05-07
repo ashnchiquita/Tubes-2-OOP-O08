@@ -23,6 +23,7 @@ public class FixedBillDecorator implements GenericDataIO<FixedBill> {
   }
 
   public boolean insert(FixedBill billData) {
+    System.out.println(billData.getBilling());
     FixedBill modifiedData = FixedBill.builder().id().cust(billData.getCust()).keranjang(new ArrayList<>())
         .date(billData.getDate()).time(billData.getTime()).billing(billData.getBilling() * discount).build();
     modifiedData.setId(billData.getId());
