@@ -7,7 +7,7 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.observer.panelflow.PanelFlowEvent;
-import boundary.panel.inventaris.subpanel.DaftarBarangPane;
+// import boundary.panel.inventaris.subpanel.DaftarBarangPane;
 import boundary.widget.FlowablePane;
 import boundary.widget.RoundedPanel;
 import boundary.widget.TabPane;
