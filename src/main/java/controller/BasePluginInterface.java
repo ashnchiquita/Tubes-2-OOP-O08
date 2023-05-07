@@ -12,3 +12,4 @@ public interface BasePluginInterface {
     public void addURL(List<URL> urls);
     public void loadPlugin(MainWindow mainWindow);
 }
+
