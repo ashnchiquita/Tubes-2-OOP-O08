@@ -123,7 +123,7 @@ public class MainWindow extends JFrame implements TabListener {
                     public void actionPerformed(ActionEvent e) {
                         // activePanels.containsValue(JPanel.class);
                         if (!topBar.hasType(PanelCode.PENGATURAN))
-                            addWindow("Pengaturan", new Settings(), PanelCode.PENGATURAN);
+                            addWindow("Pengaturan", new Settings(controller), PanelCode.PENGATURAN);
                         else {
                             TopBarTab tab = ((TopBarTab) topBar
                                     .getComponent(topBar.getTabsWithType(PanelCode.PENGATURAN).get(0)));

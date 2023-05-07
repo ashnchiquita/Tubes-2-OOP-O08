@@ -4,6 +4,22 @@ import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.widget.PlainScrollBar;
 import boundary.widget.TabPanel;
+import controller.MainController;
+import controller.barang.BarangAdapterJSON;
+import controller.barang.BarangAdapterOBJ;
+import controller.barang.BarangAdapterXML;
+import controller.customer.CustomerAdapterJSON;
+import controller.customer.CustomerAdapterOBJ;
+import controller.customer.CustomerAdapterXML;
+import controller.fixedbill.FixedBillAdapterJSON;
+import controller.fixedbill.FixedBillAdapterOBJ;
+import controller.fixedbill.FixedBillAdapterXML;
+import controller.member.MemberAdapterJSON;
+import controller.member.MemberAdapterOBJ;
+import controller.member.MemberAdapterXML;
+import controller.vip.VIPAdapterJSON;
+import controller.vip.VIPAdapterOBJ;
+import controller.vip.VIPAdapterXML;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +29,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Settings extends TabPanel {
+    MainController controller;
 
-    public Settings() {
+    public Settings(MainController controller) {
+        this.controller = controller;
         initComponents();
     }
 
@@ -96,16 +114,16 @@ public class Settings extends TabPanel {
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
-            String line;
 
             tempatPenyimpananFileTextField.setText(br.readLine());
-            if(br.readLine().equals("OBJ")){
+            String extension = br.readLine();
+            if(extension.equals("OBJ")){
                 OBJRadio.setSelected(true);
             }
-            else if(br.readLine().equals("XML")){
+            else if(extension.equals("XML")){
                 XMLRadio.setSelected(true);
             }
-            else if(br.readLine().equals("JSON")){
+            else if(extension.equals("JSON")){
                 JSONRadio.setSelected(true);
             }
 
@@ -183,14 +201,16 @@ public class Settings extends TabPanel {
 
         if (folderChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                //TODO: setup config file di ctor controller
+                String strpath = "";
+                String extension = "";
                 //TODO: input handling
                 File fileToSave = folderChooser.getSelectedFile();
                 FileWriter fw = new FileWriter(dataStore.getPath(), false);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter out = new PrintWriter(bw);
 
-                Path path = Paths.get(fileToSave.getPath());
+                strpath = fileToSave.getPath();
+                Path path = Paths.get(strpath);
                 Path rootPath = Paths.get(ResourcePath.ABSOLUTE);
 
                 out.println(rootPath.relativize(path));
@@ -206,16 +226,14 @@ public class Settings extends TabPanel {
                 }
 
                 out.flush();
-                out.close();
 
                 BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
-                String line;
-                StringBuilder builder = new StringBuilder();
-                while ((line = br.readLine()) != null) {
-                    builder.append(line);
-                }
-                tempatPenyimpananFileTextField.setText(builder.toString());
-
+                tempatPenyimpananFileTextField.setText(br.readLine());
+                controller = new MainController();
+                fw.close();
+                out.close();
+                br.close();
+                bw.close();
             } catch (IOException e) {
                 System.out.println("Plugin loading failed");
                 e.printStackTrace();
@@ -245,7 +263,6 @@ public class Settings extends TabPanel {
 
                 out.println(rootPath.relativize(path));
                 out.flush();
-                out.close();
 
                 BufferedReader br = new BufferedReader(new FileReader(pluginStore.getPath()));
                 String line;
@@ -255,8 +272,13 @@ public class Settings extends TabPanel {
                     builder.append(line).append("\n");
                     rows++;
                 }
+
                 pluginTextField.setRows(rows);
                 pluginTextField.setText(builder.toString());
+                fw.close();
+                out.close();
+                br.close();
+                bw.close();
             } catch (IOException e) {
                 System.out.println("Plugin loading failed");
                 e.printStackTrace();
@@ -268,8 +290,8 @@ public class Settings extends TabPanel {
     }
 
     // Variables declaration - do not modify
-    private static File dataStore = new File(ResourcePath.DATA + "/datapath.txt");
-    private static File pluginStore = new File(ResourcePath.DATA + "/plugins.txt");
+    public static File dataStore = new File(ResourcePath.DATA + "/datapath.txt");
+    public static File pluginStore = new File(ResourcePath.DATA + "/plugins.txt");
     private JButton seekConfigButton;
     private JRadioButton OBJRadio;
     private JRadioButton XMLRadio;

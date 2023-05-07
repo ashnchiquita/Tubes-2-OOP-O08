@@ -157,7 +157,7 @@ public class TambahBarangPane extends TabPane {
                     barangDataIO.insert(b);
                     panelFlowObserver.newEvent(new PanelFlowEvent(new DaftarBarangPane(barangDataIO), false));
                 } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(null, "Invalid input!\n" + exception.toString());
+                    JOptionPane.showMessageDialog(null, "Invalid input\n" + exception.toString());
                 }
             }
         });
