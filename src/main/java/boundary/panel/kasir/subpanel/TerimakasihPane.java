@@ -19,6 +19,7 @@ import java.awt.*;
 public class TerimakasihPane extends TabPane {
   private GenericDataIO<Member> memberDataIO;
   private GenericDataIO<VIP> VIPDataIO;
+  private GenericDataIO<FixedBill> billDataIO;
   private float sub = 0f, discount = 0f, tax = 0f, total = 0f;
   private String memberName;
 
@@ -66,19 +67,20 @@ public class TerimakasihPane extends TabPane {
   private FixedBill bill;
   private Customer customer;
 
-  public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO, Customer customer, String memberName, FixedBill bill) {
-    if(customer instanceof Member){
+  public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO,
+      GenericDataIO<FixedBill> billDataIO, Customer customer,
+      String memberName, int billId) {
+    if (customer instanceof Member) {
       Double value = (bill.getBilling() * 0.001);
       Integer addPoint = value.intValue();
 
       System.out.println(addPoint);
-      if(customer instanceof VIP){
+      if (customer instanceof VIP) {
         VIP vip = (VIP) customer;
         vip.setPoint(vip.getPoint() + addPoint);
         vip.setTransactions(vip.getTransactions() + 1);
         VIPDataIO.update(vip);
-      }
-      else{
+      } else {
         Member member = (Member) customer;
         member.setPoint(member.getPoint() + addPoint);
         member.setTransactions(member.getTransactions() + 1);
@@ -86,7 +88,8 @@ public class TerimakasihPane extends TabPane {
       }
     }
     this.customer = customer;
-    this.bill = bill;
+    this.billDataIO = billDataIO;
+    this.bill = billDataIO.getByID(billId);
     this.memberDataIO = memberDataIO;
     this.VIPDataIO = VIPDataIO;
     this.memberName = memberName;
@@ -142,6 +145,13 @@ public class TerimakasihPane extends TabPane {
     subValue.setForeground(Colors.DARK_BLUE);
     subValue.setFont(summaryFont);
     subValue.setHorizontalAlignment(SwingConstants.RIGHT);
+
+    double subtotal = 0;
+    for (Barang b : bill.getKeranjang()) {
+      subtotal += b.getHargaJual() * b.getJumlah();
+    }
+
+    subValue.setText(RupiahConverter.convert(subtotal));
     subValueContainer.add(subValue, BorderLayout.CENTER);
     summaryTextPanel.add(subValueContainer, c);
 
@@ -152,7 +162,9 @@ public class TerimakasihPane extends TabPane {
     discountText.setPreferredSize(new Dimension(80, 18));
     discountText.setForeground(Colors.DARK_BLUE);
     discountText.setFont(summaryFont);
-    discountTextContainer.add(discountText, BorderLayout.CENTER);
+    if (subtotal != bill.getBilling()) {
+      discountTextContainer.add(discountText, BorderLayout.CENTER);
+    }
     summaryTextPanel.add(discountTextContainer, c);
 
     c.gridx = 1;
@@ -163,7 +175,10 @@ public class TerimakasihPane extends TabPane {
     discountValue.setForeground(Colors.DARK_BLUE);
     discountValue.setFont(summaryFont);
     discountValue.setHorizontalAlignment(SwingConstants.RIGHT);
-    discountValueContainer.add(discountValue, BorderLayout.CENTER);
+    if (subtotal != bill.getBilling()) {
+      discountValue.setText(RupiahConverter.convert(subtotal - bill.getBilling()));
+      discountValueContainer.add(discountValue, BorderLayout.CENTER);
+    }
     summaryTextPanel.add(discountValueContainer, c);
 
     c.gridx = 0;
@@ -174,7 +189,7 @@ public class TerimakasihPane extends TabPane {
     taxText.setForeground(Colors.DARK_BLUE);
     taxText.setFont(summaryFont);
     taxTextContainer.add(taxText, BorderLayout.CENTER);
-    summaryTextPanel.add(taxTextContainer, c);
+    // summaryTextPanel.add(taxTextContainer, c);
 
     c.gridx = 1;
     c.gridy = 2;
@@ -185,7 +200,7 @@ public class TerimakasihPane extends TabPane {
     taxValue.setFont(summaryFont);
     taxValue.setHorizontalAlignment(SwingConstants.RIGHT);
     taxValueContainer.add(taxValue, BorderLayout.CENTER);
-    summaryTextPanel.add(taxValueContainer, c);
+    // summaryTextPanel.add(taxValueContainer, c);
 
     c.gridx = 0;
     c.gridy = 3;
@@ -203,7 +218,7 @@ public class TerimakasihPane extends TabPane {
     totalValue.setForeground(Colors.DARK_BLUE);
     totalValue.setFont(summaryFont);
     totalValue.setHorizontalAlignment(SwingConstants.RIGHT);
-    totalValue.setText(String.valueOf(bill.getBilling()));
+    totalValue.setText(RupiahConverter.convert(bill.getBilling()));
     totalValueContainer.add(totalValue, BorderLayout.CENTER);
     summaryTextPanel.add(totalValueContainer, c);
 
@@ -243,7 +258,8 @@ public class TerimakasihPane extends TabPane {
     tambahButton.setForeground(Color.WHITE);
     tambahButton.setFont(new Font("Inter", Font.BOLD, 16));
     tambahButton.addActionListener(
-        e -> panelFlowObserver.newEvent(new PanelFlowEvent(new CreateMemberPane(memberDataIO, VIPDataIO, customer), false)));
+        e -> panelFlowObserver
+            .newEvent(new PanelFlowEvent(new CreateMemberPane(memberDataIO, VIPDataIO, customer), false)));
     tambahButtonContainer.add(tambahButton);
 
     selesaiButtonContainer.setLayout(null);

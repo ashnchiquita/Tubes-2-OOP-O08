@@ -187,21 +187,21 @@ public class PembelianPane extends TabPane implements PembelianListener {
     summaryTextPanel.add(subValueContainer, c);
 
     c.gridx = 0;
-    c.gridy = 1;
+    c.gridy = 3;
     discountTextContainer.setBackground(Colors.DARK_BLUE);
     discountTextContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     discountText.setPreferredSize(new Dimension(80, 18));
-    discountText.setForeground(Color.WHITE);
+    discountText.setForeground(Colors.DARK_BLUE);
     discountText.setFont(summaryFont);
     discountTextContainer.add(discountText, BorderLayout.CENTER);
     summaryTextPanel.add(discountTextContainer, c);
 
     c.gridx = 1;
-    c.gridy = 1;
+    c.gridy = 3;
     discountValueContainer.setBackground(Colors.DARK_BLUE);
     discountValueContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     discountValue.setPreferredSize(new Dimension(266, 18));
-    discountValue.setForeground(Color.WHITE);
+    discountValue.setForeground(Colors.DARK_BLUE);
     discountValue.setFont(summaryFont);
     discountValue.setHorizontalAlignment(SwingConstants.RIGHT);
     discountValueContainer.add(discountValue, BorderLayout.CENTER);
@@ -212,7 +212,7 @@ public class PembelianPane extends TabPane implements PembelianListener {
     taxTextContainer.setBackground(Colors.DARK_BLUE);
     taxTextContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     taxText.setPreferredSize(new Dimension(80, 18));
-    taxText.setForeground(Color.WHITE);
+    taxText.setForeground(Colors.DARK_BLUE);
     taxText.setFont(summaryFont);
     taxTextContainer.add(taxText, BorderLayout.CENTER);
     summaryTextPanel.add(taxTextContainer, c);
@@ -222,14 +222,14 @@ public class PembelianPane extends TabPane implements PembelianListener {
     taxValueContainer.setBackground(Colors.DARK_BLUE);
     taxValueContainer.setBorder(new EmptyBorder(0, 0, 10, 0));
     taxValue.setPreferredSize(new Dimension(266, 18));
-    taxValue.setForeground(Color.WHITE);
+    taxValue.setForeground(Colors.DARK_BLUE);
     taxValue.setFont(summaryFont);
     taxValue.setHorizontalAlignment(SwingConstants.RIGHT);
     taxValueContainer.add(taxValue, BorderLayout.CENTER);
     summaryTextPanel.add(taxValueContainer, c);
 
     c.gridx = 0;
-    c.gridy = 3;
+    c.gridy = 1;
     totalTextContainer.setBackground(Colors.DARK_BLUE);
     totalText.setPreferredSize(new Dimension(80, 18));
     totalText.setForeground(Color.WHITE);
@@ -238,7 +238,7 @@ public class PembelianPane extends TabPane implements PembelianListener {
     summaryTextPanel.add(totalTextContainer, c);
 
     c.gridx = 1;
-    c.gridy = 3;
+    c.gridy = 1;
     totalValueContainer.setBackground(Colors.DARK_BLUE);
     totalValue.setPreferredSize(new Dimension(266, 18));
     totalValue.setForeground(Color.WHITE);

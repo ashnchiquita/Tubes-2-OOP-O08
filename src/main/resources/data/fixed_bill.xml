@@ -1,97 +1,202 @@
 <ArrayList>
   <item>
-    <id>2</id>
+    <id>1</id>
     <cust __typename="Customer">
-      <id>4</id>
+      <id>40</id>
     </cust>
-    <keranjang>
-      <keranjang>
-        <id>2</id>
-        <jumlah>2</jumlah>
-        <name>tes1</name>
-        <kategori>testing</kategori>
-        <gambar>src\main\resources\assets\image\beef-contoh.png</gambar>
-        <hargaJual>10000.0</hargaJual>
-        <hargaBeli>1000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/07/2023</date>
-    <time>23:12:28</time>
-    <billing>50000.0</billing>
+    <keranjang/>
+    <date>05/08/2023</date>
+    <time>02:57:14</time>
+    <billing>7000.0</billing>
   </item>
   <item>
     <id>2</id>
-    <cust __typename="Member">
-      <id>4</id>
-      <name>member1</name>
-      <phone>0</phone>
-      <point>50</point>
-      <transactions>2</transactions>
-      <active>true</active>
+    <cust __typename="Customer">
+      <id>42</id>
+    </cust>
+    <keranjang/>
+    <date>05/08/2023</date>
+    <time>02:58:18</time>
+    <billing>7000.0</billing>
+  </item>
+  <item>
+    <id>3</id>
+    <cust __typename="Customer">
+      <id>46</id>
     </cust>
     <keranjang>
       <keranjang>
         <id>3</id>
         <jumlah>1</jumlah>
-        <name>tes2</name>
-        <kategori>Testing</kategori>
-        <gambar>src\main\resources\assets\image\iga-bakar.png</gambar>
-        <hargaJual>50000.0</hargaJual>
-        <hargaBeli>5000.0</hargaBeli>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
       </keranjang>
     </keranjang>
-    <date>05/07/2023</date>
-    <time>23:22:25</time>
-    <billing>50000.0</billing>
+    <date>05/08/2023</date>
+    <time>03:00:29</time>
+    <billing>14000.0</billing>
   </item>
   <item>
-    <id>2</id>
-    <cust __typename="Member">
-      <id>4</id>
-      <name>member1</name>
-      <phone>0</phone>
-      <point>250</point>
-      <transactions>4</transactions>
-      <active>true</active>
+    <id>4</id>
+    <cust __typename="Customer">
+      <id>48</id>
     </cust>
     <keranjang>
       <keranjang>
         <id>3</id>
-        <jumlah>3</jumlah>
-        <name>tes2</name>
-        <kategori>Testing</kategori>
-        <gambar>src\main\resources\assets\image\iga-bakar.png</gambar>
-        <hargaJual>50000.0</hargaJual>
-        <hargaBeli>5000.0</hargaBeli>
+        <jumlah>1</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
       </keranjang>
     </keranjang>
-    <date>05/07/2023</date>
-    <time>23:37:34</time>
-    <billing>150000.0</billing>
+    <date>05/08/2023</date>
+    <time>03:00:52</time>
+    <billing>14000.0</billing>
   </item>
   <item>
-    <id>2</id>
-    <cust __typename="Member">
-      <id>4</id>
-      <name>member1</name>
-      <phone>0</phone>
-      <point>199150</point>
-      <transactions>7</transactions>
-      <active>true</active>
+    <id>5</id>
+    <cust __typename="Customer">
+      <id>50</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>1</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>03:02:58</time>
+    <billing>14000.0</billing>
+  </item>
+  <item>
+    <id>6</id>
+    <cust __typename="Customer">
+      <id>52</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>1</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>03:04:31</time>
+    <billing>14000.0</billing>
+  </item>
+  <item>
+    <id>7</id>
+    <cust __typename="Customer">
+      <id>54</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>1</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>03:09:00</time>
+    <billing>7000.0</billing>
+  </item>
+  <item>
+    <id>8</id>
+    <cust __typename="Customer">
+      <id>56</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>2</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>03:14:08</time>
+    <billing>14000.0</billing>
+  </item>
+  <item>
+    <id>10</id>
+    <cust __typename="Customer">
+      <id>60</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>2</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>03:15:38</time>
+    <billing>14000.0</billing>
+  </item>
+  <item>
+    <id>11</id>
+    <cust __typename="Customer">
+      <id>62</id>
     </cust>
     <keranjang>
       <keranjang>
         <id>3</id>
         <jumlah>4</jumlah>
-        <name>tes2</name>
-        <kategori>Testing</kategori>
-        <gambar>src\main\resources\assets\image\iga-bakar.png</gambar>
-        <hargaJual>50000.0</hargaJual>
-        <hargaBeli>5000.0</hargaBeli>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
       </keranjang>
     </keranjang>
-    <date>05/07/2023</date>
-    <time>23:51:30</time>
-    <billing>850.0</billing>
+    <date>05/08/2023</date>
+    <time>03:16:58</time>
+    <billing>28000.0</billing>
+  </item>
+  <item>
+    <id>12</id>
+    <cust __typename="Customer">
+      <id>64</id>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>2</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>03:17:16</time>
+    <billing>28000.0</billing>
   </item>
 </ArrayList>

@@ -32,6 +32,7 @@ public class CheckoutPane extends TabPane {
   private GenericDataIO<VIP> VIPDataIO;
   private GenericDataIO<Customer> customerDataIO;
   private GenericDataIO<Barang> barangDataIO;
+  private String memberName = "";
   // UI Components
   private JButton exitButton = new JButton();
   private JLabel checkoutLabel = new JLabel("Cek Keluar");
@@ -80,12 +81,14 @@ public class CheckoutPane extends TabPane {
   private FixedBill bill;
   private ArrayList<Barang> listBarang;
 
-  public CheckoutPane(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO, GenericDataIO<Member> memberDataIO,
+  public CheckoutPane(GenericDataIO<Barang> barangDataIO, GenericDataIO<FixedBill> fixedBillDataIO,
+      GenericDataIO<Member> memberDataIO,
       GenericDataIO<VIP> VIPDataIO, GenericDataIO<Customer> customerDataIO, float sub, ArrayList<Barang> listBarang) {
     // TODO: Integrate discounts
     this.sub = sub;
     this.barangDataIO = barangDataIO;
     subValue.setText(RupiahConverter.convert(sub));
+    totalValue.setText(RupiahConverter.convert(sub));
     this.fixedBillDataIO = fixedBillDataIO;
     this.memberDataIO = memberDataIO;
     this.customerDataIO = customerDataIO;
@@ -106,7 +109,6 @@ public class CheckoutPane extends TabPane {
         bill.addBarang(listBarang.get(i));
       }
     }
-    terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, customer, "", bill);
 
     this.initializeUI();
   }
@@ -207,7 +209,7 @@ public class CheckoutPane extends TabPane {
     discountText.setForeground(Colors.DARK_BLUE);
     discountText.setFont(summaryFont);
     discountTextContainer.add(discountText, BorderLayout.CENTER);
-    summaryTextPanel.add(discountTextContainer, c);
+    // summaryTextPanel.add(discountTextContainer, c);
 
     c.gridx = 1;
     c.gridy = 1;
@@ -218,7 +220,7 @@ public class CheckoutPane extends TabPane {
     discountValue.setFont(summaryFont);
     discountValue.setHorizontalAlignment(SwingConstants.RIGHT);
     discountValueContainer.add(discountValue, BorderLayout.CENTER);
-    summaryTextPanel.add(discountValueContainer, c);
+    // summaryTextPanel.add(discountValueContainer, c);
 
     c.gridx = 0;
     c.gridy = 2;
@@ -228,7 +230,7 @@ public class CheckoutPane extends TabPane {
     taxText.setForeground(Colors.DARK_BLUE);
     taxText.setFont(summaryFont);
     taxTextContainer.add(taxText, BorderLayout.CENTER);
-    summaryTextPanel.add(taxTextContainer, c);
+    // summaryTextPanel.add(taxTextContainer, c);
 
     c.gridx = 1;
     c.gridy = 2;
@@ -239,7 +241,7 @@ public class CheckoutPane extends TabPane {
     taxValue.setFont(summaryFont);
     taxValue.setHorizontalAlignment(SwingConstants.RIGHT);
     taxValueContainer.add(taxValue, BorderLayout.CENTER);
-    summaryTextPanel.add(taxValueContainer, c);
+    // summaryTextPanel.add(taxValueContainer, c);
 
     c.gridx = 0;
     c.gridy = 3;
@@ -293,8 +295,7 @@ public class CheckoutPane extends TabPane {
         bill.setCust(customer);
         bill.setTime(LocalTime.now());
         bill.setDate(LocalDate.now());
-
-        terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, customer, item.getName().toString(), bill);
+        memberName = item.getName().toString();
       }
     });
     this.add(nameDropdown);
@@ -342,27 +343,26 @@ public class CheckoutPane extends TabPane {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          for(Barang b : bill.getKeranjang()){
+          for (Barang b : bill.getKeranjang()) {
             Barang update = barangDataIO.getByID(b.getId());
-            if(update.getJumlah() - b.getJumlah() < 0){
+            if (update.getJumlah() - b.getJumlah() < 0) {
               throw new Exception("Invalid stock");
             }
           }
 
           if (!(customer instanceof Member)) {
             customerDataIO.insert(customer);
-          }
-          else{
-            if(customer instanceof VIP){
-              //TODO: masukin poin pas dipake
+          } else {
+            if (customer instanceof VIP) {
+              // TODO: masukin poin pas dipake
               VIP vip = (VIP) customer;
               Double change = vip.getPoint() - bill.getBilling();
-              if(change > 0) vip.setPoint(Math.max(0, change.intValue()));
+              if (change > 0)
+                vip.setPoint(Math.max(0, change.intValue()));
               bill.setBilling(bill.getBilling() - vip.getPoint());
 
               VIPDataIO.update(vip);
-            }
-            else{
+            } else {
               Member member = (Member) customer;
               Double change = bill.getBilling() - member.getPoint();
               member.setPoint(Math.max(0, change.intValue()));
@@ -372,14 +372,18 @@ public class CheckoutPane extends TabPane {
             }
           }
 
-          for(Barang b : bill.getKeranjang()){
+          for (Barang b : bill.getKeranjang()) {
             Barang update = barangDataIO.getByID(b.getId());
             update.setJumlah(update.getJumlah() - b.getJumlah());
             barangDataIO.update(update);
           }
-          fixedBillDataIO.insert(bill);
+          System.out.println(fixedBillDataIO.insert(bill));
+          System.out.println(bill);
+          terimakasihPane = new TerimakasihPane(memberDataIO, VIPDataIO, fixedBillDataIO, customer, memberName,
+              bill.getId());
           panelFlowObserver.newEvent(new PanelFlowEvent(terimakasihPane, false));
         } catch (Exception exception) {
+          exception.printStackTrace();
           JOptionPane.showMessageDialog(null, "Purchase failed\n" + exception.toString());
         }
       }
