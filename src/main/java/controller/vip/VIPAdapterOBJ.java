@@ -1,11 +1,13 @@
 package controller.vip;
 
+import model.Customer;
 import model.VIP;
 import org.jetbrains.annotations.Nullable;
 
 import controller.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,6 +21,9 @@ public class VIPAdapterOBJ implements GenericDataIO<VIP> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "VIP list must be a non-null value");
+            if (list.size() != 0) {
+                VIP.resetMaxVIPID(list.stream().max(Comparator.comparing(Customer::getId)).get().getId());
+            }
         }
 
         // handle lazy loading

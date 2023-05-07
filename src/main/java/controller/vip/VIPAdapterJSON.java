@@ -2,6 +2,9 @@ package controller.vip;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.Barang;
+import model.Customer;
+import model.Member;
 import model.VIP;
 import org.jetbrains.annotations.Nullable;
 
@@ -9,6 +12,7 @@ import controller.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -23,12 +27,16 @@ public class VIPAdapterJSON implements GenericDataIO<VIP> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "VIP list must be a non-null value");
+            if (list.size() != 0) {
+                VIP.resetMaxVIPID(list.stream().max(Comparator.comparing(Customer::getId)).get().getId());
+            }
         }
 
         // handle lazy loading
         VIP fb = VIP.builder().id().point(0).transactions(0).active(true).build();
         insert(fb);
         delete(fb.getId());
+        Customer.resetCount(Customer.checkCount() - 1);
     }
 
     @Override

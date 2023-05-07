@@ -3,13 +3,15 @@ package controller.customer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Customer;
-import model.Member;
 import controller.*;
+import model.Member;
+import model.VIP;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,12 +26,18 @@ public class CustomerAdapterJSON implements GenericDataIO<Customer> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Customer list must be a non-null value");
+            if (list.size() != 0) {
+                Customer.resetCount(list.stream().max(Comparator.comparing(Customer::getId)).get().getId());
+            }
         }
+
+        Customer.resetCount(Math.max(Math.max(Member.checkMaxMemID(), Customer.checkCount()), VIP.checkMaxVIPID()));
 
         // handle lazy loading
         Customer b = Customer.builder().id().build();
         insert(b);
         delete(b.getId());
+        Customer.resetCount(Customer.checkCount() - 1);
     }
 
     @Override
@@ -86,6 +94,7 @@ public class CustomerAdapterJSON implements GenericDataIO<Customer> {
 
         if (pos != -1) {
             Customer prevData = list.get(pos).toBuilder().build();
+            Customer.resetCount(Customer.checkCount() - 1);
             try {
                 list.set(pos, newData);
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);

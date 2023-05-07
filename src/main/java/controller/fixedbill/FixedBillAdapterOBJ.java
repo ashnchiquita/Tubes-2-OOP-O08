@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import controller.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,12 +20,16 @@ public class FixedBillAdapterOBJ implements GenericDataIO<FixedBill> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value");
+            if (list.size() != 0) {
+                FixedBill.resetCount(list.stream().max(Comparator.comparing(FixedBill::getId)).get().getId());
+            }
         }
 
         // handle lazy loading
         FixedBill fb = FixedBill.builder().id().billing(0).build();
         insert(fb);
         delete(fb.getId());
+        FixedBill.resetCount(FixedBill.checkCount() - 1);
     }
 
     public void write() throws IOException {
@@ -94,6 +99,7 @@ public class FixedBillAdapterOBJ implements GenericDataIO<FixedBill> {
 
         if (pos != -1) {
             FixedBill prevData = list.get(pos).toBuilder().build();
+            FixedBill.resetCount(FixedBill.checkCount() - 1);
             try {
                 list.set(pos, newData);
                 write();
