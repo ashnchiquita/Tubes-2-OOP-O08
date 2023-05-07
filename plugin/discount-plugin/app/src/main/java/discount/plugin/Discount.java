@@ -7,8 +7,17 @@ import controller.*;
 public class Discount implements SystemPlugin {
   @Override
   public MainController getController(MainController controller) {
-    System.out.println("Masuk");
-    return controller;
+    FixedBillDecorator billDecorator = new FixedBillDecorator();
+    billDecorator.setDataIO(controller.getFixedBillDataIO());
+
+    MainController newController = new MainController();
+    newController.setCustomerDataIO(controller.getCustomerDataIO());
+    newController.setMemberDataIO(controller.getMemberDataIO());
+    newController.setVIPDataIO(controller.getVIPDataIO());
+    newController.setBarangDataIO(controller.getBarangDataIO());
+    newController.setFixedBillDataIO(billDecorator);
+
+    return newController;
   }
 
   @Override

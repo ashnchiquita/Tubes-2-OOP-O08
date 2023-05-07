@@ -4,6 +4,7 @@ import boundary.constants.Colors;
 import boundary.constants.PanelCode;
 import boundary.observer.tab.TabEvent;
 import boundary.observer.tab.TabListener;
+import boundary.panel.history.HistoryPanel;
 import boundary.panel.home.HomePanel;
 import boundary.panel.inventaris.InventarisPanel;
 import boundary.panel.kasir.KasirPanel;
@@ -16,7 +17,6 @@ import controller.MainController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +30,6 @@ public class MainWindow extends JFrame implements TabListener {
     private Integer counter = 0;
     private Map<String, JPanel> activePanels;
 
-
-
     public MainWindow(MainController controller) {
         this.controller = controller;
         try {
@@ -41,6 +39,11 @@ public class MainWindow extends JFrame implements TabListener {
         }
         contentCode = PanelCode.HOME;
         activePanels = new HashMap<>();
+
+        initUI();
+    }
+
+    public void initUI() {
         JPanel mainPanel = new JPanel();
 
         mainPanel.setLayout(new GridBagLayout());
@@ -61,7 +64,7 @@ public class MainWindow extends JFrame implements TabListener {
         sidePanelGbc.weightx = 0;
         sidePanelGbc.weighty = 0;
         sidePanelGbc.fill = GridBagConstraints.BOTH;
-        sidePanel = new SideBar(controller.getFixedBillDataIO() ,287, Colors.LIGHT_BLUE, Color.WHITE);
+        sidePanel = new SideBar(controller.getFixedBillDataIO(), 287, Colors.LIGHT_BLUE, Color.WHITE);
 
         topBar = new TopBar(47, Colors.DARK_BLUE);
         GridBagConstraints topBarGbc = new GridBagConstraints();
@@ -74,6 +77,7 @@ public class MainWindow extends JFrame implements TabListener {
         topBar.addArrayType(PanelCode.NULL);
         topBar.addArrayType(PanelCode.KASIR);
         topBar.addArrayType(PanelCode.LAPORAN);
+        topBar.addArrayType(PanelCode.HISTORI);
         topBar.addArrayType(PanelCode.INVENTARIS);
         topBar.addArrayType(PanelCode.MEMBER);
         topBar.addArrayType(PanelCode.PENGATURAN);
@@ -82,7 +86,8 @@ public class MainWindow extends JFrame implements TabListener {
         ((JButton) sidePanel.getComponent("kasirButton")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addWindow("Pembayaran", new KasirPanel(controller.getBarangDataIO(), controller.getFixedBillDataIO(),
-                        controller.getMemberDataIO(), controller.getVIPDataIO(), controller.getCustomerDataIO()), PanelCode.KASIR);
+                        controller.getMemberDataIO(), controller.getVIPDataIO(), controller.getCustomerDataIO()),
+                        PanelCode.KASIR);
             }
         });
         sidePanel.addButton(new SideBarButton("/laporan.png", "Laporan"), "laporanButton")
@@ -93,6 +98,19 @@ public class MainWindow extends JFrame implements TabListener {
                         else {
                             TopBarTab tab = ((TopBarTab) topBar
                                     .getComponent(topBar.getTabsWithType(PanelCode.LAPORAN).get(0)));
+                            if (!tab.getStatus())
+                                tab.doClick();
+                        }
+                    }
+                });
+        sidePanel.addButton(new SideBarButton("/simpan.png", "Transaksi"), "transaksiButton")
+                .addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!topBar.hasType(PanelCode.HISTORI))
+                            addWindow("Transaksi", new HistoryPanel(controller.getFixedBillDataIO()), PanelCode.HISTORI);
+                        else {
+                            TopBarTab tab = ((TopBarTab) topBar
+                                    .getComponent(topBar.getTabsWithType(PanelCode.HISTORI).get(0)));
                             if (!tab.getStatus())
                                 tab.doClick();
                         }
@@ -192,7 +210,14 @@ public class MainWindow extends JFrame implements TabListener {
     public SideBar getSidePanel() {
         return sidePanel;
     }
-    public MainController getContoller(){ return this.controller; }
+
+    public MainController getController() {
+        return this.controller;
+    }
+
+    public void setController(MainController controller) {
+        this.controller = controller;
+    }
 
     public TopBar getTopBar() {
         return topBar;

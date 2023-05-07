@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 
 public class HistoriTransaksiPane extends TabPane {
     private GenericDataIO<FixedBill> fixedBillDataIO;
+    private List<FixedBill> bills;
     private Member member;
     private JPanel headerPanel;
     private JScrollPane scrollListPanel;
     private RoundedPanel createNewItemButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
-    private RoundedPanel importButtonPanel = new RoundedPanel(25, new Color(0x4C6EDF), false, Color.WHITE, 0);
     private RoundedPanel totalBarangPanel = new RoundedPanel(25, Color.WHITE, true, new Color(0x5D82E8), 2);
     Object[][] data;
 
@@ -59,7 +59,7 @@ public class HistoriTransaksiPane extends TabPane {
         headerPanel.add(separator1);
 
         // Label "Total Barang"
-        JLabel totalBarangLabel = new JLabel("Total Barang : 127");
+        JLabel totalBarangLabel = new JLabel("Total Transaksi : " + bills.size());
         totalBarangLabel.setHorizontalAlignment(SwingConstants.CENTER);
         totalBarangLabel.setPreferredSize(new Dimension(180, 38));
         totalBarangLabel.setFont(new Font("Inter", Font.PLAIN, 15));
@@ -83,7 +83,6 @@ public class HistoriTransaksiPane extends TabPane {
         itemList.getColumnModel().getColumn(1).setPreferredWidth(300);
         itemList.getColumnModel().getColumn(2).setPreferredWidth(200);
         itemList.getColumnModel().getColumn(3).setPreferredWidth(200);
-        itemList.getColumnModel().getColumn(4).setPreferredWidth(200);
         itemList.setBorder(BorderFactory.createEmptyBorder());
         itemList.setShowVerticalLines(false);
         itemList.setBackground(Colors.WHITE);
@@ -124,23 +123,27 @@ public class HistoriTransaksiPane extends TabPane {
     }
 
     private Object[][] getData() {
-        List<FixedBill> bills = fixedBillDataIO.getAll();
+        bills = fixedBillDataIO.getAll();
         bills = bills.stream()
                 .filter(bill -> bill.getCust().getId() == member.getId())
                 .collect(Collectors.toList());
-        data = new Object[bills.size()][5];
+        data = new Object[bills.size()][4];
         for (int i = 0; i < bills.size(); i++) {
             // TODO: Resolve name, price, and discount
             FixedBill bill = bills.get(i);
+            Double sub = 0d;
+            for (Barang b : bill.getKeranjang()){
+                sub += b.getHargaJual();
+            }
             data[i] = new Object[] {
-                    bill.getId(), "", bill.getDate(), "", ""
+                    bill.getId(), bill.getDate(), sub.toString(), ""
             };
         }
         return data;
     }
 
     private String[] getColumnNames() {
-        String[] columnNames = { "ID", "Nama", "Tanggal Transaksi", "Subtotal", "Diskon" };
+        String[] columnNames = { "ID", "Tanggal Transaksi", "Subtotal", "Diskon" };
         return columnNames;
     }
 
@@ -148,9 +151,9 @@ public class HistoriTransaksiPane extends TabPane {
         this.member = member;
         this.fixedBillDataIO = fixedBillDataIO;
         this.setBackground(Color.WHITE);
+        setupTable();
         setupHeaderPanel();
         this.add(headerPanel, BorderLayout.NORTH);
-        setupTable();
         this.add(scrollListPanel, BorderLayout.CENTER);
     }
 }

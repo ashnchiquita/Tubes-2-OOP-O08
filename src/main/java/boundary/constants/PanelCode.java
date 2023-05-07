@@ -7,6 +7,7 @@ public class PanelCode {
     public static final String HOME = "HOME";
     public static final String KASIR = "KASIR";
     public static final String LAPORAN = "LAPORAN";
+    public static final String HISTORI = "HISTORI";
     public static final String MEMBER = "MEMBER";
     public static final String INVENTARIS = "INVENTARIS";
     public static final String PENGATURAN = "PENGATURAN";
