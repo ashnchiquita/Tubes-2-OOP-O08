@@ -1,5 +1,6 @@
 package boundary.panel.settings;
 
+import boundary.MainWindow;
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
 import boundary.widget.PlainScrollBar;
@@ -20,6 +21,9 @@ import controller.member.MemberAdapterXML;
 import controller.vip.VIPAdapterJSON;
 import controller.vip.VIPAdapterOBJ;
 import controller.vip.VIPAdapterXML;
+import util.ImageFilter;
+import util.PluginFilter;
+import util.PluginLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,9 +34,11 @@ import java.nio.file.Paths;
 
 public class Settings extends TabPanel {
     MainController controller;
+    MainWindow mainWindow;
 
-    public Settings(MainController controller) {
+    public Settings(MainWindow mainWindow, MainController controller) {
         this.controller = controller;
+        this.mainWindow = mainWindow;
         initComponents();
     }
 
@@ -196,21 +202,17 @@ public class Settings extends TabPanel {
         folderChooser.setDialogTitle("Pilih Tempat Penyimpanan File");
         folderChooser.setCurrentDirectory(new java.io.File("."));
         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
         folderChooser.setAcceptAllFileFilterUsed(false);
 
         if (folderChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                String strpath = "";
-                String extension = "";
                 //TODO: input handling
                 File fileToSave = folderChooser.getSelectedFile();
                 FileWriter fw = new FileWriter(dataStore.getPath(), false);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter out = new PrintWriter(bw);
 
-                strpath = fileToSave.getPath();
-                Path path = Paths.get(strpath);
+                Path path = Paths.get(fileToSave.getPath());
                 Path rootPath = Paths.get(ResourcePath.ABSOLUTE);
 
                 out.println(rootPath.relativize(path));
@@ -235,8 +237,7 @@ public class Settings extends TabPanel {
                 br.close();
                 bw.close();
             } catch (IOException e) {
-                System.out.println("Plugin loading failed");
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Data loading failed\n" + e.toString());
             }
         }
         else {
@@ -248,24 +249,36 @@ public class Settings extends TabPanel {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Pilih Plugin");
         fileChooser.setCurrentDirectory(new java.io.File("."));
+        fileChooser.addChoosableFileFilter(new PluginFilter());
 
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                File fileToSave = fileChooser.getSelectedFile();
                 //TODO: input handling jenis plugin
-                //TODO: reload program aja
+                File fileToSave = fileChooser.getSelectedFile();
+                String strpath = fileToSave.getPath();
+
+                Path path = Paths.get(strpath);
+                Path rootPath = Paths.get(ResourcePath.ABSOLUTE);
+
+                BufferedReader br = new BufferedReader(new FileReader(pluginStore.getPath()));
+                String line;
+                String relativePath = rootPath.relativize(path).toString();
+                while ((line = br.readLine()) != null) {
+                    if(line.equals(relativePath)){
+                        JOptionPane.showMessageDialog(null, "Plugin already loaded\n");
+                        return;
+                    }
+                }
+                br.close();
+
                 FileWriter fw = new FileWriter(pluginStore.getPath(), true );
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter out = new PrintWriter(bw);
 
-                Path path = Paths.get(fileToSave.getPath());
-                Path rootPath = Paths.get(ResourcePath.ABSOLUTE);
-
-                out.println(rootPath.relativize(path));
+                out.println(relativePath);
                 out.flush();
 
-                BufferedReader br = new BufferedReader(new FileReader(pluginStore.getPath()));
-                String line;
+                br = new BufferedReader(new FileReader(pluginStore.getPath()));
                 StringBuilder builder = new StringBuilder();
                 Integer rows = 0;
                 while ((line = br.readLine()) != null) {
@@ -275,13 +288,19 @@ public class Settings extends TabPanel {
 
                 pluginTextField.setRows(rows);
                 pluginTextField.setText(builder.toString());
+
+                mainWindow.dispose();
+                mainWindow = new MainWindow(controller);
+                new PluginLoader(mainWindow, controller);
+                mainWindow.pack();
+                mainWindow.setVisible(true);
+
                 fw.close();
                 out.close();
                 br.close();
                 bw.close();
             } catch (IOException e) {
-                System.out.println("Plugin loading failed");
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Plugin loading failed\n" + e.toString());
             }
         }
         else {

@@ -1,5 +1,8 @@
+package util;
+
 import boundary.MainWindow;
 import boundary.constants.ResourcePath;
+import boundary.panel.settings.Settings;
 import controller.BasePluginInterface;
 import controller.MainController;
 import controller.SystemPlugin;
@@ -21,8 +24,7 @@ public class PluginLoader {
         List<URL> urls = new ArrayList<>();
 
         try {
-            //TODO: Input handling
-            reader = new BufferedReader(new FileReader( ResourcePath.DATA + "/plugins.txt"));
+            reader = new BufferedReader(new FileReader(Settings.pluginStore.getPath()));
             String line = reader.readLine();
 
             while (line != null) {

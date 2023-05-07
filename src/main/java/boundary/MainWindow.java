@@ -11,7 +11,6 @@ import boundary.panel.laporan.LaporanPanel;
 import boundary.panel.member.MemberPanel;
 import boundary.panel.settings.Settings;
 import boundary.widget.*;
-import controller.BasePluginInterface;
 import controller.MainController;
 
 import javax.swing.*;
@@ -30,8 +29,8 @@ public class MainWindow extends JFrame implements TabListener {
     private Integer counter = 0;
     private Map<String, JPanel> activePanels;
 
-    public MainWindow() {
-        controller = new MainController();
+    public MainWindow(MainController controller) {
+        this.controller = controller;
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (Exception e) {
@@ -123,7 +122,7 @@ public class MainWindow extends JFrame implements TabListener {
                     public void actionPerformed(ActionEvent e) {
                         // activePanels.containsValue(JPanel.class);
                         if (!topBar.hasType(PanelCode.PENGATURAN))
-                            addWindow("Pengaturan", new Settings(controller), PanelCode.PENGATURAN);
+                            addWindow("Pengaturan", new Settings(MainWindow.this, controller), PanelCode.PENGATURAN);
                         else {
                             TopBarTab tab = ((TopBarTab) topBar
                                     .getComponent(topBar.getTabsWithType(PanelCode.PENGATURAN).get(0)));
