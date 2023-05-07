@@ -19,4 +19,19 @@
     <time>03:37:39</time>
     <billing>56000.0</billing>
   </item>
+  <item>
+    <id>5</id>
+    <cust __typename="Member">
+      <id>4</id>
+      <name>member1</name>
+      <phone>0</phone>
+      <point>0</point>
+      <transactions>8</transactions>
+      <active>true</active>
+    </cust>
+    <keranjang/>
+    <date>05/08/2023</date>
+    <time>03:13:54</time>
+    <billing>0.0</billing>
+  </item>
 </ArrayList>
