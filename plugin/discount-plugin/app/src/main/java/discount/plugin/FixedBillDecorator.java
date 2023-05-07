@@ -15,7 +15,7 @@ public class FixedBillDecorator implements GenericDataIO<FixedBill> {
   }
 
   public FixedBill getByID(int id) {
-    return dataIO.getByID(int id);
+    return dataIO.getByID(id);
   }
 
   public List<FixedBill> getAll() {
@@ -23,11 +23,11 @@ public class FixedBillDecorator implements GenericDataIO<FixedBill> {
   }
 
   public boolean insert(FixedBill data) {
-
+    return dataIO.insert(data);
   }
 
   public boolean update(FixedBill newData) {
-    return dataIO.update(newData)
+    return dataIO.update(newData);
   }
 
   public boolean delete(int id) {
