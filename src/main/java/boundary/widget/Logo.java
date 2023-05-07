@@ -17,7 +17,7 @@ public class Logo extends JLabel implements Runnable {
 
     public Logo(){
         try{
-            ImageReader reader = (ImageReader) ImageIO.getImageReadersByFormatName("gif").next();
+            ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
             ImageInputStream stream = ImageIO.createImageInputStream(new File(ResourcePath.ASSETS + "/logo/logo.gif"));
             reader.setInput(stream);
             frameCount = reader.getNumImages(true);

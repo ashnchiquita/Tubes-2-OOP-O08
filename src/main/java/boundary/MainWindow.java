@@ -22,6 +22,7 @@ import java.util.Map;
 
 public class MainWindow extends JFrame implements TabListener {
     private MainController controller;
+    private JPanel mainPanel;
     private JPanel contentPanel;
     private JPanel contentPanelView;
     private String contentCode;
@@ -42,9 +43,19 @@ public class MainWindow extends JFrame implements TabListener {
 
         initUI();
     }
+    public void resetUI(){
+        remove(mainPanel);
+        revalidate();
+        repaint();
+
+        activePanels.clear();
+        counter = 0;
+        contentCode = PanelCode.HOME;
+        initUI();
+    }
 
     public void initUI() {
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
 
         mainPanel.setLayout(new GridBagLayout());
 
@@ -54,7 +65,7 @@ public class MainWindow extends JFrame implements TabListener {
         contentPanelGbc.fill = GridBagConstraints.BOTH;
         contentPanelGbc.weightx = 3;
         contentPanelGbc.weighty = 30;
-        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Colors.BLACK);
 
         GridBagConstraints sidePanelGbc = new GridBagConstraints();
@@ -175,8 +186,6 @@ public class MainWindow extends JFrame implements TabListener {
         mainPanel.add(sidePanel, sidePanelGbc);
         mainPanel.add(topBar, topBarGbc);
         mainPanel.setBackground(Colors.PEMBELIAN_RED);
-
-        this.contentPanel = contentPanel;
 
         loadPage(activePanels.get("homeButton"));
 

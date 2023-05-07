@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,12 +20,16 @@ public class BarangAdapterOBJ implements GenericDataIO<Barang> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Barang list must be a non-null value");
+            if (list.size() != 0) {
+                Barang.resetCount(list.stream().max(Comparator.comparing(Barang::getId)).get().getId());
+            }
         }
 
         // handle lazy loading
         Barang b = Barang.builder().id().jumlah(10).hargaJual(5).hargaBeli(2).build();
         insert(b);
         delete(b.getId());
+        Barang.resetCount(Barang.checkCount() - 1);
     }
 
     public void write() throws IOException {
@@ -79,9 +84,11 @@ public class BarangAdapterOBJ implements GenericDataIO<Barang> {
 
         if (pos != -1) { // add stock
             Barang prevData = list.get(pos).toBuilder().build();
+            Barang.resetCount(Barang.checkCount() - 1);
             Barang temp = data.toBuilder().build();
+            Barang.resetCount(Barang.checkCount() - 1);
             temp.setJumlah(temp.getJumlah() + prevData.getJumlah());
-            temp.setId(data.getId());
+            temp.setId(list.get(pos).getId());
             try {
                 list.set(pos, temp);
                 write();
@@ -119,6 +126,7 @@ public class BarangAdapterOBJ implements GenericDataIO<Barang> {
 
         if (pos != -1) {
             Barang prevData = list.get(pos).toBuilder().build();
+            Barang.resetCount(Barang.checkCount() - 1);
             try {
                 list.set(pos, newData);
                 write();

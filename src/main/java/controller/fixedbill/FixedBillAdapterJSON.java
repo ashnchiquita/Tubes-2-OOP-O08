@@ -3,7 +3,6 @@ package controller.fixedbill;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import model.Barang;
 import model.FixedBill;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,6 +10,7 @@ import controller.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -25,12 +25,17 @@ public class FixedBillAdapterJSON implements GenericDataIO<FixedBill> {
         File f = new File(filePath);
         if (f.exists() && !f.isDirectory()) {
             Objects.requireNonNull(getAll(), "Fixed Bill list must be a non-null value");
+
+            if (list.size() != 0) {
+                FixedBill.resetCount(list.stream().max(Comparator.comparing(FixedBill::getId)).get().getId());
+            }
         }
 
         // handle lazy loading
         FixedBill fb = FixedBill.builder().id().billing(0).build();
         insert(fb);
         delete(fb.getId());
+        FixedBill.resetCount(FixedBill.checkCount() - 1);
     }
 
     @Override
@@ -87,6 +92,7 @@ public class FixedBillAdapterJSON implements GenericDataIO<FixedBill> {
 
         if (pos != -1) {
             FixedBill prevData = list.get(pos).toBuilder().build();
+            FixedBill.resetCount(FixedBill.checkCount() - 1);
             try {
                 list.set(pos, newData);
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), list);

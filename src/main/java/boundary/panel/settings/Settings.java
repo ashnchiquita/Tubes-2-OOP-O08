@@ -6,29 +6,12 @@ import boundary.constants.ResourcePath;
 import boundary.widget.PlainScrollBar;
 import boundary.widget.TabPanel;
 import controller.MainController;
-import controller.barang.BarangAdapterJSON;
-import controller.barang.BarangAdapterOBJ;
-import controller.barang.BarangAdapterXML;
-import controller.customer.CustomerAdapterJSON;
-import controller.customer.CustomerAdapterOBJ;
-import controller.customer.CustomerAdapterXML;
-import controller.fixedbill.FixedBillAdapterJSON;
-import controller.fixedbill.FixedBillAdapterOBJ;
-import controller.fixedbill.FixedBillAdapterXML;
-import controller.member.MemberAdapterJSON;
-import controller.member.MemberAdapterOBJ;
-import controller.member.MemberAdapterXML;
-import controller.vip.VIPAdapterJSON;
-import controller.vip.VIPAdapterOBJ;
-import controller.vip.VIPAdapterXML;
-import util.ImageFilter;
 import util.PluginFilter;
 import util.PluginLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -231,11 +214,9 @@ public class Settings extends TabPanel {
                 BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
                 tempatPenyimpananFileTextField.setText(br.readLine());
                 controller = new MainController();
-                mainWindow.dispose();
-                mainWindow = new MainWindow(controller);
-                new PluginLoader(mainWindow, controller);
-                mainWindow.pack();
-                mainWindow.setVisible(true);
+                mainWindow.setController(controller);
+                mainWindow.resetUI();
+
                 fw.close();
                 out.close();
                 br.close();
@@ -292,11 +273,9 @@ public class Settings extends TabPanel {
                 pluginTextField.setRows(rows);
                 pluginTextField.setText(builder.toString());
 
-                mainWindow.dispose();
                 mainWindow = new MainWindow(controller);
                 new PluginLoader(mainWindow, controller);
-                mainWindow.pack();
-                mainWindow.setVisible(true);
+                mainWindow.resetUI();
 
                 fw.close();
                 out.close();
