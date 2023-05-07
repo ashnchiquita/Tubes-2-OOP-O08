@@ -1,18 +1,13 @@
 ### Tugas Besar 2 IF2210 Object-Oriented Programming
-## BNMO Business Management: [Nama Aplikasi kita]
+## BNMO Business Management: Cashoria
 ### Created by Group * ~ ' . * ♡ OOPin 1pin ♡ * . ' ~ * (O08)
-
-## Guide buat kelompok (nanti dihapus)
-### Cara setup lombok di IntelliJ
-1. buat pertama kali, enable annotation processing. caranya ke settings > build, execution, deployment > compiler > annotation processing > enable annotation processing
-2. reload project
-3. udah bisa dipake. langsung aja pake annotationnya. kalo mo liat contohnya ada di [sini](src/main/java/org/example/Job.java)
-
+![Uploading B097ACE4-C070-4B8A-8C08-7478AF27C4D1 2.GIF…]()
 
 ---
-[insert logo aplikasi kalo udah ada]
+
 ## General Information
 This is a POS (Point of Sales) app to track every transactions inside BNMO's business in order to help BNMO manages its business.
+![Uploading Screen Shot 2023-05-07 at 21.38.35.png…]()
 
 ## Tech Stack
 - Java (8)
@@ -25,26 +20,6 @@ This is a POS (Point of Sales) app to track every transactions inside BNMO's bus
 - Membership (member or VIP) and reward system
 - Report generator for evaluation needs
 - Plugin loader
-
-## Folder Structure
-
-```
-│       
-├── doc
-│   └── IF2210_TB2_O08.pdf
-│ 
-├── src
-│   ├── 
-│   └── 
-│ 
-│ .gitignore
-│ build.gradle.kts
-│ gradlew
-│ gradlew.bat
-│ README.md
-│ settings.gradle.kts
-
-```
 
 ## How to Use
 
