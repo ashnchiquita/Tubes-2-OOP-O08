@@ -8,7 +8,7 @@ import model.*;
 
 public class FixedBillDecorator implements GenericDataIO<FixedBill> {
   private GenericDataIO<FixedBill> dataIO;
-  private static final double discount = 0.5;
+  private static final double discount = 0.8;
 
   public void setDataIO(GenericDataIO<FixedBill> dataIO) {
     this.dataIO = dataIO;

@@ -2,32 +2,12 @@
   <item>
     <id>1</id>
     <cust __typename="Customer">
-      <id>40</id>
-    </cust>
-    <keranjang/>
-    <date>05/08/2023</date>
-    <time>02:57:14</time>
-    <billing>7000.0</billing>
-  </item>
-  <item>
-    <id>2</id>
-    <cust __typename="Customer">
-      <id>42</id>
-    </cust>
-    <keranjang/>
-    <date>05/08/2023</date>
-    <time>02:58:18</time>
-    <billing>7000.0</billing>
-  </item>
-  <item>
-    <id>3</id>
-    <cust __typename="Customer">
-      <id>46</id>
+      <id>72</id>
     </cust>
     <keranjang>
       <keranjang>
         <id>3</id>
-        <jumlah>1</jumlah>
+        <jumlah>5</jumlah>
         <name>Sapi</name>
         <kategori>makanan</kategori>
         <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
@@ -36,167 +16,7 @@
       </keranjang>
     </keranjang>
     <date>05/08/2023</date>
-    <time>03:00:29</time>
-    <billing>14000.0</billing>
-  </item>
-  <item>
-    <id>4</id>
-    <cust __typename="Customer">
-      <id>48</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>1</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:00:52</time>
-    <billing>14000.0</billing>
-  </item>
-  <item>
-    <id>5</id>
-    <cust __typename="Customer">
-      <id>50</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>1</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:02:58</time>
-    <billing>14000.0</billing>
-  </item>
-  <item>
-    <id>6</id>
-    <cust __typename="Customer">
-      <id>52</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>1</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:04:31</time>
-    <billing>14000.0</billing>
-  </item>
-  <item>
-    <id>7</id>
-    <cust __typename="Customer">
-      <id>54</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>1</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:09:00</time>
-    <billing>7000.0</billing>
-  </item>
-  <item>
-    <id>8</id>
-    <cust __typename="Customer">
-      <id>56</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>2</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:14:08</time>
-    <billing>14000.0</billing>
-  </item>
-  <item>
-    <id>10</id>
-    <cust __typename="Customer">
-      <id>60</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>2</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:15:38</time>
-    <billing>14000.0</billing>
-  </item>
-  <item>
-    <id>11</id>
-    <cust __typename="Customer">
-      <id>62</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>4</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:16:58</time>
-    <billing>28000.0</billing>
-  </item>
-  <item>
-    <id>12</id>
-    <cust __typename="Customer">
-      <id>64</id>
-    </cust>
-    <keranjang>
-      <keranjang>
-        <id>3</id>
-        <jumlah>2</jumlah>
-        <name>Sapi</name>
-        <kategori>makanan</kategori>
-        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
-        <hargaJual>14000.0</hargaJual>
-        <hargaBeli>14000.0</hargaBeli>
-      </keranjang>
-    </keranjang>
-    <date>05/08/2023</date>
-    <time>03:17:16</time>
-    <billing>28000.0</billing>
+    <time>03:37:39</time>
+    <billing>56000.0</billing>
   </item>
 </ArrayList>

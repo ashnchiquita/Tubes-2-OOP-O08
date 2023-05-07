@@ -1,2 +1,3 @@
 ..\Cashoria-Base-Plugin\build\libs\untitled-1.0-SNAPSHOT.jar
 ..\Cashoria-BarChartPlugin\build\libs\BarChartPlugin-1.0-SNAPSHOT.jar
+plugin/discount-plugin/app/build/libs/app.jar

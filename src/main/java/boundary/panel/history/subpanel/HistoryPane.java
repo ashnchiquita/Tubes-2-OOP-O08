@@ -1,6 +1,5 @@
 package boundary.panel.history.subpanel;
 
-
 import boundary.constants.Colors;
 import boundary.widget.PlainScrollBar;
 import boundary.widget.RoundedPanel;
@@ -91,7 +90,7 @@ public class HistoryPane extends TabPane {
         TableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                    boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 setBorder(BorderFactory.createEmptyBorder());
                 setHorizontalAlignment(JLabel.CENTER);
@@ -116,8 +115,13 @@ public class HistoryPane extends TabPane {
         for (int i = 0; i < bills.size(); i++) {
             // TODO: Resolve name, price, and discount
             FixedBill bill = bills.get(i);
+            double subtotal = 0;
+            for (Barang b : bill.getKeranjang()) {
+                subtotal += b.getHargaJual() * b.getJumlah();
+            }
             data[i] = new Object[] {
-                    bill.getId(), bill.getCust().getId(),bill.getDate(), bill.getBilling(), ""
+                    bill.getId(), bill.getCust().getId(), bill.getDate(), bill.getBilling(),
+                    subtotal != bill.getBilling() ? subtotal - bill.getBilling() : ""
             };
         }
         return data;
