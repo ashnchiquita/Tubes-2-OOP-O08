@@ -28,6 +28,10 @@ public class FixedBillDecorator implements GenericDataIO<FixedBill> {
         .date(billData.getDate()).time(billData.getTime()).billing(billData.getBilling() * discount).build();
     modifiedData.setId(billData.getId());
 
+    for (Barang b : billData.getKeranjang()) {
+      modifiedData.getKeranjang().add(b);
+    }
+
     return dataIO.insert(modifiedData);
   }
 
