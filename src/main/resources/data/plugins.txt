@@ -1,1 +1,5 @@
+plugin\DollarPlugin.jar
+plugin\DiskonPlugin.jar
 plugin\BasePlugin.jar
+plugin\BarChartPlugin.jar
+plugin\PieChartPlugin.jar

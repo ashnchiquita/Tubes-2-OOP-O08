@@ -17,4 +17,13 @@
     <hargaJual>11.0</hargaJual>
     <hargaBeli>11.0</hargaBeli>
   </item>
+  <item>
+    <id>41</id>
+    <jumlah>1</jumlah>
+    <name>Emas</name>
+    <kategori>Batang</kategori>
+    <gambar>src\main\resources\assets\image\We.png</gambar>
+    <hargaJual>2.147483647E9</hargaJual>
+    <hargaBeli>2.147483647E9</hargaBeli>
+  </item>
 </ArrayList>
