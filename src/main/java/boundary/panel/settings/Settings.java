@@ -140,7 +140,6 @@ public class Settings extends TabPanel {
         SQLRawRadio.setForeground(new Color(36, 60, 148));
         SQLRawRadio.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-
         try {
             BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
 
@@ -171,7 +170,8 @@ public class Settings extends TabPanel {
             }
 
             @Override
-            public void focusLost(FocusEvent e) {}
+            public void focusLost(FocusEvent e) {
+            }
         });
         usnSQL.addFocusListener(new FocusListener() {
             @Override
@@ -180,7 +180,8 @@ public class Settings extends TabPanel {
             }
 
             @Override
-            public void focusLost(FocusEvent e) {}
+            public void focusLost(FocusEvent e) {
+            }
         });
         pwSQL.addFocusListener(new FocusListener() {
             @Override
@@ -189,9 +190,9 @@ public class Settings extends TabPanel {
             }
 
             @Override
-            public void focusLost(FocusEvent e) {}
+            public void focusLost(FocusEvent e) {
+            }
         });
-
 
         sqlFieldsPanel.add(urlSQL);
         sqlFieldsPanel.add(usnSQL);
