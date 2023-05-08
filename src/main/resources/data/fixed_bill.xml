@@ -54,4 +54,29 @@
     <time>03:47:07</time>
     <billing>42000.0</billing>
   </item>
+  <item>
+    <id>8</id>
+    <cust __typename="Member">
+      <id>4</id>
+      <name>member1</name>
+      <phone>0</phone>
+      <point>70000</point>
+      <transactions>8</transactions>
+      <active>true</active>
+    </cust>
+    <keranjang>
+      <keranjang>
+        <id>3</id>
+        <jumlah>5</jumlah>
+        <name>Sapi</name>
+        <kategori>makanan</kategori>
+        <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>
+        <hargaJual>14000.0</hargaJual>
+        <hargaBeli>14000.0</hargaBeli>
+      </keranjang>
+    </keranjang>
+    <date>05/08/2023</date>
+    <time>07:24:03</time>
+    <billing>0.0</billing>
+  </item>
 </ArrayList>

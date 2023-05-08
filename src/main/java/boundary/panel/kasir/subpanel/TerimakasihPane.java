@@ -70,6 +70,7 @@ public class TerimakasihPane extends TabPane {
   public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO,
       GenericDataIO<FixedBill> billDataIO, Customer customer,
       String memberName, int billId) {
+    this.bill = billDataIO.getByID(billId);
     if (customer instanceof Member) {
       Double value = (bill.getBilling() * 0.001);
       Integer addPoint = value.intValue();
@@ -89,7 +90,6 @@ public class TerimakasihPane extends TabPane {
     }
     this.customer = customer;
     // this.billDataIO = billDataIO;
-    this.bill = billDataIO.getByID(billId);
     this.memberDataIO = memberDataIO;
     this.VIPDataIO = VIPDataIO;
     this.memberName = memberName;
