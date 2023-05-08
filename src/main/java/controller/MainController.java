@@ -34,9 +34,9 @@ public class MainController {
                 // urutannya harus banget gini harus
                 extension = "";
                 barangDataIO = new BarangAdapterOBJ(path + "/barang" + extension);
-                customerDataIO = new CustomerAdapterOBJ(path + "/customer" + extension);
                 memberDataIO = new MemberAdapterOBJ(path + "" + "/member" + extension);
                 VIPDataIO = new VIPAdapterOBJ(path + "" + "/vip" + extension);
+                customerDataIO = new CustomerAdapterOBJ(path + "/customer" + extension);
                 fixedBillDataIO = new FixedBillAdapterOBJ(path + "/fixed_bill" + extension);
             }
             else if(extension.equals("XML")){
@@ -54,6 +54,12 @@ public class MainController {
                 VIPDataIO = new VIPAdapterJSON(path + "" + "/vip" + extension);
                 customerDataIO = new CustomerAdapterJSON(path + "/customer" + extension);
                 fixedBillDataIO = new FixedBillAdapterJSON(path + "/fixed_bill" + extension);
+            } else if (extension.equals("SQL Raw") && !Settings.usn.equals("") && !Settings.url.equals("")) {
+                barangDataIO = new BarangAdapterSQL(Settings.url, Settings.usn, Settings.pw);
+                memberDataIO = new MemberAdapterSQL(Settings.url, Settings.usn, Settings.pw);
+                VIPDataIO = new VIPAdapterSQL(Settings.url, Settings.usn, Settings.pw);
+                customerDataIO = new CustomerAdapterSQL(Settings.url, Settings.usn, Settings.pw);
+                fixedBillDataIO = new FixedBillAdapterSQL(Settings.url, Settings.usn, Settings.pw);
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Data loading failed\n" + e.toString());

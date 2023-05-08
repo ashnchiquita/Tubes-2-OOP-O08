@@ -91,5 +91,4 @@ public class VIPAdapterSQL extends SQLConnector<VIP> {
       return false;
     }
   }
-
 }

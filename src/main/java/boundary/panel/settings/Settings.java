@@ -3,6 +3,7 @@ package boundary.panel.settings;
 import boundary.MainWindow;
 import boundary.constants.Colors;
 import boundary.constants.ResourcePath;
+import boundary.widget.HintTextField;
 import boundary.widget.PlainScrollBar;
 import boundary.widget.TabPanel;
 import controller.MainController;
@@ -10,7 +11,10 @@ import util.PluginFilter;
 import util.PluginLoader;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,8 +44,34 @@ public class Settings extends TabPanel {
         radioPanel = new JPanel();
         buttonGroup = new ButtonGroup();
         JSONRadio = new JRadioButton("JSON");
+        JSONRadio.setFocusPainted(false);
         XMLRadio = new JRadioButton("XML");
+        XMLRadio.setFocusPainted(false);
         OBJRadio = new JRadioButton("OBJ");
+        OBJRadio.setFocusPainted(false);
+        SQLRawRadio = new JRadioButton("SQL Raw");
+        SQLRawRadio.setFocusPainted(false);
+        saveSQLConfig = new JButton("Save SQL configuration");
+
+        urlSQL = new HintTextField("Enter database URL...", 1);
+        usnSQL = new HintTextField("Enter database username...", 1);
+        pwSQL = new HintTextField("Enter database password...", 1);
+
+        sqlFieldsPanel = new JPanel();
+        sqlFieldsPanel.setLayout(new BoxLayout(sqlFieldsPanel, BoxLayout.Y_AXIS));
+
+        saveSQLConfig.setBackground(Colors.DARK_BLUE);
+        saveSQLConfig.setForeground(Colors.WHITE);
+        saveSQLConfig.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        saveSQLConfig.setBorder(null);
+        saveSQLConfig.setFocusPainted(false);
+        saveSQLConfig.setBounds(85, 400, 200, 60);
+        saveSQLConfig.addActionListener(e -> {
+            url = urlSQL.getText();
+            usn = usnSQL.getText();
+            pw = pwSQL.getText();
+            System.out.println(url + " " + usn + " " + pw);
+        });
 
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
@@ -84,7 +114,7 @@ public class Settings extends TabPanel {
 
         jsonButton.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         jsonButton.setForeground(new Color(36, 60, 148));
-        jsonButton.setText("JSON");
+        jsonButton.setText("ghfhjkfh");
 
         xmlButton.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         xmlButton.setForeground(new Color(36, 60, 148));
@@ -105,6 +135,12 @@ public class Settings extends TabPanel {
         OBJRadio.setForeground(new Color(36, 60, 148));
         OBJRadio.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        SQLRawRadio.setFont(new Font("Inter", Font.PLAIN, 15));
+        SQLRawRadio.setBackground(Color.WHITE);
+        SQLRawRadio.setForeground(new Color(36, 60, 148));
+        SQLRawRadio.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(dataStore.getPath()));
 
@@ -116,8 +152,9 @@ public class Settings extends TabPanel {
                 XMLRadio.setSelected(true);
             } else if (extension.equals("JSON")) {
                 JSONRadio.setSelected(true);
+            } else if (extension.equals("SQL Raw")) {
+                SQLRawRadio.setSelected(true);
             }
-
         } catch (Exception e) {
             System.out.println("Data loading failed");
         }
@@ -125,28 +162,67 @@ public class Settings extends TabPanel {
         buttonGroup.add(JSONRadio);
         buttonGroup.add(XMLRadio);
         buttonGroup.add(OBJRadio);
+        buttonGroup.add(SQLRawRadio);
+
+        urlSQL.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                SQLRawRadio.setSelected(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {}
+        });
+        usnSQL.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                SQLRawRadio.setSelected(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {}
+        });
+        pwSQL.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                SQLRawRadio.setSelected(true);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {}
+        });
+
+
+        sqlFieldsPanel.add(urlSQL);
+        sqlFieldsPanel.add(usnSQL);
+        sqlFieldsPanel.add(pwSQL);
+        sqlFieldsPanel.add(saveSQLConfig);
+        sqlFieldsPanel.setBorder(new EmptyBorder(2, 25, 2, 200));
+        sqlFieldsPanel.setOpaque(false);
 
         radioPanel.setBackground(Color.WHITE);
         radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
-        radioPanel.setPreferredSize(new Dimension(475, 45));
+        radioPanel.setPreferredSize(new Dimension(475, 80));
         radioPanel.setFont(new Font("Inter", Font.PLAIN, 15));
-        radioPanel.setBounds(85, 215, 500, 80);
+        radioPanel.setBounds(85, 215, 500, 200);
         radioPanel.add(JSONRadio);
         radioPanel.add(XMLRadio);
         radioPanel.add(OBJRadio);
+        radioPanel.add(SQLRawRadio);
+        radioPanel.add(sqlFieldsPanel);
         add(radioPanel);
 
         pluginLabel.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         pluginLabel.setForeground(new Color(36, 60, 148));
         pluginLabel.setText("Plugin");
-        pluginLabel.setBounds(85, 305, 100, 40);
+        pluginLabel.setBounds(85, 420, 100, 40);
         add(pluginLabel);
 
         JScrollPane pluginScrollPane = new JScrollPane();
 
         pluginTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(75, 79, 196), 2, true));
         pluginTextField.setPreferredSize(new java.awt.Dimension(300, 44));
-        pluginTextField.setBounds(85, 340, 500, 200);
+        pluginTextField.setBounds(85, 460, 500, 200);
         pluginTextField.setFont(new java.awt.Font("Arial", Font.PLAIN, 16));
         pluginTextField.setEditable(false);
         try {
@@ -167,7 +243,7 @@ public class Settings extends TabPanel {
         pluginScrollPane.setViewportView(pluginTextField);
         pluginScrollPane.getVerticalScrollBar().setUnitIncrement(10);
         pluginScrollPane.getVerticalScrollBar().setUI(new PlainScrollBar(Colors.WHITE, Colors.SIDE_SLIDER_BLUE));
-        pluginScrollPane.setBounds(85, 340, 500, 200);
+        pluginScrollPane.setBounds(85, 460, 500, 110);
         add(pluginScrollPane);
 
         tambahkanBaruButton.setBackground(new java.awt.Color(76, 110, 223));
@@ -175,7 +251,7 @@ public class Settings extends TabPanel {
         tambahkanBaruButton.setForeground(new java.awt.Color(255, 255, 255));
         tambahkanBaruButton.setText("+ Tambahkan Baru");
         tambahkanBaruButton.setBorderPainted(false);
-        tambahkanBaruButton.setBounds(85, 550, 200, 40);
+        tambahkanBaruButton.setBounds(85, 580, 200, 40);
         tambahkanBaruButton.addActionListener(e -> seekPlugin());
         tambahkanBaruButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         add(tambahkanBaruButton);
@@ -207,6 +283,8 @@ public class Settings extends TabPanel {
                     out.println("XML");
                 } else if (JSONRadio.isSelected()) {
                     out.println("JSON");
+                } else if (SQLRawRadio.isSelected()) {
+                    out.println("SQL Raw");
                 }
 
                 out.flush();
@@ -296,8 +374,10 @@ public class Settings extends TabPanel {
     private JRadioButton OBJRadio;
     private JRadioButton XMLRadio;
     private JRadioButton JSONRadio;
+    private JRadioButton SQLRawRadio;
     private ButtonGroup buttonGroup;
     private JPanel radioPanel;
+    private JPanel sqlFieldsPanel;
     private JLabel formatFileLabel;
     private JRadioButton jsonButton;
     private JLabel pengaturanLabel;
@@ -307,4 +387,11 @@ public class Settings extends TabPanel {
     private JLabel tempatPenyimpananFileLabel;
     private JTextField tempatPenyimpananFileTextField;
     private JRadioButton xmlButton;
+    private HintTextField urlSQL;
+    private HintTextField usnSQL;
+    private HintTextField pwSQL;
+    public static String url = "";
+    public static String usn = "";
+    public static String pw = "";
+    private JButton saveSQLConfig;
 }
