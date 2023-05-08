@@ -11,6 +11,7 @@ public abstract class SQLConnector<T> implements GenericDataIO<T> {
     try {
       // Class.forName("oracle.jdbc.driver.OracleDriver");
       connection = DriverManager.getConnection(url, user, pass);
+      System.out.println(connection);
     } catch (SQLException e) {
       System.out.println("SQL ERROR : " + e);
       // } catch (ClassNotFoundException e) {

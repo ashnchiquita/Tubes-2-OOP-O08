@@ -8,4 +8,13 @@
     <hargaJual>14000.0</hargaJual>
     <hargaBeli>14000.0</hargaBeli>
   </item>
+  <item>
+    <id>4</id>
+    <jumlah>1</jumlah>
+    <name>f</name>
+    <kategori>f</kategori>
+    <gambar></gambar>
+    <hargaJual>11.0</hargaJual>
+    <hargaBeli>11.0</hargaBeli>
+  </item>
 </ArrayList>
