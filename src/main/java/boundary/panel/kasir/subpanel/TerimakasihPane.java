@@ -11,10 +11,14 @@ import boundary.widget.TabPane;
 import model.*;
 import controller.*;
 
+import util.PDFPrinter;
 import util.RupiahConverter;
 import boundary.widget.RoundedPanel;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 public class TerimakasihPane extends TabPane {
   private GenericDataIO<Member> memberDataIO;
@@ -64,13 +68,18 @@ public class TerimakasihPane extends TabPane {
   private RoundedPanel selesaiButtonContainer = new RoundedPanel(24, Colors.BUTTON_BLUE, false, Color.WHITE,
       0);
   private JButton selesaiButton = new JButton("Selesai");
+  private RoundedPanel unduhButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(82, 117, 226), 2);
+  private JButton unduhButton = new JButton("Unduh Transaksi");
+
   private FixedBill bill;
   private Customer customer;
+  private GenericDataIO<FixedBill> fixedbillDataIO;
 
   public TerimakasihPane(GenericDataIO<Member> memberDataIO, GenericDataIO<VIP> VIPDataIO,
-      GenericDataIO<FixedBill> billDataIO, Customer customer,
+      GenericDataIO<FixedBill> fixedbillDataIO, Customer customer,
       String memberName, int billId) {
-    this.bill = billDataIO.getByID(billId);
+    this.fixedbillDataIO = fixedbillDataIO;
+    this.bill = fixedbillDataIO.getByID(billId);
     if (customer instanceof Member) {
       Double value = (bill.getBilling() * 0.001);
       Integer addPoint = value.intValue();
@@ -262,8 +271,27 @@ public class TerimakasihPane extends TabPane {
             .newEvent(new PanelFlowEvent(new CreateMemberPane(memberDataIO, VIPDataIO, customer), false)));
     tambahButtonContainer.add(tambahButton);
 
+    unduhButtonContainer.setLayout(null);
+    unduhButtonContainer.setBounds(105, 483, 373, 49);
+    this.add(unduhButtonContainer);
+
+    unduhButton.setBorder(null);
+    unduhButton.setBackground(Color.WHITE);
+    unduhButton.setFocusPainted(false);
+    unduhButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    unduhButton.setBounds(5, 2, 363, 45);
+    unduhButton.setForeground(new Color(82, 117, 225));
+    unduhButton.setFont(new Font("Inter", Font.BOLD, 18));
+    unduhButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        printTransaction();
+      }
+    });
+    unduhButtonContainer.add(unduhButton);
+
     selesaiButtonContainer.setLayout(null);
-    selesaiButtonContainer.setBounds(180, 527, 205, 43);
+    selesaiButtonContainer.setBounds(180, 542, 205, 43);
     this.add(selesaiButtonContainer);
 
     selesaiButton.setBorder(null);
@@ -275,5 +303,22 @@ public class TerimakasihPane extends TabPane {
     selesaiButton.setFont(new Font("Inter", Font.PLAIN, 18));
     selesaiButton.addActionListener(e -> tabObserver.newEvent(new TabEvent(TabEvent.CLOSE)));
     selesaiButtonContainer.add(selesaiButton);
+  }
+
+
+  private void printTransaction(){
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setCurrentDirectory(new java.io.File("."));
+    fileChooser.setDialogTitle("Pilih Nama File Fixed Bill untuk ID " + bill.getId());
+
+    int userSelection = fileChooser.showSaveDialog(this);
+
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+      File fileToSave = fileChooser.getSelectedFile();
+      System.out.println(
+              "Nama File Fixed Bill untuk ID " + bill.getId() + ": " + fileToSave.getAbsolutePath());
+      Thread process = new Thread(new PDFPrinter(3, fileToSave.getPath(), bill.getId(), fixedbillDataIO));
+      process.start();
+    }
   }
 }

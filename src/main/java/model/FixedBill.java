@@ -176,6 +176,50 @@ public class FixedBill implements Serializable {
         }
     }
 
+    public static void laporanByBillID(int id, List<FixedBill> temp, String filePath) {
+        if (temp == null) {
+            return;
+        }
+
+        List<FixedBill> filtered = temp.stream().filter(el -> el.getId() == id).collect(Collectors.toList());
+
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+
+            document.open();
+
+            Font heading = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+            Font med = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13, BaseColor.BLACK);
+            Font subheading = FontFactory.getFont(FontFactory.HELVETICA, 11, BaseColor.BLACK);
+            Chunk title = new Chunk("Cashoria - Fixed Bill Report", heading);
+            document.add(title);
+
+            Chunk custTitle = new Chunk("Customer's ID       : " + id, med);
+            document.add(Chunk.NEWLINE);
+            document.add(new Phrase(custTitle));
+
+            Chunk fbTitle = new Chunk("History Transaksi : ", med);
+            document.add(Chunk.NEWLINE);
+            document.add(new Phrase(fbTitle));
+
+            Chunk line = new Chunk(
+                    "____________________________________________________________________________________", subheading);
+            document.add(Chunk.NEWLINE);
+            document.add(new Phrase(line));
+
+            for (FixedBill f : filtered) {
+                f.fixedBillPdf(document);
+                document.add(Chunk.NEWLINE);
+                document.add(new Phrase(line));
+            }
+
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void laporanAll(List<FixedBill> temp, String filePath) {
         try {
             Document document = new Document();

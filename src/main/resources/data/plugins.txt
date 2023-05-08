@@ -1,4 +1,1 @@
-
-../untitled/build/libs/untitled-1.0-SNAPSHOT.jar
-../Cashoria-BarChartPlugin/build/libs/Cashoria-BarChartPlugin-1.0-SNAPSHOT.jar
-../BarChartPlugin/build/libs/BarChartPlugin-1.0-SNAPSHOT.jar
+plugin\BasePlugin.jar

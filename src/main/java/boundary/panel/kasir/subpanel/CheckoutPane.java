@@ -66,10 +66,6 @@ public class CheckoutPane extends TabPane {
 
   private JLabel memberHeader = new JLabel("Member");
   private JComboBox<Member> nameDropdown = new JComboBox<Member>(nameList);
-
-  private RoundedPanel unduhButtonContainer = new RoundedPanel(10, Color.WHITE, true, new Color(82, 117, 226), 2);
-  private JButton unduhButton = new JButton("Unduh Transaksi");
-
   private RoundedPanel batalButtonContainer = new RoundedPanel(10, Color.WHITE, true, Colors.RED, 2);
   private JButton batalButton = new JButton("Batal");
 
@@ -300,21 +296,8 @@ public class CheckoutPane extends TabPane {
     });
     this.add(nameDropdown);
 
-    unduhButtonContainer.setLayout(null);
-    unduhButtonContainer.setBounds(105, 503, 373, 49);
-    this.add(unduhButtonContainer);
-
-    unduhButton.setBorder(null);
-    unduhButton.setBackground(Color.WHITE);
-    unduhButton.setFocusPainted(false);
-    unduhButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    unduhButton.setBounds(5, 2, 363, 45);
-    unduhButton.setForeground(new Color(82, 117, 225));
-    unduhButton.setFont(new Font("Inter", Font.BOLD, 18));
-    unduhButtonContainer.add(unduhButton);
-
     batalButtonContainer.setLayout(null);
-    batalButtonContainer.setBounds(104, 569, 133, 47);
+    batalButtonContainer.setBounds(104, 509, 133, 47);
     this.add(batalButtonContainer);
 
     batalButton.setBorder(null);
@@ -328,7 +311,7 @@ public class CheckoutPane extends TabPane {
     batalButtonContainer.add(batalButton);
 
     orderButtonContainer.setLayout(null);
-    orderButtonContainer.setBounds(273, 569, 205, 47);
+    orderButtonContainer.setBounds(273, 509, 205, 47);
     this.add(orderButtonContainer);
 
     orderButton.setBorder(null);

@@ -1,7 +1,7 @@
 <ArrayList>
   <item>
     <id>3</id>
-    <jumlah>944</jumlah>
+    <jumlah>916</jumlah>
     <name>Sapi</name>
     <kategori>makanan</kategori>
     <gambar>src/main/resources/assets/image/beef_contoh.png</gambar>

@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface BasePluginInterface {
 
-    public void setupMainWindow(MainWindow mainWindow);
-
     public void addURL(List<URL> urls);
 
     public void loadPlugin(MainWindow mainWindow, ClassLoader classLoader);

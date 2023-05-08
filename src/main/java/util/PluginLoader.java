@@ -46,7 +46,6 @@ public class PluginLoader {
         ServiceLoader<SystemPlugin> systemPluginLoader = ServiceLoader.load(SystemPlugin.class, ucl);
 
         for (final BasePluginInterface g : basePluginLoader) {
-            g.setupMainWindow(mainWindow);
             g.addURL(urls);
             g.loadPlugin(mainWindow, ucl);
         }
